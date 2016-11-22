@@ -47,7 +47,6 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem "omniauth-google-oauth2"
 gem "rolify"
-gem 'rails_admin', '~> 1.0'
 gem "paperclip", "~> 5.0.0"
 gem 'geocoder'
 gem "figaro"

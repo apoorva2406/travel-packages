@@ -1,8 +1,7 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Listing Properties</h1>
-
-<table>
+<center><h2>Coming Soon</h2></center>
+<center><%= link_to 'New Property', new_property_path, class: "btn btn-primary" %></center><br>
+<!-- <table>
   <thead>
     <tr>
       <th>Name</th>
@@ -25,21 +24,21 @@
         <td><%= property.name %></td>
         <td><%= property.phone_number %></td>
         <td><%= property.email %></td>
-        <td><%= property.type %></td>
+        <td><%= property.properties_type %></td>
         <td><%= property.no_of_seats %></td>
         <td><%= property.contact_person %></td>
         <td><%= property.address %></td>
         <td><%= property.facilities %></td>
         <td><%= property.access_day %></td>
-        <td><%= property.opening_hours %></td>
+        <td><%= property.start_date %></td>
+        <td><%= property.end_date %></td>
         <td><%= link_to 'Show', property %></td>
         <td><%= link_to 'Edit', edit_property_path(property) %></td>
         <td><%= link_to 'Destroy', property, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
-</table>
+</table> -->
 
-<br>
 
-<%= link_to 'New Property', new_property_path %>
+
