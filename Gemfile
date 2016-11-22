@@ -51,4 +51,5 @@ gem 'rails_admin', '~> 1.0'
 gem "paperclip", "~> 5.0.0"
 gem 'geocoder'
 gem "figaro"
+gem 'cancancan', '~> 1.10'
 gem 'rails_12factor', group: :production

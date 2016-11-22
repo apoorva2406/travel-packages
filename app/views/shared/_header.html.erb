@@ -8,9 +8,9 @@
             <!-- <i class="fa fa-plus"></i><a class='reg-top' href='#'>Register</a> -->
             <% if user_signed_in? %>
               <% if user_role_owner %>
-                <%#= link_to('Add Workspace', new_property_path) %><!-- &nbsp;&nbsp;&nbsp; -->
+                <%= link_to('Add Workspace', new_property_path) %>&nbsp;&nbsp;&nbsp;
               <%end%>
-              <%= link_to('Edit Profile', edit_user_registration_path) %>&nbsp;&nbsp;&nbsp;
+              <%= link_to("Edit Profile (#{ user_role_owner ? 'Owner' : 'Clinet'})", edit_user_registration_path) %>&nbsp;&nbsp;&nbsp;
               <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
             <%else%>
               <% unless user_signed_in? %>

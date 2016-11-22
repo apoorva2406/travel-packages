@@ -147,8 +147,16 @@
      <%= f.label :Upload_property_photos %><br>
     </div>
     <div class="col-md-9">
-    <%= f.file_field :images, class: "form-control", multiple: true %>
+    <%= f.file_field :images, class: "form-control", multiple: true, :id=>"property_form_image" %>
     </div>
+  </div>
+
+  <div class="property-preview">
+    <% if @property.photos.present? %>
+      <% @property.photos.each do |photo| %>
+        <img src="<%= photo.image.url %>" />
+      <%end%>
+    <%end%>
   </div>
 
   <br>
@@ -157,17 +165,20 @@
   </div>
 <% end %>
 
-
-<style>    
-  #property_map {
-    height: 300px;
-    padding: 0px;
-    overflow: visible !important;
-  }
-</style>
-
 <script>
   $(document).ready(function(){
     initMap("property_map", "property_address_<%=@property.id%>")
+    
+    var inputLocalFont = document.getElementById("property_form_image");
+    inputLocalFont.addEventListener("change",previewImages,false);
+    function previewImages(){
+      var fileList = this.files;
+      var anyWindow = window.URL || window.webkitURL;
+      for(var i = 0; i < fileList.length; i++){
+        var objectUrl = anyWindow.createObjectURL(fileList[i]);
+        $('.property-preview').append('<img src="' + objectUrl + '" />');
+        window.URL.revokeObjectURL(fileList[i]);
+      }
+    }
   })
 </script>
