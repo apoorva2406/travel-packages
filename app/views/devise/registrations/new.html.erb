@@ -1,0 +1,99 @@
+<div class="row">
+  <div class="col-md-7 col-md-offset-2"">
+    <h2><center>Sign up</center></h2><br>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      
+      <%= devise_error_messages! %>
+
+      <div class="form-group signin_form">
+        <label for="name" class="col-sm-2 control-label">
+        Name</label>
+        <div class="col-sm-10">
+          <%= f.text_field :name, autofocus: true, class: "form-control", placeholder: "Enter your Name"  %>
+          
+        </div>
+      </div>
+      
+      <div class="form-group signin_form">
+        <label for="mobile" class="col-sm-2 control-label">
+        Mobile Number</label>
+        <div class="col-sm-10">
+          <%= f.text_field :mobile_no, class: "form-control", placeholder: "Enter your Name", onkeypress: "return event.charCode >= 48 && event.charCode <= 57", maxlength:"10", placeholder:"Enter 10 digit Mobile Number"   %>
+        </div>
+      </div>
+
+      <div class="form-group signin_form">
+        <label for="email" class="col-sm-2 control-label">
+        Email</label>
+        <div class="col-sm-10">
+          <%= f.email_field :email, class: "form-control", placeholder: "yourmail@gmail.com", required: "required" %>
+        </div>
+      </div>
+
+      
+      <div class="form-group signin_form">
+        <label for="password" class="col-sm-2 control-label">
+        Password</label>
+        <div class="col-sm-10">
+          <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <% end %><br />
+          <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Password", required: "required" %>
+        </div>
+      </div>
+     
+
+      <div class="form-group signin_form">
+        <label for="c_password" class="col-sm-2 control-label">
+        Confirm Password</label>
+        <div class="col-sm-10">
+          <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "Password", required: "required" %>
+        </div>
+      </div>
+
+      <div class="form-group signin_form">
+        <label for="user_role" class="col-sm-2 control-label">
+        Type</label>
+        <div class="col-sm-10">
+          <label class="radio-inline"><input type="radio" name="role" value="Client" checked="checked">Client</label>
+          <label class="radio-inline"><input type="radio" name="role" value="Owner">Owner</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-10"><center>
+          <button type="submit" class="btn btn-primary btn-sm" id="signup_submit">
+          Register & Login</button>&nbsp;&nbsp;
+          <button type="reset" class="btn btn-primary btn-sm">
+          Reset</button>
+          </center>
+        </div>
+      </div><br><br>
+    <%end%>
+  </div>
+  <div class="col-md-3">
+    <div class="row text-center sign-with">
+      <div class="col-md-12">
+        <h3>
+          Sign in with
+        </h3>
+      </div>
+      <div class="col-md-12">
+        <div class="btn-group btn-group-justified">
+          <a href="/auth/facebook" class="btn btn-primary">Facebook</a>
+        </div><br>
+        <div class="btn-group btn-group-justified">
+          <a href="/auth/google_oauth2" class="btn btn-danger">Google</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+

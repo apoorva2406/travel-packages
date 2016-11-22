@@ -1,0 +1,17 @@
+development:
+ adapter: postgresql
+ encoding: unicode
+ database: travel_development
+ pool: 5
+ user: postgres
+ host: localhost
+ password: postgres
+
+production:
+ adapter: postgresql
+ encoding: unicode
+ database: travel_production
+ pool: 5
+ user: postgres
+ password: 12345678
+ host: localhost

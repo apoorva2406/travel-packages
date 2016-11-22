@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <h2>Edit <%= resource_name.to_s.humanize %></h2>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= devise_error_messages! %>
+
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, :disabled=>true, class: "form-control" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :name %><br />
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :mobile_number %><br />
+        <%= f.text_field :mobile_no, class: "form-control" %>
+      </div>
+
+      <% if resource.roles.blank? %>
+        <div class="form-group">
+          <label for="user_role" class="col-sm-2 control-label">
+          Type</label>
+          <div class="col-sm-10">
+            <label class="radio-inline"><input type="radio" name="role" value="Client" checked="checked">Client</label>
+            <label class="radio-inline"><input type="radio" name="role" value="Owner">Owner</label>
+          </div>
+        </div>
+      <%end%>  
+
+      <div class="actions"><br />
+        <center><%= f.submit "Update", class:"btn btn-primary" %></center>
+      </div>
+    <% end %>
+
+  </div>
+  <div class="col-md-4"></div>
+</div>  
+
+

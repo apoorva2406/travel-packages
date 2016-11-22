@@ -1,0 +1,2 @@
+json.extract! property, :id, :name, :phone_number, :email, :type, :no_of_seats, :contact_person, :address, :facilities, :access_day, :opening_hours, :created_at, :updated_at
+json.url property_url(property, format: :json)

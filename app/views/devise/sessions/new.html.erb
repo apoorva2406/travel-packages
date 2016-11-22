@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-2">
+    <h2><center>Sign In</center></h2><br>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      
+      <div class="form-group signin_form">
+        <label for="signin_email" class="col-sm-2 control-label">
+        Email</label>
+        <div class="col-sm-10">
+         
+          <%= f.email_field :email, autofocus: true, :class=> "form-control", :placeholder=> "yourmail@example.com", :autocomplete=> "off" %>
+        </div>
+      </div>
+
+      <div class="form-group signin_form">
+        <label for="signin_password" class="col-sm-2 control-label">
+        Password</label>
+        <div class="col-sm-10">
+          <%= f.password_field :password, autocomplete: "off", :class=> "form-control", :placeholder=> "Password" %>
+        </div>
+      </div>
+
+      <div class="form-group signin_form">
+        <label for="signin_password" class="col-sm-2 control-label">
+        </label>
+        <% if devise_mapping.rememberable? -%>
+          <div class="col-sm-10">
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+          </div>
+        <% end -%>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-10"><center>
+          <button type="submit" class="btn btn-primary btn-sm" id="signing_submit">
+          Login</button>
+          <%= link_to "Sign up", new_registration_path(resource_name),class: "btn btn-primary btn-sm" %>
+          &nbsp;&nbsp;<a href="javascript:void(0)">Forgot your password?</a></center><br><br>
+        </div>
+      </div>
+    <%end%>
+  </div>
+
+  <div class="col-md-3">
+    <div class="row text-center sign-with">
+      <div class="col-md-12">
+        <h3>
+          Sign in with
+        </h3>
+      </div>
+      <div class="col-md-12">
+        <div class="btn-group btn-group-justified">
+          <a href="/auth/facebook" class="btn btn-primary">Facebook</a>
+        </div><br>
+        <div class="btn-group btn-group-justified">
+          <a href="/auth/google_oauth2" class="btn btn-danger">Google</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

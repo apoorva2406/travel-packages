@@ -1,0 +1,173 @@
+<%= form_for(@property) do |f| %>
+  <% if @property.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@property.errors.count, "error") %> prohibited this property from being saved:</h2>
+
+      <ul>
+      <% @property.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-3">
+      <%= f.label :Name_of_Property %>*<br>
+    </div>
+    
+    <div class="col-md-9">
+      <%= f.text_field :name, class: "form-control", required: 'true', :placeholder=>"Enter property name" %> 
+    </div>
+  </div>
+
+  <br>
+  <div class="row">
+    <div class="col-md-3">
+      <%= f.label :phone_number %>*<br>
+    </div>
+    <div class="col-md-9">
+      <%= f.text_field :phone_number, class: "form-control", required: 'true',:onkeypress=>"return event.charCode >= 48 && event.charCode <= 57" ,:maxlength=>"10", :placeholder=>"Enter 10 digit Mobile Number" %> 
+    </div>
+  </div>
+
+  <br>
+  <div class="row">
+    <div class="col-md-3">
+      <%= f.label :email %>*<br>
+    </div>
+    <div class="col-md-9">
+     <%= f.text_field :email, class: "form-control", required: 'true', :placeholder=>"your@emaple.com" %>
+    </div>
+  </div>
+
+  <br>
+  <div class="row">
+    <div class="col-md-3">
+      <%= f.label :property_type %><br>
+    </div>
+    <div class="col-md-9">
+     <% PropertyType.all.each do |a_value| %>
+      <label class="checkbox-inline">
+      <% status = @property.properties_type.present? ? (JSON(@property.properties_type).include?(a_value.id.to_s) ? true : false ) : false %>
+      <%= f.check_box :properties_type, { :multiple => true, :checked=> status}, a_value.id %><%=a_value.name%>
+      </label>
+    <% end %>
+    </div>
+  </div>
+
+  <br>
+  <div class="row">
+    <div class="col-md-3">
+     <%= f.label :no_of_seats%><br>
+    </div>
+    <div class="col-md-9">
+     <%= f.number_field :no_of_seats, :placeholder=>"Enter number of seats",class: "form-control" %>
+    </div>
+  </div>
+
+  <br>
+  <div class="row">
+    <div class="col-md-3">
+     <%= f.label :contact_person %>*<br>
+    </div>
+    <div class="col-md-9">
+      <%= f.text_field :contact_person, :placeholder=>"Enter contact person name", class: "form-control" %>
+    </div>
+  </div>
+
+  <br>
+  <div class="row">
+    <div class="col-md-3">
+     <%= f.label :address %>*<br>
+    </div>
+    <div class="col-md-9">
+      <%= f.text_field :address, :class=> "form-control", :id=>"property_address_#{@property.id}" %>
+    </div>
+  </div>
+
+  <br>
+  <div class="field">
+    <div id="property_map"></div>
+  </div>
+
+  <br>
+  <div class="row">
+    <div class="col-md-3">
+     <%= f.label :facilities %><br>
+    </div>
+    <div class="col-md-9">
+      <% Facility.all.each do |a_value| %>
+        <label class="checkbox-inline">
+          <%status = @property.facilities.present? ? (JSON(@property.facilities).include?(a_value.id.to_s) ? true : false ) : false %>
+          <%= f.check_box(:facilities, { :multiple => true, :checked=> status }, a_value.id) %><%=a_value.name%>
+        </label>
+      <% end %>
+    </div>
+  </div>
+
+  <br>
+  <div class="row">
+    <div class="col-md-3">
+    <%= f.label :access_day %><br>
+    </div>
+    <div class="col-md-9">
+       <% AccessDay.all.each do |a_value| %>
+      <label class="checkbox-inline">
+        <%status = @property.access_day.present? ? (JSON(@property.access_day).include?(a_value.id.to_s) ? true : false ) : false %>
+
+        <%= f.check_box(:access_day, { :multiple => true, :checked=> status }, a_value.id) %><%=a_value.name%>
+      </label>
+    <% end %>
+    </div>
+  </div>
+
+
+   <br>
+  <div class="row">
+    <div class="col-md-3">
+    <%= f.label :opening_hours %><br>
+    </div>
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-4">
+          <%= f.select "start_date", options_for_select(property_time, @property.start_date), {include_blank: 'Start Time'}, { autofocus: 'true', class: 'form-control'} %>
+        </div>
+        <div class="col-md-4">
+          <%= f.select "end_date", options_for_select(property_time, @property.end_date), {include_blank: 'End Time'}, {autofocus: 'true', class: 'form-control'} %>
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <div class="row">
+    <div class="col-md-3">
+     <%= f.label :Upload_property_photos %><br>
+    </div>
+    <div class="col-md-9">
+    <%= f.file_field :images, class: "form-control", multiple: true %>
+    </div>
+  </div>
+
+  <br>
+  <div class="actions"><center>
+    <%= f.submit "#{@property.id.nil? ? 'Create' : 'Update'}", class: "btn btn-primary" %></center>
+  </div>
+<% end %>
+
+
+<style>    
+  #property_map {
+    height: 300px;
+    padding: 0px;
+    overflow: visible !important;
+  }
+</style>
+
+<script>
+  $(document).ready(function(){
+    initMap("property_map", "property_address_<%=@property.id%>")
+  })
+</script>

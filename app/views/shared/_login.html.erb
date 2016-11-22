@@ -1,0 +1,52 @@
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+        ×</button>
+        <h4 class="modal-title" id="myModalLabel">
+          Login/Registration - <a href="javascript:void(o)">Login to travel</a>
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-8" style="border-right: 1px dotted #C2C2C2;padding-right: 30px;">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#Login" data-toggle="tab">Login</a></li>
+              <li><a href="#Registration" data-toggle="tab">Registration</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+              
+            <%= render 'shared/signin'%>
+              <%= render 'shared/signup'%>
+            </div>
+            <div id="OR" class="hidden-xs">
+              OR
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="row text-center sign-with">
+              <div class="col-md-12">
+                <h3>
+                  Sign in with
+                </h3>
+              </div>
+              <div class="col-md-12">
+                <div class="btn-group btn-group-justified">
+                  <a href="/auth/facebook" class="btn btn-primary">Facebook</a>
+                </div><br>
+                <div class="btn-group btn-group-justified">
+                  <a href="/auth/google_oauth2" class="btn btn-danger">Google</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
