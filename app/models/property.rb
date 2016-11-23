@@ -16,13 +16,21 @@ class Property < ActiveRecord::Base
 		arr.map{|d| d if d > "0"}.compact  if arr
 	end
 
-	def add_images(images)
-		if images.present?
-			images.each do |image|
-				self.photos.create(image: image)
+	def add_images(images,new_image)
+		if images.present? && new_image.present?
+			new_image_arr = new_image.gsub(/[^\d]/, '').split('')
+			images.each_with_index do |image,index|
+				self.photos.create(image: image) if new_image_arr.include?(index.to_s)
 			end
+		else
+			if images.present?
+				images.each_with_index do |image,index|
+					self.photos.create(image: image)
+				end
+			end	
 		end	
 	end
+
 end
 
 

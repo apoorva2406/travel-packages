@@ -1,57 +1,137 @@
-
-<center><h2>Coming Soon</h2></center>
-<center><%= link_to 'Edit Property', "#" ,class: "btn btn-primary" %></center><br>
 <!-- edit_property_path(@property) -->
-<!-- <p>
-  <strong>Name:</strong>
-  <%#= @property.name %>
-</p>
 
-<p>
-  <strong>Phone number:</strong>
-  <%= @property.phone_number %>
-</p>
+<div class="row">
+  <h2><center><%= @property.name %> Property</center></h2><br>
+  <div class="col-md-5">
+    <h4><center><strong>Property Image</center></strong></h4><br>
+    <div class="property-image-show">
+      <% if @property.photos.present? %>
+        <% @property.photos.each do |photo| %>
+          <img src="<%= photo.image.url %>" />
+        <%end%>
+      <%else%>
+        <h4><center>No Images</center></h4><br> 
+      <%end%>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <h4><strong>Property Details</strong></h4><br>
+    <div class="row">
+      <div class="col-md-3">
+        <label for="property_Name_of_Property">Name of property:</label><br>
+      </div>
+      
+      <div class="col-md-9">
+        <%= @property.name %>
+      </div>
+    </div>
 
-<p>
-  <strong>Email:</strong>
-  <%= @property.email %>
-</p>
+   <div class="row">
+      <div class="col-md-3">
+        <label for="phone_number">Phone number:</label><br>
+      </div>
+      
+      <div class="col-md-9">
+        <%= @property.phone_number %>
+      </div>
+    </div>
 
-<p>
-  <strong>Type:</strong>
-  <%= @property.properties_type %>
-</p>
+    <div class="row">
+      <div class="col-md-3">
+        <label for="phone_number">Email:</label><br>
+      </div>
+      
+      <div class="col-md-9">
+         <%= @property.email %>
+      </div>
+    </div>
 
-<p>
-  <strong>No of seats:</strong>
-  <%= @property.no_of_seats %>
-</p>
 
-<p>
-  <strong>Contact person:</strong>
-  <%= @property.contact_person %>
-</p>
+    <div class="row">
+      <div class="col-md-3">
+        <label for="phone_number">Property Type:</label><br>
+      </div>
+      <div class="col-md-9">
+        <%= property_type %>
+      </div>
+    </div><br>
 
-<p>
-  <strong>Address:</strong>
-  <%= @property.address %>
-</p>
+    <div class="row">
+      <div class="col-md-3">
+        <label for="phone_number">No of seats:</label><br>
+      </div>
+      
+      <div class="col-md-9">
+        <%= @property.no_of_seats %>
+      </div>
+    </div>
 
-<p>
-  <strong>Facilities:</strong>
-  <%= @property.facilities %>
-</p>
+    <div class="row">
+      <div class="col-md-3">
+        <label for="phone_number">Contact person:</label><br>
+      </div>
+      
+      <div class="col-md-9">
+        <%= @property.contact_person %>
+      </div>
+    </div>
+    
 
-<p>
-  <strong>Access day:</strong>
-  <%= @property.access_day %>
-</p>
+    <div class="row">
+      <div class="col-md-3">
+        <label for="phone_number">Address:</label><br>
+      </div>
+      
+      <div class="col-md-9">
+        <%= @property.address %>
+      </div>
+    </div>
 
-<p>
-  <strong>Opening hours:</strong>
-  <%= @property.start_date %>
-  <%= @property.end_date %>
-</p> -->
+
+    
+    <div class="row">
+      <div class="col-md-3">
+        <label for="phone_number">Facilities:</label><br>
+      </div>
+      
+      <div class="col-md-9">
+        <%= property_facilities %>
+      </div>
+    </div><br>
+
+    <div class="row">
+      <div class="col-md-3">
+        <label for="phone_number">Access day:</label><br>
+      </div>
+      
+      <div class="col-md-9">
+         <%= property_access_day %>
+      </div>
+    </div><br>
+
+    <div class="row">
+      <div class="col-md-3">
+        <label for="phone_number">Opening hours:</label><br>
+      </div>
+      
+      <div class="col-md-9">
+       Start Date:<%= property_date(@property.start_date) %><br>
+       End Date: <%= property_date(@property.end_date) %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-2">
+    <% if user_signed_in? %>
+      <% if user_role_owner %>
+        <% if @property.user == current_user%>
+          <%= link_to 'Edit Property', "javascript:void(0)" ,class: "btn btn-primary" %><br><br>
+        <%end%>  
+      <%end%>
+    <%end%>    
+    <%= link_to 'Book Now', "javascript:void(0)" ,class: "btn btn-primary" %>
+  </div>
+</div><br><br>
 
 
 

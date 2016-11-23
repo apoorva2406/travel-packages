@@ -1,6 +1,6 @@
 class PropertiesController < ApplicationController
   before_action :set_property, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!,  only: [:create, :new, :update, :destroy, :show]
+  before_action :authenticate_user!,  only: [:create, :new, :update, :destroy]
   load_and_authorize_resource
   
   def index
@@ -22,7 +22,7 @@ class PropertiesController < ApplicationController
     respond_to do |format|
       if @property.save
         @property.add_type_access_day(params)
-        @property.add_images(params[:property][:images])
+        @property.add_images(params[:property][:images], params[:new_image])
         format.html { redirect_to @property, notice: 'Property was successfully created.' }
         format.json { render :show, status: :created, location: @property }
       else

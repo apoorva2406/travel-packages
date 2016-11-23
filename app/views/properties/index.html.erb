@@ -1,44 +1,32 @@
 
-<center><h2>Coming Soon</h2></center>
-<center><%= link_to 'New Property', new_property_path, class: "btn btn-primary" %></center><br>
-<!-- <table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Phone number</th>
-      <th>Email</th>
-      <th>Type</th>
-      <th>No of seats</th>
-      <th>Contact person</th>
-      <th>Address</th>
-      <th>Facilities</th>
-      <th>Access day</th>
-      <th>Opening hours</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @properties.each do |property| %>
-      <tr>
-        <td><%= property.name %></td>
-        <td><%= property.phone_number %></td>
-        <td><%= property.email %></td>
-        <td><%= property.properties_type %></td>
-        <td><%= property.no_of_seats %></td>
-        <td><%= property.contact_person %></td>
-        <td><%= property.address %></td>
-        <td><%= property.facilities %></td>
-        <td><%= property.access_day %></td>
-        <td><%= property.start_date %></td>
-        <td><%= property.end_date %></td>
-        <td><%= link_to 'Show', property %></td>
-        <td><%= link_to 'Edit', edit_property_path(property) %></td>
-        <td><%= link_to 'Destroy', property, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table> -->
-
-
-
+<div class="container">
+  <div class="row">
+    <% @properties.each do |property|%>
+      <div class="col-sm-4 col-md-4">
+        <div class="post">
+          <a href="<%= property_path(property)%> ">
+            <div class="post-img-content">
+              <img src="<%=property_photo(property)%>" />
+              <span class="post-title"><b>Verified</b><br />
+              <b><%= property_index_type(property) %></b></span>
+            </div>
+          </a>  
+          <div class="content">
+            <div class="author">
+              By <b><%= truncate(property.try(:contact_person), length: 20) %></b> |
+              <time datetime="2014-01-20"><%=property.created_at.strftime("%B %dth, %Y")%></time>
+            </div>
+            <div>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+              Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+              unknown printer took a galley of type and scrambled it to make a type specimen book.
+            </div>
+            <div>
+              <a href="javascript:void(0)" class="btn btn-primary btn-sm">Book Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    <%end%>  
+  </div>
+</div>

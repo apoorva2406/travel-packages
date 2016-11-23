@@ -72,7 +72,7 @@
      <%= f.label :contact_person %>*<br>
     </div>
     <div class="col-md-9">
-      <%= f.text_field :contact_person, :placeholder=>"Enter contact person name", class: "form-control" %>
+      <%= f.text_field :contact_person, :placeholder=>"Enter contact person name", class: "form-control",required: 'true'%>
     </div>
   </div>
 
@@ -159,6 +159,8 @@
     <%end%>
   </div>
 
+  <input type="hidden" id="property_new_image" name="new_image">
+
   <br>
   <div class="actions"><center>
     <%= f.submit "#{@property.id.nil? ? 'Create' : 'Update'}", class: "btn btn-primary" %></center>
@@ -176,8 +178,17 @@
       var anyWindow = window.URL || window.webkitURL;
       for(var i = 0; i < fileList.length; i++){
         var objectUrl = anyWindow.createObjectURL(fileList[i]);
-        $('.property-preview').append('<img src="' + objectUrl + '" />');
+        $('.property-preview').append('<img id="img-'+i+'" src="' + objectUrl + '" /><a href="javascript:void(0)" class="remove_pict" id="rev-'+i+'">X</a>');
         window.URL.revokeObjectURL(fileList[i]);
+
+        $(".remove_pict").click(function(){
+          $("#img-"+this.id.split('-')[1]).remove()
+          this.remove();
+          var ids = $('.property-preview img').map(function(){
+            return this.id;
+           }).get();
+          $('#property_new_image').val(ids);
+        }) 
       }
     }
   })

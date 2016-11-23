@@ -6,6 +6,7 @@
           <div class='top-contact'><i class="fa fa-phone"></i><span>+12 123 456 789</span><i class="fa fa-envelope"></i><span>info@travego.com</span></div>
           <div class='top-login'>
             <!-- <i class="fa fa-plus"></i><a class='reg-top' href='#'>Register</a> -->
+            <%= link_to('All Workspace', properties_path) %>&nbsp;&nbsp;&nbsp;
             <% if user_signed_in? %>
               <% if user_role_owner %>
                 <%= link_to('Add Workspace', new_property_path) %>&nbsp;&nbsp;&nbsp;
@@ -20,10 +21,10 @@
             <div class="header-lang">
               <a data-toggle="modal" data-target="#loginModal"><img alt="" src="/assets/flags/en.gif"/></a>
               <div class="langs-drop" style="display: none;">
-                <div><a href="#" class="langs-item en">english</a></div>
-                <div><a href="#" class="langs-item fr">francais</a></div>
-                <div><a href="#" class="langs-item de">deutsch</a></div>
-                <div><a href="#" class="langs-item it">italiano</a></div>
+                <div><a href="javascript:void(0)" class="langs-item en">english</a></div>
+                <div><a href="javascript:void(0)" class="langs-item fr">francais</a></div>
+                <div><a href="javascript:void(0)" class="langs-item de">deutsch</a></div>
+                <div><a href="javascript:void(0)" class="langs-item it">italiano</a></div>
               </div>
             </div>
           </div>
@@ -39,10 +40,10 @@
       <!-- mega menu -->
       <ul class="travel-mega-menu travel-mega-menu-anim-scale travel-mega-menu-response-to-icons">
         <li class="line-logo">
-          <a class="logo" href="#"><img src="/assets/logo.jpg" alt=""/></a>
+          <a class="logo" href="javascript:void(0)"><img src="/assets/logo.jpg" alt=""/></a>
         </li>
         <li>
-          <a class="top-menu-txt" href="#">Home</a>
+          <a class="top-menu-txt" href="javascript:void(0)">Home</a>
           <div class="grid-container3 blue-link">
             <ul>
               <li><a href="index.html">Home Layout</a></li>
@@ -58,7 +59,7 @@
         </li>
         <!-- resume -->
         <li class="center">
-          <a class="top-menu-txt" href="#">Destination</a>
+          <a class="top-menu-txt" href="javascript:void(0)">Destination</a>
           <div class="grid-container10 destination">
             <form>
               <fieldset>
@@ -67,53 +68,53 @@
                     <img src="/assets/continent/continent_1.png" alt="" />
                     <h3>North America</h3>
                     <ul>
-                      <li><a href="guide.html">Canada</a></li>
-                      <li><a href="guide.html">Hawai</a></li>
-                      <li><a href="guide.html">Alaska</a></li>
+                      <li><a href="javascript:void(0)">Canada</a></li>
+                      <li><a href="javascript:void(0)">Hawai</a></li>
+                      <li><a href="javascript:void(0)">Alaska</a></li>
                     </ul>
                   </section>
                   <section class="col col-md-3 destination-img">
                     <img src="/assets/continent/continent_2.png" alt="" />
                     <h3>South America</h3>
                     <ul>
-                      <li><a href="guide.html">Brazil</a></li>
-                      <li><a href="guide.html">Argentina</a></li>
-                      <li><a href="guide.html">Jamaica</a></li>
-                      <li><a href="guide.html">Columbia</a></li>
-                      <li><a href="guide.html">Peru'</a></li>
+                      <li><a href="javascript:void(0)">Brazil</a></li>
+                      <li><a href="javascript:void(0)">Argentina</a></li>
+                      <li><a href="javascript:void(0)">Jamaica</a></li>
+                      <li><a href="javascript:void(0)">Columbia</a></li>
+                      <li><a href="javascript:void(0)">Peru'</a></li>
                     </ul>
                   </section>
                   <section class="col col-md-3 destination-img">
                     <img src="/assets/continent/continent_3.png" alt="" />
                     <h3>Africa</h3>
                     <ul>
-                      <li><a href="guide.html">Marocco</a></li>
-                      <li><a href="guide.html">Tunisia</a></li>
-                      <li><a href="guide.html">Egipt</a></li>
-                      <li><a href="guide.html">Kenya</a></li>
-                      <li><a href="guide.html">Tanzania</a></li>
+                      <li><a href="javascript:void(0)">Marocco</a></li>
+                      <li><a href="javascript:void(0)">Tunisia</a></li>
+                      <li><a href="javascript:void(0)">Egipt</a></li>
+                      <li><a href="javascript:void(0)">Kenya</a></li>
+                      <li><a href="javascript:void(0)">Tanzania</a></li>
                     </ul>
                   </section>
                   <section class="col col-md-3 destination-img">
                     <img src="/assets/continent/continent_4.png" alt="" />
                     <h3>Europe</h3>
                     <ul>
-                      <li><a href="guide.html">Italy</a></li>
-                      <li><a href="guide.html">France</a></li>
-                      <li><a href="guide.html">Greece</a></li>
-                      <li><a href="guide.html">Spain</a></li>
-                      <li><a href="guide.html">Germany</a></li>
+                      <li><a href="javascript:void(0)">Italy</a></li>
+                      <li><a href="javascript:void(0)">France</a></li>
+                      <li><a href="javascript:void(0)">Greece</a></li>
+                      <li><a href="javascript:void(0)">Spain</a></li>
+                      <li><a href="javascript:void(0)">Germany</a></li>
                     </ul>
                   </section>
                   <section class="col col-md-3 destination-img">
                     <img src="/assets/continent/continent_5.png" alt="" />
                     <h3>Asia</h3>
                     <ul>
-                      <li><a href="guide.html">Australia</a></li>
-                      <li><a href="guide.html">China</a></li>
-                      <li><a href="guide.html">India</a></li>
-                      <li><a href="guide.html">Indonesia</a></li>
-                      <li><a href="guide.html">Singapore</a></li>
+                      <li><a href="javascript:void(0)">Australia</a></li>
+                      <li><a href="javascript:void(0)">China</a></li>
+                      <li><a href="javascript:void(0)">India</a></li>
+                      <li><a href="javascript:void(0)">Indonesia</a></li>
+                      <li><a href="javascript:void(0)">Singapore</a></li>
                     </ul>
                   </section>
                 </div>
@@ -134,7 +135,7 @@
         <!--/ hotels -->
         <!-- page -->
         <li class="center">
-          <a class="top-menu-txt" href="#">Pages</a>
+          <a class="top-menu-txt" href="javascript:void(0)">Pages</a>
           <div class="grid-container7 destination blue-link">
             <form>
               <fieldset>
@@ -165,7 +166,7 @@
                       <li><a href="blog.html">Blog</a></li>
                       <li><a href="blog-lft-col.html">Blog Left Sidebar</a></li>
                       <li><a href="blog-rgh-col.html">Blog Right Sidebar</a></li>
-                      <li><a href="guide.html">Travego Guide</a></li>
+                      <li><a href="javascript:void(0)">Travego Guide</a></li>
                       <li><a href="meteo.html">Tracego Weather</a></li>
                     </ul>
                   </section>
@@ -197,13 +198,13 @@
     </div>
     <nav id="mobile-menu-01" class="mobile-menu">
       <div class="line-logo">
-        <a class="logo" href="#"><img src="/assets/logo.jpg" alt=""/></a><i class="fa fa-bars"></i>
+        <a class="logo" href="javascript:void(0)"><img src="/assets/logo.jpg" alt=""/></a><i class="fa fa-bars"></i>
       </div>
       <div class="clear"></div>
       <ul class="travel-mega-menu-mobile">
         <!-- about -->
         <li class="line-mini-menu k-opn">
-          <a class="top-menu-txt" href="#">Home</a>
+          <a class="top-menu-txt" href="javascript:void(0)">Home</a>
           <div class="grid-container3 collapse blue-link">
             <ul>
               <li><a href="index.html">Home Layout</a></li>
@@ -218,7 +219,7 @@
         <!--/ about -->
         <!-- resume -->
         <li class="line-mini-menu k-opn">
-          <a class="top-menu-txt" href="#">Destination</a>
+          <a class="top-menu-txt" href="javascript:void(0)">Destination</a>
           <div class="grid-container10 destination collapse blue-link">
             <form>
               <fieldset>
@@ -226,49 +227,49 @@
                   <section class="col destination-img">
                     <h3>North America</h3>
                     <ul>
-                      <li><a href="guide.html">Canada</a></li>
-                      <li><a href="guide.html">Hawai</a></li>
-                      <li><a href="guide.html">Alaska</a></li>
+                      <li><a href="javascript:void(0)">Canada</a></li>
+                      <li><a href="javascript:void(0)">Hawai</a></li>
+                      <li><a href="javascript:void(0)">Alaska</a></li>
                     </ul>
                   </section>
                   <section class="col destination-img">
                     <h3>South America</h3>
                     <ul>
-                      <li><a href="guide.html">Brazil</a></li>
-                      <li><a href="guide.html">Argentina</a></li>
-                      <li><a href="guide.html">Jamaica</a></li>
-                      <li><a href="guide.html">Columbia</a></li>
-                      <li><a href="guide.html">Peru'</a></li>
+                      <li><a href="javascript:void(0)">Brazil</a></li>
+                      <li><a href="javascript:void(0)">Argentina</a></li>
+                      <li><a href="javascript:void(0)">Jamaica</a></li>
+                      <li><a href="javascript:void(0)">Columbia</a></li>
+                      <li><a href="javascript:void(0)">Peru'</a></li>
                     </ul>
                   </section>
                   <section class="col destination-img">
                     <h3>Africa</h3>
                     <ul>
-                      <li><a href="guide.html">Marocco</a></li>
-                      <li><a href="guide.html">Tunisia</a></li>
-                      <li><a href="guide.html">Egipt</a></li>
-                      <li><a href="guide.html">Kenya</a></li>
-                      <li><a href="guide.html">Tanzania</a></li>
+                      <li><a href="javascript:void(0)">Marocco</a></li>
+                      <li><a href="javascript:void(0)">Tunisia</a></li>
+                      <li><a href="javascript:void(0)">Egipt</a></li>
+                      <li><a href="javascript:void(0)">Kenya</a></li>
+                      <li><a href="javascript:void(0)">Tanzania</a></li>
                     </ul>
                   </section>
                   <section class="col destination-img">
                     <h3>Europe</h3>
                     <ul>
-                      <li><a href="guide.html">Italy</a></li>
-                      <li><a href="guide.html">France</a></li>
-                      <li><a href="guide.html">Greece</a></li>
-                      <li><a href="guide.html">Spain</a></li>
-                      <li><a href="guide.html">Germany</a></li>
+                      <li><a href="javascript:void(0)">Italy</a></li>
+                      <li><a href="javascript:void(0)">France</a></li>
+                      <li><a href="javascript:void(0)">Greece</a></li>
+                      <li><a href="javascript:void(0)">Spain</a></li>
+                      <li><a href="javascript:void(0)">Germany</a></li>
                     </ul>
                   </section>
                   <section class="col destination-img">
                     <h3>Asia</h3>
                     <ul>
-                      <li><a href="guide.html">Australia</a></li>
-                      <li><a href="guide.html">China</a></li>
-                      <li><a href="guide.html">India</a></li>
-                      <li><a href="guide.html">Indonesia</a></li>
-                      <li><a href="guide.html">Singapore</a></li>
+                      <li><a href="javascript:void(0)">Australia</a></li>
+                      <li><a href="javascript:void(0)">China</a></li>
+                      <li><a href="javascript:void(0)">India</a></li>
+                      <li><a href="javascript:void(0)">Indonesia</a></li>
+                      <li><a href="javascript:void(0)">Singapore</a></li>
                     </ul>
                   </section>
                 </div>
@@ -289,7 +290,7 @@
         <!--/ hotels -->
         <!-- page -->
         <li class="line-mini-menu k-opn">
-          <a class="top-menu-txt" href="#">Pages</a>
+          <a class="top-menu-txt" href="javascript:void(0)">Pages</a>
           <div class="grid-container7 destination collapse blue-link">
             <form>
               <fieldset>
@@ -320,7 +321,7 @@
                       <li><a href="blog.html">Blog</a></li>
                       <li><a href="blog-lft-col.html">Blog Left Sidebar</a></li>
                       <li><a href="blog-rgh-col.html">Blog Right Sidebar</a></li>
-                      <li><a href="guide.html">Travego Guide</a></li>
+                      <li><a href="javascript:void(0)">Travego Guide</a></li>
                       <li><a href="meteo.html">Tracego Weather</a></li>
                     </ul>
                   </section>
