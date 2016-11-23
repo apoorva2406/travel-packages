@@ -26,3 +26,10 @@ div#OR {
   margin-bottom: 15px;
   overflow-y: auto;
 }
+
+label {
+  color: #5e5e5e;
+  margin-left: 0;
+  margin-top: 2px;
+  font-weight: bold;
+}
