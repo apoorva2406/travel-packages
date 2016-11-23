@@ -9,7 +9,7 @@ class AuthenticationsController < ApplicationController
     omniauth = request.env['omniauth.auth']
     authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
     if authentication
-      flash[:info] = 'Signed in successfully.'
+      flash[:notice] = 'Signed in successfully.'
       user =  authentication.user
     else
       # User is new to this application
@@ -18,7 +18,7 @@ class AuthenticationsController < ApplicationController
         user = User.new
         user.build_authentication(:provider => omniauth['provider'], :uid => omniauth['uid'])
         user.apply_omniauth(omniauth)
-        flash[:info] = 'User created and signed in successfully.' if user.save(:validate=>false)   
+        flash[:notice] = 'User created and signed in successfully.' if user.save(:validate=>false)   
       end
     end
     sign_in (user)
