@@ -6,25 +6,41 @@ module PropertiesHelper
 	def property_type
 		type = PropertyType.where(id: JSON(@property.properties_type))
 		if type.present?
-			type.each_with_index.map{|t,i| "#{i+1}. #{t.name}<br>"}.join('').html_safe
+			type.each_with_index.map{|t,i| "<span style='margin: 11px;'>#{i+1}. #{t.name}</span>"}.join('').html_safe
 		else
 			"No Type"
 		end
 	end
 
 	def property_facilities
+		facilities = []
 		type = Facility.where(id: JSON(@property.properties_type))
 		if type.present?
-			type.each_with_index.map{|t,i| "#{i+1}. #{t.name}<br>"}.join('').html_safe
+			type.each_with_index do |val,index|
+				if val.name.eql?("Car Parking")
+					facilities << "<span style='margin: 11px;'><img src='/assets/car-parking.png'/> #{val.name}</span>"
+				elsif val.name.eql?("Cafeteria")
+					facilities << "<span style='margin: 11px;'><img src='/assets/tea.png'/> #{val.name}</span>"
+				elsif val.name.eql?("Tea/Coffee")
+					facilities << "<span style='margin: 11px;'><img src='/assets/tea.png'/> #{val.name}</span>"
+				elsif val.name.eql?("AC")
+					facilities << "<span style='margin: 11px;'><img src='/assets/power.png'/> #{val.name}</span>"
+				elsif val.name.eql?("Wi-Fi")
+					facilities << "<span style='margin: 11px;'><img src='/assets/wifi.png'/> #{val.name}</span>"
+				elsif val.name.eql?("Locker Storage")
+					facilities << "<span><img src='/assets/wifi.png'/> #{val.name}</span>"
+				end
+			end
+			facilities.join('').html_safe
 		else
 			"No Facility"
 		end
 	end
 
 	def property_access_day
-		type = AccessDay.where(id: JSON(@property.properties_type))
+		type = AccessDay.where(id: JSON(@property.access_day))
 		if type.present?
-			type.each_with_index.map{|t,i| "#{i+1}. #{t.name}<br>"}.join('').html_safe
+			type.each_with_index.map{|t,i| "<div>#{t.name}</div>"}.join('').html_safe
 		else
 			"Not Day"
 		end

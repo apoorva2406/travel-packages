@@ -4707,7 +4707,7 @@ dt {
     height: 24px;
     right: 13px;
     top: 7px;
-    background: url(../images/arrow_down.html) center center no-repeat
+    background: url(/assets/arrow_large_left.png) center center no-repeat
 }
 
 .ac-container input:checked+label:hover:after {

@@ -1,26 +1,108 @@
 <!-- edit_property_path(@property) -->
- 
-
-
-<h2><center><%= @property.name %> Property</center></h2><br>
-<div style="padding:30px 0;">
-  <div id="thumbnail-slider">
-    <div class="inner">
-      <ul>
-        <% if @property.photos.present? %>
-          <% @property.photos.each do |photo| %>
-            <li><a class="thumb" href="<%= photo.image.url %>"></a></li>
-            
-          <%end%>
-        <%else%>
-          <h4><center>No Images</center></h4><br> 
-        <%end%>
-      </ul>
+<div class="row">
+  <div class="col-md-12">
+    <div style="padding:30px 0;">
+      <div id="thumbnail-slider">
+        <div class="inner">
+          <ul>
+            <% if @property.photos.present? %>
+              <% @property.photos.each do |photo| %>
+                <li><a class="thumb" href="<%= photo.image.url %>"></a></li>
+              <%end%>
+            <%else%>
+              <h4><center>No Images</center></h4><br> 
+            <%end%>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 
+<div class="row">
+  <div class="col-md-7 col-md-offset-1">
+    <div class="details-hotel">
+      <h3>DESCRIPTION</h3>
+      Te-Pahu serves Mediterranean-style grilled dishes, while Sushi Take Restaurant offers sushi, seafood and sake. Far Niente boasts Italian cuisine.</p>
+    </div>  
+
+    <div class="details-hotel">
+      <h3>FACILITIES</h3>
+      <%= property_facilities%>
+    </div>  
+
+    <div class="details-hotel">
+      <h3>Property Type</h3>
+      <%= property_type%>
+    </div><br><br>  
+
+  </div>
+
+  <div class="col-md-3" style="margin-top: 30px;">
+    <div class="btn-group btn-group-justified" style="padding-bottom:15px;">
+     <% if user_signed_in? %>
+        <% if user_role_owner %>
+          <% if @property.user == current_user%>
+            <%= link_to 'Edit Property', "javascript:void(0)" ,class: "btn btn-primary"%>
+          <%end%>  
+        <%end%>
+      <%end%>  
+    </div>
+
+    <div class="btn-group btn-group-justified">
+      <%= link_to 'Book Now', "javascript:void(0)" ,class: "btn btn-primary" %> 
+    </div>  
+
+    <div class="details-hotel">
+      <div style="text-align: center;">
+        <h3><b>OPEN HOURS</b></h3>
+      </div>
+      <div class="more-time-details">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+              From
+            </div>
+            <div class="col-md-4">
+              To
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="col-md-4 no-padding">
+              <%=property_access_day%>
+            </div>
+
+            <% @count = JSON(@property.access_day).count if @property.access_day.present? %>
+
+            <div class="col-md-4">
+              <% if @count.present? %>
+                <% @count.times do %>
+                  <div><b><%= property_date(@property.start_date) %></b></div>
+                <%end %>
+              <%end%>  
+            </div>
+
+            <div class="col-md-4">
+              <% if @count.present? %>
+                <% @count.times do %>
+                  <div><b><%= property_date(@property.end_date) %></b></div>
+                <%end %>
+              <%end%> 
+            </div>
+                
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 
 <div class="row">
   <div class="col-md-4 col-md-offset-3">
     <h4><strong>Property Details</strong></h4><br>
@@ -129,17 +211,30 @@
     </div>
   </div>
 
-  <div class="col-md-2">
-    <% if user_signed_in? %>
-      <% if user_role_owner %>
-        <% if @property.user == current_user%>
-          <%= link_to 'Edit Property', "javascript:void(0)" ,class: "btn btn-primary" %><br><br>
-        <%end%>  
-      <%end%>
-    <%end%>    
-    <%= link_to 'Book Now', "javascript:void(0)" ,class: "btn btn-primary" %>
-  </div>
-</div><br><br>
+</div> -->
 
 
-
+<script type="text/javascript">
+  var thumbnailSliderOptions =
+  {
+    sliderId: "thumbnail-slider",
+    orientation: "horizontal",
+    thumbWidth: "50%",
+    thumbHeight: "auto",
+    showMode: 3,
+    autoAdvance: true,
+    selectable: true,
+    slideInterval: 3000,
+    transitionSpeed: 1000,
+    shuffle: false,
+    startSlideIndex: 0, //0-based
+    pauseOnHover: true,
+    initSliderByCallingInitFunc: false,
+    rightGap: 0,
+    keyboardNav: true,
+    mousewheelNav: false,
+    before: null,
+    license: "mylicense"
+  };
+  var mcThumbnailSlider = new ThumbnailSlider(thumbnailSliderOptions);
+</script>

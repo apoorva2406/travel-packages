@@ -38,52 +38,30 @@
   border: 1px solid #ccc;
 }
 
-.post{
-  background-color: #FFF;
-  overflow: hidden;
-  box-shadow: 0 0 1px #CCC;
-}
-
-
-.post .content{
-  padding: 15px;
-}
-
-.post .author{
-  font-size: 11px;
-  color: #737373;
-  padding: 25px 30px 20px;
-}
-
-.post .post-img-content{
-  height: 196px;
-  position: relative;
-  overflow: hidden;
-}
-
-.post .post-img-content img{
-  position: absolute;
-  width: 100%;
-}
-
-.post .post-title{
-  display: table-cell;
-  vertical-align: bottom;
-  z-index: 2;
-  position: relative;
-}
-
-.post .post-title b{
-  background-color: rgba(51, 51, 51, 0.58);
-  display: inline-block;
-  margin-bottom: 5px;
-  color: #FFF;
-  padding: 10px 15px;
-  margin-top: 5px;
-}
-
 .header-lang img{
   width: 38px;
   height: 25px;
   margin-left: 25px;
+}
+
+.details-hotel{
+  padding: 10px; 
+}
+
+.power{
+  background-image: url('/assets/power.png');
+}
+.car_parking{
+  background-image: url('/assets/ffacility6.4d4edf79.png');
+}
+.wifi{
+  background-image: url('/assets/ffacility6.4d4edf79.png');
+}
+.tea{
+  background-image: url('/assets/ffacility6.4d4edf79.png');
+}
+
+.effects .img img{
+  height: 178px;
+  width: 100%;
 }
