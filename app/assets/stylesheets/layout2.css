@@ -1945,7 +1945,8 @@ figure .img-effect-flash::before {
 .top-login {
     float: right;
     padding: 3px 0 0;
-    font-weight: 700
+    font-weight: 700;
+    cursor: pointer;
 }
 
 .top-login a,

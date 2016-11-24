@@ -20,9 +20,9 @@
             <%end%>  
             <div class="header-lang">
               <% if user_signed_in? %>
-                <img src="<%=current_user.profile_image%>" class="img-circle" alt="Cinque Terre">
+                <img src="<%=current_user.profile_image.present? ? current_user.profile_image : '/assets/user.png'%>" class="img-circle" alt="Cinque Terre">
               <%else%>
-                <img src="/assets/flags/en.gif" class="img-circle" alt="Cinque Terre">
+                <img src="/assets/user.png" class="img-circle" alt="Cinque Terre">
               <%end%>
               <a data-toggle="modal" data-target="#loginModal"></a>
               <div class="langs-drop" style="display: none;">
