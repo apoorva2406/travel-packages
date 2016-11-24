@@ -73,6 +73,17 @@ Rails.application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
+  #Amazon s3 setup
+  config.paperclip_defaults = {
+    storage: :s3,
+    s3_credentials: {
+      bucket: 'yuva-website' ,
+      access_key_id: 'AKIAIH2NPJ3UOCSDM7XQ' ,
+      secret_access_key: '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',
+      s3_region: 'us-east-1',
+    }
+  }  
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
   config.action_mailer.default_url_options = { host: 'https://sheltered-refuge-56402.herokuapp.com' }

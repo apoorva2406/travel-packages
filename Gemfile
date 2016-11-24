@@ -47,9 +47,11 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem "omniauth-google-oauth2"
 gem "rolify"
-gem "paperclip", "~> 5.0.0"
+gem 'paperclip'
+gem 'aws-sdk', '~> 2.3'
 gem 'geocoder'
 gem "figaro"
 gem 'cancancan', '~> 1.10'
 gem 'faker'
+
 gem 'rails_12factor', group: :production

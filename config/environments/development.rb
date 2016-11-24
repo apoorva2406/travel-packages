@@ -35,4 +35,17 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  #Amazon s3 setup
+  config.paperclip_defaults = {
+    storage: :s3,
+    s3_credentials: {
+      bucket: 'yuva-website' ,
+      access_key_id: 'AKIAIH2NPJ3UOCSDM7XQ' ,
+      secret_access_key: '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',
+      s3_region: 'us-east-1',
+    }
+  }  
+
+
 end
