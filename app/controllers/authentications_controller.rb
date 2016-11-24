@@ -11,6 +11,7 @@ class AuthenticationsController < ApplicationController
     if authentication
       flash[:notice] = 'Signed in successfully.'
       user =  authentication.user
+      user.update_omniauth(omniauth)
     else
       # User is new to this application
       user = User.where(:email => omniauth["info"]["email"]).first

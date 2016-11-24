@@ -58,10 +58,12 @@
 .post .post-img-content{
   height: 196px;
   position: relative;
+  overflow: hidden;
 }
 
 .post .post-img-content img{
   position: absolute;
+  width: 100%;
 }
 
 .post .post-title{
@@ -78,4 +80,10 @@
   color: #FFF;
   padding: 10px 15px;
   margin-top: 5px;
+}
+
+.header-lang img{
+  width: 38px;
+  height: 25px;
+  margin-left: 25px;
 }

@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :properties
 
   def apply_omniauth(omniauth)
+    self.profile_image = omniauth['info']['image']
 	  self.email = omniauth['info']['email']
 	  self.name = omniauth['info']['name']
 	  case omniauth['provider']
@@ -15,6 +16,11 @@ class User < ActiveRecord::Base
 	   when 'google_oauth2'
 	  end
 	end
+
+  def update_omniauth(omniauth)
+    self.profile_image = omniauth['info']['image']
+    self.save
+  end
 
   def assign_user_role(role)
     self.add_role(role) if self.roles.blank?

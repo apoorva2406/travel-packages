@@ -19,7 +19,12 @@
               <%end%>
             <%end%>  
             <div class="header-lang">
-              <a data-toggle="modal" data-target="#loginModal"><img alt="" src="/assets/flags/en.gif"/></a>
+              <% if user_signed_in? %>
+                <img src="<%=current_user.profile_image%>" class="img-circle" alt="Cinque Terre">
+              <%else%>
+                <img src="/assets/flags/en.gif" class="img-circle" alt="Cinque Terre">
+              <%end%>
+              <a data-toggle="modal" data-target="#loginModal"></a>
               <div class="langs-drop" style="display: none;">
                 <div><a href="javascript:void(0)" class="langs-item en">english</a></div>
                 <div><a href="javascript:void(0)" class="langs-item fr">francais</a></div>
