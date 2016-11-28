@@ -1,0 +1,100 @@
+<div class="container">
+  <div class="col-lg-12 col-sm-12 col-md-12">
+    <div class="card hovercard">
+      <div class="card-background">
+        <img class="card-bkimg" alt="" src="http://lorempixel.com/100/100/people/9/">
+        <!-- http://lorempixel.com/850/280/people/9/ -->
+      </div>
+      <div class="useravatar">
+        <img src="<%=current_user.profile_image.present? ? current_user.profile_image : '/assets/user.png'%>" class="img-circle dropdown-toggle" alt="Cinque Terre" data-toggle="dropdown">
+      </div>
+      <div class="card-info"> <span class="card-title"><%=current_user.name%></span>
+      </div>
+    </div>
+
+    <ul class="nav nav-pills">
+      <li ><a href="<%=myprofile_dashboard_index_path%>">PROFILE</a></li>
+      <% if user_role_owner %>
+        <li class="active"><a href="<%=my_property_dashboard_index_path%>">MY PROPERTY</a></li>
+      <%end%>
+      <li><a href="<%=booking_dashboard_index_path%>">BOOKING</a></li>
+      <li><a href="<%=vistis_dashboard_index_path%>">VISITS</a></li>
+      <li><a href="<%=mypayments_dashboard_index_path%>">MY PAYMENTS</a></li>
+      <li><a href="<%=changepassword_dashboard_index_path%>">CHANGE PASSWORD</a></li>
+    </ul>
+
+    <div class="well">
+      <div class="tab-content">
+        <h3>MY PROPERTY</h3>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-8 col-md-9 effect-5 effects">
+              <div class="main-switcher">
+                <div id="cbp-vm" class="cbp-vm-switcher cbp-vm-view-grid">
+                  <ul id="Grid" class="sandbox">
+                    <%if @properties.present? %>
+                      <% @properties.each do |property|%>
+                        <li class="mix category-1" data-value="1250">
+                          <figure>
+                            <div class="cbp-vm-image img">
+                              <img src="<%=property_photo(property)%>" alt="img01"/>
+                              <div class="overlay">
+                                <%= link_to "+", property_path(property), :"data-no-turbolink" => false, :class=>"expand" %>
+
+                                
+                                <a class="close-overlay hidden">x</a>
+                              </div>
+                            </div>
+
+                            <figcaption>
+                              <h3><%= truncate(property.try(:contact_person), length: 15) %></h3>
+                              <img class="star-level" src="/assets/5star.png" alt="" />
+                              <div class="clear"></div>
+                              <p>Chillwave hoodie ea gentrify aute sriracha consequat, cursus libero purus ac congue ar lorem.</p>
+                              <div class="price-night"><span>7 Night</span><span class="price-n">$1250</span></div>
+                              <a href="#" class="btn btn-primary btn-gallery">Read More</a>
+                            </figcaption>
+                          </figure>
+                        </li>
+                      <%end%> 
+                    <%else%>
+                      <h3>Not available</h3>
+                    <%end%>  
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script src="/assets/modernizr.js" type="text/javascript"></script>
+<script src="/assets/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+<script src="/assets/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="/assets/bootstrap.min.js"></script> 
+<!--Carousel-->
+<script src="/assets/modernizr.custom.js" type="text/javascript"></script>
+<script src="/assets/jquery.cbpContentSlider.min.js" type="text/javascript"></script>
+<script>
+  $(function () {
+      "use strict";
+      $('#cbp-contentslider').cbpContentSlider();
+  });
+</script>
+<!--List-->
+<script src="/assets/cbpViewModeSwitch.js" type="text/javascript"></script>
+<script src="/assets/classie.js" type="text/javascript"></script>
+<script src="/assets/script.js" type="text/javascript"></script>
+<script src="/assets/jquery.mixitup.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+  $(function () {
+      "use strict";
+      $('#Grid').mixItUp();
+  });
+</script>

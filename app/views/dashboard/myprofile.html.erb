@@ -13,28 +13,47 @@
     </div>
 
     <ul class="nav nav-pills">
-      <li><a href="<%=myprofile_dashboard_index_path%>">Profile</a></li>
+      <li class="active"><a href="<%=myprofile_dashboard_index_path%>">PROFILE</a></li>
+      <% if user_role_owner %>
+        <li><a href="<%=my_property_dashboard_index_path%>">MY PROPERTY</a></li>
+      <%end%>
       <li><a href="<%=booking_dashboard_index_path%>">BOOKING</a></li>
       <li><a href="<%=vistis_dashboard_index_path%>">VISITS</a></li>
       <li><a href="<%=mypayments_dashboard_index_path%>">MY PAYMENTS</a></li>
-      <li class="active"><a href="<%=changepassword_dashboard_index_path%>">CHANGE PASSWORD</a></li>
+      <li><a href="<%=changepassword_dashboard_index_path%>">CHANGE PASSWORD</a></li>
     </ul>
 
     <div class="well">
       <div class="tab-content">
-        <h3> on regis CHANGE PASSWORD</h3>
+        <h3>PROFILE</h3>
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
           <%= devise_error_messages! %>
 
           <div class="field">
-            <%= f.label :password, "Password" %><br />
-            <%= f.password_field :password, :autocomplete => "off",class: "form-control"  %>
+            <%= f.label :email %><br />
+            <%= f.email_field :email, :disabled=>true, class: "form-control" %>
           </div>
 
           <div class="field">
-            <%= f.label :password_confirmation %><br />
-            <%= f.password_field :password_confirmation, :autocomplete => "off", class: "form-control" %>
+            <%= f.label :name %><br />
+            <%= f.text_field :name, class: "form-control" %>
           </div>
+
+          <div class="field">
+            <%= f.label :mobile_number %><br />
+            <%= f.text_field :mobile_no, class: "form-control", onkeypress: "return event.charCode >= 48 && event.charCode <= 57", minlength:"10" ,maxlength:"10", placeholder:"Enter 10 digit Mobile Number" %>
+          </div>
+
+          <% if resource.roles.blank? %>
+            <div class="form-group">
+              <label for="user_role" class="col-sm-2 control-label">
+              Type</label>
+              <div class="col-sm-10">
+                <label class="radio-inline"><input type="radio" name="role" value="Client" checked="checked">Client</label>
+                <label class="radio-inline"><input type="radio" name="role" value="Owner">Owner</label>
+              </div>
+            </div>
+          <%end%>  
 
           <div class="actions"><br />
             <center><%= f.submit "Update", class:"btn btn-primary" %></center>

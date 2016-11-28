@@ -14,6 +14,9 @@ $(document).ready(function(){
         window.location.reload("/");  
       },
       error: function(response) {
+        if (response.statusText == "OK"){
+          window.location.reload("/");
+        }
         if (response.status == 401){
           $("#signing_submit").text('Submit');
           $('.device_errors_signin').text(response.responseText);
@@ -37,9 +40,14 @@ $(document).ready(function(){
         window.location.reload("/");  
       },
       error: function(response) {
+        if (response.statusText == "OK"){
+          window.location.reload("/");
+        }
+        
         if (response.status == 422){
           $("#signup_submit").text("Register & Login");
-          $('.device_errors_signup').text(response.responseText);}
+          $('.device_errors_signup').text(response.responseText);
+        }
       }
     });
   }); 

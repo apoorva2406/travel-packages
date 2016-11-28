@@ -5,32 +5,27 @@
         <div class="col-md-12">
           <div class='top-contact'><i class="fa fa-phone"></i><span>+12 123 456 789</span><i class="fa fa-envelope"></i><span>info@travego.com</span></div>
           <div class='top-login'>
-            <!-- <i class="fa fa-plus"></i><a class='reg-top' href='#'>Register</a> -->
             <%= link_to('All Workspace', properties_path) %>&nbsp;&nbsp;&nbsp;
-            <% if user_signed_in? %>
-              <% if user_role_owner %>
-                <%= link_to('Add Workspace', new_property_path) %>&nbsp;&nbsp;&nbsp;
-              <%end%>
-              <%= link_to("Edit Profile (#{ user_role_owner ? 'Owner' : 'Clinet'})", edit_user_registration_path) %>&nbsp;&nbsp;&nbsp;
-              <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
-            <%else%>
-              <% unless user_signed_in? %>
-              <i class="fa fa-lock"></i><a  data-toggle="modal" data-target="#loginModal">Login</a>
-              <%end%>
-            <%end%>  
+            <% unless user_signed_in? %>
+            <i class="fa fa-lock"></i><a  data-toggle="modal" data-target="#loginModal">Login</a>
+            <%end%>
+            
             <div class="header-lang">
               <% if user_signed_in? %>
-                <img src="<%=current_user.profile_image.present? ? current_user.profile_image : '/assets/user.png'%>" class="img-circle" alt="Cinque Terre">
-              <%else%>
-                <img src="/assets/user.png" class="img-circle" alt="Cinque Terre">
+                <div class="dropdown">
+                  <img src="<%=current_user.profile_image.present? ? current_user.profile_image : '/assets/user.png'%>" class="img-circle dropdown-toggle" alt="Cinque Terre" data-toggle="dropdown">
+
+                  <span class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                    <li><a href="<%=myprofile_dashboard_index_path%>"><%= "My Profile (#{ user_role_owner ? 'Owner' : 'Clinet'})" %></a></li>
+                    <% if user_role_owner %>
+                      <li><a href="<%=new_property_path%>">Add Workspace</a></li>
+                    <%end%>
+                    <li><a href="javascript:void(0)">Change Password</a></li>
+                    <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
+                  </ul>
+                </div>
               <%end%>
-              <a data-toggle="modal" data-target="#loginModal"></a>
-              <div class="langs-drop" style="display: none;">
-                <div><a href="javascript:void(0)" class="langs-item en">english</a></div>
-                <div><a href="javascript:void(0)" class="langs-item fr">francais</a></div>
-                <div><a href="javascript:void(0)" class="langs-item de">deutsch</a></div>
-                <div><a href="javascript:void(0)" class="langs-item it">italiano</a></div>
-              </div>
             </div>
           </div>
         </div>

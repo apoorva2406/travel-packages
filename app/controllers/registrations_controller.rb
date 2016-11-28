@@ -1,5 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
-  skip_before_filter :verify_authenticity_token,only: [:create,:update]
+  skip_before_filter :verify_authenticity_token,only: [:create]
 
   # POST /resource/sign_up
   def create
@@ -12,12 +12,22 @@ class RegistrationsController < Devise::RegistrationsController
         set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
       end
       sign_in resource
-      redirect_to edit_user_registration_path
+      if request.xhr?
+        respond_to do |format|
+          format.json { render json: "Ok" }
+        end
+      else
+        redirect_to myprofile_dashboard_index_path
+      end  
     else
       warden.custom_failure!
-      respond_to do |format|
-        format.json { render json: resource.errors.full_messages.join(' '), status: :unprocessable_entity }
-      end
+      if request.xhr?
+        respond_to do |format|
+          format.json { render json: resource.errors.full_messages.join(' '), status: :unprocessable_entity }
+        end
+      else
+        redirect_to :back, alert: "#{resource.errors.full_messages.join(' ')}" 
+      end  
     end
   end
 
@@ -26,11 +36,16 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update
     respond_to do |format|
-      if resource.update(account_update_params)
+      if resource.update(account_update_params) 
         resource.assign_user_role(params[:role]) if params[:role]
-        format.html { redirect_to after_update_path(resource), notice: 'Profile was successfully updated.' }
+        if params[:user][:password].present?
+          sign_in(resource, :bypass => true)
+          format.html { redirect_to changepassword_dashboard_index_path, notice: 'Password was successfully updated.' }
+        else
+          format.html { redirect_to :back, notice: 'Password was successfully updated.' }
+        end
       else
-        format.html { render :edit }
+        format.html { render 'dashboard/changepassword' }
       end
     end
   end
@@ -38,9 +53,9 @@ class RegistrationsController < Devise::RegistrationsController
  protected
   def after_update_path(user)
     if user.check_user_access?
-      root_path
+      :back
     else
-      root_path
+      :back
     end
   end
 
@@ -49,10 +64,10 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def account_update_params
-    if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
-       params.require(:user).permit(:name, :mobile_no)
+    if params[:user][:password].present? && params[:user][:password_confirmation].present?
+      params.require(:user).permit(:password, :password_confirmation)
     else
-      params.require(:user).permit(:email, :password, :password_confirmation, :profile_image, :zipcode, :name, :miles)
+      params.require(:user).permit(:name, :mobile_no)
     end
   end
 end
