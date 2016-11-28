@@ -21,7 +21,7 @@
                     <% if user_role_owner %>
                       <li><a href="<%=new_property_path%>">Add Workspace</a></li>
                     <%end%>
-                    <li><a href="javascript:void(0)">Change Password</a></li>
+                    <li><a href="<%=changepassword_dashboard_index_path%>">Change Password</a></li>
                     <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
                   </ul>
                 </div>
