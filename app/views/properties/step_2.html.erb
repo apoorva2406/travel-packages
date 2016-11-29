@@ -29,7 +29,7 @@
                 <td><%=type.name%></td>
                 <td><input type="text" class="form-control" placeholder="Enter seats" required="required" name="seats[<%= type.id %>]" value="<%=property_type_price(type.id,"seats")%>" onkeypress= "return event.charCode >= 48 && event.charCode <= 57"></td>
 
-                <td><input type="text" class="form-control step_2_price" placeholder="Enter price" required="required" name="price[<%=type.id %>]" value="<%=property_type_price(type.id)%>"></td>
+                <td><input type="text" class="form-control step_2_price" placeholder="Enter price per seat" required="required" name="price[<%=type.id %>]" value="<%=property_type_price(type.id)%>"></td>
 
               </tr>
             <%end%>

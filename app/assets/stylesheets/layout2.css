@@ -3720,9 +3720,11 @@ bar {
 }
 
 #horizontalTab {
-    margin: 80px 0;
+    margin: 0px 0;
     color: #333;
-    float: left
+    float: left;
+    margin-bottom: 19px;
+    width: 100%;
 }
 
 #horizontalTab h3 {
@@ -3841,7 +3843,8 @@ bar {
 .r-tabs .r-tabs-panel {
     padding: 15px;
     display: none;
-    z-index: 999
+    z-index: 999;
+    width: 100%;
 }
 
 .r-tabs .r-tabs-accordion-title {

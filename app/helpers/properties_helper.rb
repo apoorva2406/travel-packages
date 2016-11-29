@@ -6,7 +6,7 @@ module PropertiesHelper
 	def property_type
 		type = PropertyType.where(id: JSON(@property.properties_type))
 		if type.present?
-			type.each_with_index.map{|t,i| "<span style='margin: 11px;'>#{i+1}. #{t.name}</span>"}.join('').html_safe
+			type.each_with_index.map{|t,i| "<span> #{t.name}</span>"}.join('').html_safe
 		else
 			"No Type"
 		end
@@ -18,15 +18,15 @@ module PropertiesHelper
 		if type.present?
 			type.each_with_index do |val,index|
 				if val.name.eql?("Car Parking")
-					facilities << "<span style='margin: 11px;'><img src='/assets/car-parking.png'/> #{val.name}</span>"
+					facilities << "<div class='col-md-4 histo-img'><img src='/assets/car-parking.png'/><p class='local-name'>#{val.name}</p> </div>"
 				elsif val.name.eql?("Cafeteria")
-					facilities << "<span style='margin: 11px;'><img src='/assets/tea.png'/> #{val.name}</span>"
+					facilities << "<div class='col-md-4 histo-img'><img src='/assets/tea.png'/><p class='local-name'>#{val.name}</p> </div>"
 				elsif val.name.eql?("Tea/Coffee")
-					facilities << "<span style='margin: 11px;'><img src='/assets/tea.png'/> #{val.name}</span>"
+					facilities << "<div class='col-md-4 histo-img'><img src='/assets/tea.png'/><p class='local-name'>{val.name}</p> </div>"
 				elsif val.name.eql?("AC")
-					facilities << "<span style='margin: 11px;'><img src='/assets/power.png'/> #{val.name}</span>"
+					facilities << "<div class='col-md-4 histo-img'><img src='/assets/power.png'/><p class='local-name'>#{val.name}</p> </div>"
 				elsif val.name.eql?("Wi-Fi")
-					facilities << "<span style='margin: 11px;'><img src='/assets/wifi.png'/> #{val.name}</span>"
+					facilities << "<div class='col-md-4 histo-img'><img src='/assets/wifi.png'/> <p class='local-name'>#{val.name}</p> </div>"
 				elsif val.name.eql?("Locker Storage")
 					facilities << "<span><img src='/assets/wifi.png'/> #{val.name}</span>"
 				end
