@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="stepwizard">
+      <div class="stepwizard-row">
+        <div class="stepwizard-step">
+          <%= button_to "1", edit_property_path(@property), :class => "btn btn-default btn-circle", :method => :get%>
+          <p>Update Property</p>
+        </div>
+        <div class="stepwizard-step">
+          <button type="button" class="btn btn-primary btn-circle">2</button>
+          <p>Add seats</p>
+        </div>
+      </div><br>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Property type</th>
+          <th>Number Of Seats </th>
+          <th>Price</th>
+        </tr>
+      </thead>  
+      <% if @property.property_types.present? %>
+        <%= form_tag create_step_2_property_path(@property) do %>
+          <tbody>
+            <% @property.property_types.each do |type|%>
+              <tr>
+                <td><%=type.name%></td>
+                <td><input type="text" class="form-control" placeholder="Enter seats" required="required" name="seats[<%= type.id %>]" value="<%=property_type_price(type.id,"seats")%>" onkeypress= "return event.charCode >= 48 && event.charCode <= 57"></td>
+
+                <td><input type="text" class="form-control step_2_price" placeholder="Enter price" required="required" name="price[<%=type.id %>]" value="<%=property_type_price(type.id)%>"></td>
+
+              </tr>
+            <%end%>
+
+            <tr>
+              <td colspan="3" align="center"><input type="submit" class="btn btn-primary" value="Continue"></td>
+            </tr>
+          </tbody>  
+        <%end%>  
+      <%else%>
+        <h4>Property type not present</h4>
+      <%end%>  
+    </table>
+  </div>
+</div>

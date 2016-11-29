@@ -1,4 +1,9 @@
 class Property < ActiveRecord::Base
+	has_many :property_type_manages  
+  has_many :property_types, through: :property_type_manages
+
+  has_many :property_prices 
+
 	has_many :photos, as: :imageable
 	belongs_to :user
 	validates :name, :phone_number, :email, :contact_person, :address, :user_id, presence: true
@@ -10,11 +15,22 @@ class Property < ActiveRecord::Base
 		self.facilities = get_value(params[:property][:facilities])
 		self.properties_type = get_value(params[:property][:properties_type])
 		self.save
+		property_type_manages(params[:property][:properties_type])
+	end
+
+	def property_type_manages(property_type_ids)
+		property_type_ids = get_value(property_type_ids)
+		PropertyTypeManage.where(property_id: self.id).delete_all
+		self.property_prices.where.not(property_type_id: property_type_ids).delete_all
+		property_type_ids.each do |id|
+			property_type = PropertyType.find_by_id(id)
+			property_type.property_type_manages.find_or_create_by(property_id: self.id)
+		end
 	end
 
 	def get_value(arr)
 		arr.map{|d| d if d > "0"}.compact  if arr
-	end
+	end                        
 
 	def add_images(images,new_image)
 		if images.present? && new_image.present?

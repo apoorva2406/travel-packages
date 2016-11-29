@@ -14,7 +14,7 @@ module PropertiesHelper
 
 	def property_facilities
 		facilities = []
-		type = Facility.where(id: JSON(@property.properties_type))
+		type = Facility.where(id: JSON(@property.facilities))
 		if type.present?
 			type.each_with_index do |val,index|
 				if val.name.eql?("Car Parking")
@@ -64,6 +64,15 @@ module PropertiesHelper
 			p_t = PropertyType.where(id: JSON(property.properties_type)).shuffle.first.try(:name)
 		else
 			type = "Meeting/Conference Room"
+		end
+	end
+
+	def property_type_price(property_type_id,value_tye={})
+		property_price = @property.property_prices.where(property_type_id: property_type_id).first
+		if value_tye.eql?("seats")
+			property_price.try(:seats)
+		else
+			property_price.try(:price)
 		end
 	end
 

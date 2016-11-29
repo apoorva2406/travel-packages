@@ -1,3 +1,17 @@
+<div class="stepwizard">
+  <div class="stepwizard-row">
+    <div class="stepwizard-step">
+      <button type="button" class="btn btn-primary btn-circle">1</button>
+      <p><%=@property.id.nil? ? 'Create' : 'Update'%> Property</p>
+    </div>
+    <div class="stepwizard-step">
+      <button type="button" class="btn btn-default btn-circle">2</button>
+      <p><%=@property.id.nil? ? 'Add' : 'Update'%>  seats</p>
+    </div>
+  </div>
+</div>
+<br>
+
 <%= form_for(@property) do |f| %>
   <% if @property.errors.any? %>
     <div id="error_explanation">
@@ -53,16 +67,6 @@
       <%= f.check_box :properties_type, { :multiple => true, :checked=> status}, a_value.id %><%=a_value.name%>
       </label>
     <% end %>
-    </div>
-  </div>
-
-  <br>
-  <div class="row">
-    <div class="col-md-3">
-     <%= f.label :no_of_seats%><br>
-    </div>
-    <div class="col-md-9">
-     <%= f.number_field :no_of_seats, :placeholder=>"Enter number of seats",class: "form-control" %>
     </div>
   </div>
 
@@ -154,7 +158,8 @@
   <div class="property-preview">
     <% if @property.photos.present? %>
       <% @property.photos.each do |photo| %>
-        <img src="<%= photo.image.url %>" />
+        <img id="pr_update_image_<%=photo.id%>" src="<%= photo.image.url %>" />
+        <a href="javascript:void(0)" class="pr_remove_image" id="<%=photo.id%>">X</a>
       <%end%>
     <%end%>
   </div>
@@ -163,14 +168,21 @@
 
   <br>
   <div class="actions"><center>
-    <%= f.submit "#{@property.id.nil? ? 'Create' : 'Update'}", class: "btn btn-primary" %></center>
-  </div>
+    <%= f.submit "#{@property.id.nil? ? 'Continue' : 'Update'}", class: "btn btn-primary property_form_sub_btn" %>&nbsp;&nbsp;&nbsp;<input class="btn btn-danger" type="reset" value="Reset"></center>
+  </div><br>
 <% end %>
 
 <script>
   $(document).ready(function(){
-    initMap("property_map", "property_address_<%=@property.id%>")
+    //Map
+    var map_status = "<%= @property.id.nil? ? 'false' : 'true'%>";
+    if (map_status == "true"){
+      editMap("property_map", "property_address_<%=@property.id%>", "<%=@property.latitude%>","<%=@property.longitude%>")
+    }else{
+      initMap("property_map", "property_address_<%=@property.id%>")
+    }
     
+    //Image
     var inputLocalFont = document.getElementById("property_form_image");
     inputLocalFont.addEventListener("change",previewImages,false);
     function previewImages(){
@@ -191,5 +203,22 @@
         }) 
       }
     }
+
+    //Remove image
+    $('.pr_remove_image').click(function(){
+      $("#pr_update_image_"+this.id).remove();
+      this.remove();
+      $.ajax({
+        url: "/properties/remove_image",
+        type: "post",
+        data: { photo_id: this.id},
+        success: function (response) {
+          alert('Image successfully deleted');  
+        }
+      });
+    })
   })
 </script>
+
+
+

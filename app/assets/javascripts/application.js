@@ -13,4 +13,26 @@
 //= require jquery
 //= require jquery_ujs
 
+$(document).ready(function(){
+	$(".dropdown").click(function(){
+	  $('.dropdown-menu').toggle();
+	})
 
+	//Checkbox validation
+	$('.property_form_sub_btn').click(function() {
+		checked = $('input[name="property[properties_type][]"]:checked').length;
+		if(!checked) {
+		  alert("You must check at least one properties type.");
+		  return false;
+		}
+	});
+
+	//step_2 price
+	$('.step_2_price').keypress(function(event) {
+    if(event.which == 8 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46) 
+    return true;
+
+    else if((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57))
+    event.preventDefault();
+  });
+})

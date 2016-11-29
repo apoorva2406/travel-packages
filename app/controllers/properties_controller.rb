@@ -1,6 +1,7 @@
 class PropertiesController < ApplicationController
-  before_action :set_property, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!,  only: [:create, :new, :update, :destroy]
+  before_action :set_property, only: [:show, :edit, :update, :destroy, :create_step_2, :step_2]
+  before_action :authenticate_user!,  only: [:create, :new, :update, :destroy, :edit, :step_2, :create_step_2]
+  before_action :check_property_owner, only: [:edit, :step_2]
   load_and_authorize_resource
   
   def index
@@ -23,7 +24,7 @@ class PropertiesController < ApplicationController
       if @property.save
         @property.add_type_access_day(params)
         @property.add_images(params[:property][:images], params[:new_image])
-        format.html { redirect_to @property, notice: 'Property was successfully created.' }
+        format.html { redirect_to step_2_property_path(@property), notice: 'Property was successfully created.' }
         format.json { render :show, status: :created, location: @property }
       else
         format.html { render :new }
@@ -36,13 +37,35 @@ class PropertiesController < ApplicationController
     respond_to do |format|
       if @property.update(property_params)
         @property.add_type_access_day(params)
-        format.html { redirect_to @property, notice: 'Property was successfully updated.' }
+        @property.add_images(params[:property][:images], params[:new_image])
+        format.html { redirect_to step_2_property_path(@property), notice: 'Property was successfully updated.' }
         format.json { render :show, status: :ok, location: @property }
       else
         format.html { render :edit }
         format.json { render json: @property.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def step_2
+  end
+
+  def create_step_2
+    params[:seats].each_with_index do |(key,value),index|
+      property_price = @property.property_prices.where(property_type_id: key).first
+      if property_price.present?
+        property_price.seats = value
+        property_price.price = params[:price][key]
+        property_price.save
+      else
+        @property.property_prices.create(
+          seats: value, 
+          price: params[:price][key],  
+          property_type_id: key 
+        )
+      end  
+    end
+    redirect_to property_path(@property),notice: 'Property seats and price successfully created'
   end
 
   def destroy
@@ -53,10 +76,21 @@ class PropertiesController < ApplicationController
     end
   end
 
+  def remove_image
+    photo = Photo.where(id: params[:photo_id]).first.delete
+    render :nothing =>true
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_property
       @property = Property.find(params[:id])
+    end
+
+    def check_property_owner
+      unless current_user.properties.include?(@property)
+        redirect_to root_path, alert: "You don't have rights to edit this property"
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

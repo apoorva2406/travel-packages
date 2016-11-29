@@ -59,6 +59,45 @@ function initMap(map_id, input_id) {
   });
 }
 
+function editMap(map_id, input_id,lat,lng) {
+  var map = new google.maps.Map(document.getElementById(map_id), {
+    center: {lat: parseFloat(lat), lng: parseFloat(lng)},
+    zoom: 6
+  });
+
+  //search location
+  var input = (document.getElementById(input_id));
+  var autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.bindTo('bounds', map);
+
+  var pos = {
+    lat: parseFloat(lat),
+    lng:  parseFloat(lng)
+  };
+
+  window.marker = new google.maps.Marker({
+    position: pos,
+    map: map
+  });
+
+  autocomplete.addListener('place_changed', function() {
+    var place = autocomplete.getPlace();
+    if (!place.geometry) {
+      window.alert("Autocomplete's returned place contains no geometry");
+      return;
+    }
+    // If the place has a geometry, then present it on a map.
+    if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+    } else {
+      map.setCenter(place.geometry.location);
+    }
+
+    map.setZoom(6);
+    marker.setPosition(place.geometry.location);
+    marker.setVisible(true);
+  });
+}
 
 function setCoordinateInitial(pos,map,input_id){
   window.marker = new google.maps.Marker({

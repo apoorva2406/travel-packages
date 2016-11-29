@@ -6,7 +6,15 @@ Rails.application.routes.draw do
 
   root 'home#index'
   resources :products, only: [:index]
-  resources :properties
+  resources :properties do 
+    member do 
+      get 'step_2'
+      post 'create_step_2'
+    end
+    collection do 
+      post 'remove_image'
+    end
+  end
 
   #User Dashboard
   resources :dashboard, :path => '', only: [] do
