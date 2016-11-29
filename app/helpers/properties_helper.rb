@@ -22,7 +22,7 @@ module PropertiesHelper
 				elsif val.name.eql?("Cafeteria")
 					facilities << "<div class='col-md-4 histo-img'><img src='/assets/tea.png'/><p class='local-name'>#{val.name}</p> </div>"
 				elsif val.name.eql?("Tea/Coffee")
-					facilities << "<div class='col-md-4 histo-img'><img src='/assets/tea.png'/><p class='local-name'>{val.name}</p> </div>"
+					facilities << "<div class='col-md-4 histo-img'><img src='/assets/tea.png'/><p class='local-name'>#{val.name}</p> </div>"
 				elsif val.name.eql?("AC")
 					facilities << "<div class='col-md-4 histo-img'><img src='/assets/power.png'/><p class='local-name'>#{val.name}</p> </div>"
 				elsif val.name.eql?("Wi-Fi")
