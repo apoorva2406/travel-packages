@@ -5,13 +5,14 @@ class PropertiesController < ApplicationController
   load_and_authorize_resource
   
   def index
-    if params[:near_me].eql?("true")
-      @properties = Property.near(request.location.address.eql?('Reserved') ? "Indore" : request.location.address )
-    elsif params[:desire_location].present?
-      @properties = Property.search params[:desire_location]
-    else
-      @properties = Property.search "*"
-    end
+    # if params[:near_me].eql?("true")
+    #   @properties = Property.near(request.location.address.eql?('Reserved') ? "Indore" : request.location.address )
+    # elsif params[:desire_location].present?
+    #   @properties = Property.search params[:desire_location]
+    # else
+    #   @properties = Property.search "*"
+    # end
+    @properties = Property.all
   end
 
   def show
