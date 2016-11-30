@@ -1,23 +1,28 @@
 <div class="row">
   <div class="col-md-12">
     <div style="padding:30px 0;">
-      <div id="thumbnail-slider">
-        <div class="inner">
-          <ul>
-            <% if @property.photos.present? %>
-              <% @property.photos.each do |photo| %>
-                <li><a class="thumb" href="<%= photo.image.url %>"></a></li>
-              <%end%>
-            <%else%>
-              <h4><center>No Images</center></h4><br> 
-            <%end%>
-          </ul>
-        </div>
-      </div>
+      <% if @property.photos.present? %>
+        <% if @property.photos.count > 1 %>
+          <div id="thumbnail-slider">
+            <div class="inner">
+              <ul>
+                <% @property.photos.each do |photo| %>
+                  <li><a class="thumb" href="<%= photo.image.url %>"></a></li>
+                <%end%>
+              </ul>
+            </div>
+          </div>
+        <%else%>
+          <div class="col-md-10 col-md-offset-1" style="padding:30px 0;">
+            <img src="<%= @property.photos.first.image.url %>" />
+          </div>  
+        <%end%>  
+      <%else%>
+        <h4><center>No Images</center></h4><br>
+      <%end%>     
     </div>
   </div>
 </div>
-
 
 <div class="row">
   <div class="col-md-7 col-md-offset-1">
@@ -30,7 +35,7 @@
 
       <div id="DESCRIPTION">
         <div class="city-info-content">
-          <div class="info-box-guide">
+          <!-- <div class="info-box-guide">
             <ul>
               <li><label>Country:</label>Italy</li>
               <li><label>City:</label>Rome</li>
@@ -41,8 +46,8 @@
               <li><label>Language:</label>Italian</li>
               <li><label>Population:</label>2874 million</li>
             </ul>
-          </div>
-          <img src="/assets/rome.jpg" alt="" />
+          </div> -->
+          <img src="<%= @property.photos.first.try(:image).try(:url) %>" alt="" style="width:100%;"/>
         </div>
         <h3>General Information About Rome</h3>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eu scelerisque eros. Fusce ante orci, hendrerit sit amet metus sit amet, venenatis sodales felis. Morbi vel mi in leo dignissim convallis in a neque. Suspendisse sollicitudin nibh non dapibus condimentum. Etiam sit amet arcu ultricies, porttitor justo eget, scelerisque urna. Praesent non ligula nec ligula euismod condimentum eget sed augue. Ut feugiat, turpis id sollicitudin vestibulum, tellus massa adipiscing nisl, quis cursus nisl arcu vel ipsum.</p>
@@ -54,19 +59,15 @@
       </div>
 
       <div id="TYPE">
-        <h4><b><%= property_type%></b></h4>
-        <% @types = PropertyType.where(id: JSON(@property.properties_type)) %>
         <div class="row">
-          <%@types.each do |type|%>
+          <%@property.property_types.each do |type|%>
             <div class="col-md-12">
-              <div class="col-md-4">Type: <%=type.name%></div>
-              <div class="col-md-4">Capacity: 6 people</div>
-              <div class="col-md-4">Price: 1000 per day*</div> 
-            Venue Type : SEZ/IT Park/Office Tower
+              <div class="col-md-4"><strong>Type:</strong> <%=type.name%></div>
+              <div class="col-md-4"><strong>Capacity:</strong> <%= property_type_price(type.id, "seats")%>  people</div>
+              <div class="col-md-4"><strong>Price:</strong> <%= property_type_price(type.id)%> per person*</div> 
             </div><br>    
           <%end%>
-        </div>
-          
+        </div> 
       </div>
     </div>
   </div>
