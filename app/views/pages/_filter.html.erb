@@ -1,0 +1,168 @@
+<section class="ac-container">
+  <div id="map_canvas_slide"></div><br>
+
+  <h3 class="desc-filter">Save time with filters:</h3>
+  <div>
+    <input id="ac-4" name="accordion-1" type="checkbox" checked/>
+    <label for="ac-4">Property type <i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></label>
+    <article class="ac-large">
+      <div class="meals-trip">
+        <p><i class="fa fa-check-square-o"></i>All (1458)</p>
+      </div>
+      <div class="meals-trip">
+        <p><i class="fa fa-check-square-o"></i>Hotels (367)</p>
+      </div>
+      <div class="meals-trip">
+        <p><i class="fa fa-check-square-o"></i>Hostels (638)</p>
+      </div>
+      <div class="meals-trip">
+        <p><i class="fa fa-check-square-o"></i>Aparments (232)</p>
+      </div>
+      <div class="meals-trip">
+        <p><i class="fa fa-check-square-o"></i>Guest houses (128)</p>
+      </div>
+      <div class="meals-trip">
+        <p><i class="fa fa-check-square-o"></i>Bed and breakfasts (78)</p>
+      </div>
+    </article>
+  </div>
+
+  <div>
+    <input id="ac-1" name="accordion-1" type="checkbox" />
+    <label for="ac-1">Price range <i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></label>
+    <article class="ac-small">
+      <p>
+        <!--<label for="amount">Price range:</label>-->
+        <input type="text" id="amount" readonly>
+      </p>
+      <div id="slider-range"></div>
+    </article>
+  </div>
+
+  <div>
+    <input id="ac-2" name="accordion-1" type="checkbox"/>
+    <label for="ac-2">Star rating <i class="fa fa-angle-down"></i> <i class="fa fa-angle-up"></i></label>
+    <article class="ac-medium">
+      <div class="rating-trip">
+        <i class="fa fa-check-square-o"></i><img src="/assets/star.png" alt="1 Star"/>
+        <p>(975) result</p>
+      </div>
+      <div class="rating-trip">
+        <i class="fa fa-check-square-o"></i><img src="/assets/2star.png" alt="2 Star"/>
+        <p>(1335) result</p>
+      </div>
+      <div class="rating-trip">
+        <i class="fa fa-check-square-o"></i><img src="/assets/3star.png" alt="3 Star"/>
+        <p>(1732) result</p>
+      </div>
+      <div class="rating-trip">
+        <i class="fa fa-check-square-o"></i><img src="/assets/4star.png" alt="4 Star"/>
+        <p>(665) result</p>
+      </div>
+      <div class="rating-trip">
+        <i class="fa fa-check-square-o"></i><img src="/assets/5star.png" alt="5 Star"/>
+        <p>(412) result</p>
+      </div>
+    </article>
+  </div>
+
+  <div>
+    <input id="ac-3" name="accordion-1" type="checkbox" />
+    <label for="ac-3">Meals <i class="fa fa-angle-down"></i> <i class="fa fa-angle-up"></i></label>
+    <article class="ac-small">
+      <div class="meals-trip">
+        <p><i class="fa fa-check-square-o"></i>Breakfast included (1458)</p>
+      </div>
+      <div class="meals-trip">
+        <p><i class="fa fa-check-square-o"></i>Half board (367)</p>
+      </div>
+      <div class="meals-trip">
+        <p><i class="fa fa-check-square-o"></i>Self catering (678)</p>
+      </div>
+    </article>
+  </div>
+
+  <div>
+    <input id="ac-5" name="accordion-1" type="checkbox" />
+    <label for="ac-5">Facility <i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></label>
+    <article class="ac-large">
+      <div class="meals-trip">
+        <p><i class="fa fa-check-square-o"></i>WiFi (1458)</p>
+      </div>
+      <div class="meals-trip">
+        <p><i class="fa fa-check-square-o"></i>Parking (667)</p>
+      </div>
+      <div class="meals-trip">
+        <p><i class="fa fa-check-square-o"></i>Terrace (238)</p>
+      </div>
+      <div class="meals-trip">
+        <p><i class="fa fa-check-square-o"></i>Spa Bath (232)</p>
+      </div>
+      <div class="meals-trip">
+        <p><i class="fa fa-check-square-o"></i>Pool (628)</p>
+      </div>
+      <div class="meals-trip">
+        <p><i class="fa fa-check-square-o"></i>Bed and breakfasts (78)</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<script>
+  
+
+
+
+  $(document).ready(function(){
+    var map;
+    var start_point = new google.maps.LatLng(37.519002, -122.131);
+    var bounds = new google.maps.LatLngBounds();
+    var trucks = [
+      <% @properties.each_with_index do  |property,index| %>
+        {
+         address: "<%=property.address%>"
+        }
+        <%if index >= 0 && @properties.size != index+1 %>
+          ,
+        <%end%>
+      <%end%>
+    ];
+
+    function initialize() {
+      var map_canvas = document.getElementById('map_canvas_slide');
+      var map_options = {
+          center: start_point,
+          zoom: 10,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
+      map = new google.maps.Map(map_canvas, map_options);
+      mark_pins(trucks);
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+    function mark_pins(trucks) {
+      var geocoder = new google.maps.Geocoder();
+      var markersArray = [];
+
+      for (i = 0; i < trucks.length; i++) {
+        geocoder.geocode({
+          'address': trucks[i]['address']
+        }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location,
+            icon: '/assets/marker.png'
+          });
+          marker.setMap(map);
+          bounds.extend(results[0].geometry.location);
+          //markersArray.push(marker);
+          map.fitBounds(bounds);
+        } else {
+         alert('Internal error: ' + status + address);
+        }
+      });
+      }
+    }
+  }) 
+</script>

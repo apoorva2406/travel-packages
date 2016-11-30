@@ -5,10 +5,19 @@ class PropertiesController < ApplicationController
   load_and_authorize_resource
   
   def index
-    @properties = Property.all
+    if params[:near_me].eql?("true")
+      @properties = Property.near(request.location.address.eql?('Reserved') ? "Indore" : request.location.address )
+    elsif params[:desire_location].present?
+      @properties = Property.search params[:desire_location]
+    else
+      @properties = Property.search "*"
+    end
   end
 
   def show
+    unless current_user.present? && (current_user.has_role? :Owner)
+      redirect_to property_dashboard_path(@property)
+    end
   end
 
   def new

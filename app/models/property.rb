@@ -1,4 +1,5 @@
 class Property < ActiveRecord::Base
+	searchkick
 	has_many :property_type_manages  
   has_many :property_types, through: :property_type_manages
 

@@ -53,5 +53,7 @@ gem 'geocoder'
 gem "figaro"
 gem 'cancancan', '~> 1.10'
 gem 'faker'
+gem 'searchkick'
+
 
 gem 'rails_12factor', group: :production

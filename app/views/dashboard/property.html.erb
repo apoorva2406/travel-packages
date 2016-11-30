@@ -1,0 +1,183 @@
+<div class="row">
+  <div class="col-md-12">
+    <div style="padding:30px 0;">
+      <% if @property.photos.present? %>
+        <% if @property.photos.count > 1 %>
+          <div id="thumbnail-slider">
+            <div class="inner">
+              <ul>
+                <% @property.photos.each do |photo| %>
+                  <li><a class="thumb" href="<%= photo.image.url %>"></a></li>
+                <%end%>
+              </ul>
+            </div>
+          </div>
+        <%else%>
+          <div class="col-md-10 col-md-offset-1" style="padding:30px 0;">
+            <img src="<%= @property.photos.first.image.url %>" />
+          </div>  
+        <%end%>  
+      <%else%>
+        <h4><center>No Images</center></h4><br>
+      <%end%>     
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-7 col-md-offset-1">
+    <div id="horizontalTab">
+      <ul>
+        <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+        <li><a href="#FACILITIES">FACILITIES</a></li>
+        <li><a href="#TYPE">PROPERTY TYPE</a></li>
+      </ul>
+
+      <div id="DESCRIPTION">
+        <div class="city-info-content">
+          <!-- <div class="info-box-guide">
+            <ul>
+              <li><label>Country:</label>Italy</li>
+              <li><label>City:</label>Rome</li>
+              <li><label>Area:</label>1287,36 km²</li>
+              <li><label>Weather:</label>21°C, Wind</li>
+              <li><label>Local time:</label>Mon 3:24 pm</li>
+              <li><label>Currency:</label>Euro</li>
+              <li><label>Language:</label>Italian</li>
+              <li><label>Population:</label>2874 million</li>
+            </ul>
+          </div> -->
+          <img src="<%= @property.photos.first.try(:image).try(:url) %>" alt="" style="width:100%;"/>
+        </div>
+        <h3>General Information About Rome</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eu scelerisque eros. Fusce ante orci, hendrerit sit amet metus sit amet, venenatis sodales felis. Morbi vel mi in leo dignissim convallis in a neque. Suspendisse sollicitudin nibh non dapibus condimentum. Etiam sit amet arcu ultricies, porttitor justo eget, scelerisque urna. Praesent non ligula nec ligula euismod condimentum eget sed augue. Ut feugiat, turpis id sollicitudin vestibulum, tellus massa adipiscing nisl, quis cursus nisl arcu vel ipsum.</p>
+        <p>Praesent eros turpis, commodo vel justo at, pulvinar mollis eros. Mauris aliquet eu quam id ornare. Morbi ac quam enim. Cras vitae nulla condimentum, semper dolor non, faucibus dolor. Vivamus adipiscing eros quis orci fringilla, sed pretium lectus viverra. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec nec velit non odio aliquam suscipit. Sed non neque faucibus, condimentum lectus at, accumsan enim. Fusce pretium egestas cursus. Etiam consectetur, orci vel rutrum volutpat, odio odio pretium nisiodo tellus libero et urna. Sed commodo ipsum ligula, id volutpat risus vehicula in. Pellentesque non massa eu nibh posuere bibendum non sed enim. Maecenas lobortis nulla sem, vel egestas dui ullamcorper ac.</p>
+      </div>
+
+      <div id="FACILITIES">
+        <%= property_facilities%> 
+      </div>
+
+      <div id="TYPE">
+        <div class="row">
+          <%@property.property_types.each do |type|%>
+            <div class="col-md-12">
+              <div class="col-md-4"><strong>Type:</strong> <%=type.name%></div>
+              <div class="col-md-4"><strong>Capacity:</strong> <%= property_type_price(type.id, "seats")%>  people</div>
+              <div class="col-md-4"><strong>Price:</strong> <%= property_type_price(type.id)%> per person*</div> 
+            </div><br>    
+          <%end%>
+        </div> 
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="btn-group btn-group-justified" style="padding-bottom:15px;">
+     <% if user_signed_in? %>
+        <% if user_role_owner %>
+          <% if @property.user == current_user%>
+            <%= link_to 'Edit Property', edit_property_path(@property) ,class: "btn btn-primary"%>
+          <%end%>  
+        <%end%>
+      <%end%>  
+    </div>
+    <div class="btn-group btn-group-justified">
+      <%= link_to 'Book Now', "javascript:void(0)" ,class: "btn btn-primary" %> 
+    </div>  
+
+    <div class="details-hotel">
+      <div style="text-align: center;">
+        <h3><b>OPEN HOURS</b></h3>
+      </div>
+      <div class="more-time-details">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+              From
+            </div>
+            <div class="col-md-4">
+              To
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="col-md-4 no-padding">
+              <%=property_access_day%>
+            </div>
+
+            <% @count = JSON(@property.access_day).count if @property.access_day.present? %>
+
+            <div class="col-md-4">
+              <% if @count.present? %>
+                <% @count.times do %>
+                  <div><b><%= property_date(@property.start_date) %></b></div>
+                <%end %>
+              <%end%>  
+            </div>
+
+            <div class="col-md-4">
+              <% if @count.present? %>
+                <% @count.times do %>
+                  <div><b><%= property_date(@property.end_date) %></b></div>
+                <%end %>
+              <%end%> 
+            </div>
+                
+          </div>
+        </div>
+      </div>
+    </div><br>
+  </div>
+
+</div>
+
+<script src="/assets/jquery.responsiveTabs.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    "use strict";
+    $('#horizontalTab').responsiveTabs({
+        rotate: false,
+        startCollapsed: 'accordion',
+        collapsible: 'accordion',
+        setHash: true,
+        animation: 'slide',
+        disabled: [4],
+        activate: function (e, tab) {
+            $('.info').html('Tab <strong>' + tab.id + '</strong> activated!');
+        },
+        activateState: function (e, state) {
+            //console.log(state);
+            $('.info').html('Switched from <strong>' + state.oldState + '</strong> state to <strong>' + state.newState + '</strong> state!');
+        }
+    });
+  });
+</script>  
+
+
+<script type="text/javascript">
+  var thumbnailSliderOptions =
+  {
+    sliderId: "thumbnail-slider",
+    orientation: "horizontal",
+    thumbWidth: "50%",
+    thumbHeight: "auto",
+    showMode: 3,
+    autoAdvance: true,
+    selectable: true,
+    slideInterval: 3000,
+    transitionSpeed: 1000,
+    shuffle: false,
+    startSlideIndex: 0, //0-based
+    pauseOnHover: true,
+    initSliderByCallingInitFunc: false,
+    rightGap: 0,
+    keyboardNav: true,
+    mousewheelNav: false,
+    before: null,
+    license: "mylicense"
+  };
+  var mcThumbnailSlider = new ThumbnailSlider(thumbnailSliderOptions);
+</script>

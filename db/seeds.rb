@@ -25,6 +25,8 @@ end
 	PropertyType.find_or_create_by(name: name)
 end
 
+cities = ["Indore", "Gwalior", "Bhopal", "`Ujjain", "Dewas", "Ratlam", "Delhi", "Pune", "Bhind", "Kanpur", "Mumbai", "Bangalore", "Chennai"]
+
 puts "Creating Property ..."
 
 (1..50).each do |number|
@@ -33,7 +35,7 @@ puts "Creating Property ..."
 	 "phone_number" => '1234567890',
    "email"   =>Faker::Internet.email,
    "properties_type" => ["1","2","3"],
-   "address"   =>"AB Rd, Near Malhar Mall, Vijay Nagar #{number}",
+   "address"   =>" #{cities.shuffle.first} ,India",
    "no_of_seats" => 12,
    "contact_person" => Faker::Commerce.product_name,
    "facilities" => ["1","2","3"],
@@ -41,8 +43,6 @@ puts "Creating Property ..."
    "user_id"   => 1,
    "start_date" => "13",
    "end_date" => "17",
-   "latitude"   =>22.7+(number/100),
-   "longitude"   =>75.8+(number/100)
 	}) 
 
 	property.photos.create(image: open("https://res.cloudinary.com/qdesqtest/image/upload/c_fill,w_700,h_400,q_60/w_40,g_north_west,x_10,y_5,l_log_bldax9/v1470221797/nfcsr2xou8sdoo4sw0o7.png"))

@@ -18,6 +18,10 @@ Rails.application.routes.draw do
 
   #User Dashboard
   resources :dashboard, :path => '', only: [] do
+    member do 
+      get 'property', :path => 'dashboard/property'
+    end
+
   	collection do 
   		get 'myprofile', :path => 'myprofile'
       get 'my_property', :path => 'myprofile/my_property'

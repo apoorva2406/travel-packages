@@ -6,8 +6,13 @@ class DashboardController < ApplicationController
 		@resource = current_user
 	end
 
+	def property
+		@property = Property.find(params[:id])
+	end
+
 	def my_property
 		@properties = current_user.properties
+		authorize! :read, @properties
 	end
 
 	def booking;end

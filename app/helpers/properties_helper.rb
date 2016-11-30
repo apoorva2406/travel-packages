@@ -28,7 +28,7 @@ module PropertiesHelper
 				elsif val.name.eql?("Wi-Fi")
 					facilities << "<div class='col-md-4 histo-img'><img src='/assets/wifi.png'/> <p class='local-name'>#{val.name}</p> </div>"
 				elsif val.name.eql?("Locker Storage")
-					facilities << "<span><img src='/assets/wifi.png'/> #{val.name}</span>"
+					facilities << "<div class='col-md-4 histo-img'><img src='/assets/wifi.png'/><p class='local-name'>#{val.name}</p> </div>"
 				end
 			end
 			facilities.join('').html_safe
