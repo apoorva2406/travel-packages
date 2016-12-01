@@ -16,7 +16,7 @@ class PropertiesController < ApplicationController
   end
 
   def show
-    unless current_user.present? && (current_user.has_role? :Owner)
+    unless current_user.present? && ((current_user.has_role? :Owner) && @property.user == current_user)
       redirect_to property_dashboard_path(@property)
     end
   end
