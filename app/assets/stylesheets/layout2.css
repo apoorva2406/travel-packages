@@ -4769,7 +4769,7 @@ dt {
 }
 
 .ac-container input:checked~article.ac-large {
-    height: 230px
+    height: 160px
 }
 
 .ac-container #amount {

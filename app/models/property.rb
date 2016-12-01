@@ -11,6 +11,19 @@ class Property < ActiveRecord::Base
 	geocoded_by :address
   after_validation :geocode, if: :address_changed?   
 
+
+  after_commit :reindex_property
+
+  def reindex_property
+    self.reindex 
+  end
+
+  def search_data
+	  attributes.merge(
+	    property_type_name: property_types.map(&:name)
+	  )
+	end
+
 	def add_type_access_day(params)
 		self.access_day = get_value(params[:property][:access_day])
 		self.facilities = get_value(params[:property][:facilities])

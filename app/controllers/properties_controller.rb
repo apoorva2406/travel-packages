@@ -9,6 +9,10 @@ class PropertiesController < ApplicationController
     #   @properties = Property.near(request.location.address.eql?('Reserved') ? "Indore" : request.location.address )
     # elsif params[:desire_location].present?
     #   @properties = Property.search params[:desire_location]
+    # elsif params[:search_city].present?
+    #   @properties = Property.search params[:search_city]
+    # elsif params[:search_office_type].present?
+    #   @properties = Property.search params[:search_office_type]
     # else
     #   @properties = Property.search "*"
     # end
@@ -99,12 +103,12 @@ class PropertiesController < ApplicationController
 
     def check_property_owner
       unless current_user.properties.include?(@property)
-        redirect_to root_path, alert: "You don't have rights to edit this property"
+        redirect_to root_path, alert: "Access denied."
       end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def property_params
-      params.require(:property).permit(:name, :phone_number, :email, :no_of_seats, :contact_person, :address, :start_date,  :end_date, :user_id)
+      params.require(:property).permit(:name, :phone_number, :email, :no_of_seats, :contact_person, :description, :address, :start_date,  :end_date, :user_id)
     end
 end

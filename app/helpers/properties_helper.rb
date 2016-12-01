@@ -76,4 +76,13 @@ module PropertiesHelper
 		end
 	end
 
+	def property_seats_price(property)
+		seats_prices = []
+		property.property_types.each do |type|
+			property_price = property.property_prices.where(property_type_id: type.id).first
+      seats_prices << "<div class='price-night'><span>#{property_price.try(:seats)} people</span><span class='price-n'>#{property_price.try(:price)}</span></div>".html_safe
+    end
+    seats_prices.join('').html_safe
+	end
+
 end

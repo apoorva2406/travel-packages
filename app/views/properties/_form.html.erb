@@ -83,6 +83,16 @@
   <br>
   <div class="row">
     <div class="col-md-3">
+     <%= f.label :description %>*<br>
+    </div>
+    <div class="col-md-9">
+      <%= f.text_area :description, :placeholder=>"Describe property", class: "form-control",required: 'true', size: "20x5"%>
+    </div>
+  </div>
+
+  <br>
+  <div class="row">
+    <div class="col-md-3">
      <%= f.label :address %>*<br>
     </div>
     <div class="col-md-9">

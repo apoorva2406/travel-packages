@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   post '/auth/:provider/callback' => 'authentications#create'
 
   root 'home#index'
-  resources :products, only: [:index]
   resources :properties do 
     member do 
       get 'step_2'
@@ -15,6 +14,8 @@ Rails.application.routes.draw do
       post 'remove_image'
     end
   end
+
+  resources :property_price, only: [:update]
 
   #User Dashboard
   resources :dashboard, :path => '', only: [] do
