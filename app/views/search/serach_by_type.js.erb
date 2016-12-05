@@ -1,0 +1,27 @@
+$("#search_properties").html("<%= escape_javascript(render partial: 'pages/properties') %>")
+$("#properties_count").text(<%= @properties.present? ? @properties.size : 0%>)
+
+properties_ids = <%=@properties.collect{|p| p.id}.compact%>
+
+var markers = [
+  <% if  @properties.present? %>
+    <% @properties.each_with_index do  |property,index| %>
+      {
+       address: "<%=property.address%>"
+      }
+      <%if index >= 0 && @properties.size != index+1 %>
+        ,
+      <%end%>
+    <%end%>
+  <%else%>
+    { address: "India" }
+  <%end%>  
+];
+
+index_map = new google.maps.Map(map_canvas, map_options);
+<% if  @properties.present? %>
+  mark_pinsIndex(markers);
+<%else%>
+  index_map.setCenter(new google.maps.LatLng(20.5937, 78.9629));
+<%end%>  
+
