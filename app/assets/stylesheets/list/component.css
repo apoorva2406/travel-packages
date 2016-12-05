@@ -20,6 +20,7 @@
     background: #fff;
     padding: 20px;
     border-bottom: 3px solid #ec6841;
+    min-height: 247px;
 }
 .main-switcher figcaption p{
 	color:#333;

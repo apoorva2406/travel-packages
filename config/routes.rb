@@ -12,6 +12,13 @@ Rails.application.routes.draw do
     end
     collection do 
       post 'remove_image'
+      post 'serach_by_type'
+    end
+  end
+
+  resources :search, only: [] do 
+    collection do 
+      post 'serach_by_type'
     end
   end
 

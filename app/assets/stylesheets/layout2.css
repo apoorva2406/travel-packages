@@ -4714,7 +4714,7 @@ dt {
 }
 
 .ac-container input:checked+label:hover:after {
-    background-image: url(../images/arrow_up.html)
+    background-image: url(/assets/arrow_large_left.png)
 }
 
 .ac-container input:checked+label i.fa-angle-down,

@@ -5,21 +5,72 @@ class PropertiesController < ApplicationController
   load_and_authorize_resource
   
   def index
-    # if params[:near_me].eql?("true")
-    #   @properties = Property.near(request.location.address.eql?('Reserved') ? "Indore" : request.location.address )
-    # elsif params[:desire_location].present?
-    #   @properties = Property.search params[:desire_location]
-    # elsif params[:search_city].present?
-    #   @properties = Property.search params[:search_city]
-    # elsif params[:search_office_type].present?
-    #   @properties = Property.search params[:search_office_type]
-    # else
-    #   @properties = Property.search "*"
-    # end
-    @properties = Property.all
+    #Search by desire location 
+    desire_lat = Geocoder.coordinates(params[:desire_location])
+    #Search by city
+    city_lat  = Geocoder.coordinates(params[:search_city])
+    
+    #Search by peroperty type and city and desire location
+    @result = []
+    if params[:search_office_type].present?
+      params[:search_office_type].each do |type|
+        #city present
+        if city_lat.present?
+          properties = search_indexed(desire_lat, city_lat, type)
+        #desire location
+        elsif desire_lat.present?
+          properties = builder_query(desire_lat[0],desire_lat[1],type,"desire")
+          properties = builder_query(city_lat[0],city_lat[1],type) if properties.blank?
+        else
+          properties = Property.search type
+        end
+        properties.each{|p| @result << p}
+      end
+
+    #Search by city  
+    elsif city_lat.present?
+      properties = search_indexed(desire_lat, city_lat, '')
+      properties.each{|p| @result << p}
+
+    #Search by desire location   
+    elsif desire_lat.present?
+      properties = builder_query(desire_lat[0],desire_lat[1],'',"desire")
+      properties.each{|p| @result << p}
+    
+    #near by me
+    elsif params[:near_me].present? 
+      lat = request.location.latitude.present? ? request.location.latitude : 20.5937
+      lng = request.location.longitude.present? ? request.location.longitude : 78.9629
+      properties = builder_query(lat,lng,'',"desire")
+      properties.each{|p| @result << p}
+    else
+      properties = Property.search "*"
+      properties.each{|p| @result << p}
+    end
+
+    @properties  = @result.uniq
+
+  end
+
+  def search_indexed(desire_lat, city_lat, type={})
+    if desire_lat.present?
+      properties = builder_query(desire_lat[0],desire_lat[1],type,"desire")
+    else
+      properties = builder_query(city_lat[0],city_lat[1],type)
+    end
+    properties
+  end
+
+  def builder_query(lat, lng, type={}, miles={})
+    if miles.present?
+      Property.search "#{type.present? ? type : "*"}", where: {location: {near: {lat: lat, lon: lng}, within: "7mi"}}
+    else
+      Property.search "#{type.present? ? type : "*"}", where: {location: {near: {lat: lat, lon: lng}}}
+    end
   end
 
   def show
+    @near_by_properties = Property.search "*", where: {location: {near: {lat: @property.latitude, lon: @property.longitude}, within: "3mi"}}
     unless current_user.present? && ((current_user.has_role? :Owner) && @property.user == current_user)
       redirect_to property_dashboard_path(@property)
     end

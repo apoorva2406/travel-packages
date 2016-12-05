@@ -55,4 +55,5 @@ gem 'cancancan', '~> 1.10'
 gem 'faker'
 gem 'searchkick'
 gem 'best_in_place', '~> 3.0.1'
+gem 'bootstrap-slider-rails'
 gem 'rails_12factor', group: :production

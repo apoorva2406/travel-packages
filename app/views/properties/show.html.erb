@@ -31,22 +31,12 @@
         <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
         <li><a href="#FACILITIES">FACILITIES</a></li>
         <li><a href="#TYPE">PROPERTY TYPE</a></li>
+        <li><a href="#Nearby">Nearby Properties</a></li>
+       
       </ul>
 
       <div id="DESCRIPTION">
         <div class="city-info-content">
-          <!-- <div class="info-box-guide">
-            <ul>
-              <li><label>Country:</label>Italy</li>
-              <li><label>City:</label>Rome</li>
-              <li><label>Area:</label>1287,36 km²</li>
-              <li><label>Weather:</label>21°C, Wind</li>
-              <li><label>Local time:</label>Mon 3:24 pm</li>
-              <li><label>Currency:</label>Euro</li>
-              <li><label>Language:</label>Italian</li>
-              <li><label>Population:</label>2874 million</li>
-            </ul>
-          </div> -->
           <img src="<%= @property.photos.first.try(:image).try(:url) %>" alt="" style="width:100%;"/>
         </div>
         <h3>General Description</h3>
@@ -69,6 +59,10 @@
             </div><br>    
           <%end%>
         </div> 
+      </div>
+
+      <div id="Nearby">
+        Locations
       </div>
     </div>
   </div>

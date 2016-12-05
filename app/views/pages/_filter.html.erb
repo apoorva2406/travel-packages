@@ -8,7 +8,7 @@
     <article class="ac-large">
       <% PropertyType.all.each do |a_value| %>
           <div class="meals-trip">
-          <p><i class="fa fa-check-square-o"></i><%=a_value.try(:name)%> (1458)</p>
+          <p><input class="fa-check-square-o search_by_type" type="checkbox" name="tyeps[]" value="<%=a_value.name%>" style="display: block"><%=a_value.try(:name)%> (1458)</p>
         </div>
         </label>
       <% end %>
@@ -19,13 +19,11 @@
     <input id="ac-1" name="accordion-1" type="checkbox" />
     <label for="ac-1">Price range <i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></label>
     <article class="ac-small">
-      <div class="col-md-10 col-md-offset-1 range range-info">
-        <input type="range" name="range" min="1" max="100" value="50" onchange="rangeInfo.value=value">
-        <output id="rangeInfo">50</output>
-      </div>
+      <div style="padding: 38px">
+        <b>1</b> <input id="rangeInfo" type="text" class="span2" value="" data-slider-min="1" data-slider-max="500" data-slider-step="2" data-slider-value="[50,200]"/> <b>500</b>
+      </div>  
     </article>
   </div>
-
 
   <div>
     <input id="ac-5" name="accordion-1" type="checkbox" />
@@ -34,7 +32,7 @@
 
       <% Facility.all.each do |a_value| %>
         <div class="meals-trip">
-         <p><i class="fa fa-check-square-o"></i><%= a_value.try(:name) %> (1458)</p>
+         <p><input class="fa-check-square-o search_by_facilities" type="checkbox" name="facilities[]" value="<%=a_value.name%>" style="display: block"></i><%= a_value.try(:name) %> (1458)</p>
         </div>
       <% end %>
 
@@ -42,173 +40,4 @@
   </div>
 </section>
 
-<script>
-  
-  $(document).ready(function(){
-    var map;
-    var start_point = new google.maps.LatLng(20.5937, 78.9629);
-    var bounds = new google.maps.LatLngBounds();
-    var trucks = [
-      <% if  @properties.present? %>
-        <% @properties.each_with_index do  |property,index| %>
-          {
-           address: "<%=property.address%>"
-          }
-          <%if index >= 0 && @properties.size != index+1 %>
-            ,
-          <%end%>
-        <%end%>
-      <%else%>
-        { address: "India" }
-      <%end%>  
-    ];
 
-    function initialize() {
-      var map_canvas = document.getElementById('map_canvas_slide');
-      var map_options = {
-          center: start_point,
-          zoom: 5,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-      }
-      map = new google.maps.Map(map_canvas, map_options);
-      <% if  @properties.present? %>
-        mark_pins(trucks);
-      <%end%>  
-    }
-
-    google.maps.event.addDomListener(window, 'load', initialize);
-    function mark_pins(trucks) {
-      var geocoder = new google.maps.Geocoder();
-      var markersArray = [];
-
-      for (i = 0; i < trucks.length; i++) {
-        geocoder.geocode({
-          'address': trucks[i]['address']
-        }, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location,
-            icon: '/assets/marker.png',
-            draggable: true
-          });
-          marker.setMap(map);
-          bounds.extend(results[0].geometry.location);
-          //markersArray.push(marker);
-          map.fitBounds(bounds);
-        } else {
-         //alert('Internal error:');
-        }
-      });
-      }
-    }
-  }) 
-</script>
-
-
-<style type="text/css">
-  /* Range slider*/
-.range {
-  display: table;
-  position: relative;
-  height: 25px;
-  margin-top: 20px;
-  background-color: rgb(245, 245, 245);
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-}
-
-.range input[type="range"] {
-  -webkit-appearance: none !important;
-  -moz-appearance: none !important;
-  -ms-appearance: none !important;
-  -o-appearance: none !important;
-  appearance: none !important;
-
-  display: table-cell;
-  width: 100%;
-  background-color: transparent;
-  height: 25px;
-  cursor: pointer;
-}
-.range input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none !important;
-  -moz-appearance: none !important;
-  -ms-appearance: none !important;
-  -o-appearance: none !important;
-  appearance: none !important;
-
-  width: 11px;
-  height: 25px;
-  color: rgb(255, 255, 255);
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  border-radius: 0px;
-  background-color: rgb(153, 153, 153);
-}
-
-.range input[type="range"]::-moz-slider-thumb {
-  -webkit-appearance: none !important;
-  -moz-appearance: none !important;
-  -ms-appearance: none !important;
-  -o-appearance: none !important;
-  appearance: none !important;
-  
-  width: 11px;
-  height: 25px;
-  color: rgb(255, 255, 255);
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  border-radius: 0px;
-  background-color: rgb(153, 153, 153);
-}
-
-.range output {
-  display: table-cell;
-  padding: 3px 5px 2px;
-  min-width: 40px;
-  color: rgb(255, 255, 255);
-  background-color: rgb(153, 153, 153);
-  text-align: center;
-  text-decoration: none;
-  border-radius: 4px;
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
-  width: 1%;
-  white-space: nowrap;
-  vertical-align: middle;
-
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  -ms-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: -moz-none;
-  -o-user-select: none;
-  user-select: none;
-}
-.range input[type="range"] {
-  outline: none;
-}
-
-
-.range.range-info input[type="range"]::-webkit-slider-thumb {
-  background-color: rgb(91, 192, 222);
-}
-.range.range-info input[type="range"]::-moz-slider-thumb {
-  background-color: rgb(91, 192, 222);
-}
-.range.range-info output {
-  background-color: rgb(91, 192, 222);
-}
-.range.range-info input[type="range"] {
- outline-color: rgb(91, 192, 222);
-}
-</style>

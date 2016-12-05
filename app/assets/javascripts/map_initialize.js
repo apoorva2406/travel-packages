@@ -1,3 +1,7 @@
+var options = {
+  componentRestrictions: {country: "in"}
+};
+
 function initMap(map_id, input_id) {
   var map = new google.maps.Map(document.getElementById(map_id), {
     center: {lat: -33.8688, lng: 151.2195},
@@ -6,7 +10,7 @@ function initMap(map_id, input_id) {
 
   //search location
   var input = (document.getElementById(input_id));
-  var autocomplete = new google.maps.places.Autocomplete(input);
+  var autocomplete = new google.maps.places.Autocomplete(input, options);
   autocomplete.bindTo('bounds', map);
 
   // Locate corrent locaiton

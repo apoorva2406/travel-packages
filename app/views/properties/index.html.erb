@@ -1,3 +1,4 @@
+
 <h3><center>Search Property</center></h3>
 <div class="container">
   <div class="row">
@@ -5,7 +6,7 @@
     <div class="col-md-5">
       <div class="search-results-title">
         <i class="fa fa-search"></i>
-        <p><%= @properties.present? ? @properties.size : 0%></p>
+        <p id="properties_count"><%= @properties.present? ? @properties.size : 0%></p>
         <p>results found.</p>
       </div>
       <%=render 'pages/filter'%>
@@ -47,59 +48,116 @@
             <a href="#" class="cbp-vm-icon cbp-vm-list" data-view="cbp-vm-view-list"><i class="fa fa-th-list"></i></a>
           </div>
 
-          <ul id="Grid" class="sandbox">
-            <% @properties.each do |property|%>
-              <li class="mix category-1" data-value="1250">
-                <figure>
-                  <div class="cbp-vm-image img">
-                    <img src="<%=property_photo(property)%>" alt="img01"/>
-                    <div class="overlay">
-                      <%= link_to "+", property_path(property), :"data-no-turbolink" => false, :class=>"expand" %>
-                      <a class="close-overlay hidden">x</a>
-                    </div>
-                  </div>
-
-                  <figcaption>
-                    <h3><%= truncate(property.try(:contact_person), length: 15) %></h3>
-                    <!-- <img class="star-level" src="/assets/5star.png" alt="" /> -->
-                    <div class="clear"></div>
-                    <p><%=truncate(property.try(:description),length: 75)%></p>
-                    <%=property_seats_price(property)%>
-                    <a href="<%=property_path(property)%>" class="btn btn-primary btn-gallery">Read More</a>
-                  </figcaption>
-                </figure>
-              </li>
-            <%end%>  
-          </ul>
+          <!--Properties-->
+          <div id="search_properties">
+            <%=render 'pages/properties'%>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<script type="text/javascript">
+  var RANGEChange = function() {
+    if (typeof properties_ids == 'undefined'){
+      properties_ids = <%=@properties.collect{|p| p.id}.compact%>
+    }
+    
+    // $.ajax({
+    //   url: "/search/serach_by_type",
+    //   type: "POST",
+    //   data: { ranges: $(this).attr('data-value'), properties_ids: properties_ids },
+    //   beforeSend: function(msg){
+    //    $(".search_loader").show();
+    //   },
+    //   success: function (response) {
+    //     $(".search_loader").hide();
+    //   },
+    //   error: function(response) {
+    //     $(".search_loader").hide(); 
+    //   }
+    // }); 
+  };
 
-<script src="/assets/modernizr.js" type="text/javascript"></script>
-<script src="/assets/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
-<script src="/assets/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="/assets/bootstrap.min.js"></script> 
-<!--Carousel-->
-<script src="/assets/modernizr.custom.js" type="text/javascript"></script>
-<script src="/assets/jquery.cbpContentSlider.min.js" type="text/javascript"></script>
-<script>
-  $(function () {
-      "use strict";
-      $('#cbp-contentslider').cbpContentSlider();
+  $("#rangeInfo").slider().on('slideStop', RANGEChange);
+
+  $(".search_by_facilities").click(function(){
+    if (typeof properties_ids == 'undefined'){
+      properties_ids = <%=@properties.collect{|p| p.id}.compact%>
+    }
+    var checkedVals = $('.search_by_facilities:checkbox:checked').map(function() {
+      return this.value;
+    }).get();
+
+    // $.ajax({
+    //   url: "/search/serach_by_type",
+    //   type: "POST",
+    //   data: { types: checkedVals, properties_ids: properties_ids },
+    //   beforeSend: function(msg){
+    //    $(".search_loader").show();
+    //   },
+    //   success: function (response) {
+    //     $(".search_loader").hide();
+    //   },
+    //   error: function(response) {
+    //     $(".search_loader").hide(); 
+    //   }
+    // });
+  })
+
+
+  $(".search_by_type").click(function(){
+    if (typeof properties_ids == 'undefined'){
+      properties_ids = <%=@properties.collect{|p| p.id}.compact%>
+    }
+    var checkedVals = $('.search_by_type:checkbox:checked').map(function() {
+      return this.value;
+    }).get();
+
+    // $.ajax({
+    //   url: "/search/serach_by_type",
+    //   type: "POST",
+    //   data: { types: checkedVals, properties_ids: properties_ids },
+    //   beforeSend: function(msg){
+    //    $(".search_loader").show();
+    //   },
+    //   success: function (response) {
+    //     $(".search_loader").hide();
+    //   },
+    //   error: function(response) {
+    //     $(".search_loader").hide(); 
+    //   }
+    // });
   });
+    
 </script>
-<!--List-->
-<script src="/assets/cbpViewModeSwitch.js" type="text/javascript"></script>
-<script src="/assets/classie.js" type="text/javascript"></script>
-<script src="/assets/script.js" type="text/javascript"></script>
-<script src="/assets/jquery.mixitup.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-  $(function () {
-      "use strict";
-      $('#Grid').mixItUp();
-  });
+  $(window).load(function(){
+    //Map
+    var markers = [
+      <% if  @properties.present? %>
+        <% @properties.each_with_index do  |property,index| %>
+          {
+           address: "<%=property.address%>"
+          }
+          <%if index >= 0 && @properties.size != index+1 %>
+            ,
+          <%end%>
+        <%end%>
+      <%else%>
+        { address: "India" }
+      <%end%>  
+    ];
+
+    index_map = new google.maps.Map(map_canvas, map_options);
+    <% if  @properties.present? %>
+      mark_pinsIndex(markers);
+    <%else%>
+      index_map.setCenter(new google.maps.LatLng(20.5937, 78.9629));
+    <%end%>  
+  })  
 </script>
+
+

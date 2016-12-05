@@ -47,6 +47,8 @@ GEM
     best_in_place (3.0.3)
       actionpack (>= 3.2)
       railties (>= 3.2)
+    bootstrap-slider-rails (9.2.0)
+      railties (>= 3.2, < 6.0)
     builder (3.2.2)
     byebug (9.0.6)
     cancancan (1.15.0)
@@ -221,6 +223,7 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk (~> 2.3)
   best_in_place (~> 3.0.1)
+  bootstrap-slider-rails
   byebug
   cancancan (~> 1.10)
   coffee-rails (~> 4.0.0)

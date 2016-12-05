@@ -1,5 +1,5 @@
 class Property < ActiveRecord::Base
-	searchkick
+	searchkick locations: ["location"]
 	has_many :property_type_manages  
   has_many :property_types, through: :property_type_manages
 
@@ -19,8 +19,12 @@ class Property < ActiveRecord::Base
   end
 
   def search_data
+  	facilities_ids =  facilities.present? ? JSON(facilities) : nil
 	  attributes.merge(
-	    property_type_name: property_types.map(&:name)
+	  	location: {lat: latitude, lon: longitude},
+	    property_type_name: property_types.map(&:name),
+	    facilities: Facility.where(id: facilities_ids).all.map(&:name),
+	    range: property_prices.map(&:price)
 	  )
 	end
 
