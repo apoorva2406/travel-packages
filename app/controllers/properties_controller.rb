@@ -63,7 +63,7 @@ class PropertiesController < ApplicationController
 
   def builder_query(lat, lng, type={}, miles={})
     if miles.present?
-      Property.search "#{type.present? ? type : "*"}", where: {location: {near: {lat: lat, lon: lng}, within: "7mi"}}
+      Property.search "#{type.present? ? type : "*"}", where: {location: {near: {lat: lat, lon: lng}, within: "2mi"}}
     else
       Property.search "#{type.present? ? type : "*"}", where: {location: {near: {lat: lat, lon: lng}}}
     end

@@ -64,20 +64,20 @@
       properties_ids = <%=@properties.collect{|p| p.id}.compact%>
     }
     
-    // $.ajax({
-    //   url: "/search/serach_by_type",
-    //   type: "POST",
-    //   data: { ranges: $(this).attr('data-value'), properties_ids: properties_ids },
-    //   beforeSend: function(msg){
-    //    $(".search_loader").show();
-    //   },
-    //   success: function (response) {
-    //     $(".search_loader").hide();
-    //   },
-    //   error: function(response) {
-    //     $(".search_loader").hide(); 
-    //   }
-    // }); 
+    $.ajax({
+      url: "/search/serach_by_type",
+      type: "POST",
+      data: { ranges: $(this).attr('data-value'), properties_ids: properties_ids },
+      beforeSend: function(msg){
+       $(".search_loader").show();
+      },
+      success: function (response) {
+        $(".search_loader").hide();
+      },
+      error: function(response) {
+        $(".search_loader").hide(); 
+      }
+    }); 
   };
 
   $("#rangeInfo").slider().on('slideStop', RANGEChange);
@@ -90,20 +90,20 @@
       return this.value;
     }).get();
 
-    // $.ajax({
-    //   url: "/search/serach_by_type",
-    //   type: "POST",
-    //   data: { types: checkedVals, properties_ids: properties_ids },
-    //   beforeSend: function(msg){
-    //    $(".search_loader").show();
-    //   },
-    //   success: function (response) {
-    //     $(".search_loader").hide();
-    //   },
-    //   error: function(response) {
-    //     $(".search_loader").hide(); 
-    //   }
-    // });
+    $.ajax({
+      url: "/search/serach_by_type",
+      type: "POST",
+      data: { types: checkedVals, properties_ids: properties_ids },
+      beforeSend: function(msg){
+       $(".search_loader").show();
+      },
+      success: function (response) {
+        $(".search_loader").hide();
+      },
+      error: function(response) {
+        $(".search_loader").hide(); 
+      }
+    });
   })
 
 
@@ -115,20 +115,20 @@
       return this.value;
     }).get();
 
-    // $.ajax({
-    //   url: "/search/serach_by_type",
-    //   type: "POST",
-    //   data: { types: checkedVals, properties_ids: properties_ids },
-    //   beforeSend: function(msg){
-    //    $(".search_loader").show();
-    //   },
-    //   success: function (response) {
-    //     $(".search_loader").hide();
-    //   },
-    //   error: function(response) {
-    //     $(".search_loader").hide(); 
-    //   }
-    // });
+    $.ajax({
+      url: "/search/serach_by_type",
+      type: "POST",
+      data: { types: checkedVals, properties_ids: properties_ids },
+      beforeSend: function(msg){
+       $(".search_loader").show();
+      },
+      success: function (response) {
+        $(".search_loader").hide();
+      },
+      error: function(response) {
+        $(".search_loader").hide(); 
+      }
+    });
   });
     
 </script>
