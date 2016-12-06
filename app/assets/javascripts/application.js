@@ -34,11 +34,17 @@
 //= require jquery.themepunch.plugins.min
 //= require jquery.themepunch.revolution.min
 //= require jquery.bxslider
+//= require jquery.responsiveTabs
+
+
+
+$('.best_in_place').bind("ajax:success", function (data) {
+  //alert('done'); 
+});
 
 
 
 //Property index page map
-
 $(window).load(function(){
   window.index_map;
   window.map_canvas = document.getElementById('map_canvas_slide');
@@ -46,8 +52,7 @@ $(window).load(function(){
     //center: start_point,
     zoom: 5,
     mapTypeId: google.maps.MapTypeId.ROADMAP
-  }
-  
+  } 
 })
 
 
@@ -84,11 +89,8 @@ function mark_pinsIndex(markers) {
 
 $(document).ready(function() {
   window.properties_ids;
-  /* Activating Best In Place */
   jQuery(".best_in_place").best_in_place();
-});
 
-$(document).ready(function(){
   $(".dropdown").click(function(){
     $('.dropdown-menu').toggle();
   })
@@ -176,3 +178,50 @@ function initializeHome(){
   var input = (document.getElementById('search_desire'));
   var autocomplete = new google.maps.places.Autocomplete(input,options);
 }
+
+
+//property show slider
+$(document).ready(function(){
+  //Tabs
+
+  "use strict";
+  $('#horizontalTab').responsiveTabs({
+    rotate: false,
+    startCollapsed: 'accordion',
+    collapsible: 'accordion',
+    setHash: true,
+    animation: 'slide',
+    disabled: [5],
+    activate: function (e, tab) {
+        $('.info').html('Tab <strong>' + tab.id + '</strong> activated!');
+    },
+    activateState: function (e, state) {
+        //console.log(state);
+        $('.info').html('Switched from <strong>' + state.oldState + '</strong> state to <strong>' + state.newState + '</strong> state!');
+    }
+  });
+
+
+  var thumbnailSliderOptions =
+  {
+    sliderId: "thumbnail-slider",
+    orientation: "horizontal",
+    thumbWidth: "50%",
+    thumbHeight: "auto",
+    showMode: 3,
+    autoAdvance: true,
+    selectable: true,
+    slideInterval: 3000,
+    transitionSpeed: 1000,
+    shuffle: false,
+    startSlideIndex: 0, //0-based
+    pauseOnHover: true,
+    initSliderByCallingInitFunc: false,
+    rightGap: 0,
+    keyboardNav: true,
+    mousewheelNav: false,
+    before: null,
+    license: "mylicense"
+  };
+  var mcThumbnailSlider = new ThumbnailSlider(thumbnailSliderOptions);
+})

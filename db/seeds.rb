@@ -25,11 +25,21 @@ end
 	PropertyType.find_or_create_by(name: name)
 end
 
-cities = ["Indore", "Gwalior", "Bhopal", "`Ujjain", "Dewas", "Ratlam", "Delhi", "Pune", "Bhind", "Kanpur", "Mumbai", "Bangalore", "Chennai"]
+cities = ["Navlakha, Indore, Madhya Pradesh, India", "Gwalior", "Bhopal", "`Ujjain", "Delhi", "Pune", "Mumbai", "Bangalore", "Chennai" ,"Bhawarkuan Police Station, Agra Bombay Road, Bhanwar Kuwa, Indore, Madhya Pradesh, India", "Vijay Nagar, Indore, Madhya Pradesh, India", "LIG Colony, Indore, Madhya Pradesh, India", "Palasia Square, Manorama Ganj, Indore, Madhya Pradesh, India", "Sapna Sangita Sneash Nagar Main Road, Ashok Nagar, Indore, Madhya Pradesh, India", "Madhumilan Square, Chhoti Gwaltoli, Indore, Madhya Pradesh, India", "C21 Mall, Agra Bombay Road, Vijay Nagar, Indore, Madhya Pradesh, India","Gita Bhawan Square, Manorama Ganj, Indore, Madhya Pradesh, India","Tower Chouraha, Sindhi Colony, Indore, Madhya Pradesh, India","Choithram Mandi, Indore, Madhya Pradesh, India","Rajendra Nagar, Indore, Madhya Pradesh, India","Holkar Stadium, Race Course Road, New Palasia, Indore, Madhya Pradesh, India"]
+
+
+facilities_arrray = [["1"], ["2"], ["1","3"], ["3"], ["4"], ["4","5"], ["5"], ["1"], ["3","4"], ["2","3","4"], ["1","2","3"], ["6"]]
+
+property_type_ids = [["1"], ["2"], ["1","3"], ["3"], ["4"], ["4","5"], ["5"], ["1"], ["3","4"], ["2","3","4"], ["1","2","3"]]
+
+no_of_seats = [20,30,25,35,40,45,50,100,80,40,12,25,28,36,33,65,10,5,65,3,4,8,7]
+
+prices = [1,2,3,4,5,8,10,15,20,25,30,35,40,45,50,55,60,65,70,100,90,150,110,120]
+
 
 puts "Creating Property ..."
 
-(1..50).each do |number|
+(1..100).each do |number|
 	property = Property.create({  
 	 "name" => Faker::Name.name,
 	 "phone_number" => '1234567890',
@@ -38,17 +48,31 @@ puts "Creating Property ..."
    "address"   =>" #{cities.shuffle.first} ,India",
    "no_of_seats" => 12,
    "contact_person" => Faker::Commerce.product_name,
-   "facilities" => ["1","2","3"],
+   "facilities" => facilities_arrray.shuffle.first,
    "access_day" => ["1","2","3"],
    "user_id"   => 1,
    "start_date" => "13",
    "end_date" => "17",
 	}) 
 
+	property_type_ids.shuffle.first.each do  |id|
+  	property.property_prices.create(
+      seats: no_of_seats.shuffle.first, 
+      price: prices.shuffle.first,  
+      property_type_id: id 
+    )
+    property_type = PropertyType.find_by_id(id)
+    property_type.property_type_manages.find_or_create_by(property_id: property.id)
+ 	end
+
 	property.photos.create(image: open("https://res.cloudinary.com/qdesqtest/image/upload/c_fill,w_700,h_400,q_60/w_40,g_north_west,x_10,y_5,l_log_bldax9/v1470221797/nfcsr2xou8sdoo4sw0o7.png"))
 	property.photos.create(image: open("https://res.cloudinary.com/qdesqtest/image/upload/c_fill,w_700,h_400,q_60/w_40,g_north_west,x_10,y_5,l_log_bldax9/v1470221798/zoafebnvxdoyoccg1sjh.png"))
 	property.photos.create(image: open("https://res.cloudinary.com/qdesqtest/image/upload/c_fill,w_700,h_400,q_60/w_40,g_north_west,x_10,y_5,l_log_bldax9/v1470221302/jdwgetgnurlsu8nsqauo.png"))
 	property.photos.create(image: open("https://res.cloudinary.com/qdesqtest/image/upload/c_fill,w_700,h_400,q_60/w_40,g_north_west,x_10,y_5,l_log_bldax9/v1469631515/htjkax4vgaz47q0tyt02.png"))
+	
+	puts "#{number}"
 end
 
 puts "Property successfully created"
+
+

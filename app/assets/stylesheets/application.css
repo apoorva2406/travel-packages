@@ -247,3 +247,13 @@
   margin: 190px;
 }
 
+.best_in_place:hover{
+  cursor: pointer;
+}
+
+.best_in_place input{
+  width: 20%;
+}
+.cbp-vm-image:hover{
+  cursor: pointer;
+}
