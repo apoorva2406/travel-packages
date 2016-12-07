@@ -8,6 +8,7 @@ class DashboardController < ApplicationController
 
 	def property
 		@property = Property.find(params[:id])
+		@near_by_properties = Property.search "*", where: {location: {near: {lat: @property.latitude, lon: @property.longitude}, within: "3mi"}}
 	end
 
 	def my_property

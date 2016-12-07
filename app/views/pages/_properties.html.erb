@@ -10,14 +10,13 @@
           <div class="cbp-vm-image img">
             <img src="<%=property_photo(property)%>" alt="img01"/>
             <div class="overlay">
-              <%= link_to "+", property_path(property), :"data-no-turbolink" => false, :class=>"expand" %>
+              <%= link_to "+", property_path(property), :"data-no-turbolink" => false, :class=>"expand", :target=>"_blank" %>
               <a class="close-overlay hidden">x</a>
             </div>
           </div>
           <figcaption>
             <h3><%= truncate(property.try(:name), length: 15) %></h3>
-            <!-- <img class="star-level" src="/assets/5star.png" alt="" /> -->
-            <%#=property.address%>
+            
             <div class="clear"></div>
             <p><%=truncate(property.try(:description),length: 75)%></p>
             <%=property_seats_price(property)%>
