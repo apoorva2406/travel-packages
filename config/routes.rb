@@ -6,6 +6,14 @@ Rails.application.routes.draw do
 
   root 'home#index'
   resources :properties do 
+    #Booking routes
+    resources :booking , only: [] do
+      collection do 
+        get 'book_now'
+        get 'get_type_price'
+      end
+    end
+
     member do 
       get 'step_2'
       post 'create_step_2'

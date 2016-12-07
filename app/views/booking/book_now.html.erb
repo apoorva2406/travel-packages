@@ -1,0 +1,181 @@
+<div class="container">
+  <div class="row">
+    <center><h2>Book your property</h2></center>
+    <div id="reservation-form" class="col-md-8 col-md-offset-2 reservation-color-form  resv-plus-meteo">
+      <form class="form-inline reservation-flight">
+        <div class="row">
+          <div class="col-sm-4 flight-where">
+            <div class="form-group">
+              <h3><span>01</span> Who</h3>
+              <div class="col-md-6 box-fly-book">
+                <label for="name">Name*:</label>
+                <input type="text" class="form-control" placeholder="Enter your name"  name="name" required="required">
+
+              </div>
+              <div class="col-md-6 box-fly-book box-sec-book">
+                <label for="phone">Phone*:</label>
+                <input type="text" class="form-control" placeholder="Enter your number" i name="phone" required="required">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4 flight-where">
+            <div class="form-group">
+              <h3><span>02</span> Seats</h3>
+              <div class="col-md-6 box-fly-book">
+                <label for="name">Number of Seats*:</label>
+                <input type="number" class="form-control" placeholder="Enter number of seats"  name="seats" required="required" id="book_seats" min="1">
+
+              </div>
+              <div class="col-md-6 box-fly-book box-sec-book">
+                <!-- <label for="phone">Number of Days*:</label>
+                <input type="number" class="form-control" placeholder="Enter number of days" name="days" required="required"> -->
+
+                <label for="book_type">Property type*:</label>
+                <select class="form-control" name="book_type" id="book_type">
+                  <option disabled="disabled" selected="selected" required="required">Select Property Type</option>
+                  <% @property.property_types.each do |type| %>
+                    <option value="<%=type.name%>"><%=type.name%></option>
+                  <%end%>
+                </select>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-2 fly-check">
+            <h3><span>03</span> When?</h3>
+            <div class="form-group">
+              <div class="col-md-6 box-fly-book">
+                <label for="checkin">Start Date*:</label>
+                <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Check-In is from 11:00"> <i class="fa fa-info-circle fa-lg"> </i> </div>
+                <div class="content-checkin-data">
+                  <i class="fa fa-calendar infield infieldfly1"></i>
+                  <input name="checkin" type="text" value="" class="form-control checkin" placeholder="Check-in" required="required" id="book_start_time"/>
+                </div>
+              </div>
+
+              <div class="col-md-6 box-fly-book box-sec-book">
+                <label for="checkout">End Date*:</label>
+                <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Check-out is from 12:00"> <i class="fa fa-info-circle fa-lg"> </i> </div>
+                <div class="content-checkin-data">
+                  <i class="fa fa-calendar infield infieldfly2"></i>
+                  <input name="checkout" type="text" value="" class="form-control checkout" placeholder="Check-out" required="required" id="book_end_time"/>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4 flight-where" style="margin-top: 11px;">
+            <div class="form-group">
+              <div class="col-md-12 box-fly-book">
+                <center>
+                <span style="font-size: 2.5rem;font-weight: bold;"><i class="fa fa-inr"></i><span class="total_price"> </span></span></center>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="col-sm-4 fly-who">
+            <h3><span>03</span> Who?</h3>
+            <div class="col-sm-4 adultfly">
+              <div class="form-group">
+                <div class="guests-select">
+                  <label>Number of seats*:</label>
+                  
+                  <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="+Eneter number of people"> <i class="fa fa-info-circle fa-lg"> </i> </div>
+
+                  <select name="number_of_seats" id="number_of_seats" class="form-control">
+                    <option disabled="disabled" selected="selected">No of seats</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                  </select>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 child md-ch">
+              <div class="form-group">
+                <div class="guests-select">
+                  <label>Number of days*:</label>
+                  <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Select total dayas"> <i class="fa fa-info-circle fa-lg"> </i> </div>
+
+                  <select name="number_of_days" id="number_of_days" class="form-control">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 child">
+              <div class="form-group">
+                <div class="guests-select">
+                  <label>Infants</label>
+                  <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="0 till 18 years"> <i class="fa fa-info-circle fa-lg"> </i> </div>
+                  <select name="children" id="Select1" class="form-control">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+          <div class="col-sm-2 colbtn">
+            <button type="submit" class="btn btn-primary btn-block">Book Now</button>
+          </div>
+        </div>
+      </form> 
+    </div>
+  </div>
+</div>
+   
+    
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(document).on("change keypress keyup","#book_seats, #book_start_time, #book_end_time, #book_type" , function(){
+      var dayDiff;
+      var price;
+      var total_price;
+      var seats = $("#book_seats").val();
+      var start_date = $("#book_start_time").val();
+      var end_date = $("#book_end_time").val();
+      var type = $("#book_type").val();
+
+      if (seats != '' && start_date != '' && end_date != '' && type != ''){
+        $.ajax({
+          url: "<%=get_type_price_property_booking_index_path(@property)%>",
+          data: {type: type},
+          success: function(response) {
+            price = response.price
+
+            start_date = $("#book_start_time").datepicker('getDate');
+            end_date = $("#book_end_time").datepicker('getDate');
+            dayDiff = Math.ceil((end_date - start_date) / (1000 * 60 * 60 * 24)) + 1;
+
+            //Check dates
+            if (start_date > end_date){
+              alert("End date should be greater than start date");
+              $("#book_start_time").val('');
+              $("#book_end_time").val('');
+              $('.total_price').text('');
+            }
+            else{
+              total_price = price * dayDiff * seats;
+              $('.total_price').text(total_price);
+            }
+
+          }
+        });
+      }
+    });
+  });
+</script>

@@ -13,7 +13,7 @@ class SessionsController < Devise::SessionsController
           format.json { render json: "Ok" }
         end
       else
-        redirect_to root_path
+        redirect_to session[:previous_url] || root_path
       end  
     else  
       if request.xhr?
