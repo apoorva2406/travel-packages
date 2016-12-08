@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161201104335) do
+ActiveRecord::Schema.define(version: 20161208055001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,6 +109,8 @@ ActiveRecord::Schema.define(version: 20161201104335) do
     t.integer  "property_type_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "number_of_room"
+    t.integer  "parent_id"
   end
 
   create_table "property_type_manages", force: :cascade do |t|

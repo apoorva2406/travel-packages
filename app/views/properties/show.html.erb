@@ -53,9 +53,31 @@
             <% @property_price = @property.property_prices.where(property_type_id: type.id).first %>
             <div class="col-md-12">
               <div class="col-md-4"><strong>Type:</strong> <%=type.name%></div>
-              <div class="col-md-4"><strong>Capacity:</strong> <%= best_in_place @property_price, :seats, :as => :input, :onkeypress=> "return event.charCode >= 48 && event.charCode <= 57" %> people</div> 
 
-              <div class="col-md-4"><strong>Price:</strong> <%= best_in_place @property_price, :price, :as => :input, :classes => 'step_2_price'  %> </div> <br><br>
+              <%if @property_price.childrens.present?%>
+                <div class="col-md-4"><strong>No of room:</strong> <%=@property_price.try(:number_of_room)%>
+
+                  <%@property_price.childrens.each do |child|%><br>
+                    <strong>Capacity:</strong> <%= best_in_place child, :seats, :as => :input, :onkeypress=> "return event.charCode >= 48 && event.charCode <= 57" %>
+
+                  <%end%>
+                </div>
+
+                <div class="col-md-4">
+                  <strong>Price:</strong> <%= best_in_place @property_price, :price, :as => :input, :classes => 'step_2_price', :required=> true  %> per person 
+
+                  <%@property_price.childrens.each do |child|%><br>
+                    <strong>Total Price: </strong> <%=@property_price.price * child.seats%> per day
+                  <%end%>
+
+                </div> <br><br>
+
+              <%else%>
+                <div class="col-md-4"><strong>Capacity:</strong> <%= best_in_place @property_price, :seats, :as => :input, :onkeypress=> "return event.charCode >= 48 && event.charCode <= 57" %> people</div> 
+
+                <div class="col-md-4"><strong>Price:</strong> <%= best_in_place @property_price, :price, :as => :input, :classes => 'step_2_price', :required=> true  %> per person </div> <br><br>
+
+              <%end%>
             </div><br>    
           <%end%>
         </div> 

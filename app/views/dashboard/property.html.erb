@@ -50,10 +50,32 @@
       <div id="TYPE">
         <div class="row">
           <%@property.property_types.each do |type|%>
+            <% @property_price = @property.property_prices.where(property_type_id: type.id).first %>
             <div class="col-md-12">
               <div class="col-md-4"><strong>Type:</strong> <%=type.name%></div>
-              <div class="col-md-4"><strong>Capacity:</strong> <%= property_type_price(type.id, "seats")%>  people</div>
-              <div class="col-md-4"><strong>Price:</strong> <%= property_type_price(type.id)%>*</div> 
+
+              <%if @property_price.childrens.present?%>
+                <div class="col-md-4"><strong>No of room:</strong> <%= @property_price.try(:number_of_room)%>
+
+                  <%@property_price.childrens.each do |child|%><br>
+                    <strong>Capacity:</strong> <%= child.try(:seats)%>
+                  <%end%>
+                </div>
+
+
+                <div class="col-md-4">
+                  <strong>Price:</strong> <%=  @property_price.try(:price)%> per person 
+
+                  <%@property_price.childrens.each do |child|%><br>
+                    <strong>Total Price: </strong> <%=@property_price.price * child.seats%> per day
+                  <%end%>
+                </div> 
+
+              <%else%>
+                <div class="col-md-4"><strong>Capacity:</strong> <%= @property_price.try(:seats)%> people</div> 
+
+                <div class="col-md-4"><strong>Price:</strong> <%= @property_price.try(:price)%> per person</div>
+              <%end%> 
             </div><br><br>  
           <%end%>
         </div> 

@@ -1,3 +1,7 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+
 <div class="container">
   <div class="row">
     <center><h2>Book your property</h2></center>
@@ -23,19 +27,21 @@
             <div class="form-group">
               <h3><span>02</span> Seats</h3>
               <div class="col-md-6 box-fly-book">
-                <label for="name">Number of Seats*:</label>
-                <input type="number" class="form-control" placeholder="Enter number of seats"  name="seats" required="required" id="book_seats" min="1">
-
-              </div>
-              <div class="col-md-6 box-fly-book box-sec-book">
-                <!-- <label for="phone">Number of Days*:</label>
-                <input type="number" class="form-control" placeholder="Enter number of days" name="days" required="required"> -->
-
                 <label for="book_type">Property type*:</label>
                 <select class="form-control" name="book_type" id="book_type">
                   <option disabled="disabled" selected="selected" required="required">Select Property Type</option>
                   <% @property.property_types.each do |type| %>
                     <option value="<%=type.name%>"><%=type.name%></option>
+                  <%end%>
+                </select>
+              </div>
+              <div class="col-md-6 box-fly-book box-sec-book">
+                <label for="name">Number of Seats*:</label>
+
+                <select class="form-control" name="seats[]" id="book_seats">
+                  <option disabled="disabled" selected="selected" required="required">No of seats</option>
+                  <% 10.times.each do |number| %>
+                    <option value="<%=number+1%>"><%=number+1%></option>
                   <%end%>
                 </select>
 
@@ -138,6 +144,14 @@
   </div>
 </div>
    
+
+
+
+
+<script type="text/javascript">
+  $('#e1').select2();
+</script> 
+
     
 <script type="text/javascript">
   $(document).ready(function(){
@@ -150,13 +164,36 @@
       var end_date = $("#book_end_time").val();
       var type = $("#book_type").val();
 
+      if (this.id == "book_type"){
+        $.ajax({
+          url: "<%=get_type_price_property_booking_index_path(@property)%>",
+          data: {type: type},
+          success: function(response) {
+            $("#book_seats").html('');
+            seats = '';
+            $('.total_price').text('');
+            $("#book_seats").append('<option disabled="disabled" selected="selected" required="required">No of seats</option>'); 
+            var property_price = response.property_price; 
+            var res_seats = response.seats; 
+            if (res_seats.length > 0){
+              for (var j = 0; j < res_seats.length; j++){               
+                $("#book_seats").append("<option value='" +res_seats[j]+ "'>"+(j+1)+" Room - "+res_seats[j]+" Seats</option>");    
+              } 
+            }
+            else{
+              for (var j = 0; j < property_price.seats; j++){                 
+                $("#book_seats").append("<option value='" +(j+1)+ "'>" +(j+1)+ "</option>");    
+              }    
+            }  
+          }
+        });
+      }  
+
       if (seats != '' && start_date != '' && end_date != '' && type != ''){
         $.ajax({
           url: "<%=get_type_price_property_booking_index_path(@property)%>",
           data: {type: type},
           success: function(response) {
-            price = response.price
-
             start_date = $("#book_start_time").datepicker('getDate');
             end_date = $("#book_end_time").datepicker('getDate');
             dayDiff = Math.ceil((end_date - start_date) / (1000 * 60 * 60 * 24)) + 1;
@@ -169,7 +206,15 @@
               $('.total_price').text('');
             }
             else{
-              total_price = price * dayDiff * seats;
+              var property_price = response.property_price; 
+              var child_seats = response.seats;
+              if (child_seats.length > 0){
+                total_price = property_price.price * dayDiff * seats;;
+              }
+              else{
+                total_price = property_price.price * dayDiff * seats;
+              }
+
               $('.total_price').text(total_price);
             }
 
@@ -179,3 +224,4 @@
     });
   });
 </script>
+

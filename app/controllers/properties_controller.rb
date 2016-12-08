@@ -116,21 +116,36 @@ class PropertiesController < ApplicationController
   end
 
   def create_step_2
-    params[:seats].each_with_index do |(key,value),index|
+    params[:price].each_with_index do |(key,value),index|
       property_price = @property.property_prices.where(property_type_id: key).first
+      propert_type = @property.property_types.where(name: 'Meeting/Conference Room').first
       if property_price.present?
-        property_price.seats = value
-        property_price.price = params[:price][key]
-        property_price.save
+        if propert_type.id.eql?(key.to_i)
+          create_property_meeting(property_price, params[:number_of_room], params[:room])
+        else
+          property_price.seats = params[:seats][key]
+          property_price.price = value
+          property_price.save
+        end  
       else
-        @property.property_prices.create(
-          seats: value, 
-          price: params[:price][key],  
+        p_p = @property.property_prices.create(
+          seats: params[:seats][key], 
+          price: value,  
           property_type_id: key 
         )
+        create_property_meeting(p_p, params[:number_of_room], params[:room]) if propert_type.id.eql?(key.to_i)
       end  
     end
     redirect_to property_path(@property),notice: 'Property seats and price successfully created'
+  end
+
+  def create_property_meeting(p_p, number_of_room, rooms)
+    PropertyPrice.where(parent_id: p_p.id).delete_all
+    p_p.number_of_room = number_of_room
+    p_p.save
+    rooms.each do |key,value|
+      p_p.childrens.create(seats: value)
+    end 
   end
 
   def destroy
