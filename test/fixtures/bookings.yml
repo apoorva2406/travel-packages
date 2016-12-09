@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  property_id: 1
+  name: MyString
+  phone: MyString
+  book_type: MyString
+  seats: 1
+  rooms: 1
+  start_date: 2016-12-09
+  end_date: 2016-12-09
+  status: MyString
+  total_amount: 1.5
+
+two:
+  user_id: 1
+  property_id: 1
+  name: MyString
+  phone: MyString
+  book_type: MyString
+  seats: 1
+  rooms: 1
+  start_date: 2016-12-09
+  end_date: 2016-12-09
+  status: MyString
+  total_amount: 1.5

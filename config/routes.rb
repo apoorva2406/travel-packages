@@ -7,10 +7,14 @@ Rails.application.routes.draw do
   root 'home#index'
   resources :properties do 
     #Booking routes
-    resources :booking , only: [] do
+    resources :booking , only: [:create] do
       collection do 
         get 'book_now'
         get 'get_type_price'
+      end
+
+      member do 
+        get 'pay_now'
       end
     end
 

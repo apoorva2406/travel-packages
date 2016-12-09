@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
  	has_one :authentication
   has_many :properties
+  has_many :bookings
 
   def apply_omniauth(omniauth)
     self.profile_image = omniauth['info']['image']

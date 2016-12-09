@@ -1,24 +1,20 @@
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-
-
 <div class="container">
   <div class="row">
     <center><h2>Book your property</h2></center>
     <div id="reservation-form" class="col-md-8 col-md-offset-2 reservation-color-form  resv-plus-meteo">
-      <form class="form-inline reservation-flight">
+      <%= form_tag property_booking_index_path(@property), class: "form-inline reservation-flight" do %>
         <div class="row">
           <div class="col-sm-4 flight-where">
             <div class="form-group">
               <h3><span>01</span> Who</h3>
               <div class="col-md-6 box-fly-book">
                 <label for="name">Name*:</label>
-                <input type="text" class="form-control" placeholder="Enter your name"  name="name" required="required">
+                <input type="text" class="form-control" placeholder="Enter your name"  name="booking[name]" required="required">
 
               </div>
               <div class="col-md-6 box-fly-book box-sec-book">
                 <label for="phone">Phone*:</label>
-                <input type="text" class="form-control" placeholder="Enter your number" i name="phone" required="required">
+                <input type="text" class="form-control" onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="10" placeholder="Enter 10 digit Mobile Number" name="booking[phone]" required="required">
               </div>
             </div>
           </div>
@@ -28,18 +24,17 @@
               <h3><span>02</span> Seats</h3>
               <div class="col-md-6 box-fly-book">
                 <label for="book_type">Property type*:</label>
-                <select class="form-control" name="book_type" id="book_type">
-                  <option disabled="disabled" selected="selected" required="required">Select Property Type</option>
+                <select class="form-control" name="booking[book_type]" id="book_type" required="required">
+                  <option disabled="disabled" selected="selected">Select Property Type</option>
                   <% @property.property_types.each do |type| %>
                     <option value="<%=type.name%>"><%=type.name%></option>
                   <%end%>
                 </select>
               </div>
               <div class="col-md-6 box-fly-book box-sec-book">
-                <label for="name">Number of Seats*:</label>
-
-                <select class="form-control" name="seats[]" id="book_seats">
-                  <option disabled="disabled" selected="selected" required="required">No of seats</option>
+                <label for="number_of_seats_label">Number of Seats*:</label>
+                <select class="form-control" name="booking[seats][]" id="book_seats" required="required">
+                   <option value="" disabled="disabled" selected="selected">No of seats</option>
                   <% 10.times.each do |number| %>
                     <option value="<%=number+1%>"><%=number+1%></option>
                   <%end%>
@@ -57,7 +52,7 @@
                 <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Check-In is from 11:00"> <i class="fa fa-info-circle fa-lg"> </i> </div>
                 <div class="content-checkin-data">
                   <i class="fa fa-calendar infield infieldfly1"></i>
-                  <input name="checkin" type="text" value="" class="form-control checkin" placeholder="Check-in" required="required" id="book_start_time"/>
+                  <input type="text" value="" class="form-control checkin" placeholder="Check-in" required="required" id="book_start_time" name="booking[start_date]"/>
                 </div>
               </div>
 
@@ -66,7 +61,7 @@
                 <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Check-out is from 12:00"> <i class="fa fa-info-circle fa-lg"> </i> </div>
                 <div class="content-checkin-data">
                   <i class="fa fa-calendar infield infieldfly2"></i>
-                  <input name="checkout" type="text" value="" class="form-control checkout" placeholder="Check-out" required="required" id="book_end_time"/>
+                  <input type="text" value="" class="form-control checkout" placeholder="Check-out" required="required" id="book_end_time" name="booking[end_date]"/>
                 </div>
               </div>
             </div>
@@ -81,84 +76,22 @@
             </div>
           </div>
 
-          <!-- <div class="col-sm-4 fly-who">
-            <h3><span>03</span> Who?</h3>
-            <div class="col-sm-4 adultfly">
-              <div class="form-group">
-                <div class="guests-select">
-                  <label>Number of seats*:</label>
-                  
-                  <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="+Eneter number of people"> <i class="fa fa-info-circle fa-lg"> </i> </div>
-
-                  <select name="number_of_seats" id="number_of_seats" class="form-control">
-                    <option disabled="disabled" selected="selected">No of seats</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                  </select>
-
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4 child md-ch">
-              <div class="form-group">
-                <div class="guests-select">
-                  <label>Number of days*:</label>
-                  <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Select total dayas"> <i class="fa fa-info-circle fa-lg"> </i> </div>
-
-                  <select name="number_of_days" id="number_of_days" class="form-control">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4 child">
-              <div class="form-group">
-                <div class="guests-select">
-                  <label>Infants</label>
-                  <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="0 till 18 years"> <i class="fa fa-info-circle fa-lg"> </i> </div>
-                  <select name="children" id="Select1" class="form-control">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div> -->
-
           <div class="col-sm-2 colbtn">
+            <input type="hidden" name="booking[total_amount]" value="" id="book_total_amount"/>
             <button type="submit" class="btn btn-primary btn-block">Book Now</button>
           </div>
         </div>
-      </form> 
+      <%end%> 
     </div>
   </div>
 </div>
-   
-
-
-
-
-<script type="text/javascript">
-  $('#e1').select2();
-</script> 
-
-    
+      
 <script type="text/javascript">
   $(document).ready(function(){
     $(document).on("change keypress keyup","#book_seats, #book_start_time, #book_end_time, #book_type" , function(){
       var dayDiff;
       var price;
-      var total_price;
+      var total_price = 0;
       var seats = $("#book_seats").val();
       var start_date = $("#book_start_time").val();
       var end_date = $("#book_end_time").val();
@@ -172,15 +105,23 @@
             $("#book_seats").html('');
             seats = '';
             $('.total_price').text('');
-            $("#book_seats").append('<option disabled="disabled" selected="selected" required="required">No of seats</option>'); 
+            $("#book_seats").append('<option disabled="disabled" selected="selected">No of seats</option>'); 
             var property_price = response.property_price; 
             var res_seats = response.seats; 
             if (res_seats.length > 0){
-              for (var j = 0; j < res_seats.length; j++){               
+              $('#book_seats').prop('multiple',true);
+              $('#book_seats').select2({multiple: true});
+              $("#book_seats option:selected").attr('disabled','disabled').remove();
+              $('label[for="number_of_seats_label"]').text("Number of rooms");
+              for (var j = 0; j < res_seats.length; j++){             
                 $("#book_seats").append("<option value='" +res_seats[j]+ "'>"+(j+1)+" Room - "+res_seats[j]+" Seats</option>");    
               } 
             }
             else{
+              $('#book_seats').prop('multiple',false);
+              $('#book_seats').select2({
+                multiple: false
+              });  
               for (var j = 0; j < property_price.seats; j++){                 
                 $("#book_seats").append("<option value='" +(j+1)+ "'>" +(j+1)+ "</option>");    
               }    
@@ -209,15 +150,16 @@
               var property_price = response.property_price; 
               var child_seats = response.seats;
               if (child_seats.length > 0){
-                total_price = property_price.price * dayDiff * seats;;
+                for (var i = 0; i < seats.length; i++){     
+                  total_price += property_price.price * dayDiff * seats[i];  
+                }   
               }
               else{
                 total_price = property_price.price * dayDiff * seats;
               }
-
               $('.total_price').text(total_price);
+              $("#book_total_amount").val(total_price)
             }
-
           }
         });
       }
