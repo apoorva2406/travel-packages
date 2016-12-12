@@ -1,5 +1,8 @@
 class Booking < ActiveRecord::Base
+	extend FriendlyId
+  friendly_id :book_type, use: :slugged
 	belongs_to :user
+	validates :name, :phone, :book_type, :start_date, :end_date, :user_id, :property_id, :total_amount,:seats, presence: true
 
 	def params_list_patym
 		paramList = Hash.new

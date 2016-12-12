@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   devise_for :users, :controllers => {:registrations => "registrations",:sessions=>"sessions"}
   resources :authentications, only: [:create]
   get '/auth/:provider/callback' => 'authentications#create'
   post '/auth/:provider/callback' => 'authentications#create'
+
+  #Paytm callback url
+  post 'create_booking' => 'booking#create_booking'
 
   root 'home#index'
   resources :properties do 

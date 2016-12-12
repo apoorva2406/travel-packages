@@ -3,8 +3,12 @@ class BookingController < ApplicationController
 	before_action :get_property,  only: [:create, :pay_now, :book_now, :get_type_price]
 	include PaytmHelper
 
+	
+	def create_booking
+	end 
+
 	def pay_now
-		@booking = Booking.find(params[:id])	
+		@booking = Booking.friendly.find(params[:id])	
     @paramList = @booking.params_list_patym
 		@checksum_hash = new_pg_checksum(@paramList, ENV['PAYTM_MERCHANT_KEY']).gsub("\n",'')
 	end
@@ -41,6 +45,7 @@ class BookingController < ApplicationController
 
 	def booking_params
 		params[:booking][:rooms] = params[:booking][:seats].length > 1 ? params[:booking][:seats].length : nil
+    params[:booking][:property_id] = @property.id
     params.require(:booking).permit(:user_id, :property_id, :name, :book_type, :phone, :rooms, :seats, :start_date, :end_date, :status, :total_amount)
   end
 end
