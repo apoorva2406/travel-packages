@@ -1,18 +1,8 @@
 ActiveAdmin.register Property do
-
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-# permit_params :list, :of, :attributes, :on, :model
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if params[:action] == 'create' && current_user.admin?
-#   permitted
-# end
-
+  actions :all, :except => [:new]
+  form partial: "admin/properties/form", layout: "active_admin" 
+  scope :varified_property
+  scope :unvarified_property
 
 	index do
 	  id_column
@@ -20,6 +10,7 @@ ActiveAdmin.register Property do
 	  column :phone_number
 	  column :email
 	  column :contact_person
+    column :varified
 	  column "Property Type" do |property|
 	    property.property_type
 	  end
@@ -29,8 +20,17 @@ ActiveAdmin.register Property do
 	  column "Address" do |property|
 	    truncate(property.try(:address),length: 20)
 	  end
-	  actions
+    actions do |property|
+      link_to 'Varify', varify_admin_property_path(property)
+    end
 	end
+
+  member_action :varify do
+    @property = Property.find(params[:id])
+    @property.varified = true
+    @property.save
+    redirect_to :back, notice: "Property varified successfully"
+  end
 
 	show do
     attributes_table do
@@ -57,6 +57,21 @@ ActiveAdmin.register Property do
       row :user
     end
   end
+
+  controller do
+    def update
+      @property = Property.find(params[:id])
+      params[:price].each_with_index do |(key,value),index|
+        property_price = @property.property_prices.where(property_type_id: key).first
+        propert_type = @property.property_types.where(name: 'Meeting/Conference Room').first
+        if property_price.present?
+          property_price.price = value
+          property_price.save
+        end
+      end
+      redirect_to :back ,notice: "Property updated successfully"
+    end
+  end 
 end
 
 

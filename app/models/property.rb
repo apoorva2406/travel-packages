@@ -9,6 +9,8 @@ class Property < ActiveRecord::Base
 	geocoded_by :address
   after_validation :geocode, if: :address_changed?   
   after_commit :reindex_property
+  scope :varified_property, -> { where(varified: true) }
+  scope :unvarified_property, -> { where(varified: false) }
 
   def property_type
   	property_types.map{|type|type.name}.join(',')

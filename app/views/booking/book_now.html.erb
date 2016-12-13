@@ -88,6 +88,53 @@
       
 <script type="text/javascript">
   $(document).ready(function(){
+
+   //var booked_start_dates  = ["13-12-2016", "15-12-2016",];
+   
+
+   var booked_start_dates = <%= raw Booking.all.map{|b| b.start_date.strftime("%d-%m-%Y").to_s}.compact%> 
+
+   var booked_end_dates = <%= raw Booking.all.map{|b| b.end_date.strftime("%d-%m-%Y").to_s}.compact%> 
+
+    function booked_dates(date) {
+      
+      dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+      if ($.inArray(dmy, booked_start_dates) == -1) {
+        return [true, ""];
+      } else {
+        return [false, "", "Unavailable"];
+      }
+    }
+
+    function booked_dates_end(date) {
+      dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+      if ($.inArray(dmy, booked_end_dates) == -1) {
+        return [true, ""];
+      } else {
+        return [false, "", "Unavailable"];
+      }
+    }
+
+    $(".checkin").datepicker({
+      showAnim: "drop",
+      defaultDate: new Date(),
+      dateFormat: 'dd/mm/yy',
+      minDate: "-0D",
+      beforeShowDay: booked_dates
+    });
+
+    $(".checkout").datepicker({
+      showAnim: "drop",
+      defaultDate: new Date(),
+      dateFormat: 'dd/mm/yy',
+      minDate: "-0D",
+      beforeShowDay: booked_dates_end
+    })
+
+    $(document).on("focus",".checkin, .checkout", function() {$(this).blur()});
+  });
+
+  $(document).ready(function(){
     $(document).on("change keypress keyup","#book_seats, #book_start_time, #book_end_time, #book_type" , function(){
       var dayDiff;
       var price;
@@ -166,4 +213,5 @@
     });
   });
 </script>
+
 

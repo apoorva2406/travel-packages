@@ -1,0 +1,43 @@
+
+
+<%= semantic_form_for [:admin, @property] do |f| %>
+  
+	<table class="table">
+    <thead>
+      <tr>
+        <th>Property type</th>
+        <th>Number Of Seats </th>
+        <th>Price</th>
+      </tr>
+    </thead>  
+    <tbody>
+      <% @property.property_types.each do |type|%>
+        <tr>
+          <td><%=type.name%></td>
+          <%if type.name.eql?('Meeting/Conference Room')%>
+            <td>
+              <select name="number_of_room" id="<%=type.id%>" class="form-control create_number_of_rooms" required disabled>
+                <option value="" disabled="disabled" selected="selected">No of rooms</option>
+                <%rooms = property_type_price(type.id,"rooms") %>
+
+                <%4.times do |number|%>
+                  <option value="<%=number+1%>" <%="selected" if rooms ==number+1 %> ><%=number+1%></option>
+                <%end%>  
+
+              </select>
+              <table class="table"> 
+                <tbody id="meeting_room_inputs">
+                  <%= property_meeting_children_admin(type.id)%>
+                </tbody>
+              </table>
+            </td>
+          <%else%>
+            <td><input type="text" class="form-control" placeholder="Enter seats" required="required" name="seats[<%= type.id %>]" value="<%=property_type_price(type.id,"seats")%>" onkeypress= "return event.charCode >= 48 && event.charCode <= 57" disabled></td>
+          <%end%>
+          <td><input type="text" class="form-control step_2_price" placeholder="Enter price per seat" required="required" name="price[<%=type.id %>]" value="<%=property_type_price(type.id)%>"></td>
+        </tr>
+      <%end%>
+    </tbody> 
+  </table>  
+  <center><div style="padding: 28px;"><input type="submit" value="Update" class="btn btn-primary"></div></center>
+<% end %>
