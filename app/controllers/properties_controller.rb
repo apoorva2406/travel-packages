@@ -120,7 +120,7 @@ class PropertiesController < ApplicationController
       property_price = @property.property_prices.where(property_type_id: key).first
       propert_type = @property.property_types.where(name: 'Meeting/Conference Room').first
       if property_price.present?
-        if propert_type.id.eql?(key.to_i)
+        if propert_type.try(:id).eql?(key.to_i)
           create_property_meeting(property_price, params[:number_of_room], params[:room])
         else
           property_price.seats = params[:seats][key]
@@ -129,11 +129,11 @@ class PropertiesController < ApplicationController
         end  
       else
         p_p = @property.property_prices.create(
-          seats: params[:seats][key], 
+          seats: params[:seats].present? ? params[:seats][key] : nil, 
           price: value,  
           property_type_id: key 
         )
-        create_property_meeting(p_p, params[:number_of_room], params[:room]) if propert_type.id.eql?(key.to_i)
+        create_property_meeting(p_p, params[:number_of_room], params[:room]) if propert_type.try(:id).eql?(key.to_i)
       end  
     end
     redirect_to property_path(@property),notice: 'Property seats and price successfully created'
