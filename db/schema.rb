@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161213062456) do
+ActiveRecord::Schema.define(version: 20161214134422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,10 +73,10 @@ ActiveRecord::Schema.define(version: 20161213062456) do
     t.integer  "rooms"
     t.date     "start_date"
     t.date     "end_date"
-    t.string   "status",       default: "pending"
+    t.string   "status",       default: "not confirm"
     t.float    "total_amount"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.string   "slug"
   end
 
