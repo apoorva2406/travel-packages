@@ -12,7 +12,7 @@ class Booking < ActiveRecord::Base
 		paramList["WEBSITE"] = ENV['WEBSITE']
 		paramList["TXN_AMOUNT"] = "10"
 		paramList["ORDER_ID"] = SecureRandom.urlsafe_base64(nil, false)
-		paramList["CUST_ID"] = SecureRandom.urlsafe_base64(nil, false) 
+		paramList["CUST_ID"] = SecureRandom.urlsafe_base64(nil, false)  
 		paramList
 	end
 end

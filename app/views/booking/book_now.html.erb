@@ -100,18 +100,18 @@
       
       dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
       if ($.inArray(dmy, booked_start_dates) == -1) {
-        return [true, ""];
+        return [true, "event"];
       } else {
-        return [false, "", "Unavailable"];
+        return [false, ""];
       }
     }
 
     function booked_dates_end(date) {
       dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
       if ($.inArray(dmy, booked_end_dates) == -1) {
-        return [true, ""];
+        return [true, "event"];
       } else {
-        return [false, "", "Unavailable"];
+        return [false, ""];
       }
     }
 
@@ -214,4 +214,9 @@
   });
 </script>
 
-
+<style type="text/css">
+  .event a {
+    background-color: #5e5e5e !important;
+    color: #ffffff !important;
+  }
+</style>

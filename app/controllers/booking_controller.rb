@@ -1,15 +1,18 @@
 class BookingController < ApplicationController
 	before_action :authenticate_user!,  only: [:book_now, :create, :pay_now]
 	before_action :get_property,  only: [:create, :pay_now, :book_now, :get_type_price]
+	skip_before_filter :verify_authenticity_token, only: [:patym_webhook]
+
 	include PaytmHelper
 
-	
-	def create_booking
+	def patym_webhook
+		redirect_to :back
 	end 
 
 	def pay_now
 		@booking = Booking.friendly.find(params[:id])	
     @paramList = @booking.params_list_patym
+    @paramList["CALLBACK_URL"] = patym_webhook_property_booking_url(@property,@booking)
 		@checksum_hash = new_pg_checksum(@paramList, ENV['PAYTM_MERCHANT_KEY']).gsub("\n",'')
 	end
 
@@ -49,8 +52,4 @@ class BookingController < ApplicationController
     params.require(:booking).permit(:user_id, :property_id, :name, :book_type, :phone, :rooms, :seats, :start_date, :end_date, :status, :total_amount)
   end
 end
-
- 
-																																				      
-																																				      
-																																				    
+								

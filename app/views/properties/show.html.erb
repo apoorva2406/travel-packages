@@ -82,37 +82,6 @@
           <%end%>
         </div> 
       </div>
-
-      <!-- <div id="Nearby">
-        <div class="main-switcher">
-          <ul id="Grid" class="sandbox">
-            <% if @near_by_properties.present?%>
-              <%@near_by_properties.each do |property|%>
-                <div class="col-md-6">
-                  <li class="mix category-1" data-value="1250" style="display: inline-block;">
-                    <figure>
-                      <div class="cbp-vm-image img">
-                        <img src="<%=property_photo(property)%>" alt="img01"/>
-                        <div class="overlay">
-                          <%= link_to "+", property_path(property), :"data-no-turbolink" => false, :class=>"expand" %>
-                          <a class="close-overlay hidden">x</a>
-                        </div>
-                      </div>
-                      <figcaption>
-                        <h3><%= truncate(property.try(:name), length: 15) %></h3>
-                        <div class="clear"></div>
-                        <p><%=truncate(property.try(:description),length: 75)%></p>
-                        <%=property_seats_price(property)%>
-                        <a href="<%=property_path(property)%>" class="btn btn-primary btn-gallery">Read More</a>
-                      </figcaption>
-                    </figure>
-                  </li>
-                </div>
-              <%end%> 
-            <%end%>  
-          </ul>
-        </div>      
-      </div> -->
     </div>
   </div>
 
@@ -177,36 +146,6 @@
   </div>
 </div>
 
-
-<style>
-  
-  /*#property_show_map {
-    height: 100%;
-    width: 100%;
-  }*/
-
-</style>
-
-<script type="text/javascript">
-  // $(window).load(function(){
-  //   initMapShow();
-  // })
-
-  // var myLatLng = {lat: 22.6987, lng: 75.8817};
-  // function initMapShow() {
-  //   var map = new google.maps.Map(document.getElementById('property_show_map'), {
-  //     center: myLatLng,
-  //     zoom: 13
-  //   });
-    
-  //   var infowindow = new google.maps.InfoWindow();
-  //   var marker = new google.maps.Marker({
-  //     map: map,
-  //     position: myLatLng,
-  //     draggable: true
-  //   });
-  // }
-</script>
 
 
 

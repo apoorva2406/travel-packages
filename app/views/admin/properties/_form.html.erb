@@ -1,43 +1,250 @@
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <div class="stepwizard">
+      <div class="stepwizard-row">
+        <div class="stepwizard-step">
+          <button type="button" class="btn btn-primary btn-circle">1</button>
+          <p><%=@property.id.nil? ? 'Create' : 'Update'%> Property</p>
+        </div>
+        <div class="stepwizard-step">
+          <button type="button" class="btn btn-default btn-circle">2</button>
+          <p><%=@property.id.nil? ? 'Add' : 'Update'%>  seats</p>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <%= semantic_form_for  [:admin, @property]  do |f| %>
+      <% if @property.errors.any? %>
+        <center><div id="error_explanation" style="color:red;">
+          <h2><%= pluralize(@property.errors.count, "error") %> prohibited this property from being saved:</h2>
+
+          <ul>
+          <% @property.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div><br></center>
+      <% end %>
+
+      <div class="row">
+        <div class="col-md-3">
+          <%= f.label :select_owner_email %>*<br>
+        </div>
+        
+        <div class="col-md-9">
+          <select name="user_id" class="form-control create_number_of_rooms" required <%="disabled" if @property.try(:id).present?  %>>
+            <option value="" disabled="disabled" selected="selected">Select owner</option>
+            <% User.joins(:roles).where('roles.name = ?', "Owner").all.each do |user|%>
+              <option value="<%=user.id%>" <%="selected" if user == @property.try(:user) %> ><%=user.email%></option>
+            <%end%> 
+          </select> 
+        </div>
+      </div>
+
+      <br>
+      <div class="row">
+        <div class="col-md-3">
+          <%= f.label :Name_of_Property %>*<br>
+        </div>
+        
+        <div class="col-md-9">
+          <%= f.text_field :name, class: "form-control", required: 'true', :placeholder=>"Enter property name" %> 
+        </div>
+      </div>
+
+      <br>
+      <div class="row">
+        <div class="col-md-3">
+          <%= f.label :phone_number %>*<br>
+        </div>
+        <div class="col-md-9">
+          <%= f.text_field :phone_number, class: "form-control", required: 'true',:onkeypress=>"return event.charCode >= 48 && event.charCode <= 57" ,:maxlength=>"10", :placeholder=>"Enter 10 digit Mobile Number" %> 
+        </div>
+      </div>
+
+      <br>
+      <div class="row">
+        <div class="col-md-3">
+          <%= f.label :email %>*<br>
+        </div>
+        <div class="col-md-9">
+         <%= f.text_field :email, class: "form-control", required: 'true', :placeholder=>"your@emaple.com" %>
+        </div>
+      </div>
+
+      <br>
+      <div class="row">
+        <div class="col-md-3">
+          <%= f.label :property_type %><br>
+        </div>
+        <div class="col-md-9">
+         <% PropertyType.all.each do |a_value| %>
+          <label class="checkbox-inline">
+          <% status = @property.properties_type.present? ? (JSON(@property.properties_type).include?(a_value.id.to_s) ? true : false ) : false %>
+          <%= f.check_box :properties_type, { :multiple => true, :checked=> status}, a_value.id %><%=a_value.name%>
+          </label>
+        <% end %>
+        </div>
+      </div>
+
+      <br>
+      <div class="row">
+        <div class="col-md-3">
+         <%= f.label :contact_person %>*<br>
+        </div>
+        <div class="col-md-9">
+          <%= f.text_field :contact_person, :placeholder=>"Enter contact person name", class: "form-control",required: 'true'%>
+        </div>
+      </div>
+
+      <br>
+      <div class="row">
+        <div class="col-md-3">
+         <%= f.label :description %>*<br>
+        </div>
+        <div class="col-md-9">
+          <%= f.text_area :description, :placeholder=>"Describe property", class: "form-control",required: 'true', size: "20x5"%>
+        </div>
+      </div>
+
+      <br>
+      <div class="row">
+        <div class="col-md-3">
+         <%= f.label :address %>*<br>
+        </div>
+        <div class="col-md-9">
+          <%= f.text_field :address, :class=> "form-control", :id=>"property_address_#{@property.id}", :placeholder=>"Enter property address" %>
+        </div>
+      </div>
+
+      <br>
+      <div class="field">
+        <div id="property_map"></div>
+      </div>
+
+      <br>
+      <div class="row">
+        <div class="col-md-3">
+         <%= f.label :facilities %><br>
+        </div>
+        <div class="col-md-9">
+          <% Facility.all.each do |a_value| %>
+            <label class="checkbox-inline">
+              <%status = @property.facilities.present? ? (JSON(@property.facilities).include?(a_value.id.to_s) ? true : false ) : false %>
+              <%= f.check_box(:facilities, { :multiple => true, :checked=> status }, a_value.id) %><%=a_value.name%>
+            </label>
+          <% end %>
+        </div>
+      </div>
+
+      <br>
+      <div class="row">
+        <div class="col-md-3">
+        <%= f.label :access_day %><br>
+        </div>
+        <div class="col-md-9">
+           <% AccessDay.all.each do |a_value| %>
+          <label class="checkbox-inline">
+            <%status = @property.access_day.present? ? (JSON(@property.access_day).include?(a_value.id.to_s) ? true : false ) : false %>
+
+            <%= f.check_box(:access_day, { :multiple => true, :checked=> status }, a_value.id) %><%=a_value.name%>
+          </label>
+        <% end %>
+        </div>
+      </div>
 
 
-<%= semantic_form_for [:admin, @property] do |f| %>
-  
-	<table class="table">
-    <thead>
-      <tr>
-        <th>Property type</th>
-        <th>Number Of Seats </th>
-        <th>Price</th>
-      </tr>
-    </thead>  
-    <tbody>
-      <% @property.property_types.each do |type|%>
-        <tr>
-          <td><%=type.name%></td>
-          <%if type.name.eql?('Meeting/Conference Room')%>
-            <td>
-              <select name="number_of_room" id="<%=type.id%>" class="form-control create_number_of_rooms" required disabled>
-                <option value="" disabled="disabled" selected="selected">No of rooms</option>
-                <%rooms = property_type_price(type.id,"rooms") %>
+       <br>
+      <div class="row">
+        <div class="col-md-3">
+        <%= f.label :opening_hours %><br>
+        </div>
+        <div class="col-md-9">
+          <div class="row">
+            <div class="col-md-4">
+              <%= f.select "start_date", options_for_select(property_time, @property.start_date), {include_blank: 'Start Time'}, { autofocus: 'true', class: 'form-control'} %>
+            </div>
+            <div class="col-md-4">
+              <%= f.select "end_date", options_for_select(property_time, @property.end_date), {include_blank: 'End Time'}, {autofocus: 'true', class: 'form-control'} %>
+            </div>
+            <div class="col-md-4"></div>
+          </div>
+        </div>
+      </div>
 
-                <%4.times do |number|%>
-                  <option value="<%=number+1%>" <%="selected" if rooms ==number+1 %> ><%=number+1%></option>
-                <%end%>  
+      <br>
+      <div class="row">
+        <div class="col-md-3">
+         <%= f.label :Upload_property_photos %><br>
+        </div>
+        <div class="col-md-9">
+        <%= f.file_field :images, class: "form-control", multiple: true, :id=>"property_form_image" %>
+        </div>
+      </div>
 
-              </select>
-              <table class="table"> 
-                <tbody id="meeting_room_inputs">
-                  <%= property_meeting_children_admin(type.id)%>
-                </tbody>
-              </table>
-            </td>
-          <%else%>
-            <td><input type="text" class="form-control" placeholder="Enter seats" required="required" name="seats[<%= type.id %>]" value="<%=property_type_price(type.id,"seats")%>" onkeypress= "return event.charCode >= 48 && event.charCode <= 57" disabled></td>
+      <div class="property-preview">
+        <% if @property.photos.present? %>
+          <% @property.photos.each do |photo| %>
+            <img id="pr_update_image_<%=photo.id%>" src="<%= photo.image.url %>" />
+            <a href="javascript:void(0)" class="pr_remove_image" id="<%=photo.id%>">X</a>
           <%end%>
-          <td><input type="text" class="form-control step_2_price" placeholder="Enter price per seat" required="required" name="price[<%=type.id %>]" value="<%=property_type_price(type.id)%>"></td>
-        </tr>
-      <%end%>
-    </tbody> 
-  </table>  
-  <center><div style="padding: 28px;"><input type="submit" value="Update" class="btn btn-primary"></div></center>
-<% end %>
+        <%end%>
+      </div>
+
+      <input type="hidden" id="property_new_image" name="new_image">
+
+      <br>
+      <div class="actions"><center>
+        <input class="btn btn-primary" type="submit" value="<%=@property.id.nil? ? 'Continue' : 'Update'%>">
+      </div><br>
+    <% end %>
+  </div>
+  <div class="col-md-2"></div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    //Image
+    var inputLocalFont = document.getElementById("property_form_image");
+    inputLocalFont.addEventListener("change",previewImages,false);
+    function previewImages(){
+      var fileList = this.files;
+      var anyWindow = window.URL || window.webkitURL;
+      for(var i = 0; i < fileList.length; i++){
+        var objectUrl = anyWindow.createObjectURL(fileList[i]);
+        $('.property-preview').append('<img id="img-'+i+'" src="' + objectUrl + '" /><a href="javascript:void(0)" class="remove_pict" id="rev-'+i+'">X</a>');
+        window.URL.revokeObjectURL(fileList[i]);
+
+        $(".remove_pict").click(function(){
+          $("#img-"+this.id.split('-')[1]).remove()
+          this.remove();
+          var ids = $('.property-preview img').map(function(){
+            return this.id;
+           }).get();
+          $('#property_new_image').val(ids);
+        }) 
+      }
+    }
+
+    //Remove image
+    $('.pr_remove_image').click(function(){
+      $("#pr_update_image_"+this.id).remove();
+      this.remove();
+      $.ajax({
+        url: "/properties/remove_image",
+        type: "post",
+        data: { photo_id: this.id},
+        success: function (response) {
+          alert('Image successfully deleted');  
+        }
+      });
+    })
+  })
+</script>
+
+
+

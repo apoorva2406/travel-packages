@@ -1,0 +1,66 @@
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <%= semantic_form_for [:admin, @property] do |f| %>
+    	<table class="table">
+        <thead>
+          <tr>
+            <th>Property type</th>
+            <th>Number Of Seats </th>
+            <th>Price</th>
+          </tr>
+        </thead>  
+        <tbody>
+          <% @property.property_types.each do |type|%>
+            <tr>
+              <td><%=type.name%></td>
+              <%if type.name.eql?('Meeting/Conference Room')%>
+                <td>
+                  <select name="number_of_room" id="<%=type.id%>" class="form-control create_number_of_rooms" required>
+                    <option value="" disabled="disabled" selected="selected">No of rooms</option>
+                    <%rooms = property_type_price(type.id,"rooms") %>
+
+                    <%4.times do |number|%>
+                      <option value="<%=number+1%>" <%="selected" if rooms ==number+1 %> ><%=number+1%></option>
+                    <%end%>  
+
+                  </select>
+                  <table class="table"> 
+                    <tbody id="meeting_room_inputs">
+                      <%= property_meeting_children(type.id)%>
+                    </tbody>
+                  </table>
+                </td>
+              <%else%>
+                <td><input type="text" class="form-control" placeholder="Enter seats" required="required" name="seats[<%= type.id %>]" value="<%=property_type_price(type.id,"seats")%>" onkeypress= "return event.charCode >= 48 && event.charCode <= 57"></td>
+              <%end%>
+              <td><input type="text" class="form-control step_2_price" placeholder="Enter price per seat" required="required" name="price[<%=type.id %>]" value="<%=property_type_price(type.id)%>"></td>
+            </tr>
+          <%end%>
+        </tbody> 
+      </table>  
+      <center><div style="padding: 28px;"><input type="submit" value="Update" class="btn btn-primary"></div></center>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(document).on("change",".create_number_of_rooms",function(){
+      var value;
+      var rows = $("#meeting_room_inputs tr");
+      $("#meeting_room_inputs").empty();
+      var number = parseInt($(this).val());
+      for(var i = 0; i < number; i++) {
+        if (rows.find('.form-control')[i]){
+          value = rows.find('.form-control')[i].value;
+        }
+        else{
+          value = ''
+        }
+        var inpt = $('<tr><td>'+(i+1)+'</td><td><input type="text" class="form-control" placeholder="Enter seats" required="required" name="room['+(i+1)+']" value="'+value+'" onkeypress= "return event.charCode >= 48 && event.charCode <= 57"></td></tr>');
+        $("#meeting_room_inputs").append(inpt);
+      }
+    })
+  })
+</script>

@@ -7,8 +7,6 @@ Rails.application.routes.draw do
   post '/auth/:provider/callback' => 'authentications#create'
 
   #Paytm callback url
-  post 'create_booking' => 'booking#create_booking'
-
   root 'home#index'
   resources :properties do 
     #Booking routes
@@ -20,6 +18,7 @@ Rails.application.routes.draw do
 
       member do 
         get 'pay_now'
+        post 'patym_webhook'
       end
     end
 

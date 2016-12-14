@@ -22,7 +22,7 @@ class PropertiesController < ApplicationController
           properties = builder_query(desire_lat[0],desire_lat[1],type,"desire")
           properties = builder_query(city_lat[0],city_lat[1],type) if properties.blank?
         else
-          properties = Property.search type
+          properties = Property.search type, where: {varified: true}
         end
         properties.each{|p| @result << p}
       end
@@ -44,7 +44,7 @@ class PropertiesController < ApplicationController
       properties = builder_query(lat,lng,'',"desire")
       properties.each{|p| @result << p}
     else
-      properties = Property.search "*"
+      properties = Property.search "*", where: {varified: true}
       properties.each{|p| @result << p}
     end
 
@@ -63,9 +63,9 @@ class PropertiesController < ApplicationController
 
   def builder_query(lat, lng, type={}, miles={})
     if miles.present?
-      Property.search "#{type.present? ? type : "*"}", where: {location: {near: {lat: lat, lon: lng}, within: "2mi"}}
+      Property.search "#{type.present? ? type : "*"}", where: {varified: true, location: {near: {lat: lat, lon: lng}, within: "2mi"}}
     else
-      Property.search "#{type.present? ? type : "*"}", where: {location: {near: {lat: lat, lon: lng}}}
+      Property.search "#{type.present? ? type : "*"}", where: {varified: true, location: {near: {lat: lat, lon: lng}}}
     end
   end
 
