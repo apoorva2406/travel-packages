@@ -1,6 +1,10 @@
 <div class="container">
   <div class="row">
-    <center><h2>Confirm your property</h2></center>
+    <center>
+    	<h3>
+    		<%= @booking.payment.present? ? 'Your property has been confirmed' : 'Confirm your property' %>
+    	</h3>
+    </center>
     <div id="reservation-form" class="col-md-8 col-md-offset-2 reservation-color-form  resv-plus-meteo">
    
     <div class="row">
@@ -51,7 +55,9 @@
 						<input type="hidden" name="<%=k%>" value="<%=@paramList[k]%>"/>
 					<%end%>
 	    		<input type="hidden" name="CHECKSUMHASH" value="<%=@checksum_hash%>">
-	      	<input type="submit" value="Pay with paytm" class="btn btn-primary btn-block" />
+	    		<% unless @booking.payment.present? %>
+	      		<input type="submit" value="Pay with paytm" class="btn btn-primary btn-block" />
+	      	<%end%>	
 	      </form>
       </div>
     </div>

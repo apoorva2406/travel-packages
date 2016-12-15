@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  property_id: 1
+  booking_id: 1
+  mid: MyString
+  order_id: MyString
+  amount: 1.5
+  curency: MyString
+  txn_id: MyString
+  banktxn_id: MyString
+  status: MyString
+  txn_date: MyString
+  gateway_name: MyString
+  bank_name: MyString
+  payment_mode: MyString
+  checksum_key: MyString
+
+two:
+  user_id: 1
+  property_id: 1
+  booking_id: 1
+  mid: MyString
+  order_id: MyString
+  amount: 1.5
+  curency: MyString
+  txn_id: MyString
+  banktxn_id: MyString
+  status: MyString
+  txn_date: MyString
+  gateway_name: MyString
+  bank_name: MyString
+  payment_mode: MyString
+  checksum_key: MyString

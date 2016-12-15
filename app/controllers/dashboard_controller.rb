@@ -6,6 +6,9 @@ class DashboardController < ApplicationController
 		@resource = current_user
 	end
 
+	def my_earning
+	end
+
 	def property
 		@property = Property.find(params[:id])
 		@near_by_properties = Property.search "*", where: {location: {near: {lat: @property.latitude, lon: @property.longitude}, within: "3mi"}}
@@ -16,9 +19,14 @@ class DashboardController < ApplicationController
 		authorize! :read, @properties
 	end
 
-	def booking;end
+	def booking
+		@bookings = current_user.bookings.order('created_at desc')
+	end
 	def vistis;end
-	def mypayments;end
+
+	def mypayments
+		@payments = current_user.payments
+	end
 	def changepassword
 		@resource = current_user
 	end

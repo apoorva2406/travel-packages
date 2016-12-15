@@ -5,6 +5,8 @@ class Property < ActiveRecord::Base
   has_many :property_prices 
 	has_many :photos, as: :imageable
 	belongs_to :user
+	has_many :bookings
+	has_many :payments
 	validates :name, :phone_number, :email, :contact_person, :address, :user_id, presence: true
 	geocoded_by :address
   after_validation :geocode, if: :address_changed?   

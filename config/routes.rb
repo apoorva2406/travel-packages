@@ -32,6 +32,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :booking , only: [] do
+    member do 
+      get 'view_invoice'
+    end
+  end
+  
+
   resources :search, only: [] do 
     collection do 
       post 'serach_by_type'
@@ -47,6 +54,7 @@ Rails.application.routes.draw do
     end
 
   	collection do 
+      get 'my_earning', :path => 'myprofile/my_earning'
   		get 'myprofile', :path => 'myprofile'
       get 'my_property', :path => 'myprofile/my_property'
       get 'booking', :path => 'myprofile/booking'

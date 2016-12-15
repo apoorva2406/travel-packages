@@ -1,22 +1,37 @@
 class BookingController < ApplicationController
-	before_action :authenticate_user!,  only: [:book_now, :create, :pay_now]
-	before_action :get_property,  only: [:create, :pay_now, :book_now, :get_type_price]
+	before_action :authenticate_user!,  only: [:book_now, :create, :pay_now, :view_invoice]
+	before_action :get_property,  only: [:create, :pay_now, :book_now, :get_type_price, :patym_webhook]
+	before_action :get_booking,  only: [:patym_webhook, :pay_now, :view_invoice]
 	skip_before_filter :verify_authenticity_token, only: [:patym_webhook]
 
 	include PaytmHelper
 
 	def patym_webhook
-		redirect_to :back
+		if params[:STATUS].eql?('TXN_SUCCESS')
+			@payment = current_user.payments.new()
+			@payment.create_payment(params, @booking.id)
+			if @payment.save
+				flash[:notice] = "Your booking is successfully created" 
+			else
+				flash[:alert] = "Transaction status is failure #{params[:RESPMSG]}" 
+			end
+		else
+			flash[:alert] = "Transaction status is failure #{params[:RESPMSG]}"
+		end
+		redirect_to pay_now_property_booking_path(@property,@booking)
 	end 
 
 	def pay_now
-		@booking = Booking.friendly.find(params[:id])	
     @paramList = @booking.params_list_patym
     @paramList["CALLBACK_URL"] = patym_webhook_property_booking_url(@property,@booking)
 		@checksum_hash = new_pg_checksum(@paramList, ENV['PAYTM_MERCHANT_KEY']).gsub("\n",'')
 	end
 
 	def book_now
+	end
+
+	def view_invoice
+		@payment = @booking.payment
 	end
 
 	def create
@@ -44,6 +59,10 @@ class BookingController < ApplicationController
 	protected
 	def get_property
 		@property = Property.find(params[:property_id])
+	end
+
+	def get_booking
+		@booking = Booking.friendly.find(params[:id])	
 	end
 
 	def booking_params

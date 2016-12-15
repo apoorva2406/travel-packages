@@ -16,16 +16,46 @@
       <li><a href="<%=myprofile_dashboard_index_path%>">PROFILE</a></li>
       <% if user_role_owner %>
         <li><a href="<%=my_property_dashboard_index_path%>">MY PROPERTY</a></li>
+        <li><a href="<%=my_earning_dashboard_index_path%>">MY EARNING </a></li>
       <%end%>
-      <li><a href="<%=booking_dashboard_index_path%>">BOOKING</a></li>
+      <li><a href="<%=booking_dashboard_index_path%>">MY BOOKING</a></li>
       <li><a href="<%=vistis_dashboard_index_path%>">VISITS</a></li>
       <li class="active"><a href="<%=mypayments_dashboard_index_path%>">MY PAYMENTS</a></li>
       <li><a href="<%=changepassword_dashboard_index_path%>">CHANGE PASSWORD</a></li>
     </ul>
 
-    <div class="well">
+    <div class="well" style="margin-top:10px">
       <div class="tab-content">
-        <h3>MY PAYMENTS</h3>
+        <table class="table table-hover">
+          <% if @payments.present? %>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Booking type</th>
+                <th>Order id</th>
+                <th>Booking date:</th>
+                <th>Total amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%@payments.each do |payment|%>
+                <tr>
+                  <td><%=payment.try(:booking).try(:name)%></td>
+                  <td>
+                    <%= image_tag payment.try(:property).try(:photos).first.image, :style=>"height:80px;width:80px;"%> <span><%=payment.try(:property).try(:name)%></span>
+                  </td>
+                  <td><%=payment.try(:order_id)%></td>
+                  <td><%=DateTime.parse(payment.txn_date).strftime("%a, %e %b %Y %H:%M")%></td>
+                  <td><%=payment.try(:amount)%></td>
+                  <td><%=payment.try(:status).eql?('TXN_SUCCESS') ? 'success' : ''%></td>
+                </tr>
+              <%end%>  
+            </tbody>
+          <%else%>
+            <h3>You have not made payment</h3>
+          <%end%>  
+        </table>
       </div>
     </div>
   </div>

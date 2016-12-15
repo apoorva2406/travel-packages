@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
  	has_one :authentication
   has_many :properties
   has_many :bookings
+  has_many :payments
 
   def apply_omniauth(omniauth)
     self.profile_image = omniauth['info']['image']

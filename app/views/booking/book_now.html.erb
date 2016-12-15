@@ -88,18 +88,11 @@
       
 <script type="text/javascript">
   $(document).ready(function(){
-
-   //var booked_start_dates  = ["13-12-2016", "15-12-2016",];
-   
-
-   var booked_start_dates = <%= raw Booking.all.map{|b| b.start_date.strftime("%d-%m-%Y").to_s}.compact%> 
-
-   var booked_end_dates = <%= raw Booking.all.map{|b| b.end_date.strftime("%d-%m-%Y").to_s}.compact%> 
+    var all_disable_dates = <%= raw start_dates_array %>
 
     function booked_dates(date) {
-      
       dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
-      if ($.inArray(dmy, booked_start_dates) == -1) {
+      if ($.inArray(dmy, all_disable_dates) == -1) {
         return [true, "event"];
       } else {
         return [false, ""];
@@ -108,7 +101,7 @@
 
     function booked_dates_end(date) {
       dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
-      if ($.inArray(dmy, booked_end_dates) == -1) {
+      if ($.inArray(dmy, all_disable_dates) == -1) {
         return [true, "event"];
       } else {
         return [false, ""];

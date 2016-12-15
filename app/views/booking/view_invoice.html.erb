@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <center>
+    	<h3>Thank you!!! for booking property</h3>
+    </center>
+    <div id="reservation-form" class="col-md-8 col-md-offset-2 reservation-color-form  resv-plus-meteo">
+   
+    <div class="row">
+    	<div class="col-md-8 col-md-offset-2">
+	    	<table class="table">
+	    		<tr>
+	    			<th>Name:</th>
+	    			<td><%=@booking.try(:name)%></td>
+	    		</tr>
+
+	    		<tr>
+	    			<th>Order id:</th>
+	    			<td><%=@payment.try(:order_id)%></td>
+	    		</tr>
+
+	    		<tr>
+	    			<th>Booking date:</th>
+	    			<td><%=DateTime.parse(@payment.txn_date).strftime("%a, %e %b %Y %H:%M")%></td>
+	    		</tr>
+
+	    		<tr>
+	    			<th>Total amount:</th>
+	    			<td><%=@payment.try(:amount)%></td>
+	    		</tr>
+	    	</table>
+      </div>
+    </div>
+  </div>
+</div>
+      
