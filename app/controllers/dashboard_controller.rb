@@ -7,6 +7,7 @@ class DashboardController < ApplicationController
 	end
 
 	def my_earning
+		@payments = Payment.where(property_id: current_user.properties.map(&:id)).order('created_at desc')
 	end
 
 	def property

@@ -88,7 +88,7 @@
       
 <script type="text/javascript">
   $(document).ready(function(){
-    var all_disable_dates = <%= raw start_dates_array %>
+    var all_disable_dates = []; <%#= raw start_dates_array %>
 
     function booked_dates(date) {
       dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
@@ -162,7 +162,7 @@
               $('#book_seats').select2({
                 multiple: false
               });  
-              for (var j = 0; j < property_price.seats; j++){                 
+              for (var j = 0; j < response.remaining_seats; j++){                 
                 $("#book_seats").append("<option value='" +(j+1)+ "'>" +(j+1)+ "</option>");    
               }    
             }  
