@@ -7,6 +7,7 @@ class DashboardController < ApplicationController
 	end
 
 	def my_earning
+		@bookings = Booking.where(property_id: current_user.properties.map(&:id), status: "not confirm")
 		@payments = Payment.where.not(user_id: current_user.id).where(property_id: current_user.properties.map(&:id)).group_by{|p| p.txn_day}
 	end
 

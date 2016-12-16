@@ -33,7 +33,9 @@
                 <th>Name</th>
                 <th>Booking type</th>
                 <th>Order id</th>
-                <th>Booking date:</th>
+                <th>Booking start date</th>
+                <th>Booking end date</th>
+                <th>Payment date:</th>
                 <th>Total amount</th>
                 <th>Status</th>
               </tr>
@@ -46,6 +48,8 @@
                     <%= image_tag payment.try(:property).try(:photos).first.image, :style=>"height:80px;width:80px;"%> <span><%=payment.try(:property).try(:name)%></span>
                   </td>
                   <td><%=payment.try(:order_id)%></td>
+                  <td><%=payment.try(:booking).try(:start_date).strftime("%a, %e %b %Y")%></td>
+                    <td><%=payment.try(:booking).try(:end_date).strftime("%a, %e %b %Y")%></td>
                   <td><%=DateTime.parse(payment.txn_date).strftime("%a, %e %b %Y %H:%M")%></td>
                   <td><%=payment.try(:amount)%></td>
                   <td><%=payment.try(:status).eql?('TXN_SUCCESS') ? 'success' : ''%></td>

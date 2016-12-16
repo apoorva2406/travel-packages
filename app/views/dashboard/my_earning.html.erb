@@ -26,56 +26,111 @@
 
     <div class="well">
       <div class="tab-content">
-        <table class="table table-hover">
-          <% if @payments.present? %>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Booking type</th>
-                <th>Order id</th>
-                <th>Booking date:</th>
-                <th>Total amount</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <%@payments.each_pair do |key, payments|%>
-                <tr>
-                  <td> 
-                    <strong>Booking: <%=key.strftime("%a, %e %b %Y")%></strong>
-                  </td>
-                </tr>
-                
-                <%payments.each do |payment| %>
+        
+        <ul class="nav nav-pills">
+          <li class="active"><a data-toggle="pill" href="#success">Success</a></li>
+          <li><a data-toggle="pill" href="#pending">Pending</a></li>
+        </ul>
+        
+        <div class="tab-content">
+          <div id="success" class="tab-pane fade in active">
+            <table class="table table-hover">
+              <% if @payments.present? %>
+                <thead>
                   <tr>
-                    <td><%=payment.try(:booking).try(:name)%></td>
-                    <td>
-                      <%= image_tag payment.try(:property).try(:photos).first.image, :style=>"height:80px;width:80px;"%> <span><%=payment.try(:property).try(:name)%></span>
-                    </td>
-                    <td><%=payment.try(:order_id)%></td>
-                    <td><%=DateTime.parse(payment.txn_date).strftime("%a, %e %b %Y %H:%M")%></td>
-                    <td><%=payment.try(:amount)%></td>
-                    <td><%=payment.try(:status).eql?('TXN_SUCCESS') ? 'success' : ''%></td>
+                    <th>Name</th>
+                    <th>Booking type</th>
+                    <th>Order id</th>
+                    <th>Booking start date</th>
+                    <th>Booking end date</th>
+                    <th>Payment date:</th>
+                    <th>Total amount</th>
+                    <th>Status</th>
                   </tr>
-                <%end%> 
+                </thead>
+                <tbody>
+                  <%@payments.each_pair do |key, payments|%>
+                    <tr>
+                      <td> 
+                        <strong>Booking: <%=key.strftime("%a, %e %b %Y")%></strong>
+                      </td>
+                    </tr>
+                    
+                    <%payments.each do |payment| %>
+                      <tr>
+                        <td><%=payment.try(:booking).try(:name)%></td>
+                        <td>
+                          <%= image_tag payment.try(:property).try(:photos).first.image, :style=>"height:80px;width:80px;"%> <span><%=payment.try(:property).try(:name)%></span>
+                        </td>
+                        <td><%=payment.try(:order_id)%></td>
+                        <td><%=payment.try(:booking).try(:start_date).strftime("%a, %e %b %Y")%></td>
+                        <td><%=payment.try(:booking).try(:end_date).strftime("%a, %e %b %Y")%></td>
+                        <td><%=DateTime.parse(payment.txn_date).strftime("%a, %e %b %Y %H:%M")%></td>
+                        <td><%=payment.try(:amount)%></td>
+                        <td><%=payment.try(:status).eql?('TXN_SUCCESS') ? 'Booked' : ''%></td>
+                      </tr>
+                    <%end%> 
 
-                <tr>
-                  <td colspan="6" align="right"> 
-                    <strong> Earning: <%=payments.map(&:amount).reduce(:+)%></strong>
-                  </td>
-                </tr> 
-              <%end%> 
+                    <tr>
+                      <td colspan="8" align="right"> 
+                        <strong> Earning: <%=payments.map(&:amount).reduce(:+)%></strong>
+                      </td>
+                    </tr> 
+                  <%end%> 
 
-              <tr>
-                <td colspan="6" align="right"> 
-                  <strong>Total Earning: <%=@payments.values.flatten.map(&:amount).reduce(:+)%></strong>
-                </td>
-              </tr>
-            </tbody>
-          <%else%>
-            <h3>You did not earn from any property</h3>
-          <%end%>  
-        </table>
+                  <tr>
+                    <td colspan="8" align="right"> 
+                      <strong>Total Earning: <%=@payments.values.flatten.map(&:amount).reduce(:+)%></strong>
+                    </td>
+                  </tr>
+                </tbody>
+              <%else%>
+                <h3>You did not earn from any property</h3>
+              <%end%>  
+            </table> 
+          </div>
+
+          <div id="pending" class="tab-pane fade">
+            <table class="table table-hover">
+              <% if @bookings.present? %>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Phone Number</th>
+                    <th>Property Name</th>
+                    <th>Property type</th>
+                    <th>Total seats</th>
+                    <th>Booking start date</th>
+                    <th>Booking end date</th>
+                    <th>Booking date</th>
+                    <th>Total amount</th>
+                    <th>Booking status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <%@bookings.each do |booking|%>
+                    <tr>
+                      <td><%=booking.try(:name)%></td>
+                      <td><%=booking.try(:phone)%></td>
+                      <td><%=link_to "#{booking.try(:property).try(:name)}", property_path(booking.try(:property)), :target=>"_blank"%></td>
+                      <td><%=link_to "#{booking.try(:book_type)}", property_path(booking.try(:property)), :target=>"_blank"%></td>
+                      <td><%=JSON(booking.try(:seats)).map(&:to_i).inject(:+)%></td>
+                      <td><%=booking.try(:start_date).strftime("%a, %e %b %Y")%></td>
+                      <td><%=booking.try(:end_date).strftime("%a, %e %b %Y")%></td>
+                      <td><%=booking.try(:created_at).strftime("%a, %e %b %Y")%></td>
+                      <td><%=booking.try(:total_amount)%></td>
+                      <td>
+                        <%= "Pending" if booking.try(:status).eql?("not confirm") %>
+                      </td>
+                    </tr>
+                  <%end%>  
+                </tbody>
+              <%else%>
+                <h3>You have no booking</h3>
+              <%end%>  
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
