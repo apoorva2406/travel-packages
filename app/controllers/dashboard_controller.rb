@@ -7,7 +7,7 @@ class DashboardController < ApplicationController
 	end
 
 	def my_earning
-		@payments = Payment.where(property_id: current_user.properties.map(&:id)).order('created_at desc')
+		@payments = Payment.where(property_id: current_user.properties.map(&:id)).group_by{|p| p.txn_day}
 	end
 
 	def property

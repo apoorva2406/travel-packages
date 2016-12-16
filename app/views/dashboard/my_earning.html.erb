@@ -39,23 +39,38 @@
               </tr>
             </thead>
             <tbody>
-              <%@payments.each do |payment|%>
+              <%@payments.each_pair do |key, payments|%>
                 <tr>
-                <td>
-                  
-                </td>
-                </tr>
-                <tr>
-                  <td><%=payment.try(:booking).try(:name)%></td>
-                  <td>
-                    <%= image_tag payment.try(:property).try(:photos).first.image, :style=>"height:80px;width:80px;"%> <span><%=payment.try(:property).try(:name)%></span>
+                  <td> 
+                    <strong>Booking: <%=key.strftime("%a, %e %b %Y")%></strong>
                   </td>
-                  <td><%=payment.try(:order_id)%></td>
-                  <td><%=DateTime.parse(payment.txn_date).strftime("%a, %e %b %Y %H:%M")%></td>
-                  <td><%=payment.try(:amount)%></td>
-                  <td><%=payment.try(:status).eql?('TXN_SUCCESS') ? 'success' : ''%></td>
                 </tr>
-              <%end%>  
+                
+                <%payments.each do |payment| %>
+                  <tr>
+                    <td><%=payment.try(:booking).try(:name)%></td>
+                    <td>
+                      <%= image_tag payment.try(:property).try(:photos).first.image, :style=>"height:80px;width:80px;"%> <span><%=payment.try(:property).try(:name)%></span>
+                    </td>
+                    <td><%=payment.try(:order_id)%></td>
+                    <td><%=DateTime.parse(payment.txn_date).strftime("%a, %e %b %Y %H:%M")%></td>
+                    <td><%=payment.try(:amount)%></td>
+                    <td><%=payment.try(:status).eql?('TXN_SUCCESS') ? 'success' : ''%></td>
+                  </tr>
+                <%end%> 
+
+                <tr>
+                  <td colspan="6" align="right"> 
+                    <strong> Earning: <%=payments.map(&:amount).reduce(:+)%></strong>
+                  </td>
+                </tr> 
+              <%end%> 
+
+              <tr>
+                <td colspan="6" align="right"> 
+                  <strong>Total Earning: <%=@payments.values.flatten.map(&:amount).reduce(:+)%></strong>
+                </td>
+              </tr>
             </tbody>
           <%else%>
             <h3>You did not earn from any property</h3>

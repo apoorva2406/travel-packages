@@ -23,5 +23,6 @@ class Payment < ActiveRecord::Base
 		self.checksum_key = params[:CHECKSUMHASH]
 		self.property_id = params[:property_id]
 		self.booking_id = booking_id
+		self.txn_day = params[:TXNDATE].to_date
 	end
 end

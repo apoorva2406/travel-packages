@@ -19,9 +19,32 @@
             </div>
           </div>
 
+          <div class="col-sm-2 fly-check">
+            <h3><span>02</span> When?</h3>
+            <div class="form-group">
+              <div class="col-md-6 box-fly-book">
+                <label for="checkin">Start Date*:</label>
+                <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Check-In is from 11:00"> <i class="fa fa-info-circle fa-lg"> </i> </div>
+                <div class="content-checkin-data">
+                  <i class="fa fa-calendar infield infieldfly1"></i>
+                  <input type="text" value="" class="form-control checkin" placeholder="Check-in" required="required" id="book_start_time" name="booking[start_date]"/>
+                </div>
+              </div>
+
+              <div class="col-md-6 box-fly-book box-sec-book">
+                <label for="checkout">End Date*:</label>
+                <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Check-out is from 12:00"> <i class="fa fa-info-circle fa-lg"> </i> </div>
+                <div class="content-checkin-data">
+                  <i class="fa fa-calendar infield infieldfly2"></i>
+                  <input type="text" value="" class="form-control checkout" placeholder="Check-out" required="required" id="book_end_time" name="booking[end_date]"/>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="col-sm-4 flight-where">
             <div class="form-group">
-              <h3><span>02</span> Seats</h3>
+              <h3><span>03</span> Seats</h3>
               <div class="col-md-6 box-fly-book">
                 <label for="book_type">Property type*:</label>
                 <select class="form-control" name="booking[book_type]" id="book_type" required="required">
@@ -40,29 +63,6 @@
                   <%end%>
                 </select>
 
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm-2 fly-check">
-            <h3><span>03</span> When?</h3>
-            <div class="form-group">
-              <div class="col-md-6 box-fly-book">
-                <label for="checkin">Start Date*:</label>
-                <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Check-In is from 11:00"> <i class="fa fa-info-circle fa-lg"> </i> </div>
-                <div class="content-checkin-data">
-                  <i class="fa fa-calendar infield infieldfly1"></i>
-                  <input type="text" value="" class="form-control checkin" placeholder="Check-in" required="required" id="book_start_time" name="booking[start_date]"/>
-                </div>
-              </div>
-
-              <div class="col-md-6 box-fly-book box-sec-book">
-                <label for="checkout">End Date*:</label>
-                <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Check-out is from 12:00"> <i class="fa fa-info-circle fa-lg"> </i> </div>
-                <div class="content-checkin-data">
-                  <i class="fa fa-calendar infield infieldfly2"></i>
-                  <input type="text" value="" class="form-control checkout" placeholder="Check-out" required="required" id="book_end_time" name="booking[end_date]"/>
-                </div>
               </div>
             </div>
           </div>
@@ -86,6 +86,102 @@
   </div>
 </div>
       
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(document).on("change keypress keyup","#book_seats, #book_start_time, #book_end_time, #book_type" , function(){
+      var dayDiff;
+      var price;
+      var total_price = 0;
+      var seats = $("#book_seats").val();
+      var start_date = $("#book_start_time").val();
+      var end_date = $("#book_end_time").val();
+      var type = $("#book_type").val();
+
+      //Check dates is filled
+      if (this.id == "book_type" && (start_date == '' || end_date == '')){
+        alert("Please select start and end date");
+        $("#book_type option:contains('Select Property Type')").attr("selected","selected"); 
+      }
+      else{
+        if (this.id == "book_type"){
+          $.ajax({
+            url: "<%=get_type_price_property_booking_index_path(@property)%>",
+            data: {type: type, start_date: start_date, end_date: end_date},
+            success: function(response) {
+              $("#book_seats").html('');
+              seats = '';
+              $('.total_price').text('');
+              $("#book_seats").append('<option disabled="disabled" selected="selected">No of seats</option>'); 
+              var property_price = response.property_price; 
+              var res_seats = response.seats; 
+              if (res_seats.length > 0){
+                $('#book_seats').prop('multiple',true);
+                $('#book_seats').select2({multiple: true});
+                $("#book_seats option:selected").attr('disabled','disabled').remove();
+                $('label[for="number_of_seats_label"]').text("Number of rooms");
+                for (var j = 0; j < res_seats.length; j++){             
+                  $("#book_seats").append("<option value='" +res_seats[j]+ "'>"+(j+1)+" Room - "+res_seats[j]+" Seats</option>");    
+                } 
+              }
+              else{
+                $('#book_seats').prop('multiple',false);
+                $('#book_seats').select2({
+                  multiple: false
+                });  
+                if(response.remaining_seats == 0){
+                  alert("Seats not available for this type");
+                  $("#book_type option:contains('Select Property Type')").attr("selected","selected"); 
+                }else{
+                  for (var j = 0; j < response.remaining_seats; j++){           
+                    $("#book_seats").append("<option value='" +(j+1)+ "'>" +(j+1)+ "</option>");    
+                  } 
+                }     
+              }  
+            }
+          });
+        }//end book_type
+      }
+
+      if (seats != '' && seats != null && start_date != '' && end_date != '' && type != '' && type != null){
+        $.ajax({
+          url: "<%=get_type_price_property_booking_index_path(@property)%>",
+          data: {type: type, start_date: start_date, end_date: end_date},
+          success: function(response) {
+            start_date = $("#book_start_time").datepicker('getDate');
+            end_date = $("#book_end_time").datepicker('getDate');
+            dayDiff = Math.ceil((end_date - start_date) / (1000 * 60 * 60 * 24)) + 1;
+
+            //Check dates
+            if (start_date > end_date){
+              alert("End date should be greater than start date");
+              $("#book_start_time").val('');
+              $("#book_end_time").val('');
+              $('.total_price').text('');
+              $("#book_type option:contains('Select Property Type')").attr("selected","selected"); 
+            }
+            else{
+              var property_price = response.property_price; 
+              var child_seats = response.seats;
+              if (child_seats.length > 0){
+                for (var i = 0; i < seats.length; i++){     
+                  total_price += property_price.price * dayDiff * seats[i];  
+                }   
+              }
+              else{
+                total_price = property_price.price * dayDiff * seats;
+              }
+              $('.total_price').text(total_price);
+              $("#book_total_amount").val(total_price)
+            }
+          }
+        });
+      }//end total price
+
+    });
+  });
+</script>
+
+
 <script type="text/javascript">
   $(document).ready(function(){
     var all_disable_dates = []; <%#= raw start_dates_array %>
@@ -126,86 +222,8 @@
 
     $(document).on("focus",".checkin, .checkout", function() {$(this).blur()});
   });
-
-  $(document).ready(function(){
-    $(document).on("change keypress keyup","#book_seats, #book_start_time, #book_end_time, #book_type" , function(){
-      var dayDiff;
-      var price;
-      var total_price = 0;
-      var seats = $("#book_seats").val();
-      var start_date = $("#book_start_time").val();
-      var end_date = $("#book_end_time").val();
-      var type = $("#book_type").val();
-
-      if (this.id == "book_type"){
-        $.ajax({
-          url: "<%=get_type_price_property_booking_index_path(@property)%>",
-          data: {type: type},
-          success: function(response) {
-            $("#book_seats").html('');
-            seats = '';
-            $('.total_price').text('');
-            $("#book_seats").append('<option disabled="disabled" selected="selected">No of seats</option>'); 
-            var property_price = response.property_price; 
-            var res_seats = response.seats; 
-            if (res_seats.length > 0){
-              $('#book_seats').prop('multiple',true);
-              $('#book_seats').select2({multiple: true});
-              $("#book_seats option:selected").attr('disabled','disabled').remove();
-              $('label[for="number_of_seats_label"]').text("Number of rooms");
-              for (var j = 0; j < res_seats.length; j++){             
-                $("#book_seats").append("<option value='" +res_seats[j]+ "'>"+(j+1)+" Room - "+res_seats[j]+" Seats</option>");    
-              } 
-            }
-            else{
-              $('#book_seats').prop('multiple',false);
-              $('#book_seats').select2({
-                multiple: false
-              });  
-              for (var j = 0; j < response.remaining_seats; j++){                 
-                $("#book_seats").append("<option value='" +(j+1)+ "'>" +(j+1)+ "</option>");    
-              }    
-            }  
-          }
-        });
-      }  
-
-      if (seats != '' && start_date != '' && end_date != '' && type != ''){
-        $.ajax({
-          url: "<%=get_type_price_property_booking_index_path(@property)%>",
-          data: {type: type},
-          success: function(response) {
-            start_date = $("#book_start_time").datepicker('getDate');
-            end_date = $("#book_end_time").datepicker('getDate');
-            dayDiff = Math.ceil((end_date - start_date) / (1000 * 60 * 60 * 24)) + 1;
-
-            //Check dates
-            if (start_date > end_date){
-              alert("End date should be greater than start date");
-              $("#book_start_time").val('');
-              $("#book_end_time").val('');
-              $('.total_price').text('');
-            }
-            else{
-              var property_price = response.property_price; 
-              var child_seats = response.seats;
-              if (child_seats.length > 0){
-                for (var i = 0; i < seats.length; i++){     
-                  total_price += property_price.price * dayDiff * seats[i];  
-                }   
-              }
-              else{
-                total_price = property_price.price * dayDiff * seats;
-              }
-              $('.total_price').text(total_price);
-              $("#book_total_amount").val(total_price)
-            }
-          }
-        });
-      }
-    });
-  });
 </script>
+
 
 <style type="text/css">
   .event a {

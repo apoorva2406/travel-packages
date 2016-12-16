@@ -51,9 +51,16 @@ class BookingController < ApplicationController
 		remaining_seats = 0
 		property_type = PropertyType.find_by_name(params[:type])
 		@property_price = @property.property_prices.where(property_type_id: property_type.id).first
-		seats << @property_price.childrens.map{|c| c.seats} if @property_price.childrens.present?
-		booked_seats = @property.bookings.where(book_type: params[:type]).map{|b| JSON(b.seats)}.flatten.map(&:to_i).reduce(&:+)
-		remaining_seats  = booked_seats.present? ? @property_price.try(:seats) - booked_seats : @property_price.try(:seats) unless params[:type].eql?("Meeting/Conference Room")
+		booked_seats  = @property.bookings.where(book_type: params[:type]).where('DATE(?) BETWEEN start_date AND end_date', params[:start_date].to_date)
+		#Booked seats
+		if params[:type].eql?("Meeting/Conference Room")
+			seats << @property_price.childrens.map{|c| c.seats} if @property_price.childrens.present?
+			booked_seats = booked_seats.map{|b| JSON(b.seats)}.flatten.map(&:to_i)
+			seats  = booked_seats.present? ? seats.flatten - booked_seats : seats
+		else
+			booked_seats = booked_seats.map{|b| JSON(b.seats)}.flatten.map(&:to_i).reduce(&:+)
+			remaining_seats  = booked_seats.present? ? @property_price.try(:seats) - booked_seats : @property_price.try(:seats) 
+		end
 		respond_to do |format|
 	  format.json { render json: {property_price: @property_price, seats: seats.flatten, remaining_seats: remaining_seats} }  
 	 end
