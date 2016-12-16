@@ -7,7 +7,7 @@ class DashboardController < ApplicationController
 	end
 
 	def my_earning
-		@payments = Payment.where(property_id: current_user.properties.map(&:id)).group_by{|p| p.txn_day}
+		@payments = Payment.where.not(user_id: current_user.id).where(property_id: current_user.properties.map(&:id)).group_by{|p| p.txn_day}
 	end
 
 	def property
