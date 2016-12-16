@@ -57,5 +57,7 @@ gem 'searchkick'
 gem 'best_in_place', '~> 3.0.1'
 gem 'bootstrap-slider-rails'
 gem 'friendly_id'
+gem 'sidekiq'
+gem 'sidetiq'
 gem 'activeadmin', github: 'activeadmin'
 gem 'rails_12factor', group: :production

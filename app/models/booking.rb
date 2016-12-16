@@ -4,7 +4,8 @@ class Booking < ActiveRecord::Base
 	belongs_to :user
 	validates :name, :phone, :book_type, :start_date, :end_date, :user_id, :property_id, :total_amount,:seats, presence: true
 	belongs_to :property
-	has_one :payment, :foreign_key => "booking_id"
+	has_one :payment, :foreign_key => "booking_id", :dependent => :destroy
+
 	def params_list_patym
 		paramList = Hash.new
 		paramList["MID"] = ENV['MID']
@@ -15,5 +16,10 @@ class Booking < ActiveRecord::Base
 		paramList["ORDER_ID"] = SecureRandom.urlsafe_base64(nil, false)
 		paramList["CUST_ID"] = SecureRandom.urlsafe_base64(nil, false)  
 		paramList
+	end
+
+	def self.unconfirmed_booking
+		@bookings = Booking.where(status: 'not confirm').where("created_at <= ?", Time.now - 24.hours)
+		@bookings.delete_all
 	end
 end
