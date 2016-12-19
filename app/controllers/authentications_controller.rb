@@ -19,6 +19,7 @@ class AuthenticationsController < ApplicationController
         user = User.new
         user.build_authentication(:provider => omniauth['provider'], :uid => omniauth['uid'])
         user.apply_omniauth(omniauth)
+        user.skip_confirmation!
         flash[:notice] = 'User created and signed in successfully.' if user.save(:validate=>false)   
       end
     end
