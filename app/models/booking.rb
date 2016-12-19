@@ -5,6 +5,12 @@ class Booking < ActiveRecord::Base
 	validates :name, :phone, :book_type, :start_date, :end_date, :user_id, :property_id, :total_amount,:seats, presence: true
 	belongs_to :property
 	has_one :payment, :foreign_key => "booking_id", :dependent => :destroy
+	after_create :send_mail_to_owner
+
+	def send_mail_to_owner
+		UserMailer.booking_client_email(self).deliver
+		UserMailer.booking_owner_email(self).deliver
+	end
 
 	def params_list_patym
 		paramList = Hash.new
