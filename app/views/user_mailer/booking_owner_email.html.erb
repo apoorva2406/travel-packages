@@ -1,0 +1,77 @@
+<link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+  
+<p>Hello, <%= @owner.try(:name)%></p>
+
+<p>You property booked by <%= @user.try(:name)%></p>
+
+<p>Booking details</p>
+
+<div class="table-responsive">          
+  <table class="table">
+    <tr>
+      <td>Booked by</td>
+      <td><%=@booking.try(:name)%></td>
+    </tr>
+
+    <tr>
+    	<td>Phone Number</td>
+    	<td><%=@booking.try(:phone)%></td>
+    </tr>
+
+    <tr>
+    	<td>Property name</td>
+    	<td><%=link_to "#{@property.try(:name)}", property_url(@property), :target=>"_blank"%></td>
+    </tr>
+
+     <tr>
+    	<td>Booked type</td>
+      <td><%=link_to "#{@booking.try(:book_type)}", property_url(@property), :target=>"_blank"%></td>
+    </tr>
+
+    <tr>
+    	<td>Total seats</td>
+    	<td><%=JSON(@booking.try(:seats)).map(&:to_i).inject(:+)%></td>
+    </tr>
+
+    <% if JSON(@booking.try(:seats)).length > 1%>
+			<tr>
+  			<th>Rooms:</th>
+  			<td><%=@booking.try(:rooms)%></td>
+  		</tr>
+  		<tr>
+  			<th>Seats:</th>
+  			<td>
+  				<%JSON(@booking.try(:seats)).each_with_index do |num, index|%>
+  					<%= "Room #{index+1} - Seats #{num}" %><br>
+  				<%end%>	
+  			</td>
+  		</tr>
+		<%else%>
+  		<tr>
+  			<th>Seats:</th>
+  			<td><%=JSON(@booking.try(:seats)).join('')%></td>
+  		</tr>
+		<%end%>
+
+    <tr>
+    	<td>Booking start date</td>
+    	<td><%=@booking.try(:start_date).strftime("%a, %e %b %Y")%></td>
+    </tr>
+
+    <tr>
+    	<td>Booking end date</td>
+    	<td><%=@booking.try(:end_date).strftime("%a, %e %b %Y")%></td>
+    </tr>
+
+    <tr>
+    	<td>Booking amount</td>
+    	<td><%=@booking.try(:total_amount)%></td>
+    </tr>
+
+    <tr>
+    	<td>Booking status</td>
+    	<td><%=@booking.try(:status)%> </td>
+    </tr>
+  </table>
+  </div>
+</div>
