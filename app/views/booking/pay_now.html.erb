@@ -1,66 +1,67 @@
 <div class="container">
   <div class="row">
-    <center>
-    	<h3>
-    		<%= @booking.payment.present? ? 'Your property has been confirmed' : 'Confirm your property' %>
-    	</h3>
-    </center>
-    <div id="reservation-form" class="col-md-8 col-md-offset-2 reservation-color-form  resv-plus-meteo">
-   
-    <div class="row">
-    	<div class="col-md-8 col-md-offset-2">
-	    	<table class="table">
-	    		<tr>
-	    			<th>Name:</th>
-	    			<td><%=@booking.try(:name)%></td>
-	    		</tr>
+		<center>
+			<h3>
+				<%= @booking.payment.present? ? 'Your property has been confirmed' : 'Confirm your property' %>
+			</h3>
+		</center>
+		<div id="reservation-form" class="col-md-8 col-md-offset-2 reservation-color-form  resv-plus-meteo">
+	   
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<table class="table">
+						<tr>
+							<th>Name:</th>
+							<td><%=@booking.try(:name)%></td>
+						</tr>
 
-	    		<tr>
-	    			<th>Property-type:</th>
-	    			<td><%=@booking.try(:book_type)%></td>
-	    		</tr>
+						<tr>
+							<th>Property-type:</th>
+							<td><%=@booking.try(:book_type)%></td>
+						</tr>
 
-	    		<% if JSON(@booking.try(:seats)).length > 1%>
-	    			<tr>
-		    			<th>Rooms:</th>
-		    			<td><%=@booking.try(:rooms)%></td>
-		    		</tr>
-		    		<tr>
-		    			<th>Seats:</th>
-		    			<td>
-		    				<%JSON(@booking.try(:seats)).each_with_index do |num, index|%>
-		    					<%= "Room #{index+1} - Seats #{num}" %><br>
-		    				<%end%>	
-		    			</td>
-		    		</tr>
-	    		<%else%>
-		    		<tr>
-		    			<th>Seats:</th>
-		    			<td><%=JSON(@booking.try(:seats)).join('')%></td>
-		    		</tr>
-	    		<%end%>
+						<% if JSON(@booking.try(:seats)).length > 1%>
+							<tr>
+								<th>Rooms:</th>
+								<td><%=@booking.try(:rooms)%></td>
+							</tr>
+							<tr>
+								<th>Seats:</th>
+								<td>
+									<%JSON(@booking.try(:seats)).each_with_index do |num, index|%>
+										<%= "Room #{index+1} - Seats #{num}" %><br>
+									<%end%>	
+								</td>
+							</tr>
+						<%else%>
+							<tr>
+								<th>Seats:</th>
+								<td><%=JSON(@booking.try(:seats)).join('')%></td>
+							</tr>
+						<%end%>
 
-	    		<tr>
-	    			<th>Total Price:</th>
-	    			<td><%=@booking.try(:total_amount)%></td>
-	    		</tr>
+						<tr>
+							<th>Total Price:</th>
+							<td><%=@booking.try(:total_amount)%></td>
+						</tr>
 
-	    		<tr>
-	    			<th>Booking-status:</th>
-	    			<td><%=@booking.status%></td>
-	    		</tr>
-	    	</table>
-	    	<form method="post" action="https://pguat.paytm.com/oltp-web/processTransaction">
-	    		<% @paramList.keys.each do |k| %>
-						<input type="hidden" name="<%=k%>" value="<%=@paramList[k]%>"/>
-					<%end%>
-	    		<input type="hidden" name="CHECKSUMHASH" value="<%=@checksum_hash%>">
-	    		<% unless @booking.payment.present? %>
-	      		<input type="submit" value="Pay with paytm" class="btn btn-primary btn-block" />
-	      	<%end%>	
-	      </form>
-      </div>
-    </div>
-  </div>
+						<tr>
+							<th>Booking-status:</th>
+							<td><%=@booking.status%></td>
+						</tr>
+					</table>
+					<form method="post" action="https://pguat.paytm.com/oltp-web/processTransaction">
+						<% @paramList.keys.each do |k| %>
+								<input type="hidden" name="<%=k%>" value="<%=@paramList[k]%>"/>
+							<%end%>
+						<input type="hidden" name="CHECKSUMHASH" value="<%=@checksum_hash%>">
+						<% unless @booking.payment.present? %>
+						<input type="submit" value="Pay with paytm" class="btn btn-primary btn-block" />
+					<%end%>	
+				  </form>
+			  </div>
+			</div>
+	  </div>
+	</div>  
 </div>
-      
+	  
