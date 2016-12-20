@@ -13,6 +13,10 @@ img {
     content: ""
 }
 
+.why_office{
+  margin-right: 12px;
+}
+
 #reservation-form .price,
 .feature-item,
 .text-center,
@@ -66,7 +70,7 @@ ul.search-opt li a {
 
 h3 {
     font-size: 16px;
-    color: #ff590b;
+    color: #121324;
     line-height: inherit
 }
 
@@ -195,7 +199,7 @@ label {
     margin: -75px 0 0 -75px;
     border-radius: 50%;
     border: 3px solid transparent;
-    border-top-color: #ff590b;
+    border-top-color: #121324;
     -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite
 }
@@ -208,7 +212,7 @@ label {
     bottom: 5px;
     border-radius: 50%;
     border: 3px solid transparent;
-    border-top-color: #ff590b;
+    border-top-color: #121324;
     -webkit-animation: spin 3s linear infinite;
     animation: spin 3s linear infinite
 }
@@ -438,8 +442,8 @@ google-maps-slide {
 #reservation-form.reservation-color-form-green .nav-tabs>li.active>a,
 #reservation-form.reservation-color-form-green .nav-tabs>li.active>a:focus,
 #reservation-form.reservation-color-form-green .nav-tabs>li.active>a:hover {
-    background-color: #ff590b;
-    border: 1px solid #ff590b;
+    background-color: #121324;
+    border: 1px solid #121324;
     color: #fff;
     outline: 0;
     border-bottom-color: transparent
@@ -507,7 +511,7 @@ google-maps-slide {
 
 #reservation-form.reservation-color-form.orange-reserv-form {
     border: 1px solid #d74805;
-    background-color: #ff590b
+    background-color: #121324
 }
 
 #reservation-form.reservation-color-form.orange-reserv-form .nav-tabs>li.active>a,
@@ -515,7 +519,7 @@ google-maps-slide {
 #reservation-form.reservation-color-form.orange-reserv-form .nav-tabs>li.active>a:hover {
     color: #fff;
     cursor: default;
-    background-color: #ff590b;
+    background-color: #121324;
     border: 1px solid #d74805;
     border-bottom-color: transparent
 }
@@ -1214,7 +1218,7 @@ figure {
     margin: 20px auto;
     height: 4px;
     width: 25px;
-    background: #ff590b
+    background: #121324
 }
 
 .feature-icon i {
@@ -1233,14 +1237,14 @@ figure {
 
 .feature-item.active .wrap-feature-icon,
 .feature-item:hover .wrap-feature-icon {
-    background: #ff590b;
-    border-color: #ff590b
+    background: #121324;
+    border-color: #121324
 }
 
 .feature-item.active .wrap-feature-icon .feature-icon,
 .feature-item:hover .wrap-feature-icon .feature-icon {
-    background: #ff590b;
-    border-color: #ef8c5d
+    background: #121324;
+    border-color: #121324
 }
 
 .feature-item.active .wrap-feature-icon .feature-icon i,
@@ -1407,7 +1411,7 @@ figure .img-effect-flash::before {
 .trip-travego-disc .trip-discount {
     position: absolute;
     z-index: 98;
-    background: #ff590b;
+    background: #121324;
     padding: 30px 10px;
     -webkit-border-radius: 100px 100px 0;
     -moz-border-radius: 100px;
@@ -1475,7 +1479,8 @@ figure .img-effect-flash::before {
 .view-fifth .mask .content {
     position: relative;
     padding: 0;
-    text-align: left
+    text-align: left;
+    height: 182px;
 }
 
 .content .list-unstyled {
@@ -1484,11 +1489,11 @@ figure .img-effect-flash::before {
 }
 
 .content .list-unstyled li {
-    margin-bottom: 5px
+    margin-bottom: 5px;
 }
 
 .content .list-unstyled i {
-    color: #ec6841
+    color: #121324
 }
 
 .view-fifth .mask .main h3 {
@@ -2306,10 +2311,10 @@ figure .img-effect-flash::before {
 
 .parallax-home {
     height: auto;
-    padding: 100px 0 80px;
-    margin: 80px 0;
+    /*padding: 100px 0 80px;
+    margin: 80px 0;*/
     background-attachment: fixed;
-    background-image: url(/assets/travel-bg2.jpg);
+    background-image: url(/assets/space1.jpg);
     background-position: 0 0!important;
     background-repeat: no-repeat!important;
     width: 100%;
@@ -2341,8 +2346,12 @@ figure .img-effect-flash::before {
     margin-bottom: 20px
 }
 
+.parallax-home p {
+  color: #fff;
+}
+
 .parallax-home .grid-info:hover .grid-icon i {
-    color: #000
+    color: #fff
 }
 
 .grid-icon {
@@ -2350,7 +2359,7 @@ figure .img-effect-flash::before {
     line-height: 52px;
     width: 50px;
     text-align: center;
-    background: #ff590b;
+    background: #121324;
     border-radius: 100%
 }
 
@@ -2360,11 +2369,16 @@ figure .img-effect-flash::before {
 }
 
 h5.grid-title {
+    color: #fff;
     font-size: 16px;
-    font-weight: 400;
-    margin-top: 15px;
+    font-weight: 200;
+    margin-top: 12px;
     font-family: Lato, sans-serif;
-    text-transform: uppercase
+    text-transform: uppercase;
+}
+
+.grid-desc p {
+  color: #fff;
 }
 
 h5.grid-title i {
@@ -3409,7 +3423,7 @@ bar {
     margin-top: 15px;
     font-size: 25px;
     color: #fff;
-    background: #ff590b;
+    background: #121324;
     text-shadow: 0 1px 1px rgba(0, 0, 0, .2)
 }
 
@@ -3581,7 +3595,7 @@ bar {
 
 .all-info-trip .trip-slide-price .trip-option ul li i {
     margin-right: 10px;
-    background: #ff590b;
+    background: #121324;
     padding: 10px;
     text-shadow: 0 0 #000;
     width: 35px;
@@ -4111,7 +4125,7 @@ dt {
 }
 
 .pagination li.active a {
-    background: #ff590b
+    background: #121324
 }
 
 .pagination>li>a {
@@ -4411,7 +4425,7 @@ dt {
     left: 0;
     width: 100%;
     height: 6px;
-    background: #ff590b;
+    background: #121324;
     content: '';
     -webkit-transition: -webkit-transform .3s;
     transition: transform .3s;
@@ -4908,7 +4922,7 @@ dt {
 
 .desc-filter,
 .meals-trip.active i {
-    color: #ff590b
+    color: #121324
 }
 
 .desc-filter {
@@ -5195,7 +5209,7 @@ a.help-bt:hover {
 }
 
 .price-table-circle.blue-prices {
-    background-color: #ff590b
+    background-color: #121324
 }
 
 .price-table-circle.green-prices {
@@ -5223,7 +5237,7 @@ a.help-bt:hover {
 }
 
 .price-table-circle.red-prices {
-    background-color: #ff590b
+    background-color: #121324
 }
 
 .price-table-circle {
@@ -5381,7 +5395,7 @@ a.help-bt:hover {
     color: #fff;
     text-transform: none;
     font-family: 'Playfair Display', sans-serif;
-    background-color: #ff590b;
+    background-color: #121324;
     width: 50%;
     margin: 0 auto
 }
@@ -5404,7 +5418,7 @@ a.help-bt:hover {
 }
 
 .price-info {
-    background-color: #ff590b;
+    background-color: #121324;
     padding: 10px 0;
     border: 1px solid rgba(230, 82, 38, 1)
 }
@@ -5689,7 +5703,7 @@ a.help-bt:hover {
 
 .last-minute-banner {
     width: 100%;
-    background-color: #ff590b;
+    background-color: #121324;
     padding: 18px 0 28px
 }
 
@@ -5702,7 +5716,7 @@ a.help-bt:hover {
 }
 
 .orange-banner {
-    background-color: #ff590b
+    background-color: #121324
 }
 
 .orange-banner.last-minute-banner h1 {
@@ -5853,17 +5867,17 @@ a.help-bt:hover {
 }
 
 .footer-zone .socialfooter i {
-    border: 1px solid #ff590b;
+    border: 1px solid #121324;
     border-radius: 1px;
     color: #fff;
     font-size: 16px;
     padding: 10px 14px;
     margin: 10px 5px 10px 0;
-    background: #ff590b
+    background: #121324
 }
 
 .footer-zone .socialfooter i:hover {
-    background-color: transparent
+    background-color: #121324
 }
 
 .footer-zone .socialfooter i.fa-dribbble,
@@ -5873,13 +5887,13 @@ a.help-bt:hover {
 }
 
 .logo-footer {
-    width: 62%;
+    width: 50%;
     margin-left: -5px;
     margin-top: -10px
 }
 
 .footer-small-desc p {
-    color: #ff590b
+    color: #121324
 }
 
 .footer-small-desc .r-more {
@@ -5903,7 +5917,7 @@ a.help-bt:hover {
     float: right;
     width: 40px;
     height: 40px;
-    background-color: #ff590b;
+    background-color: #121324;
     cursor: pointer;
     border: 0;
     font-size: 0;
@@ -5936,7 +5950,7 @@ a.help-bt:hover {
 }
 
 .footer-zone i {
-    color: #ff590b;
+    color: #121324;
     margin-right: 10px
 }
 

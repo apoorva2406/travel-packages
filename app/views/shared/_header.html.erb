@@ -1,43 +1,3 @@
-<section class='section-top-header'>
-  <div class='top-header'>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class='top-contact'><i class="fa fa-phone"></i><span>+12 123 456 789</span><i class="fa fa-envelope"></i><span>info@travego.com</span></div>
-          <div class='top-login'>
-            <%#= link_to('All Workspace', properties_path) %>&nbsp;&nbsp;&nbsp;
-            <% unless user_signed_in? %>
-            <i class="fa fa-lock"></i><a  data-toggle="modal" data-target="#loginModal">Login</a>
-            <%end%>
-            
-            <div class="header-lang">
-              <% if user_signed_in? %>
-                <div class="dropdown">
-                  <img src="<%=current_user.profile_image.present? ? current_user.profile_image : '/assets/user.png'%>" class="img-circle dropdown-toggle" alt="Cinque Terre" data-toggle="dropdown">
-
-                  <span class="caret"></span></button>
-                  <ul class="dropdown-menu">
-                    <li><a href="<%=myprofile_dashboard_index_path%>"><%= "My Profile (#{ user_role_owner ? 'Owner' : 'Clinet'})" %></a></li>
-                    <% if user_role_owner %>
-                      <li><a href="<%=new_property_path%>">Add Workspace</a></li>
-                      <li><a href="<%=my_property_dashboard_index_path%>">My Properties</a></li>
-                      <li><a href="<%=my_earning_dashboard_index_path%>">My Earning</a></li>
-                    <%end%>
-                    <li><a href="<%=booking_dashboard_index_path%>">My Booking</a></li>
-                    <li><a href="<%=mypayments_dashboard_index_path%>">My Payments</a></li>
-                    <li><a href="<%=changepassword_dashboard_index_path%>">Change Password</a></li>
-                    <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
-                  </ul>
-                </div>
-              <%end%>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section>
   <div class="top-mega-menu">
     <div class="container">
@@ -46,315 +6,34 @@
         <li class="line-logo">
           <a class="logo" href="<%=root_path%>"><img src="/assets/logo.jpg" alt=""/></a>
         </li>
-        <li>
-          <a class="top-menu-txt" href="javascript:void(0)">Home</a>
-          <div class="grid-container3 blue-link">
-            <ul>
-              <li><a href="index.html">Home Layout</a></li>
-              <li><a href="homepage1.html">Home Layout1</a></li>
-              <li><a href="homepage2.html">Home Layout2</a></li>
-              <li><a href="homepage3.html">Home Layout3</a></li>
-              <li><a href="homepage4.html">Home Layout4</a></li>
-              <li><a href="homepage5.html">Home Layout5</a></li>
-              <li><a href="homepage_oxy_slider.html">Home Oxy Slider</a></li>
-              <li><a href="homepage_map.html">Home Map</a></li>
+        
+        <% unless user_signed_in? %>
+          <li class="weather">
+            <a data-toggle="modal" data-target="#loginModal"><i class="fa fa-sign-in"></i>Login</a>
+          </li>
+        <%end%>
+
+        <li style="width:6%;">
+          <% if user_signed_in? %>
+            <img src="<%=current_user.profile_image.present? ? current_user.profile_image : '/assets/user.png'%>" class="img-circle dropdown-toggle" alt="Cinque Terre" data-toggle="dropdown">
+
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu" style="background-color: #fff">
+              <li><a href="<%=myprofile_dashboard_index_path%>"><%= "My Profile (#{ user_role_owner ? 'Owner' : 'Clinet'})" %></a></li>
+              <% if user_role_owner %>
+                <li><a href="<%=new_property_path%>">Add Workspace</a></li>
+                <li><a href="<%=my_property_dashboard_index_path%>">My Properties</a></li>
+                <li><a href="<%=my_earning_dashboard_index_path%>">My Earning</a></li>
+              <%end%>
+              <li><a href="<%=booking_dashboard_index_path%>">My Booking</a></li>
+              <li><a href="<%=mypayments_dashboard_index_path%>">My Payments</a></li>
+              <li><a href="<%=changepassword_dashboard_index_path%>">Change Password</a></li>
+              <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
             </ul>
-          </div>
+          <%end%>
         </li>
-        <!-- resume -->
-        <li class="center">
-          <a class="top-menu-txt" href="javascript:void(0)">Destination</a>
-          <div class="grid-container10 destination">
-            <form>
-              <fieldset>
-                <div class="row">
-                  <section class="col col-md-3 destination-img">
-                    <img src="/assets/continent/continent_1.png" alt="" />
-                    <h3>North America</h3>
-                    <ul>
-                      <li><a href="javascript:void(0)">Canada</a></li>
-                      <li><a href="javascript:void(0)">Hawai</a></li>
-                      <li><a href="javascript:void(0)">Alaska</a></li>
-                    </ul>
-                  </section>
-                  <section class="col col-md-3 destination-img">
-                    <img src="/assets/continent/continent_2.png" alt="" />
-                    <h3>South America</h3>
-                    <ul>
-                      <li><a href="javascript:void(0)">Brazil</a></li>
-                      <li><a href="javascript:void(0)">Argentina</a></li>
-                      <li><a href="javascript:void(0)">Jamaica</a></li>
-                      <li><a href="javascript:void(0)">Columbia</a></li>
-                      <li><a href="javascript:void(0)">Peru'</a></li>
-                    </ul>
-                  </section>
-                  <section class="col col-md-3 destination-img">
-                    <img src="/assets/continent/continent_3.png" alt="" />
-                    <h3>Africa</h3>
-                    <ul>
-                      <li><a href="javascript:void(0)">Marocco</a></li>
-                      <li><a href="javascript:void(0)">Tunisia</a></li>
-                      <li><a href="javascript:void(0)">Egipt</a></li>
-                      <li><a href="javascript:void(0)">Kenya</a></li>
-                      <li><a href="javascript:void(0)">Tanzania</a></li>
-                    </ul>
-                  </section>
-                  <section class="col col-md-3 destination-img">
-                    <img src="/assets/continent/continent_4.png" alt="" />
-                    <h3>Europe</h3>
-                    <ul>
-                      <li><a href="javascript:void(0)">Italy</a></li>
-                      <li><a href="javascript:void(0)">France</a></li>
-                      <li><a href="javascript:void(0)">Greece</a></li>
-                      <li><a href="javascript:void(0)">Spain</a></li>
-                      <li><a href="javascript:void(0)">Germany</a></li>
-                    </ul>
-                  </section>
-                  <section class="col col-md-3 destination-img">
-                    <img src="/assets/continent/continent_5.png" alt="" />
-                    <h3>Asia</h3>
-                    <ul>
-                      <li><a href="javascript:void(0)">Australia</a></li>
-                      <li><a href="javascript:void(0)">China</a></li>
-                      <li><a href="javascript:void(0)">India</a></li>
-                      <li><a href="javascript:void(0)">Indonesia</a></li>
-                      <li><a href="javascript:void(0)">Singapore</a></li>
-                    </ul>
-                  </section>
-                </div>
-              </fieldset>
-            </form>
-          </div>
-        </li>
-        <!--/ resume -->
-        <!-- hotels -->
-        <li>
-          <a class="top-menu-txt" href="list-trip.html">Hotels</a>
-        </li>
-        <!--/ hotels -->
-        <!-- hotels -->
-        <li>
-          <a class="top-menu-txt" href="list-fly.html">Fly</a>
-        </li>
-        <!--/ hotels -->
-        <!-- page -->
-        <li class="center">
-          <a class="top-menu-txt" href="javascript:void(0)">Pages</a>
-          <div class="grid-container7 destination blue-link">
-            <form>
-              <fieldset>
-                <div class="row">
-                  <section class="col col-md-4">
-                    <h3>Standard</h3>
-                    <ul>
-                      <li><a href="about.html">About Us 1</a></li>
-                      <li><a href="about2.html">About Us 2</a></li>
-                      <li><a href="services1.html">Services 1</a></li>
-                      <li><a href="services2.html">Services 2</a></li>
-                      <li><a href="information.html">Information</a></li>
-                    </ul>
-                  </section>
-                  <section class="col col-md-4">
-                    <h3>Extra</h3>
-                    <ul>
-                      <li><a href="list-trip.html">Catalog</a></li>
-                      <li><a href="details.html">Details</a></li>
-                      <li><a href="gallery-4col.html">Gallery 4 Col</a></li>
-                      <li><a href="gallery-3col.html">Gallery 3 Col</a></li>
-                      <li><a href="gallery-2col.html">Gallery 2 Col</a></li>
-                    </ul>
-                  </section>
-                  <section class="col col-md-4">
-                    <h3>Special</h3>
-                    <ul>
-                      <li><a href="blog.html">Blog</a></li>
-                      <li><a href="blog-lft-col.html">Blog Left Sidebar</a></li>
-                      <li><a href="blog-rgh-col.html">Blog Right Sidebar</a></li>
-                      <li><a href="javascript:void(0)">Travego Guide</a></li>
-                      <li><a href="meteo.html">Tracego Weather</a></li>
-                    </ul>
-                  </section>
-                </div>
-              </fieldset>
-            </form>
-          </div>
-        </li>
-        <!--/ page -->
-        <!-- contacts -->
-        <li>
-          <a class="top-menu-txt" href="contact.html"><i class="fa fa-phone"></i>Contacts</a>
-          <div class="grid-container3 blue-link">
-            <ul>
-              <li><a href="contact.html"><i class="fa fa-twitter"></i>Twitter</a></li>
-              <li><a href="contact.html"><i class="fa fa-facebook"></i>Facebook</a></li>
-              <li><a href="contact.html"><i class="fa fa-google-plus"></i>Google Plus</a></li>
-            </ul>
-          </div>
-        </li>
-        <!--/ contacts -->
-        <!-- weather -->
-        <li class="weather">
-          <a class="top-menu-txt" href="meteo.html"><i class="fa fa-cloud"></i>Weather</a>
-        </li>
-        <!--/ weather -->
       </ul>
-      <!--/ mega menu -->
     </div>
-    <nav id="mobile-menu-01" class="mobile-menu">
-      <div class="line-logo">
-        <a class="logo" href="javascript:void(0)"><img src="/assets/logo.jpg" alt=""/></a><i class="fa fa-bars"></i>
-      </div>
-      <div class="clear"></div>
-      <ul class="travel-mega-menu-mobile">
-        <!-- about -->
-        <li class="line-mini-menu k-opn">
-          <a class="top-menu-txt" href="javascript:void(0)">Home</a>
-          <div class="grid-container3 collapse blue-link">
-            <ul>
-              <li><a href="index.html">Home Layout</a></li>
-              <li><a href="homepage1.html">Home Layout1</a></li>
-              <li><a href="homepage2.html">Home Layout2</a></li>
-              <li><a href="homepage3.html">Home Layout3</a></li>
-              <li><a href="homepage_oxy_slider.html">Home Oxy Slider</a></li>
-              <li><a href="homepage_map.html">Home Map</a></li>
-            </ul>
-          </div>
-        </li>
-        <!--/ about -->
-        <!-- resume -->
-        <li class="line-mini-menu k-opn">
-          <a class="top-menu-txt" href="javascript:void(0)">Destination</a>
-          <div class="grid-container10 destination collapse blue-link">
-            <form>
-              <fieldset>
-                <div class="row">
-                  <section class="col destination-img">
-                    <h3>North America</h3>
-                    <ul>
-                      <li><a href="javascript:void(0)">Canada</a></li>
-                      <li><a href="javascript:void(0)">Hawai</a></li>
-                      <li><a href="javascript:void(0)">Alaska</a></li>
-                    </ul>
-                  </section>
-                  <section class="col destination-img">
-                    <h3>South America</h3>
-                    <ul>
-                      <li><a href="javascript:void(0)">Brazil</a></li>
-                      <li><a href="javascript:void(0)">Argentina</a></li>
-                      <li><a href="javascript:void(0)">Jamaica</a></li>
-                      <li><a href="javascript:void(0)">Columbia</a></li>
-                      <li><a href="javascript:void(0)">Peru'</a></li>
-                    </ul>
-                  </section>
-                  <section class="col destination-img">
-                    <h3>Africa</h3>
-                    <ul>
-                      <li><a href="javascript:void(0)">Marocco</a></li>
-                      <li><a href="javascript:void(0)">Tunisia</a></li>
-                      <li><a href="javascript:void(0)">Egipt</a></li>
-                      <li><a href="javascript:void(0)">Kenya</a></li>
-                      <li><a href="javascript:void(0)">Tanzania</a></li>
-                    </ul>
-                  </section>
-                  <section class="col destination-img">
-                    <h3>Europe</h3>
-                    <ul>
-                      <li><a href="javascript:void(0)">Italy</a></li>
-                      <li><a href="javascript:void(0)">France</a></li>
-                      <li><a href="javascript:void(0)">Greece</a></li>
-                      <li><a href="javascript:void(0)">Spain</a></li>
-                      <li><a href="javascript:void(0)">Germany</a></li>
-                    </ul>
-                  </section>
-                  <section class="col destination-img">
-                    <h3>Asia</h3>
-                    <ul>
-                      <li><a href="javascript:void(0)">Australia</a></li>
-                      <li><a href="javascript:void(0)">China</a></li>
-                      <li><a href="javascript:void(0)">India</a></li>
-                      <li><a href="javascript:void(0)">Indonesia</a></li>
-                      <li><a href="javascript:void(0)">Singapore</a></li>
-                    </ul>
-                  </section>
-                </div>
-              </fieldset>
-            </form>
-          </div>
-        </li>
-        <!--/ resume -->
-        <!-- hotels -->
-        <li class="k-opn">
-          <a class="top-menu-txt" href="list-trip.html">Hotels</a>
-        </li>
-        <!--/ hotels -->
-        <!-- hotels -->
-        <li class="k-opn">
-          <a class="top-menu-txt" href="list-fly.html">Fly</a>
-        </li>
-        <!--/ hotels -->
-        <!-- page -->
-        <li class="line-mini-menu k-opn">
-          <a class="top-menu-txt" href="javascript:void(0)">Pages</a>
-          <div class="grid-container7 destination collapse blue-link">
-            <form>
-              <fieldset>
-                <div class="row">
-                  <section class="col">
-                    <h3>Standard</h3>
-                    <ul>
-                      <li><a href="about.html">About Us 1</a></li>
-                      <li><a href="about2.html">About Us 2</a></li>
-                      <li><a href="services1.html">Services 1</a></li>
-                      <li><a href="services2.html">Services 2</a></li>
-                      <li><a href="information.html">Information</a></li>
-                    </ul>
-                  </section>
-                  <section class="col">
-                    <h3>Extra</h3>
-                    <ul>
-                      <li><a href="list-trip.html">Catalog</a></li>
-                      <li><a href="details.html">Details</a></li>
-                      <li><a href="gallery-4col.html">Gallery 4 Col</a></li>
-                      <li><a href="gallery-3col.html">Gallery 3 Col</a></li>
-                      <li><a href="gallery-2col.html">Gallery 2 Col</a></li>
-                    </ul>
-                  </section>
-                  <section class="col">
-                    <h3>Special</h3>
-                    <ul>
-                      <li><a href="blog.html">Blog</a></li>
-                      <li><a href="blog-lft-col.html">Blog Left Sidebar</a></li>
-                      <li><a href="blog-rgh-col.html">Blog Right Sidebar</a></li>
-                      <li><a href="javascript:void(0)">Travego Guide</a></li>
-                      <li><a href="meteo.html">Tracego Weather</a></li>
-                    </ul>
-                  </section>
-                </div>
-              </fieldset>
-            </form>
-          </div>
-        </li>
-        <!--/ page -->
-        <!-- contacts -->
-        <li class="line-mini-menu k-opn">
-          <a class="top-menu-txt" href="contact.html"><i class="fa fa-phone"></i>Contacts</a>
-          <div class="grid-container3 collapse blue-link">
-            <ul>
-              <li><a href="contact.html"><i class="fa fa-twitter"></i>Twitter</a></li>
-              <li><a href="contact.html"><i class="fa fa-facebook"></i>Facebook</a></li>
-              <li><a href="contact.html"><i class="fa fa-google-plus"></i>Google Plus</a></li>
-            </ul>
-          </div>
-        </li>
-        <!--/ contacts -->
-        <!-- weather -->
-        <li class="k-opn">
-          <a class="top-menu-txt" href="meteo.html"><i class="fa fa-cloud"></i>Weather</a>
-        </li>
-        <!--/ weather -->
-      </ul>
-      <!--/ mega menu -->
-    </nav>
   </div>
 </section>  
 

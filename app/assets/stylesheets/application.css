@@ -16,6 +16,9 @@
  //= stub active_admin
  */
 
+.weather a:hover{
+  cursor: pointer;
+}
 
 #property_map {
   height: 300px;

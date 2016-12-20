@@ -76,15 +76,15 @@
           <ul>
             <!-- FADE -->
             <li data-transition="fade" data-slotamount="10" data-thumb="">
-              <img src="/assets/slider7.jpg" alt=""/>
+              <img src="/assets/space1.jpg" alt=""/>
             </li>
             <!-- SLIDEUP -->
             <li data-transition="slideup" data-slotamount="7" data-thumb="">
-              <img src="/assets/slider6.jpg" alt=""/>
+              <img src="/assets/space2.jpg" alt=""/>
             </li>
             <!-- SLIDEDOWN -->
             <li data-transition="slidedown" data-slotamount="7" data-thumb="">
-              <img src="/assets/slider8.jpg" alt=""/>
+              <img src="/assets/space3.jpg" alt=""/>
             </li>
           </ul>
           <div class="tp-bannertimer"></div>
@@ -92,6 +92,8 @@
       </div>
       <!-- SLIDER END -->
     </div>
+
+    
   </div>
 </section>
 <!-- TOP OFFERTS -->
@@ -100,155 +102,197 @@
     <div class="row">
       <div class="col-md-12 effect-5 effects">
         <div class="text-center top-txt-title">
-          <h2>THE BEST PROMOTIONS</h2>
+          <h2>THE BEST LOCATIONS</h2>
           <p>Find your favorite place, feel more than home</p>
         </div>
-        <!-- FIFTH EXAMPLE -->
-        <div class="col-md-4 view view-fifth">
-          <figure class="triggerAnimation animated" data-animate="fadeInDown">
-            <div class="img">
-              <img src="/assets/trip/promotion1.jpg" alt=""/>
-              <div class="overlay">
-                <div class="expand discount">
-                  <a href="#" class="expand discount">25%</a>
-                  <a href="#" class="expand discount textdisc">discount</a>
+        <%if @properites.present? %>
+          <% @properites.take(6).each do |property|%>
+            <div class="col-md-4 view view-fifth" style="width: 31.4% !important;">
+              <figure class="triggerAnimation animated" data-animate="fadeInDown">
+                <div class="img">
+                  <img src="<%=property.try(:photos).first.image.url%>" alt=""/>
+                </div>
+              </figure>
+              <div class="mask">
+                <div class="main">
+                  <div class="trip-title">
+                    <h3><%=property.try(:name)%></h3>
+                    <br />
+                    <p><%=truncate(property.try(:address), :length=>20)%></p>
+                  </div>
+                  <div class="price">
+                    <p>From</p>
+                    RS <%=property.try(:property_prices).first.price%>
+                  </div>
+                </div>
+                <div class="content">
+                  <p><span><%=property.try(:description)%>
+                  </p>
+                  <div class="row">
+
+                    <%facilities = Facility.where(id: JSON(property.facilities))%>
+                    <%facilities.each do |facility|%>
+                      <div class="col-xs-6">
+                        <ul class="list-unstyled">
+                          <li><i class="fa fa-check-circle"></i> <%=facility.try(:name)%></li>
+                        </ul>
+                      </div>
+                    <%end%>
+                  </div>
+                  <a href="<%=property_path(property)%>" class="btn btn-primary btn-block">Read More</a>
                 </div>
               </div>
             </div>
-          </figure>
-          <div class="mask">
-            <div class="main">
-              <div class="trip-title">
-                <h3>Hilton Hotel</h3>
-                <br />
-                <p>Paris</p>
-              </div>
-              <div class="price">
-                <p>From</p>
-                € 499
-              </div>
-            </div>
-            <div class="content">
-              <p><span>A modern hotel room in Star Hotel</span> Nunc tempor erat in magna pulvinar fermentum.
-                malesuada metus.
-              </p>
-              <div class="row">
-                <div class="col-xs-6">
-                  <ul class="list-unstyled">
-                    <li><i class="fa fa-check-circle"></i> Incl. breakfast</li>
-                    <li><i class="fa fa-check-circle"></i> Private balcony</li>
-                    <li><i class="fa fa-check-circle"></i> Sea view</li>
-                  </ul>
-                </div>
-                <div class="col-xs-6">
-                  <ul class="list-unstyled">
-                    <li><i class="fa fa-check-circle"></i> Free Wi-Fi</li>
-                    <li><i class="fa fa-check-circle"></i> Incl. breakfast</li>
-                    <li><i class="fa fa-check-circle"></i> Bathroom</li>
-                  </ul>
+          <%end%>
+        <%else%>
+          <div class="col-md-4 view view-fifth">
+            <figure class="triggerAnimation animated" data-animate="fadeInDown">
+              <div class="img">
+                <img src="/assets/trip/promotion1.jpg" alt=""/>
+                <div class="overlay">
+                  <div class="expand discount">
+                    <a href="javascript:void(0)" class="expand discount">25%</a>
+                    <a href="javascript:void(0)" class="expand discount textdisc">discount</a>
+                  </div>
                 </div>
               </div>
-              <a href="details.html" class="btn btn-primary btn-block">Read More</a>
+            </figure>
+            <div class="mask">
+              <div class="main">
+                <div class="trip-title">
+                  <h3>Hilton Hotel</h3>
+                  <br />
+                  <p>Paris</p>
+                </div>
+                <div class="price">
+                  <p>From</p>
+                  € 499
+                </div>
+              </div>
+              <div class="content">
+                <p><span>A modern hotel room in Star Hotel</span> Nunc tempor erat in magna pulvinar fermentum.
+                  malesuada metus.
+                </p>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <ul class="list-unstyled">
+                      <li><i class="fa fa-check-circle"></i> Incl. breakfast</li>
+                      <li><i class="fa fa-check-circle"></i> Private balcony</li>
+                      <li><i class="fa fa-check-circle"></i> Sea view</li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-6">
+                    <ul class="list-unstyled">
+                      <li><i class="fa fa-check-circle"></i> Free Wi-Fi</li>
+                      <li><i class="fa fa-check-circle"></i> Incl. breakfast</li>
+                      <li><i class="fa fa-check-circle"></i> Bathroom</li>
+                    </ul>
+                  </div>
+                </div>
+                <a href="details.html" class="btn btn-primary btn-block">Read More</a>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-md-4 view view-fifth">
-          <figure class="triggerAnimation animated" data-animate="fadeInDown">
-            <div class="img">
-              <img src="/assets/trip/promotion2.jpg" alt=""/>
-              <div class="overlay">
-                <a href="#" class="expand discount">35%</a>
-                <a href="#" class="expand discount textdisc">discount</a>
-              </div>
-            </div>
-          </figure>
-          <div class="mask">
-            <div class="main">
-              <div class="trip-title">
-                <h3>Meriot Hotel</h3>
-                <br />
-                <p>Prague</p>
-              </div>
-              <div class="price">
-                <p>From</p>
-                € 270
-              </div>
-            </div>
-            <div class="content">
-              <p><span>A modern hotel room in Star Hotel</span> Nunc tempor erat in magna pulvinar fermentum.
-                malesuada metus.
-              </p>
-              <div class="row">
-                <div class="col-xs-6">
-                  <ul class="list-unstyled">
-                    <li><i class="fa fa-check-circle"></i> Incl. breakfast</li>
-                    <li><i class="fa fa-check-circle"></i> Private balcony</li>
-                    <li><i class="fa fa-check-circle"></i> Sea view</li>
-                  </ul>
-                </div>
-                <div class="col-xs-6">
-                  <ul class="list-unstyled">
-                    <li><i class="fa fa-check-circle"></i> Free Wi-Fi</li>
-                    <li><i class="fa fa-check-circle"></i> Incl. breakfast</li>
-                    <li><i class="fa fa-check-circle"></i> Bathroom</li>
-                  </ul>
+
+          <div class="col-md-4 view view-fifth">
+            <figure class="triggerAnimation animated" data-animate="fadeInDown">
+              <div class="img">
+                <img src="/assets/trip/promotion2.jpg" alt=""/>
+                <div class="overlay">
+                  <a href="javascript:void(0)" class="expand discount">35%</a>
+                  <a href="javascript:void(0)" class="expand discount textdisc">discount</a>
                 </div>
               </div>
-              <a href="details.html" class="btn btn-primary btn-block">Read More</a>
+            </figure>
+            <div class="mask">
+              <div class="main">
+                <div class="trip-title">
+                  <h3>Meriot Hotel</h3>
+                  <br />
+                  <p>Prague</p>
+                </div>
+                <div class="price">
+                  <p>From</p>
+                  € 270
+                </div>
+              </div>
+              <div class="content">
+                <p><span>A modern hotel room in Star Hotel</span> Nunc tempor erat in magna pulvinar fermentum.
+                  malesuada metus.
+                </p>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <ul class="list-unstyled">
+                      <li><i class="fa fa-check-circle"></i> Incl. breakfast</li>
+                      <li><i class="fa fa-check-circle"></i> Private balcony</li>
+                      <li><i class="fa fa-check-circle"></i> Sea view</li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-6">
+                    <ul class="list-unstyled">
+                      <li><i class="fa fa-check-circle"></i> Free Wi-Fi</li>
+                      <li><i class="fa fa-check-circle"></i> Incl. breakfast</li>
+                      <li><i class="fa fa-check-circle"></i> Bathroom</li>
+                    </ul>
+                  </div>
+                </div>
+                <a href="details.html" class="btn btn-primary btn-block">Read More</a>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-md-4 view view-fifth">
-          <figure class="triggerAnimation animated" data-animate="fadeInDown">
-            <div class="img">
-              <img src="/assets/3.jpg" alt=""/>
-              <div class="overlay">
-                <a href="#" class="expand discount">10%</a>
-                <a href="#" class="expand discount textdisc">discount</a>
-              </div>
-            </div>
-          </figure>
-          <div class="mask">
-            <div class="main">
-              <div class="trip-title">
-                <h3>Burgi Hotel</h3>
-                <br />
-                <p>Bali</p>
-              </div>
-              <div class="price">
-                <p>From</p>
-                € 799
-              </div>
-            </div>
-            <div class="content">
-              <p><span>A modern hotel room in Star Hotel</span> Nunc tempor erat in magna pulvinar fermentum.
-                malesuada metus.
-              </p>
-              <div class="row">
-                <div class="col-xs-6">
-                  <ul class="list-unstyled">
-                    <li><i class="fa fa-check-circle"></i> Incl. breakfast</li>
-                    <li><i class="fa fa-check-circle"></i> Private balcony</li>
-                    <li><i class="fa fa-check-circle"></i> Sea view</li>
-                  </ul>
-                </div>
-                <div class="col-xs-6">
-                  <ul class="list-unstyled">
-                    <li><i class="fa fa-check-circle"></i> Free Wi-Fi</li>
-                    <li><i class="fa fa-check-circle"></i> Incl. breakfast</li>
-                    <li><i class="fa fa-check-circle"></i> Bathroom</li>
-                  </ul>
+
+          <div class="col-md-4 view view-fifth">
+            <figure class="triggerAnimation animated" data-animate="fadeInDown">
+              <div class="img">
+                <img src="/assets/3.jpg" alt=""/>
+                <div class="overlay">
+                  <a href="javascript:void(0)" class="expand discount">10%</a>
+                  <a href="javascript:void(0)" class="expand discount textdisc">discount</a>
                 </div>
               </div>
-              <a href="details.html" class="btn btn-primary btn-block">Read More</a>
+            </figure>
+            <div class="mask">
+              <div class="main">
+                <div class="trip-title">
+                  <h3>Burgi Hotel</h3>
+                  <br />
+                  <p>Bali</p>
+                </div>
+                <div class="price">
+                  <p>From</p>
+                  € 799
+                </div>
+              </div>
+              <div class="content">
+                <p><span>A modern hotel room in Star Hotel</span> Nunc tempor erat in magna pulvinar fermentum.
+                  malesuada metus.
+                </p>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <ul class="list-unstyled">
+                      <li><i class="fa fa-check-circle"></i> Incl. breakfast</li>
+                      <li><i class="fa fa-check-circle"></i> Private balcony</li>
+                      <li><i class="fa fa-check-circle"></i> Sea view</li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-6">
+                    <ul class="list-unstyled">
+                      <li><i class="fa fa-check-circle"></i> Free Wi-Fi</li>
+                      <li><i class="fa fa-check-circle"></i> Incl. breakfast</li>
+                      <li><i class="fa fa-check-circle"></i> Bathroom</li>
+                    </ul>
+                  </div>
+                </div>
+                <a href="details.html" class="btn btn-primary btn-block">Read More</a>
+              </div>
             </div>
           </div>
-        </div>
+        <%end%>  
       </div>
-      <!--Close col 12 -->
     </div>
   </div>
 </section>
+
 <section class='parallax-home'>
   <div class="container">
     <div class="row">
@@ -261,259 +305,111 @@
       <div class='col-md-8'>
         <div class='col-md-6'>
           <div class='grid-info'>
-            <div class='grid-icon'><i class="fa fa-taxi"></i></div>
-            <h5 class="grid-title ">TAXI DISCOUNT</h5>
+            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-globe"></i></div>
+            <h5 class="grid-title ">Multiple Locations</h5>
             <div class="grid-desc">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dapibus facilisis cvallis.</p>
+              <p></p>
             </div>
           </div>
         </div>
         <div class='col-md-6'>
           <div class='grid-info'>
-            <div class='grid-icon'><i class="fa fa-unlock-alt"></i></div>
-            <h5 class="grid-title ">TRUST AND SECURITY</h5>
-            <div class="grid-desc">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dapibus facilisis cvallis.</p>
-            </div>
+            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-coffee"></i></div>
+            <h5 class="grid-title ">Free Tea and Coffee</h5>
           </div>
         </div>
         <div class='col-md-6'>
           <div class='grid-info'>
-            <div class='grid-icon'><i class="fa fa-cutlery"></i></div>
-            <h5 class="grid-title ">BEST FOOD</h5>
-            <div class="grid-desc">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dapibus facilisis cvallis.</p>
-            </div>
+            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-wifi"></i></div>
+            <h5 class="grid-title ">Free WiFi</h5>
+            
           </div>
         </div>
         <div class='col-md-6'>
           <div class='grid-info'>
-            <div class='grid-icon'><i class="fa fa-futbol-o"></i></div>
-            <h5 class="grid-title ">BEST SPORTS</h5>
-            <div class="grid-desc">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dapibus facilisis cvallis.</p>
-            </div>
+            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-bullhorn"></i></div>
+            <h5 class="grid-title ">Benefit from Aboard brand</h5>
+          </div>
+        </div>
+        <div class='col-md-6'>
+          <div class='grid-info'>
+            <div class='grid-icon pull-left why_office'><i class="fa fa-battery-4"></i></div>
+            <h5 class="grid-title ">24/7 AC & power backup</h5>
+          </div>
+        </div>
+        <div class='col-md-6'>
+          <div class='grid-info'>
+            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-mobile"></i></div>
+            <h5 class="grid-title ">Aboard App</h5>
+          </div>
+        </div>
+        <div class='col-md-6'>
+          <div class='grid-info'>
+            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-users"></i></div>
+            <h5 class="grid-title ">Aboard Social Online Community</h5>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-<!-- LAST MINUTES -->
-<section id="lastminute-offerts" class="box-tr-square">
-  <div class="container">
-    <div class="row">
-      <div class="text-center">
-        <h2>Last Minute</h2>
-        <p>Find your favorite place, feel more than home</p>
-      </div>
-      <div class="col-md-12 effect-5 effects">
-        <div class="col-md-4 view view-fifth">
-          <figure class="triggerAnimation animated" data-animate="fadeInDown">
-            <div class="img">
-              <img src="/assets/trip/last-minute1.jpg" alt=""/>
-              <div class="overlay">
-                <a href="#" class="expand discount">20%</a>
-                <a href="#" class="expand discount textdisc">discount</a>
-              </div>
-            </div>
-          </figure>
-          <div class="mask">
-            <div class="main">
-              <div class="trip-title">
-                <h3>Hilton Hotel</h3>
-                <br />
-                <p>London</p>
-              </div>
-              <div class="price">
-                <p>From</p>
-                € 499
-              </div>
-            </div>
-            <div class="content">
-              <p><span>A modern hotel room in Star Hotel</span> Nunc tempor erat in magna pulvinar fermentum.
-                malesuada metus.
-              </p>
-              <div class="row">
-                <div class="col-xs-6">
-                  <ul class="list-unstyled">
-                    <li><i class="fa fa-check-circle"></i> Incl. breakfast</li>
-                    <li><i class="fa fa-check-circle"></i> Private balcony</li>
-                    <li><i class="fa fa-check-circle"></i> Sea view</li>
-                  </ul>
-                </div>
-                <div class="col-xs-6">
-                  <ul class="list-unstyled">
-                    <li><i class="fa fa-check-circle"></i> Free Wi-Fi</li>
-                    <li><i class="fa fa-check-circle"></i> Incl. breakfast</li>
-                    <li><i class="fa fa-check-circle"></i> Bathroom</li>
-                  </ul>
-                </div>
-              </div>
-              <a href="details.html" class="btn btn-primary btn-block">Read More</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 view view-fifth">
-          <figure class="triggerAnimation animated" data-animate="fadeInDown">
-            <div class="img">
-              <img src="/assets/trip/last-minute2.jpg" alt=""/>
-              <div class="overlay">
-                <a href="#" class="expand discount">15%</a>
-                <a href="#" class="expand discount textdisc">discount</a>
-              </div>
-            </div>
-          </figure>
-          <div class="mask">
-            <div class="main">
-              <div class="trip-title">
-                <h3>Ruka Hotel</h3>
-                <br />
-                <p>Zanzibar</p>
-              </div>
-              <div class="price">
-                <p>From</p>
-                € 550
-              </div>
-            </div>
-            <div class="content">
-              <p><span>A modern hotel room in Star Hotel</span> Nunc tempor erat in magna pulvinar fermentum.
-                malesuada metus.
-              </p>
-              <div class="row">
-                <div class="col-xs-6">
-                  <ul class="list-unstyled">
-                    <li><i class="fa fa-check-circle"></i> Incl. breakfast</li>
-                    <li><i class="fa fa-check-circle"></i> Private balcony</li>
-                    <li><i class="fa fa-check-circle"></i> Sea view</li>
-                  </ul>
-                </div>
-                <div class="col-xs-6">
-                  <ul class="list-unstyled">
-                    <li><i class="fa fa-check-circle"></i> Free Wi-Fi</li>
-                    <li><i class="fa fa-check-circle"></i> Incl. breakfast</li>
-                    <li><i class="fa fa-check-circle"></i> Bathroom</li>
-                  </ul>
-                </div>
-              </div>
-              <a href="details.html" class="btn btn-primary btn-block">Read More</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 view view-fifth">
-          <figure class="triggerAnimation animated" data-animate="fadeInDown">
-            <div class="img">
-              <img src="/assets/trip/last-minute4.jpg" alt=""/>
-              <div class="overlay">
-                <a href="#" class="expand discount">10%</a>
-                <a href="#" class="expand discount textdisc">discount</a>
-              </div>
-            </div>
-          </figure>
-          <div class="mask">
-            <div class="main">
-              <div class="trip-title">
-                <h3>Losi Hotel</h3>
-                <br />
-                <p>Madrid</p>
-              </div>
-              <div class="price">
-                <p>From</p>
-                € 299
-              </div>
-            </div>
-            <div class="content">
-              <p><span>A modern hotel room in Star Hotel</span> Nunc tempor erat in magna pulvinar fermentum.
-                malesuada metus.
-              </p>
-              <div class="row">
-                <div class="col-xs-6">
-                  <ul class="list-unstyled">
-                    <li><i class="fa fa-check-circle"></i> Incl. breakfast</li>
-                    <li><i class="fa fa-check-circle"></i> Private balcony</li>
-                    <li><i class="fa fa-check-circle"></i> Sea view</li>
-                  </ul>
-                </div>
-                <div class="col-xs-6">
-                  <ul class="list-unstyled">
-                    <li><i class="fa fa-check-circle"></i> Free Wi-Fi</li>
-                    <li><i class="fa fa-check-circle"></i> Incl. breakfast</li>
-                    <li><i class="fa fa-check-circle"></i> Bathroom</li>
-                  </ul>
-                </div>
-              </div>
-              <a href="details.html" class="btn btn-primary btn-block">Read More</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<section id="parallax_slide" class="service2-prx">
-  <div class="effect-over">
-    <div class="bx-about2">
-      <ul class="bxslider all-info-trip long-pannel">
-        <li>
-          <img src="/assets/trip/city2.jpg" alt=""/>
-          <div class="cover-slide-trip"></div>
-          <div class="trip-slide-price col-md-5">
-            <div class="trip-slide-text prague">Paris <a href="#" class="btn btn-primary btn-gallery">Buy Now</a></div>
-            <p>Nestled between the Caribbean, the South Pacific, and the South Atlantic Oceans, South America is the wilder of the Americas, and a continent of superlatives...</p>
-            <p class="trip-big-price"><span> € 399</span></p>
-          </div>
-        </li>
-        <li>
-          <img src="/assets/trip/city5.jpg" alt=""/>
-          <div class="cover-slide-trip"></div>
-          <div class="trip-slide-price col-md-5">
-            <div class="trip-slide-text prague">Venice <a href="#" class="btn btn-primary btn-gallery">Buy Now</a></div>
-            <p>Nestled between the Caribbean, the South Pacific, and the South Atlantic Oceans, South America is the wilder of the Americas, and a continent of superlatives...</p>
-            <p class="trip-big-price"><span> € 490</span></p>
-          </div>
-        </li>
-        <li>
-          <img src="/assets/trip/city3.jpg" alt=""/>
-          <div class="cover-slide-trip"></div>
-          <div class="trip-slide-price col-md-5">
-            <div class="trip-slide-text prague">London <a href="#" class="btn btn-primary btn-gallery">Buy Now</a></div>
-            <p>Nestled between the Caribbean, the South Pacific, and the South Atlantic Oceans, South America is the wilder of the Americas, and a continent of superlatives...</p>
-            <p class="trip-big-price"><span> € 270</span></p>
-          </div>
-        </li>
-        <li>
-          <img src="/assets/trip/city4.jpg" alt=""/>
-          <div class="cover-slide-trip"></div>
-          <div class="trip-slide-price col-md-5">
-            <div class="trip-slide-text prague">Prague <a href="#" class="btn btn-primary btn-gallery">Buy Now</a></div>
-            <p>Nestled between the Caribbean, the South Pacific, and the South Atlantic Oceans, South America is the wilder of the Americas, and a continent of superlatives...</p>
-            <p class="trip-big-price"><span> € 599</span></p>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <!--Close col-md-12-->
   </div>
 </section>
 
-<!--Banner Last Minute-->
-<section class='last-minute-banner bb-blue'>
+<section class="section-parthners-info">
   <div class="container">
     <div class="row">
+      <div class="col-md-12 parthners">
+        <div class="text-center">
+          <h2>Make Your Projects Succeed With Aboard Offices</h2>
+          <div class="separator">
+            <div class="separator-style"></div>
+          </div>
+          <p></p>
+        </div>
+      </div>
       <div class="col-md-12">
-        <div class='col-sm-9 col-md-9'>
-          <h1 class="l-main-banner-title">Last Minute Offer! <span>Hurry Up!</span></h1>
-          <p class="l-main2-banner-title">Contact Travego for have evry information about trip!</p>
+        <div class="col-md-3">
+          <div class="works">
+            <img src="/assets/client/1.jpg" alt="" />
+          </div>
         </div>
-        <div class="col-sm-3 col-md-3 button-banner"><a class="shortcode_button btn_large btn_type1 left_icon" href="javascript:void(0);"><i class="fa fa-hand-o-right"></i>Learn More</a></div>
-      </div>
+        <div class="col-xs-2 col-md-3">
+          <div class="works">
+            <img src="/assets/client/2.jpg" alt="" />
+          </div>
+        </div>
+        <div class="col-xs-2 col-md-3">
+         <div class="works">
+            <img src="/assets/client/3.jpg" alt="" />
+          </div>
+        </div>
+        <div class="col-xs-2 col-md-3">
+         <div class="works">
+            <img src="/assets/client/4.jpg" alt="" />
+          </div>
+        </div>
+      </div>  
+
+      <!--Close col-md-12-->
     </div>
   </div>
 </section>
-
 
 <script type="text/javascript">
   $(window).load(function(){
     initializeHome();
   })
 </script>
+
+<style type="text/css">
+  .works{
+    height: 199px;
+    width: 236px;
+    overflow:hidden; 
+  }
+
+  .works img{
+    height: auto;
+    max-width: 100%;
+    display: block;
+  }
+</style>
