@@ -2026,6 +2026,10 @@ figure .img-effect-flash::before {
     color: #ff7200
 }
 
+.parallax-home .middle-text-adv h3{
+    font-size: 30px !important;
+}
+
 .header-lang a.langs-item.fr {
     background: url(../images/flags/fr.gif) left top no-repeat
 }
@@ -2311,8 +2315,8 @@ figure .img-effect-flash::before {
 
 .parallax-home {
     height: auto;
-    /*padding: 100px 0 80px;
-    margin: 80px 0;*/
+    padding: 100px 0 80px;
+    /*margin: 80px 0;*/
     background-attachment: fixed;
     background-image: url(/assets/space1.jpg);
     background-position: 0 0!important;
