@@ -13,7 +13,7 @@
           </li>
         <%end%>
 
-        <li style="width:6%;">
+        <li class="header_select_panel" style="width:6%;cursor: pointer;">
           <% if user_signed_in? %>
             <img src="<%=current_user.profile_image.present? ? current_user.profile_image : '/assets/user.png'%>" class="img-circle dropdown-toggle" alt="Cinque Terre" data-toggle="dropdown">
 
@@ -38,3 +38,18 @@
 </section>  
 
 <%=render 'shared/login' %>
+
+<style type="text/css">
+<% unless (params[:controller].eql?("home") && params[:action].eql?("index")) %>
+  .top-mega-menu {
+    width: 100%;
+    position: relative; 
+    z-index: 99;
+     background-color: #fff; 
+    box-shadow: 0 0 0 rgba(0, 0, 0, .4);
+    padding: 2px 0 0;
+    top: 0;
+  }
+<%end%>  
+</style>
+

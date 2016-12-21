@@ -18,9 +18,9 @@
             <h3><%= truncate(property.try(:name), length: 15) %></h3>
             
             <div class="clear"></div>
-            <p><%=truncate(property.try(:description),length: 75)%></p>
+            <p><%=truncate(property.try(:description),length: 88)%></p>
             <%=property_seats_price(property)%>
-            <a href="<%=property_path(property)%>" class="btn btn-primary btn-gallery">Read More</a>
+            <a href="<%=book_now_property_booking_index_path(property)%>" class="btn btn-primary btn-gallery" target="_blank">Book now</a>
           </figcaption>
         </figure>
       </li>

@@ -18,4 +18,12 @@ class UserMailer < ApplicationMailer
 		mail(to: @owner.email, subject: "Your property booked by #{@user.try(:name)}")
   end
 
+  #Booking confirmation user email
+  def booking_confirmation_client_email(payment)
+  end
+
+  #Booking confirmation owner email
+  def booking_confirmation_owner_email(payment)
+  end
+
 end

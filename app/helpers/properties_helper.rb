@@ -80,9 +80,11 @@ module PropertiesHelper
 
 	def property_seats_price(property)
 		seats_prices = []
-		property.property_types.take(1).each do |type|
-			property_price = property.property_prices.where(property_type_id: type.id).first
-      seats_prices << "<div class='price-night'><span>#{property_price.try(:seats)} people</span><span class='price-n'>#{property_price.try(:price)}</span></div>".html_safe
+		property.property_types.each do |type|
+			if params[:search_office_type].include?(type.name)
+				property_price = property.property_prices.where(property_type_id: type.id).first
+      	seats_prices << "<div class='price-night'><span>#{type.name}</span><span style='margin-left: 13px;'>#{property_price.try(:seats)}</span><span class='price-n'><i class='fa fa-inr'></i> #{property_price.try(:price)}</span></div>".html_safe
+    	end
     end
     seats_prices.join('').html_safe
 	end

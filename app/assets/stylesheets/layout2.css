@@ -139,9 +139,9 @@ label {
 
 .top-mega-menu {
     width: 100%;
-    position: relative;
+    position: absolute;
     z-index: 99;
-    background-color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 0 rgba(0, 0, 0, .4);
     padding: 2px 0 0;
     top: 0
@@ -1499,7 +1499,7 @@ figure .img-effect-flash::before {
 .view-fifth .mask .main h3 {
     float: left;
     margin: 0;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 400
 }
 
@@ -2042,9 +2042,6 @@ figure .img-effect-flash::before {
     background: url(../images/flags/it.gif) left top no-repeat
 }
 
-.top-mega-menu {
-    margin-top: 0
-}
 
 .top-header i.fa-envelope {
     padding: 0 10px 0 30px
@@ -4917,7 +4914,7 @@ dt {
     float: right;
     color: #7db921;
     font-weight: 600;
-    font-size: 20px
+    font-size: 17px
 }
 
 .rating-trip.active i {

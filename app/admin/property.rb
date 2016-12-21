@@ -9,7 +9,7 @@ ActiveAdmin.register Property do
 	  column :phone_number
 	  column :email
 	  column :contact_person
-    column "Varify", :varified
+    column "Verify", :varified
 	  column "Property Type" do |property|
 	    property.property_type
 	  end
@@ -25,9 +25,13 @@ ActiveAdmin.register Property do
 
     actions do |property|
       if params[:scope].eql?("varified_property")
-        link_to 'Unvarify', unvarify_admin_property_path(property)
+        link_to 'Unverify', unvarify_admin_property_path(property)
       else
-        link_to 'Varify', varify_admin_property_path(property)
+        if property.varified
+          link_to 'Verified', "#-"
+        else
+          link_to 'Verify', varify_admin_property_path(property)
+        end
       end
     end
 	end
