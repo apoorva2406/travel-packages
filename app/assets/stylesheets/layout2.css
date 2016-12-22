@@ -1480,7 +1480,8 @@ figure .img-effect-flash::before {
     position: relative;
     padding: 0;
     text-align: left;
-    height: 182px;
+    height: 235px;
+    border-bottom: 3px solid #121324;
 }
 
 .content .list-unstyled {

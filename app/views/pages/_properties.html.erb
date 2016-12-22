@@ -15,12 +15,50 @@
             </div>
           </div>
           <figcaption>
-            <h3><%= truncate(property.try(:name), length: 15) %></h3>
+            <h3><%= truncate(property.try(:name), length: 35) %></h3>
             
             <div class="clear"></div>
             <p><%=truncate(property.try(:description),length: 88)%></p>
-            <%=property_seats_price(property)%>
-            <a href="<%=book_now_property_booking_index_path(property)%>" class="btn btn-primary btn-gallery" target="_blank">Book now</a>
+            <div class="show-content" id="property_<%=property.id%>">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Property type</th>
+                  <th>Capacity</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%property.property_types.each do |type|%>
+                  <%property_price = property.property_prices.where(property_type_id: type.id).first%>
+                  <%if params[:search_office_type] &&  params[:search_office_type].include?(type.name)%>
+                    <tr>
+                      <td><%=type.name%></td>
+                      <%if type.name.eql?('Meeting/Conference Room')%>
+                        <td><%=property_price.try(:number_of_room)%>-Room</td>
+                      <%else%>
+                        <td><%=property_price.try(:seats)%></td>
+                      <%end%>
+                      <td><i class="fa fa-inr price-color"><%=property_price.try(:price)%></i></td>
+                    </tr>
+                  <%end%>
+                <%end%>
+              </tbody>
+            </table>
+            </div>
+            <table width="100%">
+              <tr>
+                <td width="50%">
+                  <a href="<%=book_now_property_booking_index_path(property)%>" class="btn btn-primary btn-gallery" target="_blank">Book now</a>
+                </td>
+                <td>
+                  <% if property.property_types.count > 1%>
+                   <div class="load-more-types" id="<%=property.id%>"><center><a href="javascript:void(0)">See all types</a></center></div>
+                  <%end%> 
+                </td>
+              </tr>
+            </table>
+            <%#=property_seats_price(property)%>
           </figcaption>
         </figure>
       </li>
@@ -29,7 +67,3 @@
     <h2>Not Match</h2>
   <%end%>
 </ul>    
-
-
-
-

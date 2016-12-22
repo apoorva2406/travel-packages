@@ -20,10 +20,21 @@ class UserMailer < ApplicationMailer
 
   #Booking confirmation user email
   def booking_confirmation_client_email(payment)
+    @payment = payment
+    @booking = payment.try(:booking)
+    @property = @booking.try(:property)
+    @user = payment.try(:user)
+    @owner = @property.try(:user)
+    mail(to: @user.email, subject: "Your booking is confirmed")
   end
 
   #Booking confirmation owner email
   def booking_confirmation_owner_email(payment)
+    @payment = payment
+    @booking = payment.try(:booking)
+    @property = @booking.try(:property)
+    @user = payment.try(:user)
+    @owner = @property.try(:user)
+    mail(to: @owner.email, subject: "Your property booking is confirmed by #{@user.try(:name)}")
   end
-
 end

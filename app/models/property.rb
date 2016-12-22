@@ -11,6 +11,7 @@ class Property < ActiveRecord::Base
 	geocoded_by :address
   after_validation :geocode, if: :address_changed?   
   after_commit :reindex_property
+  after_save :edit_reindex_property
   scope :varified_property, -> { where(varified: true) }
   scope :unvarified_property, -> { where(varified: false) }
 
@@ -34,11 +35,15 @@ class Property < ActiveRecord::Base
     self.reindex 
   end
 
+  def edit_reindex_property
+  	self.reindex 
+  end
+
   def search_data
   	facilities_ids =  facilities.present? ? JSON(facilities) : nil
 	  attributes.merge(
 	  	location: {lat: latitude, lon: longitude},
-	    property_type_name: property_types.map(&:name),
+	    property_type_name: property_types.map(&:name).join(','),
 	    facilities: Facility.where(id: facilities_ids).all.map(&:name),
 	    range: property_prices.map(&:price)
 	  )

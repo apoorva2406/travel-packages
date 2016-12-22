@@ -7,8 +7,9 @@
     <label for="ac-4">Property type <i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></label>
     <article class="ac-large">
       <% PropertyType.all.each do |a_value| %>
+          <% @count = @types_count.select{|key,val| val if a_value.name.eql?(key)} %>
           <div class="meals-trip">
-          <p><input class="fa-check-square-o search_by_type" type="checkbox" name="tyeps[]" value="<%=a_value.name%>" style="display: block"><%=a_value.try(:name)%> (1458)</p>
+          <p><input class="fa-check-square-o search_by_type" type="checkbox" name="tyeps[]" value="<%=a_value.name%>" style="display: block"><%=a_value.try(:name)%> <span class="p_type_id_<%=a_value.id%>">(<%=@count.present? ? @count.values[0] : 0 %>)</span></p>
         </div>
         </label>
       <% end %>

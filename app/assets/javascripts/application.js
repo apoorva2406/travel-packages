@@ -95,6 +95,10 @@ $(document).ready(function() {
     $('.dropdown-menu').toggle();
   })
 
+  $(document).on("click", ".load-more-types" ,function(){
+    $("#property_"+this.id).toggleClass('show-content-all');
+  })
+
   //Checkbox validation
   $('.property_form_sub_btn').click(function() {
     checked = $('input[name="property[properties_type][]"]:checked').length;

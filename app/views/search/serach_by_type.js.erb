@@ -1,5 +1,12 @@
 $("#search_properties").html("<%= escape_javascript(render partial: 'pages/properties') %>")
 $("#properties_count").text(<%= @properties.present? ? @properties.size : 0%>)
+$(".p_type_id_1").text("(2000)")
+
+
+<% PropertyType.all.each do |a_value| %>
+  <% @count = @types_count.select{|key,val| val if a_value.name.eql?(key)} %>
+  $(".p_type_id_<%=a_value.id%>").text("(<%=@count.present? ? @count.values[0] : 0 %>)")
+<% end %>
 
 properties_ids = <%=@properties.collect{|p| p.id}.compact%>
 

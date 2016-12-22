@@ -3,6 +3,11 @@ module PropertiesHelper
 		({"12 AM"=>0, "1 AM"=>1, "2 AM"=>2, "3 AM"=>3, "4 AM"=>4, "5 AM"=>5, "6 AM"=>6, "7 AM"=>7, "8 AM"=>8, "9 AM"=>9, "10 AM"=>10, "11 AM"=>11, "12 PM"=>12, "1 PM"=>13, "2 PM"=>14, "3 PM"=>15, "4 PM"=>16, "5 PM"=>17, "6 PM"=>18, "7 PM"=>19, "8 PM"=>20, "9 PM"=>21, "10 PM"=>22, "11 PM"=>23}).to_a.map{|s| s}
 	end
 
+	def property_remaing_seats(property,property_price)
+		book_seats = property.bookings.map{|b| JSON(b.seats).join().to_i}.reduce(:+)
+		book_seats.present? ? property_price.seats - book_seats : property_price.seats
+	end
+
 	def property_type
 		type = PropertyType.where(id: JSON(@property.properties_type))
 		if type.present?
@@ -81,9 +86,11 @@ module PropertiesHelper
 	def property_seats_price(property)
 		seats_prices = []
 		property.property_types.each do |type|
-			if params[:search_office_type].include?(type.name)
-				property_price = property.property_prices.where(property_type_id: type.id).first
+			property_price = property.property_prices.where(property_type_id: type.id).first
+			if params[:search_office_type] &&  params[:search_office_type].include?(type.name)
       	seats_prices << "<div class='price-night'><span>#{type.name}</span><span style='margin-left: 13px;'>#{property_price.try(:seats)}</span><span class='price-n'><i class='fa fa-inr'></i> #{property_price.try(:price)}</span></div>".html_safe
+    	else
+    		seats_prices << "<div class='price-night'><span>#{type.name}</span><span style='margin-left: 13px;'>#{property_price.try(:seats)}</span><span class='price-n'><i class='fa fa-inr'></i> #{property_price.try(:price)}</span></div>".html_safe
     	end
     end
     seats_prices.join('').html_safe

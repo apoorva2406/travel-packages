@@ -12,6 +12,8 @@ class PropertiesController < ApplicationController
     
     #Search by peroperty type and city and desire location
     @result = []
+    @types_count = {}
+    temp = []
     if params[:search_office_type].present?
       params[:search_office_type].each do |type|
         #city present
@@ -24,6 +26,7 @@ class PropertiesController < ApplicationController
         else
           properties = Property.search type, where: {varified: true}
         end
+        @types_count.merge!(type=> properties.count)
         properties.each{|p| @result << p}
       end
 
@@ -48,8 +51,7 @@ class PropertiesController < ApplicationController
       properties.each{|p| @result << p}
     end
 
-    @properties  = @result.uniq
-
+    @properties  = @result
   end
 
   def search_indexed(desire_lat, city_lat, type={})
