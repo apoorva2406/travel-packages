@@ -13,7 +13,6 @@ class PropertiesController < ApplicationController
     #Search by peroperty type and city and desire location
     @result = []
     @types_count = {}
-    temp = []
     if params[:search_office_type].present?
       params[:search_office_type].each do |type|
         #city present

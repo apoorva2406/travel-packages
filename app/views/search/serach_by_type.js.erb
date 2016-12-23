@@ -1,12 +1,23 @@
 $("#search_properties").html("<%= escape_javascript(render partial: 'pages/properties') %>")
 $("#properties_count").text(<%= @properties.present? ? @properties.size : 0%>)
-$(".p_type_id_1").text("(2000)")
 
+<% if @types_count.present?%>
+  <% PropertyType.all.each do |a_value| %>
+    <% @count_y = @types_count.select{|key,val| val if a_value.name.eql?(key)} %>
+    <%if @count_y.present?%>
+      $(".p_type_id_<%=a_value.id%>").text("(<%=@count_y.values[0]%>)")
+    <%end%>  
+  <% end %>
+<%end%>  
 
-<% PropertyType.all.each do |a_value| %>
-  <% @count = @types_count.select{|key,val| val if a_value.name.eql?(key)} %>
-  $(".p_type_id_<%=a_value.id%>").text("(<%=@count.present? ? @count.values[0] : 0 %>)")
-<% end %>
+<%if @facilities_count.present?%>
+  <% Facility.all.each do |a_value| %>
+    <% @count_f = @facilities_count.select{|key,val| val if a_value.name.eql?(key)} %>
+    <% if @count_f.present? %>
+      $(".p_facility_id_<%=a_value.id%>").text("(<%=@count_f.values[0]%>)") 
+    <%end%>
+  <% end %>
+<%end%>  
 
 properties_ids = <%=@properties.collect{|p| p.id}.compact%>
 

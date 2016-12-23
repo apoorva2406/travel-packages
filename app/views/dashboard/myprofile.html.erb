@@ -41,9 +41,34 @@
           </div>
 
           <div class="field">
+            <%= f.label :profession %><br />
+            <%= f.text_field :profession, class: "form-control" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :experience %><br />
+            <%= f.text_field :experience, class: "form-control" %>
+          </div>
+
+          <div class="field">
             <%= f.label :mobile_number %><br />
             <%= f.text_field :mobile_no, class: "form-control", onkeypress: "return event.charCode >= 48 && event.charCode <= 57", minlength:"10" ,maxlength:"10", placeholder:"Enter 10 digit Mobile Number" %>
           </div>
+
+          <div class="field">
+            <label class="radio-inline">
+              <input type="radio" name="optradio">Option 1
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="optradio">Option 2
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="optradio">Option 3
+            </label>
+          </div>
+
+          
+
 
           <% if resource.roles.blank? %>
             <div class="form-group">

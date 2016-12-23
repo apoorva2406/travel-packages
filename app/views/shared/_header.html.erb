@@ -7,11 +7,22 @@
           <a class="logo" href="<%=root_path%>"><img src="/assets/logo.jpg" alt=""/></a>
         </li>
         
+        <li class="weather">
+          <a href="<%=new_property_path%>">Add Workspace</a>
+        </li>
+
+        <li class="weather">
+          <a href="http://aboardoffices.com/social/" target="_blank">Aboard Social</a>
+        </li>
+
         <% unless user_signed_in? %>
           <li class="weather">
             <a data-toggle="modal" data-target="#loginModal"><i class="fa fa-sign-in"></i>Login</a>
           </li>
         <%end%>
+
+       
+
 
         <li class="header_select_panel" style="width:6%;cursor: pointer;">
           <% if user_signed_in? %>
@@ -50,6 +61,19 @@
     padding: 2px 0 0;
     top: 0;
   }
-<%end%>  
+<%end%> 
+
+<% if (params[:controller].eql?("home") && params[:action].eql?("index")) %>
+  .popup-notificaton {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    position: absolute;
+    z-index: 9999;
+    margin-top: 89px;
+    width: 90%;
+  }
+<%end%> 
+
 </style>
 

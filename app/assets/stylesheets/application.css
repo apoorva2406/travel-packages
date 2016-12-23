@@ -16,10 +16,21 @@
  //= stub active_admin
  */
 
+.location_by_sort{
+  background: #fff !important; 
+  color: #428bca !important; 
+  padding: 7px 8px;
+  text-align: left;
+  font-weight: 400;
+  margin-left: 9px;
+  border: 1px solid #428bca;
+}
+
 .show-content {
   max-height: 87px;
   overflow: hidden;
 }
+
 .show-content-all {
   max-height: 100% !important;
   /*overflow: auto !important;*/

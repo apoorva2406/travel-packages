@@ -16,33 +16,17 @@
       <div class="main-switcher">
         <div id="cbp-vm" class="cbp-vm-switcher cbp-vm-view-grid">
           <div class="txt-sort">
-            <p>Sort result:</p>
+            <p>Sort by location:</p>
           </div>
           <div class="click-nav">
             <ul class="no-js">
               <li>
-                <a class="clicker">Price</a>
-                <ul>
-                  <li><span class="btn sort active" data-sort="random">Random</span></li>
-                  <li><span class="btn sort" data-sort="value:asc">Ascending</span></li>
-                  <li><span class="btn sort" data-sort="value:desc">Descending</span></li>
-                </ul>
+                <a class="clicker nearest-loc">Nearest Property </a>
+                <a class="clicker entered-loc">Entered property</a>
               </li>
             </ul>
           </div>
-          <div class="click-nav-location">
-            <ul class="no-js">
-              <li>
-                <a class="clicker">Location</a>
-                <ul>
-                  <li><span class="btn filter active" data-filter="all">All</span></li>
-                  <li><span class="btn filter" data-filter=".category-1">City</span></li>
-                  <li><span class="btn filter" data-filter=".category-2">Sea</span></li>
-                  <li><span class="btn filter" data-filter=".category-3">Middle</span></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
+          
           <div class="cbp-vm-options">
             <a href="#" class="cbp-vm-icon cbp-vm-grid cbp-vm-selected" data-view="cbp-vm-view-grid"><i class="fa fa-th-large"></i></a>
             <a href="#" class="cbp-vm-icon cbp-vm-list" data-view="cbp-vm-view-list"><i class="fa fa-th-list"></i></a>
@@ -63,11 +47,21 @@
     if (typeof properties_ids == 'undefined'){
       properties_ids = <%=@properties.collect{|p| p.id}.compact%>
     }
-    
+
+    var checkedValsType = $('.search_by_type:checkbox:checked').map(function() {
+      return this.value;
+    }).get();
+
+
+    var checkedValsFacility = $('.search_by_facilities:checkbox:checked').map(function() {
+      return this.value;
+    }).get();
+
+
     $.ajax({
       url: "/search/serach_by_type",
       type: "POST",
-      data: { ranges: $(this).attr('data-value'), properties_ids: properties_ids },
+      data: {types: checkedValsType, facilities: checkedValsFacility, ranges: $(this).attr('data-value'), properties_ids: properties_ids },
       beforeSend: function(msg){
        $(".search_loader").show();
       },
@@ -82,43 +76,24 @@
 
   $("#rangeInfo").slider().on('slideStop', RANGEChange);
 
-  $(".search_by_facilities").click(function(){
+  $(document).on("click", ".search_by_type, .search_by_facilities, .clicker", function(){
     if (typeof properties_ids == 'undefined'){
       properties_ids = <%=@properties.collect{|p| p.id}.compact%>
     }
-    var checkedVals = $('.search_by_facilities:checkbox:checked').map(function() {
+
+    var checkedValsType = $('.search_by_type:checkbox:checked').map(function() {
+      return this.value;
+    }).get();
+
+
+    var checkedValsFacility = $('.search_by_facilities:checkbox:checked').map(function() {
       return this.value;
     }).get();
 
     $.ajax({
       url: "/search/serach_by_type",
       type: "POST",
-      data: { types: checkedVals, properties_ids: properties_ids },
-      beforeSend: function(msg){
-       $(".search_loader").show();
-      },
-      success: function (response) {
-        $(".search_loader").hide();
-      },
-      error: function(response) {
-        $(".search_loader").hide(); 
-      }
-    });
-  })
-
-
-  $(".search_by_type").click(function(){
-    if (typeof properties_ids == 'undefined'){
-      properties_ids = <%=@properties.collect{|p| p.id}.compact%>
-    }
-    var checkedVals = $('.search_by_type:checkbox:checked').map(function() {
-      return this.value;
-    }).get();
-
-    $.ajax({
-      url: "/search/serach_by_type",
-      type: "POST",
-      data: { types: checkedVals, properties_ids: properties_ids },
+      data: {location_by:  this.classList[1],types: checkedValsType, facilities: checkedValsFacility, properties_ids: properties_ids },
       beforeSend: function(msg){
        $(".search_loader").show();
       },
@@ -160,7 +135,3 @@
   })  
 </script>
 
-
-<script type="text/javascript">
-  $('#Grid').mixItUp()
-</script>

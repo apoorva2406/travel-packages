@@ -44,7 +44,7 @@ class Property < ActiveRecord::Base
 	  attributes.merge(
 	  	location: {lat: latitude, lon: longitude},
 	    property_type_name: property_types.map(&:name).join(','),
-	    facilities: Facility.where(id: facilities_ids).all.map(&:name),
+	    facilities: Facility.where(id: facilities_ids).all.map(&:name).join(','),
 	    range: property_prices.map(&:price)
 	  )
 	end

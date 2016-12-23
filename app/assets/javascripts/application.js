@@ -42,6 +42,16 @@ $('.best_in_place').bind("ajax:success", function (data) {
   //alert('done'); 
 });
 
+$(document).on("click",".clicker",function(){
+  if (this.classList[1] == "nearest-loc"){
+    $(".nearest-loc").addClass("location_by_sort")
+    $(".entered-loc").removeClass("location_by_sort")
+  }else{
+    $(".nearest-loc").removeClass("location_by_sort")
+    $(".entered-loc").addClass("location_by_sort")
+  }
+})
+
 
 
 //Property index page map

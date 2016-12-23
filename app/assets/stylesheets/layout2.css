@@ -4986,9 +4986,10 @@ dt {
 .click-nav-location ul .clicker {
     background: #428bca;
     color: #FFF;
-    padding: 5px 33px;
+    padding: 7px 8px;
     text-align: left;
-    font-weight: 400
+    font-weight: 400;
+    margin-left: 9px;
 }
 
 .click-nav ul .active,
