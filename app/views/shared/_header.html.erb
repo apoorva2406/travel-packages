@@ -21,13 +21,13 @@
           </li>
         <%end%>
 
-       
-
-
         <li class="header_select_panel" style="width:6%;cursor: pointer;">
           <% if user_signed_in? %>
-            <img src="<%=current_user.profile_image.present? ? current_user.profile_image : '/assets/user.png'%>" class="img-circle dropdown-toggle" alt="Cinque Terre" data-toggle="dropdown">
-
+            <%if current_user.photo.present? %>
+              <img src="<%=current_user.photo.present? ? current_user.photo.url : '/assets/user.png'%>" class="img-circle dropdown-toggle" alt="Cinque Terre" data-toggle="dropdown">
+            <%else%>
+              <img src="<%=current_user.profile_image.present? ? current_user.profile_image : '/assets/user.png'%>" class="img-circle dropdown-toggle" alt="Cinque Terre" data-toggle="dropdown">
+            <%end%>  
             <span class="caret"></span></button>
             <ul class="dropdown-menu" style="background-color: #fff">
               <li><a href="<%=myprofile_dashboard_index_path%>"><%= "My Profile (#{ user_role_owner ? 'Owner' : 'Clinet'})" %></a></li>

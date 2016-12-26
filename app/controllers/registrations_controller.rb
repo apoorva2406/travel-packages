@@ -67,7 +67,7 @@ class RegistrationsController < Devise::RegistrationsController
     if params[:user][:password].present? && params[:user][:password_confirmation].present?
       params.require(:user).permit(:password, :password_confirmation)
     else
-      params.require(:user).permit(:name, :mobile_no)
+      params.require(:user).permit(:name, :mobile_no, :profession, :experience, :gender, :photo, :kyc_doc)
     end
   end
 end

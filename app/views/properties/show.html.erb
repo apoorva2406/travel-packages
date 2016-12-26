@@ -31,8 +31,7 @@
         <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
         <li><a href="#FACILITIES">FACILITIES</a></li>
         <li><a href="#TYPE">PROPERTY TYPE</a></li>
-        <!-- <li><a href="#Nearby">Nearby Properties</a></li> -->
-        <!-- <li><a href="#Landmarks">Nearby Landmarks</a></li> -->
+        <li><a href="#Seats">Seats availability</a></li>
       </ul>
 
       <div id="DESCRIPTION">
@@ -81,6 +80,51 @@
             </div><br>    
           <%end%>
         </div> 
+      </div>
+
+      <div id="Seats">
+        <div class="col-md-6 fly-check">
+          <div class="form-group">
+            <div class="col-md-6 box-fly-book">
+              <label for="checkin">Start Date:</label>
+              <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Check-In is from 11:00"> </div>
+              <div class="content-checkin-data">
+                <input type="text" value="" class="form-control checkin" placeholder="Start-Date" required="required" id="book_start_time" name="booking[start_date]"/>
+              </div>
+            </div>
+
+            <div class="col-md-6 box-fly-book box-sec-book">
+              <label for="checkout">End Date:</label>
+              <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Check-out is from 12:00"> </div>
+              <div class="content-checkin-data">
+                <input type="text" value="" class="form-control checkout" placeholder="End-Date" required="required" id="book_end_time" name="booking[end_date]"/>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 flight-where">
+          <div class="form-group">
+            <div class="col-md-7 box-fly-book">
+              <label for="book_type">Property type:</label>
+              <select class="form-control" name="booking[book_type]" id="book_type" required="required">
+                <option disabled="disabled" selected="selected">Select Property Type</option>
+                <% @property.property_types.each do |type| %>
+                  <option value="<%=type.name%>"><%=type.name%></option>
+                <%end%>
+              </select>
+            </div>
+
+            <div class="col-md-5 box-fly-book box-sec-book">
+              <label for="number_of_seats_label">Available</label>
+              <div class="seats_available">
+
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -148,4 +192,86 @@
 
 
 
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(document).on("change keypress keyup","#book_start_time, #book_end_time, #book_type" , function(){
+      var start_date = $("#book_start_time").val();
+      var end_date = $("#book_end_time").val();
+      var type = $("#book_type").val();
 
+      //Check dates is filled
+      if (this.id == "book_type" && (start_date == '' || end_date == '')){
+        alert("Please select start and end date");
+        $("#book_type option:contains('Select Property Type')").attr("selected","selected"); 
+      }
+      else{
+        if (this.id == "book_type"){
+          $.ajax({
+            url: "<%=get_type_price_property_booking_index_path(@property)%>",
+            data: {type: type, start_date: start_date, end_date: end_date},
+            success: function(response) {
+              $(".seats_available").text('')
+              var res_seats = response.seats; 
+              if (res_seats.length > 0){
+                for (var j = 0; j < res_seats.length; j++){                
+                  $(".seats_available").append("Room - "+(j+1)+": " +res_seats[j]+"<br>") ;
+                } 
+              }
+              else{
+                if(response.remaining_seats == 0){
+                  alert("Seats not available for this type");
+                }else{
+                  $(".seats_available").text(response.remaining_seats)
+                }     
+              }  
+            }
+          });
+        }//end book_type
+      }
+
+    });
+  });
+</script>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    var all_disable_dates = []; <%#= raw start_dates_array %>
+
+    function booked_dates(date) {
+      dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+      if ($.inArray(dmy, all_disable_dates) == -1) {
+        return [true, "event"];
+      } else {
+        return [false, ""];
+      }
+    }
+
+    function booked_dates_end(date) {
+      dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+      if ($.inArray(dmy, all_disable_dates) == -1) {
+        return [true, "event"];
+      } else {
+        return [false, ""];
+      }
+    }
+
+    $(".checkin").datepicker({
+      showAnim: "drop",
+      defaultDate: new Date(),
+      dateFormat: 'dd/mm/yy',
+      minDate: "-0D",
+      beforeShowDay: booked_dates
+    });
+
+    $(".checkout").datepicker({
+      showAnim: "drop",
+      defaultDate: new Date(),
+      dateFormat: 'dd/mm/yy',
+      minDate: "-0D",
+      beforeShowDay: booked_dates_end
+    })
+
+    $(document).on("focus",".checkin, .checkout", function() {$(this).blur()});
+  });
+</script>

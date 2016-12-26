@@ -6,7 +6,11 @@
         <!-- http://lorempixel.com/850/280/people/9/ -->
       </div>
       <div class="useravatar">
-        <img src="<%=current_user.profile_image.present? ? current_user.profile_image : '/assets/user.png'%>" class="img-circle dropdown-toggle" alt="Cinque Terre" data-toggle="dropdown">
+        <%if current_user.photo.present? %>
+          <img src="<%=current_user.photo.present? ? current_user.photo.url : '/assets/user.png'%>" class="img-circle dropdown-toggle" alt="Cinque Terre" data-toggle="dropdown">
+        <%else%>
+          <img src="<%=current_user.profile_image.present? ? current_user.profile_image : '/assets/user.png'%>" class="img-circle dropdown-toggle" alt="Cinque Terre" data-toggle="dropdown">
+        <%end%>
       </div>
       <div class="card-info"> <span class="card-title"><%=current_user.name%></span>
       </div>
@@ -53,23 +57,46 @@
           <div class="field">
             <%= f.label :mobile_number %><br />
             <%= f.text_field :mobile_no, class: "form-control", onkeypress: "return event.charCode >= 48 && event.charCode <= 57", minlength:"10" ,maxlength:"10", placeholder:"Enter 10 digit Mobile Number" %>
+          </div><br />
+
+          <div class="field">
+            <%= f.label :gender %>&nbsp;&nbsp;
+            <label class="radio-inline">
+              <%= f.radio_button :gender, 'Male', :checked => true %>Male
+            </label>
+            <label class="radio-inline">
+              <%= f.radio_button :gender, 'Female' %>Female
+            </label>
           </div>
 
           <div class="field">
-            <label class="radio-inline">
-              <input type="radio" name="optradio">Option 1
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="optradio">Option 2
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="optradio">Option 3
-            </label>
+            <img class="thumbnail img-preview-profile profile-image-show" src="<%= current_user.photo.present? ? current_user.photo.url : '/assets/user.png' %>" title="Preview Logo">
+            
+            <div class="input-group">
+              <div class="input-group-btn">
+                <div class="fileUpload btn btn-danger fake-shadow">
+                  <span><i class="glyphicon glyphicon-upload"></i> Upload profile image</span>
+                  <%= f.file_field :photo ,:class=>"attachment_upload logo-id"%>
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+
+          <div class="field">
+            <img class="thumbnail img-preview-kyc profile-image-show" src="<%= current_user.kyc_doc.present? ? current_user.kyc_doc.url : '/assets/user.png' %>" title="Preview Logo">
+            
+            <div class="input-group">
+              <div class="input-group-btn">
+                <div class="fileUpload btn btn-danger fake-shadow">
+                  <span><i class="glyphicon glyphicon-upload"></i> Upload KYC</span>
+                  <%= f.file_field :kyc_doc ,:class=>"attachment_upload logo-id"%>
+                </div>
+                (Passport, Voter's Identity Card, Driving Licence, Aadhaar Letter, NREGA Card, PAN Card, Other)
+              </div>
+            </div>
           </div>
-
-          
-
-
+         
           <% if resource.roles.blank? %>
             <div class="form-group">
               <label for="user_role" class="col-sm-2 control-label">
@@ -89,4 +116,6 @@
     </div>
   </div>
 </div>
+
+
 

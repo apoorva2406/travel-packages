@@ -38,6 +38,40 @@
 
 
 
+/*upload image on profile*/
+
+
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var ext = input.files[0].name.split('.').pop().toLowerCase();
+    if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+      alert('Please upload only gif, png, jpg, jpeg');
+      return false;
+    }
+
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      if (input.name == "user[photo]"){
+        $('.img-preview-profile').attr('src', e.target.result);
+      }
+      else{
+        $('.img-preview-kyc').attr('src', e.target.result);
+      }
+      
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$(document).on("change",".logo-id",function() {
+  readURL(this);
+});
+
+
+/*-----*/
+
+
+
 $('.best_in_place').bind("ajax:success", function (data) {
   //alert('done'); 
 });

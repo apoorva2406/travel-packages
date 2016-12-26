@@ -9,6 +9,12 @@ class User < ActiveRecord::Base
   has_many :bookings
   has_many :payments
 
+  has_attached_file :photo, styles: { medium: "500x500>", thumb: "200x200>" }, default_url: "/images/:style/missing.png"
+  validates_attachment_content_type :photo, content_type: /\Aimage\/.*\z/
+
+  has_attached_file :kyc_doc, styles: { medium: "500x500>", thumb: "200x200>" }, default_url: "/images/:style/missing.png"
+  validates_attachment_content_type :kyc_doc, content_type: /\Aimage\/.*\z/
+
   def apply_omniauth(omniauth)
     self.profile_image = omniauth['info']['image']
 	  self.email = omniauth['info']['email']

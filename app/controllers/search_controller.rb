@@ -14,7 +14,7 @@ class SearchController < ApplicationController
       elsif params[:location_by].eql?("entered-loc")
         properties =  Property.search "*", where: {varified: true, id: params[:properties_ids], location: {near: {lat: lat, lon: lng}, within: "7mi"}}
       end
-      properties.each{|p| @result << p}
+      properties.each{|p| @result << p} if properties.present?
     end
 
     if params[:ranges].present?
