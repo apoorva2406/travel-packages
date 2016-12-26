@@ -2314,7 +2314,7 @@ figure .img-effect-flash::before {
 .parallax-home {
     height: auto;
     padding: 100px 0 80px;
-    /*margin: 80px 0;*/
+    margin: 80px 0;
     background-attachment: fixed;
     background-image: url(/assets/space1.jpg);
     background-position: 0 0!important;
