@@ -54,7 +54,7 @@
             <div class="col-md-12">
               <div class="col-md-4"><strong>Type:</strong> <%=type.name%></div>
 
-              <%if @property_price.childrens.present?%>
+              <%if @property_price.try(:childrens).present?%>
                 <div class="col-md-4"><strong>No of room:</strong> <%= @property_price.try(:number_of_room)%>
 
                   <%@property_price.childrens.each do |child|%><br>
