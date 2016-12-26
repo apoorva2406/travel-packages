@@ -2,6 +2,7 @@ ActiveAdmin.register Property do
   form partial: "admin/properties/form"
   scope :varified_property
   scope :unvarified_property
+  scope :add_to_home_property
 
 	index do
 	  id_column
@@ -25,16 +26,38 @@ ActiveAdmin.register Property do
 
     actions do |property|
       if params[:scope].eql?("varified_property")
-        link_to 'Unverify', unvarify_admin_property_path(property)
+        links = link_to 'Unverify', unvarify_admin_property_path(property)
       else
         if property.varified
-          link_to 'Verified', "#-"
+          links = link_to 'Verified', "#-"
         else
-          link_to 'Verify', varify_admin_property_path(property)
+          links = link_to 'Verify', varify_admin_property_path(property) 
         end
       end
+
+      links += ' '
+      if params[:scope].eql?("add_to_home_property")
+        links += link_to 'Remove from home', remove_from_home_admin_property_path(property) 
+      else
+        links += link_to 'Add on home', add_to_home_admin_property_path(property) 
+      end
+      links
     end
 	end
+
+  member_action :remove_from_home do
+    @property = Property.find(params[:id])
+    @property.add_to_home = false
+    @property.save
+    redirect_to :back, notice: "Property removed successfully"
+  end
+
+  member_action :add_to_home do
+    @property = Property.find(params[:id])
+    @property.add_to_home = true
+    @property.save
+    redirect_to :back, notice: "Property added on home successfully"
+  end
 
   member_action :varify do
     @property = Property.find(params[:id])

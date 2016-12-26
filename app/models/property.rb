@@ -14,6 +14,8 @@ class Property < ActiveRecord::Base
   after_save :edit_reindex_property
   scope :varified_property, -> { where(varified: true) }
   scope :unvarified_property, -> { where(varified: false) }
+  scope :add_to_home_property, -> { where(add_to_home: true) }
+  
 
   def property_type
   	property_types.map{|type|type.name}.join(',')
@@ -45,7 +47,7 @@ class Property < ActiveRecord::Base
 	  	location: {lat: latitude, lon: longitude},
 	    property_type_name: property_types.map(&:name).join(','),
 	    facilities: Facility.where(id: facilities_ids).all.map(&:name).join(','),
-	    range: property_prices.map(&:price)
+	    range: property_prices.map(&:price).join(',')
 	  )
 	end
 
