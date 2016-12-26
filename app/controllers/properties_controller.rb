@@ -50,7 +50,7 @@ class PropertiesController < ApplicationController
       properties.each{|p| @result << p}
     end
 
-    @properties  = @result
+    @properties  = @result.uniq
   end
 
   def search_indexed(desire_lat, city_lat, type={})

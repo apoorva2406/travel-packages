@@ -51,8 +51,8 @@
                 <tbody>
                   <%@payments.each_pair do |key, payments|%>
                     <tr>
-                      <td> 
-                        <strong>Booking: <%=key.strftime("%a, %e %b %Y")%></strong>
+                      <td colspan="8"> 
+                        <strong>Property: <%=link_to "#{payments.first.property.name}", property_path(payments.first.property), :target=>"_blank" %></strong>
                       </td>
                     </tr>
                     
