@@ -8,7 +8,7 @@
       <li class="mix category-1" data-value="1250" style="display: inline-block;">
         <figure>
           <div class="cbp-vm-image img">
-            <img src="http://aboard-offices.s3.amazonaws.com/:production/417/original/diamond-rings-500x500.jpg?1482678721 <%#=property_photo(property)%>" alt="img01"/>
+            <img src="<%=property_photo(property)%>" alt="img01"/>
             <div class="overlay">
               <%= link_to "+", property_path(property), :"data-no-turbolink" => false, :class=>"expand", :target=>"_blank" %>
               <a class="close-overlay hidden">x</a>

@@ -110,7 +110,7 @@
             <div class="col-md-4 commo_boxes view view-fifth" style="width: 31.4% !important;">
               <figure class="triggerAnimation animated" data-animate="fadeInDown">
                 <div class="img">
-                  <a href="<%=property_path(property)%>"><img src="http://aboard-offices.s3.amazonaws.com/:production/417/original/diamond-rings-500x500.jpg?1482678721 <%#=property.try(:photos).first.try(:image).url%>" alt=""/></a>
+                  <a href="<%=property_path(property)%>"><img src="<%=property.try(:photos).first.try(:image).url%>" alt=""/></a>
                 </div>
               </figure>
               <div class="mask">
