@@ -1038,7 +1038,7 @@ aside .widget ul a:hover .badge {
 
 #top-offerts,
 .top-we-are {
-    padding-bottom: 80px
+    padding-bottom:0px
 }
 
 .travel-desc-agency {
@@ -1481,7 +1481,6 @@ figure .img-effect-flash::before {
     padding: 0;
     text-align: left;
     height: 235px;
-    border-bottom: 3px solid #121324;
 }
 
 .content .list-unstyled {

@@ -107,10 +107,10 @@
         </div>
         <%if @properites.present? %>
           <% @properites.take(6).each do |property|%>
-            <div class="col-md-4 view view-fifth" style="width: 31.4% !important;">
+            <div class="col-md-4 commo_boxes view view-fifth" style="width: 31.4% !important;">
               <figure class="triggerAnimation animated" data-animate="fadeInDown">
                 <div class="img">
-                  <a href="<%=property_path(property)%>"><img src="<%=property.try(:photos).first.try(:image).url%>" alt=""/></a>
+                  <a href="<%=property_path(property)%>"><img src="http://aboard-offices.s3.amazonaws.com/:production/417/original/diamond-rings-500x500.jpg?1482678721 <%#=property.try(:photos).first.try(:image).url%>" alt=""/></a>
                 </div>
               </figure>
               <div class="mask">
@@ -145,7 +145,7 @@
             </div>
           <%end%>
         <%else%>
-          <div class="col-md-4 view view-fifth">
+          <div class="col-md-4 commo_boxes view view-fifth">
             <figure class="triggerAnimation animated" data-animate="fadeInDown">
               <div class="img">
                 <img src="/assets/trip/promotion1.jpg" alt=""/>
@@ -194,7 +194,7 @@
             </div>
           </div>
 
-          <div class="col-md-4 view view-fifth">
+          <div class="col-md-4 commo_boxes view view-fifth">
             <figure class="triggerAnimation animated" data-animate="fadeInDown">
               <div class="img">
                 <img src="/assets/trip/promotion2.jpg" alt=""/>
@@ -241,7 +241,7 @@
             </div>
           </div>
 
-          <div class="col-md-4 view view-fifth">
+          <div class="col-md-4 commo_boxes view view-fifth">
             <figure class="triggerAnimation animated" data-animate="fadeInDown">
               <div class="img">
                 <img src="/assets/3.jpg" alt=""/>
@@ -420,8 +420,8 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12 parthners">
-        <div class="text-center">
-          <h2>Make Your Projects Succeed With Aboard Offices</h2>
+        <div class="">
+          <h2 style="text-align: center;">Make Your Projects Succeed With Aboard Offices</h2>
           <div class="separator">
             <div class="separator-style"></div>
           </div>
@@ -473,5 +473,10 @@
     height: auto;
     max-width: 100%;
     display: block;
+  }
+  .commo_boxes {
+    width: 100%;
+    height: 450px;
+    margin-bottom: 30px;
   }
 </style>
