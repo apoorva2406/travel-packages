@@ -1276,7 +1276,7 @@ figure {
 
 #lastminute-offerts.box-tr-square .col-md-4,
 #top-offerts.box-tr-square .col-md-4 {
-    width: 32.4%
+    width: 31.4%
 }
 
 .offerts-space {
@@ -2330,7 +2330,7 @@ figure .img-effect-flash::before {
 }
 
 .parallax-home .middle-text-adv h3 {
-    font-weight: 700;
+    font-weight: 400;
     text-transform: uppercase;
     font-size: 36px;
     color: #fff;

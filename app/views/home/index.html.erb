@@ -107,7 +107,7 @@
         </div>
         <%if @properites.present? %>
           <% @properites.take(6).each do |property|%>
-            <div class="col-md-4 commo_boxes view view-fifth" style="width: 31.4% !important;">
+            <div class="col-md-4 col-xs-12 commo_boxes view view-fifth">
               <figure class="triggerAnimation animated" data-animate="fadeInDown">
                 <div class="img">
                   <a href="<%=property_path(property)%>"><img src="<%=property.try(:photos).first.try(:image).url%>" alt=""/></a>
@@ -434,17 +434,17 @@
             <img src="/assets/client/1.jpg" alt="" />
           </div>
         </div>
-        <div class="col-xs-2 col-md-3">
+        <div class="col-xs-12 col-md-3">
           <div class="works">
             <img src="/assets/client/2.jpg" alt="" />
           </div>
         </div>
-        <div class="col-xs-2 col-md-3">
+        <div class="col-xs-12 col-md-3">
          <div class="works">
             <img src="/assets/client/3.jpg" alt="" />
           </div>
         </div>
-        <div class="col-xs-2 col-md-3">
+        <div class="col-xs-12 col-md-3">
          <div class="works">
             <img src="/assets/client/4.jpg" alt="" />
           </div>
