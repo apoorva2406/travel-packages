@@ -44,8 +44,9 @@
 .trip-slide-text{padding: 20px 0 20px 0;}
 .all-info-trip .btn-primary{margin-top:10px;}
 .all-info-trip .trip-slide-price .trip-option ul {margin-top: 10px;}
-
 }
+
+
 @media only screen and (max-width: 1200px) 
 {
 .four-col.col-md-3 {
@@ -81,8 +82,10 @@
     -ms-transform: translateY(276px);
     transform: translateY(276px);
 }
-
 }
+
+
+
 @media only screen and (max-width: 1030px) 
 {
 .caption .largewhitebg_button1{padding:7px 20px; font-size:13px}
@@ -98,9 +101,9 @@
 	position: relative;
 	margin-top: 0;
 }
-.travel-mega-menu-mobile li.line-logo:hover a{background: #fff;}
+.travel-mega-menu-mobile li.line-logo:hover a {background: #fff;}
 .top-content {margin-top: 0;}
-.top-mega-menu .container {display:none;}
+.top-mega-menu .container {display:block;}
 
 #mobile-menu-01 {display:block;}
 .travel-mega-menu-mobile {display:none;}
@@ -118,7 +121,7 @@
 /*End*/
 
 .why-choose-us .box-middle-img{left:65%;}
-.home-page {margin-top: 0;}
+.home-page {margin-top: 0px;}
 #mobile-menu-01 li.line-logo {
 	background: #fff;
 	display: block;
@@ -136,8 +139,8 @@
     -o-background-size: cover!important;
     background-size: cover!important;
 }
-.home-page.removeslide {display:none;}
-.container-reservation.inside-slider {top: 160px;}
+.home-page.removeslide {display:block;}
+.container-reservation.inside-slider {top: 0px;}
 
 #reservation-form .reservation-hotel .step-where, #reservation-form .step-check, #reservation-form .step-who {
 	width: 100%;
@@ -146,7 +149,8 @@
 #reservation-form .step-check .cc-out, #reservation-form .step-who .child {padding-right: 0;}
 #reservation-form .col-sm-2 button {margin-top: 20px;}
 #reservation-form.pos-inside-slide .reservation-hotel, #reservation-form.pos-inside-slide .reservation-flight {
-	padding: 10px 30px 10px 30px;
+	/*padding: 10px 30px 10px 30px;*/
+    padding: 10px 0px;
 }
 #reservation-form h3 {font-size: 13px;}
 #reservation-form label {font-size: 11px;}
@@ -334,9 +338,17 @@
 .all-info-trip.long-pannel .trip-slide-price .trip-big-price span {
     font-size: 70px;
 }
+
 }
 
-
+@media only screen and (max-width: 1024px)  {
+    #reservation-form.reservation-color-form.pos-inside-slide {
+        top: 183px;
+    }
+    .container-slider.removeslide {
+        height: 560px;
+    }
+}
 @media only screen and (max-width: 1000px) 
 {
 #mobile-menu-01 .line-logo {padding: 0 20px 5px 20px;} 
@@ -360,7 +372,7 @@
     -o-background-size: cover!important;
     background-size: cover!important;
 }
-.home-page.removeslide-ipad {display:none;}
+.home-page.removeslide-ipad {display:block;}
 
 .reservation-home4.blue-reserv-form {
     margin-top: -280px;
@@ -373,7 +385,7 @@
 #flights-tab .flight-when,#flights-tab .flight-who,#flights-tab .flight-who .adultfly{padding-right:0;}
 
 /*Form Booking*/
-.container-reservation.inside-slider {top: 140px;}
+.container-reservation.inside-slider {top: 0px;}
 #top-offerts .col-md-4, #lastminute-offerts .col-md-4 {
 	width: 100%;
 	padding: 0 30px;
@@ -657,7 +669,7 @@ dl {
 	padding: 0
 }
 #dtlBtn{display:none;}
-.container-slider.removeslide {height: 850px;}
+.container-slider.removeslide {height: 355px;}
 .container-slider.removeslide-ipad {height: 850px;}
 #reservation-form .flight-where, #reservation-form .fly-check {
 	width: 100%;
@@ -700,8 +712,11 @@ dl {
 /*Information Page*/
 .customer-image {display:none;}
 .about-color-parallax h3 {font-size: 45px;}
+}
 
-
+.travel-mega-menu li.weather > a {
+    font-size: 13px;
+}
 }
 @media only screen and (max-width: 740px) and (orientation: landscape)
 {
@@ -725,15 +740,26 @@ dl {
 /*Prices*/
 .col-md-4.prices {width: 52%;}
 }
+
+@media only screen and (max-width: 768px) {
+    li.line-logo {
+    float: none;
+    width: 49%;
+    }
+    #reservation-form.reservation-color-form.pos-inside-slide {
+        top: 15px;
+    }
+    .container-slider.removeslide {
+        height: 300px;
+    }
+}
 @media only screen and (max-width: 700px) 
 {
 #top-offerts .col-md-4,#lastminute-offerts .col-md-4 {
 	width: 100%;
 	padding: 0 0px;
 }
-.container-slider.removeslide {
-    height: 850px;
-}
+
 .container-slider.removeslide-ipad {
     height: 850px;
 }
@@ -772,7 +798,7 @@ dl {
   width: 50%;
 }
 .container-reservation.inside-slider {
-    top: 90px;
+    top: 0px;
 }
 /*Middle Slide*/
 .trip-slide-text {
@@ -839,6 +865,18 @@ dl {
 }
 
 }
+
+@media only screen and (max-width: 640px) {
+    li.line-logo {
+    float: none;
+    width: 100%;
+    }
+    #reservation-form.reservation-color-form.pos-inside-slide {
+        top: 35px;
+    }
+}
+
+
 
 @media only screen and (max-width: 500px) 
 {
@@ -1021,6 +1059,13 @@ ul.search-opt li a {
 .logo-footer {width: 50%;}
 }
 
+@media only screen and (max-width: 480px) {
+    .text-center.top-txt-title {
+        margin-top: 178px;
+    }
+}
+
+
 @media only screen and (max-width: 400px) 
 {
 ul.search-opt li a {
@@ -1050,7 +1095,7 @@ ul.search-opt li a {
 	font-size: 16px;
 }
 .container-reservation.inside-slider {
-    top: 80px;
+    top: 0px;
 }
 /*Services2*/
 #parallax_slide .bx-wrapper img {
@@ -1123,4 +1168,14 @@ ul.search-opt li a {
 .newsletterfooter input[type="submit"] {
     float: left;
 }
+.travel-mega-menu li.weather > a {
+    font-size: 10px;
+}
+
+}
+
+@media only screen and (max-width: 320px) {
+    .text-center.top-txt-title {
+        margin-top: 178px;
+    }
 }

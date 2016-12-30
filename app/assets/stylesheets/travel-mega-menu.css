@@ -896,41 +896,41 @@
     .travel-mega-menu-response-to-stack li li:hover>div,
     .travel-mega-menu-response-to-switcher li li:hover>div {
         right: 0;
-        left: 51px
+        left: 51px;
     }
     .travel-mega-menu-response-to-stack .search .input input,
     .travel-mega-menu-response-to-switcher .search .input input {
-        width: 100%
+        width: 100%;
     }
     .travel-mega-menu-response-to-icons li {
         position: static;
-        font-size: 0
+        font-size: 0;
     }
     .travel-mega-menu-response-to-icons li a {
-        padding: 0 10px
+        padding: 0 10px;
     }
     .travel-mega-menu-response-to-icons li>[class^=grid-container],
     .travel-mega-menu-response-to-icons li>div {
-        width: 100%
+        width: 100%;
     }
     .travel-mega-menu-response-to-icons li a>.fa {
-        margin: 0
+        margin: 0;
     }
     .travel-mega-menu-response-to-icons li a>.fa-indicator {
         position: static;
         display: block;
         float: right;
         margin-left: 10px;
-        line-height: 45px
+        line-height: 45px;
     }
     .travel-mega-menu-response-to-icons li li {
         position: relative;
-        font-size: 13px
+        font-size: 13px;
     }
     .travel-mega-menu-response-to-icons .right li>div,
     .travel-mega-menu-response-to-icons li li>div {
         top: 100%;
-        margin: 8px 0 0
+        margin: 8px 0 0;
     }
     .travel-mega-menu-response-to-icons .right li>div:after,
     .travel-mega-menu-response-to-icons li li>div:after {
@@ -939,19 +939,19 @@
         bottom: 100%;
         left: 0;
         width: 100%;
-        height: 8px
+        height: 8px;
     }
     .travel-mega-menu-response-to-icons .right li:hover>div,
     .travel-mega-menu-response-to-icons li li:hover>div {
         right: 0;
         left: 41px;
-        width: auto
+        width: auto;
     }
     .travel-mega-menu-response-to-icons li li a>.fa {
-        margin-right: 10px
+        margin-right: 10px;
     }
     .travel-mega-menu-response-to-icons li li a>.fa-indicator {
-        margin-right: 0
+        margin-right: 0;
     }
     .travel-mega-menu-response-to-icons.travel-mega-menu-anim-flip li li>div {
         top: 100%;
@@ -963,10 +963,10 @@
     .travel-mega-menu-pos-bottom.travel-mega-menu-response-to-icons li li>div {
         top: auto;
         bottom: 100%;
-        margin: 0 0 8px
+        margin: 0 0 8px;
     }
     .travel-mega-menu-pos-bottom.travel-mega-menu-response-to-icons li li>div:after {
         top: 100%;
-        bottom: auto
+        bottom: auto;
     }
 }
