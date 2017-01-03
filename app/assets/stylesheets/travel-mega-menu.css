@@ -73,6 +73,7 @@
     text-decoration: none;
     letter-spacing: .5px;
     color: #666;
+    font-size: 13px;
     transition: background .4s, color .4s;
     -o-transition: background .4s, color .4s;
     -ms-transition: background .4s, color .4s;
@@ -137,7 +138,7 @@
 
 .travel-mega-menu li.weather>a {
     background: #428bca;
-    color: #fff
+    color: #fff;
 }
 
 .travel-mega-menu li.weather:hover>a {

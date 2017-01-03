@@ -1,7 +1,5 @@
 ﻿
-@media only screen and (max-width: 1400px) and (min-width: 1024px)
-{
-    
+@media only screen and (min-width: 1024px) and (max-width: 1400px) {
 .travel-mega-menu .center {
 	float: none;
 	border-right-width: 0;
@@ -22,7 +20,7 @@
 	left: auto;
 	display:none;
 }  
-
+}
 
 @media only screen and (max-width: 1400px) 
 {
@@ -72,8 +70,7 @@
 .content-man{display:none;}
 .content-man.mandesc{display:block;}
 }
-@media only screen and (max-width: 1200px) and (min-width: 1030px)
-{
+@media only screen and (min-width: 1030px) and (max-width: 1200px) {
 #home3 .col-md-4 {width: 48%;}
 #home3 .view3-fifth .mask {
     -webkit-transform: translateY(276px);
@@ -740,7 +737,6 @@ dl {
 /*Prices*/
 .col-md-4.prices {width: 52%;}
 }
-
 @media only screen and (max-width: 800px) {
     #reservation-form.reservation-color-form.pos-inside-slide {
         top: 23px;
@@ -748,14 +744,7 @@ dl {
     .text-center.top-txt-title {
         margin-top: -60px;
     }
-    li.line-logo {
-    float: none;
-    width: 49%;
-    }
 }
-
-
-
 @media only screen and (max-width: 768px) {
     li.line-logo {
     float: none;
@@ -774,7 +763,6 @@ dl {
 	width: 100%;
 	padding: 0 0px;
 }
-
 .container-slider.removeslide-ipad {
     height: 850px;
 }
@@ -785,31 +773,32 @@ dl {
 	display:none;
 }
 .tp-leftarrow.large {
-	  background: url(../assets/arrow_small_left.png) no-repeat top left;
-      width: 31px;
-      height: 30px;
+  background: url(../assets/arrow_small_left.png) no-repeat top left;
+  width: 31px;
+  height: 30px;
 }
 .tp-rightarrow.large {
-	  background: url(../assets/arrow_small_right.png) no-Repeat top left;
-      width: 31px;
-      height: 30px;
+  background: url(../assets/arrow_small_right.png) no-Repeat top left;
+  width: 31px;
+  height: 30px;
 }
 .all-info-trip.pannel-radius .trip-slide-price{display:none;}
 .top-txt-title span{font-size:60px;}
 .box-info-help{width:100%}
 
-.bx-about2.oxy-tmp .trip-slide-price{display:none;}
+.bx-about2.oxy-tmp .trip-slide-price{
+    display:none;
+}
 }
 
 @media only screen and (min-width: 641px) and (max-width: 799px) {
-    .text-center.top-txt-title {
-        margin-top: 155px;
-    }
+.text-center.top-txt-title {
+    margin-top: 155px;
+}
 } 
 
 
-@media only screen and (max-width: 600px) and (orientation: landscape)
-{
+@media only screen and (max-width: 600px) and (orientation: landscape) {
 .cbp-contentslider h3 span {
   margin-left: 70px;
 }
@@ -836,7 +825,6 @@ dl {
     bottom: 10px;
     width: 100%;
 }
-
 /*guide*/
 .number-structure-left {
   width: 48%;
@@ -855,13 +843,11 @@ dl {
 .desc-office h3 {
 	margin-top: 20px;
 }
-
 /*Gallery 4 Column*/
 
 #gallery .col-md-3 {
     width: 31.3%;
 }
-
 /*Gallery 3 Column*/
 #gallery .col-md-4 {
     width: 31.3%;
@@ -879,15 +865,12 @@ dl {
 .col-md-4.prices {
     width: 60%;
 }
-
 /*Contact*/
 #top-offerts .contact-square.col-md-4 {
     width: 31.2%;
     float: left;
 }
-
 }
-
 @media only screen and (max-width: 640px) {
     li.line-logo {
     float: none;
@@ -900,8 +883,6 @@ dl {
         margin-top: 180px;
     }
 }
-
-
 
 @media only screen and (max-width: 500px) 
 {
@@ -980,8 +961,6 @@ ul.search-opt li a {
 .view-about {
   width: 100%;
 }
-
-
 /*about 2*/
 .about-color-parallax h3 {
 	font-size: 45px;
@@ -1002,7 +981,6 @@ ul.search-opt li a {
     width: 100%;
     height: 200px;
 }
-
 /*Information page*/
 .about-color-parallax h3 {
     font-size: 45px;
@@ -1062,13 +1040,10 @@ ul.search-opt li a {
     width: 100%;
     margin-bottom:20px;
 }
-
 /*Prices*/
-
 .col-md-4.prices {
     width: 90%;
 }
-
 /*Contact*/
 #top-offerts .contact-square.col-md-4 {
     width: 100%;
@@ -1083,14 +1058,11 @@ ul.search-opt li a {
 }
 .logo-footer {width: 50%;}
 }
-
 @media only screen and (max-width: 480px) {
     .text-center.top-txt-title {
         margin-top: 178px;
     }
 }
-
-
 @media only screen and (max-width: 400px) 
 {
 ul.search-opt li a {
@@ -1103,7 +1075,6 @@ ul.search-opt li a {
 .trip-slide-price {
     padding: 10px 20px;
 }
-
 /*Home 3 lion*/
 .cbp-contentslider h3[class^="icon-"]:before, .cbp-contentslider h3[class*=" icon-"]:before {
 	width: 1em;
@@ -1115,7 +1086,6 @@ ul.search-opt li a {
 .cbp-contentslider h3 span.country-name1 {
   margin-left: 40px;
 }
-
 .title-about {
 	font-size: 16px;
 }
@@ -1140,15 +1110,12 @@ ul.search-opt li a {
 .pagination>li.first>a, .pagination>li.prev>a, .pagination>li.next>a, .pagination>li.last>a {
     padding: 0 10px;
 }
-
 /*Prices*/
-
 .col-md-4.prices {
     width: 100%;
 }
 .logo-footer {width: 50%;}
 }
-
 @media only screen and (max-width: 330px) 
 {
 #loading-center-absolute {
