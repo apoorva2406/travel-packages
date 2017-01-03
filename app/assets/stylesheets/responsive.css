@@ -741,6 +741,21 @@ dl {
 .col-md-4.prices {width: 52%;}
 }
 
+@media only screen and (max-width: 800px) {
+    #reservation-form.reservation-color-form.pos-inside-slide {
+        top: 23px;
+    }
+    .text-center.top-txt-title {
+        margin-top: -60px;
+    }
+    li.line-logo {
+    float: none;
+    width: 49%;
+    }
+}
+
+
+
 @media only screen and (max-width: 768px) {
     li.line-logo {
     float: none;
@@ -785,6 +800,13 @@ dl {
 
 .bx-about2.oxy-tmp .trip-slide-price{display:none;}
 }
+
+@media only screen and (min-width: 641px) and (max-width: 799px) {
+    .text-center.top-txt-title {
+        margin-top: 155px;
+    }
+} 
+
 
 @media only screen and (max-width: 600px) and (orientation: landscape)
 {
@@ -873,6 +895,9 @@ dl {
     }
     #reservation-form.reservation-color-form.pos-inside-slide {
         top: 35px;
+    }
+    .text-center.top-txt-title {
+        margin-top: 180px;
     }
 }
 
