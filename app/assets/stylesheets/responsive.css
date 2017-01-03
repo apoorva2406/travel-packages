@@ -20,7 +20,7 @@
 	left: auto;
 	display:none;
 }  
-
+}
 
 @media only screen and (max-width: 1400px) 
 {
@@ -45,46 +45,45 @@
 }
 
 
-@media only screen and (max-width: 1200px) 
-{
-.four-col.col-md-3 {
-    width: 23.5%;
-}
-/*meteo i the slider*/
-.meteo-top-travel.meteo-slider-top .weatherItem {
-    width: 47%;
-}
-.meteo-top-travel.meteo-slider-top {
-    padding: 0;
-    width: 50%;
+@media only screen and (max-width: 1200px) {
+  .four-col.col-md-3 {
+      width: 23.5%;
+  }
+  /*meteo i the slider*/
+  .meteo-top-travel.meteo-slider-top .weatherItem {
+      width: 47%;
+  }
+  .meteo-top-travel.meteo-slider-top {
+      padding: 0;
+      width: 50%;
+  }
+
+  /*meteo blu color*/
+  .meteo-top-travel .weatherItem {
+      width: 48%;
+  }
+  .meteo-top-travel {
+      padding: 0;
+      width: 100%;
+  }
+  .content-man{display:none;}
+  .content-man.mandesc{display:block;}
 }
 
-/*meteo blu color*/
-.meteo-top-travel .weatherItem {
-    width: 48%;
-}
-.meteo-top-travel {
-    padding: 0;
-    width: 100%;
-}
-.content-man{display:none;}
-.content-man.mandesc{display:block;}
-}
 @media only screen and (min-width: 1030px) and (max-width: 1200px) {
-#home3 .col-md-4 {width: 48%;}
-#home3 .view3-fifth .mask {
-    -webkit-transform: translateY(276px);
-    -moz-transform: translateY(276px);
-    -o-transform: translateY(276px);
-    -ms-transform: translateY(276px);
-    transform: translateY(276px);
+  #home3 .col-md-4 {width: 48%;}
+  #home3 .view3-fifth .mask {
+      -webkit-transform: translateY(276px);
+      -moz-transform: translateY(276px);
+      -o-transform: translateY(276px);
+      -ms-transform: translateY(276px);
+      transform: translateY(276px);
+  }
 }
-}
 
 
 
-@media only screen and (max-width: 1030px) 
-{
+@media only screen and (max-width: 1030px) {
 .caption .largewhitebg_button1{padding:7px 20px; font-size:13px}
 .caption .largewhitebg_button1:hover{padding:7px 20px; font-size:13px}
 
