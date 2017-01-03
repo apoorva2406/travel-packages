@@ -704,16 +704,18 @@ dl {
     padding: 0;
 }
 /*Services*/
-.view-service img {width: 30%;}
-/*Information Page*/
-.customer-image {display:none;}
-.about-color-parallax h3 {font-size: 45px;}
+  .view-service img {width: 30%;}
+  /*Information Page*/
+  .customer-image {display:none;}
+  .about-color-parallax h3 {font-size: 45px;}
+  
+
+  .travel-mega-menu li.weather > a {
+      font-size: 13px;
+  }
 }
 
-.travel-mega-menu li.weather > a {
-    font-size: 13px;
-}
-}
+
 @media only screen and (max-width: 740px) and (orientation: landscape)
 {
 .info-parallax{height: 300px;}
