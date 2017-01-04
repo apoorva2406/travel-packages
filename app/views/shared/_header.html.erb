@@ -22,12 +22,12 @@
           </li>
         <%end%>
 
-        <li class="header_select_panel" style="width:6%;cursor: pointer;">
+        <li class="header_select_panel" style="cursor: pointer;">
           <% if user_signed_in? %>
             <%if current_user.photo.present? %>
-              <img src="<%=current_user.photo.present? ? current_user.photo.url : '/assets/user.png'%>" class="img-circle dropdown-toggle" alt="Cinque Terre" data-toggle="dropdown">
+              <img src="<%=current_user.photo.present? ? current_user.photo.url : '/assets/user.png'%>" class="img-circle dropdown-toggle" alt="Cinque Terre" data-toggle="dropdown" width="48px;" height="48px;">
             <%else%>
-              <img src="<%=current_user.profile_image.present? ? current_user.profile_image : '/assets/user.png'%>" class="img-circle dropdown-toggle" alt="Cinque Terre" data-toggle="dropdown">
+              <img src="<%=current_user.profile_image.present? ? current_user.profile_image : '/assets/user.png'%>" class="img-circle dropdown-toggle" alt="Cinque Terre" data-toggle="dropdown" width="48px;" height="48px;">
             <%end%>  
             <span class="caret"></span></button>
             <ul class="dropdown-menu" style="background-color: #fff">

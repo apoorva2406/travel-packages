@@ -697,7 +697,7 @@ dl {
 .caption.blue-b4.banner-blue, .caption.blue-b4.banner-green, .caption.blue-b4.banner-red {
 	display:none;
 }
-#reservation-form .home2-hotel-where{padding:0;}
+#reservation-form .home2-hotel-where {padding:0;}
 #reservation-form .colbtn{padding:0;}
 #reservation-form .home2 .flight-where, #reservation-form .home2 .flight-when {
     width: 100%;
@@ -756,6 +756,13 @@ dl {
     }
     .container-slider.removeslide {
         height: 300px;
+    }
+    .top-mega-menu {
+      background-color: #fff;
+    }
+    .nav-pills > li {
+      float: none;
+      margin-bottom: 10px;
     }
 }
 @media only screen and (max-width: 700px) 
@@ -883,6 +890,9 @@ dl {
     .text-center.top-txt-title {
         margin-top: 180px;
     }
+     .dropdown-menu {
+      left: 448px !important;
+    } 
 }
 
 @media only screen and (max-width: 500px) 
@@ -1063,6 +1073,9 @@ ul.search-opt li a {
     .text-center.top-txt-title {
         margin-top: 178px;
     }
+    .dropdown-menu {
+      left: 288px !important;
+    }
 }
 @media only screen and (max-width: 400px) 
 {
@@ -1167,8 +1180,18 @@ ul.search-opt li a {
 
 }
 
+@media only screen and (max-width: 360px) {
+    .dropdown-menu {
+      left:   168px !important;
+    }
+}
+
+
 @media only screen and (max-width: 320px) {
     .text-center.top-txt-title {
         margin-top: 178px;
+    }
+    .dropdown-menu {
+      left:   130px !important;
     }
 }
