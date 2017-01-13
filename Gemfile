@@ -5,6 +5,7 @@ ruby '2.3.1'
 gem 'rails', '4.2.7'
 # Use postgresql as the database for Active Record
 gem 'pg'
+gem 'twilio-ruby'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets

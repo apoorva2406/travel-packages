@@ -15,6 +15,25 @@ class User < ActiveRecord::Base
   has_attached_file :kyc_doc, styles: { medium: "500x500>", thumb: "200x200>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :kyc_doc, content_type: /\Aimage\/.*\z/
 
+  
+  def send_otp
+    begin
+      @client = Twilio::REST::Client.new ENV['account_sid'], ENV['auth_token']
+      otp = 1_000_000 + Random.rand(10_000_000 - 1_000_000)
+      self.otp_code = otp
+      self.save
+      @client.account.messages.create(
+        :body => "Hey your login otp is #{otp}",
+        :to => "+918959294300",    
+        :from => "++12173647554"
+      )  
+      message = "Otp send successfully"
+    rescue Twilio::REST::RequestError => e
+      message = "Something is wrong"
+    end
+    message
+  end
+
   def apply_omniauth(omniauth)
     self.profile_image = omniauth['info']['image']
 	  self.email = omniauth['info']['email']

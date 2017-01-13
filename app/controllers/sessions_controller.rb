@@ -6,15 +6,20 @@ class SessionsController < Devise::SessionsController
     resource = User.find_for_database_authentication(email: params[:user][:email])
     return invalid_login_attempt unless resource
     if resource.valid_password?(params[:user][:password])
-      sign_in("user", resource)
-      flash[:notice] = "Login successfully"
-      if request.xhr?
-        respond_to do |format|
-          format.json { render json: "Ok" }
-        end
+      if resource.verified.eql?(false)
+        session[:otp_user_id] = resource.id
+        redirect_to verification_otp_index_path
       else
-        redirect_to session[:previous_url] || root_path
-      end  
+        sign_in("user", resource)
+        flash[:notice] = "Login successfully"
+        if request.xhr?
+          respond_to do |format|
+            format.json { render json: "Ok" }
+          end
+        else
+          redirect_to session[:previous_url] || root_path
+        end
+      end    
     else  
       if request.xhr?
         invalid_login_attempt
@@ -28,7 +33,11 @@ class SessionsController < Devise::SessionsController
   # Method for invalid login attempt
   def invalid_login_attempt
     respond_to do |format|
-      format.json { render json: "Error with your login or password", status: 401 }
+      if request.xhr?
+        format.json { render json: "Error with your login or password", status: 401 }
+      else
+        format.html { redirect_to :back, alert: 'Error with your login or password'}
+      end
     end
   end
 end

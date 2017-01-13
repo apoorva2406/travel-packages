@@ -66,4 +66,13 @@ Rails.application.routes.draw do
       get 'changepassword', :path => 'myprofile/changepassword'
   	end
   end
+
+  resources :otp do
+    collection do 
+      get 'verification'
+      post 'varified'
+      get 'resend_otp'
+    end 
+  end
+
 end
