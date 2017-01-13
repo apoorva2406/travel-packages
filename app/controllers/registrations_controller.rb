@@ -12,13 +12,13 @@ class RegistrationsController < Devise::RegistrationsController
       else
         set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
       end
-      sign_in resource
+
       if request.xhr?
         respond_to do |format|
-          format.json { render json: "Ok" }
+          format.js { render js: "window.location='#{root_path}'" }
         end
       else
-        redirect_to myprofile_dashboard_index_path
+        redirect_to root_path
       end  
     else
       warden.custom_failure!

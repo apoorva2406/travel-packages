@@ -11,7 +11,7 @@ $(document).ready(function(){
         $("#signing_submit").text('Submit....');
       },
       success: function (response) {
-        window.location.reload("/");  
+        //window.location.reload("/");  
       },
       error: function(response) {
         if (response.statusText == "OK"){
