@@ -39,6 +39,7 @@ class BookingController < ApplicationController
 		@booking.seats = params[:booking][:seats]
     respond_to do |format|
       if @booking.save
+      	@booking.booking_message
         format.html { redirect_to pay_now_property_booking_path(@property, @booking), notice: 'Booking was successfully created.' }
       else
         format.html { render :book_now }

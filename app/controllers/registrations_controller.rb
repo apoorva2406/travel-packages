@@ -7,18 +7,13 @@ class RegistrationsController < Devise::RegistrationsController
     if resource.save
       resource.assign_user_role(params[:user][:role])
       resource.send_otp
-      if resource.active_for_authentication?
-        set_flash_message :notice, :signed_up if is_navigational_format?
-      else
-        set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
-      end
-
+      session[:user_id_otp] = resource.id
       if request.xhr?
         respond_to do |format|
-          format.js { render js: "window.location='#{root_path}'" }
+          format.js
         end
       else
-        redirect_to root_path
+        redirect_to verification_otp_index_path
       end  
     else
       warden.custom_failure!

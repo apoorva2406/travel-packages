@@ -6,9 +6,38 @@ class Payment < ActiveRecord::Base
 
 	def set_booking_status
 		self.booking.update(status: "confirmed")
+		self.booking_confirmation_message
 		UserMailer.booking_confirmation_client_email(self).deliver
 		UserMailer.booking_confirmation_owner_email(self).deliver
 	end
+
+
+	def booking_confirmation_message
+    begin
+      @client = Twilio::REST::Client.new ENV['account_sid'], ENV['auth_token']
+      property = self.try(:property)
+      booking = self.try(:booking)
+      booking_user_no =  '+919910116603' #booking.try(:phone)
+      owner_no = '+919910116603' #property.user.try(:mobile_no)
+
+      @client.account.messages.create(
+        :body => "You have successfully confirmed booking #{property.try(:name)}. Booking start_date #{booking.try(:start_date)} to #{booking.try(:end_date)}, total amount is #{booking.try(:total_amount)}",
+        :to => "#{booking_user_no}",    
+        :from => "++12173647554"
+      ) 
+
+      @client.account.messages.create(
+        :body => "Your property #{property.try(:name)} successfully confirmed by #{booking.try(:name)}. Booking start_date #{booking.try(:start_date)} to #{booking.try(:end_date)}, total amount is #{booking.try(:total_amount)}",
+        :to => "#{owner_no}",    
+        :from => "++12173647554"
+      )  
+
+      message = "Otp send successfully"
+    rescue Twilio::REST::RequestError => e
+      message = "Something is wrong"
+    end
+  end
+
 
 	def create_payment(params,booking_id)
 		self.mid 			=  params[:MID]

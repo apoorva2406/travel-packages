@@ -37,7 +37,7 @@ $(document).ready(function(){
         $("#signup_submit").text("Wait...");
       },
       success: function (response) {
-        window.location.reload("/");  
+        //window.location.reload("/");  
       },
       error: function(response) {
         if (response.statusText == "OK"){

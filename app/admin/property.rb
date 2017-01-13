@@ -24,6 +24,10 @@ ActiveAdmin.register Property do
 	    truncate(property.try(:address),length: 20)
 	  end
 
+    column "Image" do |property|
+      image_tag property.photos.try(:first).try(:image).try(:url), class: 'property_admin_img'
+    end
+
     actions do |property|
       if params[:scope].eql?("varified_property")
         links = link_to 'Unverify', unvarify_admin_property_path(property)
@@ -99,6 +103,17 @@ ActiveAdmin.register Property do
       row :owner do
         link_to property.user.email
       end
+
+      row "Images", :class=>"img-boxes" do
+       ul do
+        property.photos.each do |photo|
+          li do 
+            image_tag(photo.image.url, :class=>"property-show")
+          end
+        end
+       end
+      end
+
     end
   end
 

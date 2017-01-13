@@ -6,18 +6,10 @@ class SessionsController < Devise::SessionsController
     resource = User.find_for_database_authentication(email: params[:user][:email])
     return invalid_login_attempt unless resource
     if resource.valid_password?(params[:user][:password])
-      if resource.confirmed_at.blank?
-        if request.xhr?
-          respond_to do |format|
-            format.json { render json: "You need to confirm your email", status: 401  }
-          end
-        else
-          redirect_to :back, alert: 'You need to confirm your email'
-        end
-      elsif resource.verified.eql?(false)
+      if resource.verified.eql?(false)
         respond_to do |format|
-          session[:otp_user_id] = resource.id
-          format.js { render js: "window.location='#{verification_otp_index_path}'" }
+          session[:user_id_otp] = resource.id
+          format.js
           format.html { redirect_to verification_otp_index_path}
         end 
       else
