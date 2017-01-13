@@ -69,7 +69,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
    :user_name => 'patel_kapil',
    :password => 'kapilyuvasoft133',
-   :domain => 'https://aboard-offices.herokuapp.com',
+   :domain => ENV['website_url'],
    :address => 'smtp.sendgrid.net',
    :port => 587,
    :authentication => :plain,
