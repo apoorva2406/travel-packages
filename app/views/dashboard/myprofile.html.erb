@@ -36,7 +36,12 @@
 
           <div class="field">
             <%= f.label :email %><br />
-            <%= f.email_field :email, :disabled=>true, class: "form-control" %>
+            <%= f.email_field :email, :disabled=>true, class: "form-control", :id=>"edit_user_email" %>
+            <%unless resource.email_status %>
+              <span id="email_status"><%= link_to 'Vefify email', email_verification_dashboard_index_path, remote:true , style:"color:red"%></span>
+            <%else%>
+              <span id="email_status" style="color:green">Email is verified</span>
+            <%end%>
           </div>
 
           <div class="field">

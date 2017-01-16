@@ -29,7 +29,15 @@ class DashboardController < ApplicationController
 	def mypayments
 		@payments = current_user.payments
 	end
+
 	def changepassword
 		@resource = current_user
+	end
+
+	def email_verification
+		current_user.update(email_status: true)
+		respond_to do |format|
+      format.js { render js: "$('#email_status').css('color', 'green').text('Email verified sucessfully')" }
+    end
 	end
 end

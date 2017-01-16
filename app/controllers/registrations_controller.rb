@@ -38,7 +38,7 @@ class RegistrationsController < Devise::RegistrationsController
           sign_in(resource, :bypass => true)
           format.html { redirect_to changepassword_dashboard_index_path, notice: 'Password was successfully updated.' }
         else
-          format.html { redirect_to :back, notice: 'Password was successfully updated.' }
+          format.html { redirect_to :back, notice: 'Profile was successfully updated.' }
         end
       else
         format.html { render 'dashboard/changepassword' }
@@ -63,7 +63,7 @@ class RegistrationsController < Devise::RegistrationsController
     if params[:user][:password].present? && params[:user][:password_confirmation].present?
       params.require(:user).permit(:password, :password_confirmation)
     else
-      params.require(:user).permit(:name, :mobile_no, :profession, :experience, :gender, :photo, :kyc_doc)
+      params.require(:user).permit(:name, :mobile_no, :profession, :experience, :gender, :photo, :kyc_doc, :email)
     end
   end
 end

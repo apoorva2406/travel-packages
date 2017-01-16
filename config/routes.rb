@@ -64,6 +64,7 @@ Rails.application.routes.draw do
       get 'vistis', :path => 'myprofile/vistis'
       get 'mypayments', :path => 'myprofile/mypayments'
       get 'changepassword', :path => 'myprofile/changepassword'
+      get 'email_verification', :path => 'myprofile/email_verification'
   	end
   end
 
