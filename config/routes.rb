@@ -66,6 +66,11 @@ Rails.application.routes.draw do
       get 'changepassword', :path => 'myprofile/changepassword'
       get 'email_verification', :path => 'myprofile/email_verification'
   	end
+
+    member do
+      get 'email_confirm', :path => 'myprofile/email_confirm'
+    end
+
   end
 
   resources :otp do

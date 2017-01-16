@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
-	before_action :authenticate_user!, except: [:property]
+	before_action :authenticate_user!, except: [:property, :email_confirm]
 	def index;end
 
 	def myprofile
@@ -35,9 +35,23 @@ class DashboardController < ApplicationController
 	end
 
 	def email_verification
-		current_user.update(email_status: true)
+		UserMailer.email_vaification(current_user).deliver
+		#current_user.update(email_status: true)
 		respond_to do |format|
-      format.js { render js: "$('#email_status').css('color', 'green').text('Email verified sucessfully')" }
+      format.js { render js: "$('#email_status').css('color', 'green').text('Email has been sent to given for confirmation')" }
     end
+	end
+
+	def email_confirm
+		@user = User.find_by_id(params[:id])
+		if @user.present? && @user.email_status
+			flash[:info] = "Email already verified"
+		elsif @user.present?
+			@user.update(email_status: true)
+			flash[:notice] = "Email has been verified successfully"
+		else
+			flash[:alert] = "Something is wrong plese tre agian"
+		end
+		redirect_to root_path
 	end
 end

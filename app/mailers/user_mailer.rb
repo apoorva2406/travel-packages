@@ -1,7 +1,14 @@
 class UserMailer < ApplicationMailer
 	default from: "support@example.com"
 
-	#Booking user email
+	#Email varification
+  def email_vaification(user)
+    @user = user
+    mail(to: @user.email, subject: "Confirm your email")
+  end
+
+
+  #Booking user email
   def booking_client_email(booking)
   	@booking = booking
   	@user = booking.try(:user)

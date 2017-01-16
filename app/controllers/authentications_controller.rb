@@ -22,7 +22,7 @@ class AuthenticationsController < ApplicationController
         flash[:notice] = 'User created and signed in successfully.' if user.save(:validate=>false)   
       end
     end
-    user.skip_confirmation!
+    #user.skip_confirmation!
     sign_in (user)
     redirect_to redirect_url_after_omniauth(user)
   end
