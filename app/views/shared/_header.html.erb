@@ -9,7 +9,11 @@
         </li>
         
         <li class="weather">
-          <a href="<%=new_property_path%>">Add Workspace</a>
+          
+          <% if user_signed_in? && user_role_owner || !user_signed_in? %>
+            <a href="<%=new_property_path%>">Add Workspace</a>
+          <%end%>  
+          
         </li>
 
         <li class="weather">

@@ -18,7 +18,7 @@ ActiveAdmin.register Property do
 	  	property.facility
 	  end
     column 'Owner' do |property|
-      link_to property.user.email        
+      link_to property.user.try(:email)        
     end
 	  column "Address" do |property|
 	    truncate(property.try(:address),length: 20)
@@ -101,7 +101,7 @@ ActiveAdmin.register Property do
       row :contact_person
       row :address
       row :owner do
-        link_to property.user.email
+        link_to property.user.try(:email)
       end
 
       row "Images", :class=>"img-boxes" do

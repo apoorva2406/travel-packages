@@ -1,9 +1,9 @@
 class Property < ActiveRecord::Base
 	searchkick locations: ["location"]
-	has_many :property_type_manages  
-  has_many :property_types, through: :property_type_manages
-  has_many :property_prices 
-	has_many :photos, as: :imageable
+	has_many :property_type_manages  , dependent: :destroy
+  has_many :property_types, through: :property_type_manages, dependent: :destroy
+  has_many :property_prices , dependent: :destroy
+	has_many :photos, as: :imageable, dependent: :destroy
 	belongs_to :user
 	has_many :bookings
 	has_many :payments
