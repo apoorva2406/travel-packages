@@ -1,0 +1,343 @@
+<div id="loader-wrapper">
+  <div id="loader"></div>
+</div>
+<section class="top-content">
+  <div class="container-slider removeslide">
+    <div class="container-reservation inside-slider">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <!-- Reservation form -->
+            <section id="reservation-form" class="reservation-color-form pos-inside-slide">
+              <div class="container-form-chose">
+                <div class="col-md-12">
+                  <!--********************* Hotel reservation ********************-->
+                  <form id="hotels-tab" class="tab-pane form-inline reservation-hotel active" method="get" name="reservationform" action="<%=properties_path%>">
+                    
+                    <div class="col-md-2">
+                      <h3>City</h3>
+                      <div class="form-group">
+                        <select class="form-control" name="search_city" id="search_city">
+                          <option class="opt-default" selected="selected" disabled="disabled">Select City</option>
+                          <option label="Delhi" value="Delhi">Delhi</option>
+                          <option label="Indore" value="Indore">Indore</option>
+                          <option label="Bhopal" value="Bhopal">Bhopal</option>
+                          <option label="Chennai" value="Chennai">Chennai</option>
+                          <option label="Bangalore" value="Bangalore">Bangalore</option>
+                          <option label="Mumbai" value="Mumbai">Mumbai</option>
+                          <option label="Pune" value="Pune">Pune</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <h3>Desire locality</h3>
+                        <input type="text" class="form-control" placeholder="Enter your desire locality" id="search_desire" name="desire_location">
+                      </div>
+                    </div>
+
+
+                    <div class="col-md-3">
+                      <h3>Office Type</h3>
+                      <div class="form-group">
+                        <select class="form-control" name="search_office_type[]" id="search_office_type" multiple="" required="required">
+                          <% PropertyType.all.each do |type| %>
+                            <option value="<%=type.name%>"><%=type.name%></option>
+                          <%end%>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-2 colbtn">
+                      <h3>&nbsp;</h3>
+                      <button type="submit" class="btn btn-primary btn-block">Search</button>
+                    </div>
+
+                    <div class="col-md-2 colbtn">
+                      <h3>&nbsp;</h3>
+                      <input type="hidden" id="near_me" name="near_me" value="" />
+                      <button type="submit" class="btn btn-primary btn-block" id="search_near_me">Near me</button>
+                    </div>
+
+                  </form>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="home-page removeslide">
+      <!-- SLIDER -->
+      <div class="fullwidthbanner-container">
+        <div class="fullwidthbanner">
+          <ul>
+            <!-- FADE -->
+            <li data-transition="fade" data-slotamount="10" data-thumb="">
+              <img src="/assets/space1.jpg" alt=""/>
+            </li>
+            <!-- SLIDEUP -->
+            <li data-transition="slideup" data-slotamount="7" data-thumb="">
+              <img src="/assets/space2.jpg" alt=""/>
+            </li>
+            <!-- SLIDEDOWN -->
+            <li data-transition="slidedown" data-slotamount="7" data-thumb="">
+              <img src="/assets/space3.jpg" alt=""/>
+            </li>
+          </ul>
+          <div class="tp-bannertimer"></div>
+        </div>
+      </div>
+      <!-- SLIDER END -->
+    </div>
+
+    
+  </div>
+</section>
+<!-- TOP OFFERTS -->
+<section id="top-offerts" class="box-tr-square">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 effect-5 effects">
+        <div class="text-center top-txt-title">
+          <h2>THE BEST LOCATIONS</h2>
+          <p>Find your favorite place, feel more than home</p>
+        </div>
+        <%if @properites.present? %>
+          <% @properites.take(6).each do |property|%>
+            <div class="col-md-4 col-xs-12 commo_boxes view view-fifth">
+              <figure class="triggerAnimation animated" data-animate="fadeInDown">
+                <div class="img">
+                  <a href="<%=property_path(property)%>"><img src="<%=property.try(:photos).first.try(:image).url%>" alt=""/></a>
+                </div>
+              </figure>
+              <div class="mask">
+                <div class="main">
+                  <div class="trip-title">
+                    <h3><%=truncate(property.try(:name),length: 25)%></h3>
+                    <br />
+                    <p><%=truncate(property.try(:address), :length=>20)%></p>
+                  </div>
+                  <div class="price">
+                    <p>From</p>
+                    RS <%=property.try(:property_prices).first.price%>
+                  </div>
+                </div>
+                <div class="content">
+                  <p><span><%=property.try(:description)%>
+                  </p>
+                  <div class="row">
+
+                    <%facilities = Facility.where(id: JSON(property.facilities))%>
+                    <%facilities.each do |facility|%>
+                      <div class="col-xs-6">
+                        <ul class="list-unstyled">
+                          <li><i class="fa fa-check-circle"></i> <%=facility.try(:name)%></li>
+                        </ul>
+                      </div>
+                    <%end%>
+                  </div>
+                  <!-- <a href="<%=property_path(property)%>" class="btn btn-primary btn-block">Read More</a> -->
+                </div>
+              </div>
+            </div>
+          <%end%>
+        <%else%>
+          <!-- <div class="text-center top-txt-title">
+            <h2>No Location</h2>
+          </div> -->
+        <%end%>  
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class='parallax-home'>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 middle-text-adv">
+        <h3>Why Aboard Offices</h3>
+        <div class="line-left"></div>
+        <!-- <p>A modern hotel room in Star Hotel Nunc tempor erat in magna pulvinar fermentum. malesuada metus.</p>
+        <p>A modern hotel room in Star Hotel Nunc tempor erat in magna pulvinar fermentum. malesuada metus.</p> -->
+      </div>
+      <div class='col-md-8'>
+        <div class='col-md-6'>
+          <div class='grid-info'>
+            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-globe"></i></div>
+            <h5 class="grid-title ">Multiple Locations</h5>
+            <div class="grid-desc">
+              <p></p>
+            </div>
+          </div>
+        </div>
+        <div class='col-md-6'>
+          <div class='grid-info'>
+            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-coffee"></i></div>
+            <h5 class="grid-title ">Free Tea and Coffee</h5>
+          </div>
+        </div>
+        <div class='col-md-6'>
+          <div class='grid-info'>
+            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-wifi"></i></div>
+            <h5 class="grid-title ">Free WiFi</h5>
+            
+          </div>
+        </div>
+        <div class='col-md-6'>
+          <div class='grid-info'>
+            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-bullhorn"></i></div>
+            <h5 class="grid-title ">Benefit from Aboard brand</h5>
+          </div>
+        </div>
+        <div class='col-md-6'>
+          <div class='grid-info'>
+            <div class='grid-icon pull-left why_office'><i class="fa fa-battery-4"></i></div>
+            <h5 class="grid-title ">24/7 AC & power backup</h5>
+          </div>
+        </div>
+        <div class='col-md-6'>
+          <div class='grid-info'>
+            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-mobile"></i></div>
+            <h5 class="grid-title ">Aboard App</h5>
+          </div>
+        </div>
+        <div class='col-md-6'>
+          <div class='grid-info'>
+            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-users"></i></div>
+            <h5 class="grid-title ">Aboard Social Online Community</h5>
+          </div>
+        </div>
+        <div class='col-md-6'>
+          <div class='grid-info'>
+            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-users"></i></div>
+            <h5 class="grid-title ">Flexible Occupancy</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class='parallax-home'>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 middle-text-adv">
+        <h3 style="line-height: 37px;">Free Aboard Social Membership</h3>
+        <div class="line-left"></div>
+        <!-- <p>A modern hotel room in Star Hotel Nunc tempor erat in magna pulvinar fermentum. malesuada metus.</p>
+        <p>A modern hotel room in Star Hotel Nunc tempor erat in magna pulvinar fermentum. malesuada metus.</p> -->
+      </div>
+      <div class='col-md-8'>
+        <div class='col-md-6'>
+          <div class='grid-info'>
+            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-globe"></i></div>
+            <h5 class="grid-title ">Community of Entrepreneurs</h5>
+            <div class="grid-desc">
+              <p></p>
+            </div>
+          </div>
+        </div>
+        <div class='col-md-6'>
+          <div class='grid-info'>
+            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-coffee"></i></div>
+            <h5 class="grid-title ">Weekly Startup events, workshops</h5>
+          </div>
+        </div>
+        <div class='col-md-6'>
+          <div class='grid-info'>
+            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-wifi"></i></div>
+            <h5 class="grid-title ">Investor Meetups</h5>
+            
+          </div>
+        </div>
+        <div class='col-md-6'>
+          <div class='grid-info'>
+            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-bullhorn"></i></div>
+            <h5 class="grid-title ">Find Beta customers </h5>
+          </div>
+        </div>
+        <div class='col-md-6'>
+          <div class='grid-info'>
+            <div class='grid-icon pull-left why_office'><i class="fa fa-battery-4"></i></div>
+            <h5 class="grid-title ">Exchange skills</h5>
+          </div>
+        </div>
+        <div class='col-md-6'>
+          <div class='grid-info'>
+            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-mobile"></i></div>
+            <h5 class="grid-title ">Dedicated forums and groups</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section-parthners-info">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 parthners">
+        <div class="">
+          <h2 style="text-align: center;">Make Your Projects Succeed With Aboard Offices</h2>
+          <div class="separator">
+            <div class="separator-style"></div>
+          </div>
+          <p></p>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="works">
+            <img src="/assets/client/1.jpg" alt="" />
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="works">
+            <img src="/assets/client/2.jpg" alt="" />
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12 ">
+         <div class="works">
+            <img src="/assets/client/3.jpg" alt="" />
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+         <div class="works">
+            <img src="/assets/client/4.jpg" alt="" />
+          </div>
+        </div>
+      </div>  
+
+      <!--Close col-md-12-->
+    </div>
+  </div>
+</section>
+
+<script type="text/javascript">
+  $(window).load(function(){
+    initializeHome();
+  })
+</script>
+
+<style type="text/css">
+  .works{
+    height: 199px;
+    width: 236px;
+    overflow:hidden; 
+  }
+
+  .works img{
+    height: auto;
+    max-width: 100%;
+    display: block;
+  }
+  .commo_boxes {
+    width: 100%;
+    height: 450px;
+    margin-bottom: 30px;
+  }
+</style>

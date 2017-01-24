@@ -1,89 +1,55 @@
-<section>
-  <div class="top-mega-menu">
-    <div class="container">
-      <!-- mega menu -->
-      <ul class="travel-mega-menu travel-mega-menu-anim-scale travel-mega-menu-response-to-icons">
-        <li class="line-logo">
-          <a class="logo" href="<%=root_path%>">
-          <img src="/assets/loalogoboard-new-logo.png" width="384px" alt=""/></a>
-        </li>
-        
-        <li class="weather">
-          
-          <% if user_signed_in? && user_role_owner || !user_signed_in? %>
-            <a href="<%=new_property_path%>">Add Workspace</a>
-          <%end%>  
-          
-        </li>
+<div class="header">
+  <div class="fixed-header">
+    <div class="navbar-wrapper">
+      <div class="container-fluid side-margin">
+        <nav class="navbar navbar-inverse navbar-static-top">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+            <div class="logo wow slideInLeft" data-wow-delay="0.3s"> <a class="navbar-brand" href="<%=root_path%>"><img src="/assets/new_homepage/aboard-logo.png" /></a> </div>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <nav class="cl-effect-16" id="cl-effect-16">
+              <ul class="nav navbar-nav">
+                <% if user_signed_in? && user_role_owner || !user_signed_in? %>
+                  <li><a class="active" href="<%=new_property_path%>" data-hover="Home">Add Workspace</a></li>
+                <%end%>  
+                <li><a href="http://aboardoffices.com/social/" data-hover="About">Aboard Social</a></li>
+                <% unless user_signed_in? %>
+                  <li class="weather"><a data-toggle="modal" data-target="#loginModal">Login</a></li>
+                <%end%>
 
-        <li class="weather">
-          <a href="http://aboardoffices.com/social/" target="_blank">Aboard Social</a>
-        </li>
-
-        <% unless user_signed_in? %>
-          <li class="weather">
-            <a data-toggle="modal" data-target="#loginModal"><i class="fa fa-sign-in"></i>Login</a>
-          </li>
-        <%end%>
-
-        <li class="header_select_panel" style="cursor: pointer;">
-          <% if user_signed_in? %>
-            <%if current_user.photo.present? %>
-              <img src="<%=current_user.photo.present? ? current_user.photo.url : '/assets/user.png'%>" class="img-circle dropdown-toggle" alt="Cinque Terre" data-toggle="dropdown" width="48px;" height="48px;">
-            <%else%>
-              <img src="<%=current_user.profile_image.present? ? current_user.profile_image : '/assets/user.png'%>" class="img-circle dropdown-toggle" alt="Cinque Terre" data-toggle="dropdown" width="48px;" height="48px;">
-            <%end%>  
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu" style="background-color: #fff">
-              <li><a href="<%=myprofile_dashboard_index_path%>"><%= "My Profile (#{ user_role_owner ? 'Owner' : 'Clinet'})" %></a></li>
-              <% if user_role_owner %>
-                <li><a href="<%=new_property_path%>">Add Workspace</a></li>
-                <li><a href="<%=my_property_dashboard_index_path%>">My Properties</a></li>
-                <li><a href="<%=my_earning_dashboard_index_path%>">My Earning</a></li>
-              <%end%>
-              <li><a href="<%=booking_dashboard_index_path%>">My Booking</a></li>
-              <li><a href="<%=mypayments_dashboard_index_path%>">My Payments</a></li>
-              <li><a href="<%=changepassword_dashboard_index_path%>">Change Password</a></li>
-              <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
-            </ul>
-          <%end%>
-        </li>
-      </ul>
+                <li style="cursor: pointer; margin-right: 50px; margin-left: 15px;">
+                  <% if user_signed_in? %>
+                    <%if current_user.photo.present? %>
+                      <img src="<%=current_user.photo.present? ? current_user.photo.url : '/assets/user.png'%>" class="img-circle dropdown-toggle" alt="Cinque Terre" data-toggle="dropdown" width="48px;" height="48px;">
+                    <%else%>
+                      <img src="<%=current_user.profile_image.present? ? current_user.profile_image : '/assets/user.png'%>" class="img-circle dropdown-toggle" alt="Cinque Terre" data-toggle="dropdown" width="48px;" height="48px;">
+                    <%end%>  
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li><a href="<%=myprofile_dashboard_index_path%>"><%= "My Profile (#{ user_role_owner ? 'Owner' : 'Clinet'})" %></a></li>
+                      <% if user_role_owner %>
+                        <li><a href="<%=new_property_path%>">Add Workspace</a></li>
+                        <li><a href="<%=my_property_dashboard_index_path%>">My Properties</a></li>
+                        <li><a href="<%=my_earning_dashboard_index_path%>">My Earning</a></li>
+                      <%end%>
+                      <li><a href="<%=booking_dashboard_index_path%>">My Booking</a></li>
+                      <li><a href="<%=mypayments_dashboard_index_path%>">My Payments</a></li>
+                      <li><a href="<%=changepassword_dashboard_index_path%>">Change Password</a></li>
+                      <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
+                    </ul>
+                  <%end%>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div class="clearfix"> </div>
+        </nav>
+      </div>
+      <div class="clearfix"> </div>
     </div>
   </div>
-</section>  
+</div>
+<!--header end here-->
 
 <%=render 'shared/login' %>
-
-<style type="text/css">
-<% unless (params[:controller].eql?("home") && params[:action].eql?("index")) %>
-  .top-mega-menu {
-    width: 100%;
-    position: relative; 
-    z-index: 99;
-     background-color: #fff; 
-    box-shadow: 0 0 0 rgba(0, 0, 0, .4);
-    padding: 2px 0 0;
-    top: 0;
-  }
-<%end%> 
-
-<% if (params[:controller].eql?("home") && params[:action].eql?("index")) %>
-  .popup-notificaton {
-    color: #fff;
-    background-color: rgba(51, 51, 51, 0.35);
-    margin-left: 112px;
-    position: absolute;
-    z-index: 9999;
-    margin-top: 89px;
-    width: 70%;
-    text-align: center;
-    font-size: 20px;
-    border-color: rgba(51, 51, 51, 0.35);
-  }
-<%end%> 
-.travel-mega-menu li:hover a.logo {
-  background: none;
-}
-</style>
-

@@ -35,6 +35,8 @@
 //= require jquery.themepunch.revolution.min
 //= require jquery.bxslider
 //= require jquery.responsiveTabs
+//= require wow.min
+//= require select-js.js
 
 
 

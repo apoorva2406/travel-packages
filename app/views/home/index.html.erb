@@ -1,343 +1,297 @@
-<div id="loader-wrapper">
-  <div id="loader"></div>
-</div>
-<section class="top-content">
-  <div class="container-slider removeslide">
-    <div class="container-reservation inside-slider">
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="item active"> <img src="/assets/new_homepage/slider1.png" style="width:100%" alt="First slide">
       <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <!-- Reservation form -->
-            <section id="reservation-form" class="reservation-color-form pos-inside-slide">
-              <div class="container-form-chose">
+        <div class="carousel-caption">
+          <h1>Meeting <b>Rooms</b></h1>
+          <p>Aenean a rutrum nulla. Vestibulum a arcu at nisi tristique pretium.</p>
+        </div>
+      </div>
+    </div>
+    <div class="item"> <img src="/assets/new_homepage/slider1.png" style="width:100%" data-src="" alt="Second    slide">
+      <div class="container">
+        <div class="carousel-caption">
+          <h1>Meeting <b>Rooms</b></h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae egestas purus. </p>
+        </div>
+      </div>
+    </div>
+    <div class="item"> <img src="/assets/new_homepage/slider1.png" style="width:100%" data-src="" alt="Third slide">
+      <div class="container">
+        <div class="carousel-caption">
+          <h1>Meeting <b>Rooms</b></h1>
+          <p>Donec sit amet mi imperdiet mauris viverra accumsan ut at libero.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="search-list-box">
+    <div class="col-md-10 col-md-offset-1 col-sm-12">
+      <div  class="inner-bg">
+        <form method="get" action="<%=properties_path%>">
+          <div class="col-md-3 col-sm-3 padd-right">
+            <label>DESIRE LOCALITY</label>
+              <input type="text" placeholder="Enter your desire locality" id="search_desire" name="desire_location">
+            </input>
+          </div>
+          <div class="col-md-3  col-sm-3 padd-right">
+            <label>CITY</label>
+            <div class="styled-select blue semi-square">
+              <select name="search_city" id="search_city">
+                <option class="opt-default" selected="selected" disabled="disabled">Select City</option>
+                <option label="Delhi" value="Delhi">Delhi</option>
+                <option label="Indore" value="Indore">Indore</option>
+                <option label="Bhopal" value="Bhopal">Bhopal</option>
+                <option label="Chennai" value="Chennai">Chennai</option>
+                <option label="Bangalore" value="Bangalore">Bangalore</option>
+                <option label="Mumbai" value="Mumbai">Mumbai</option>
+                <option label="Pune" value="Pune">Pune</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3  col-sm-3 padd-right">
+            <label>OFFICE TYPE</label>
+            <div >
+              <div >
+                <select class="multiselect-ui form-control" name="search_office_type[]" id="dates-field2" multiple="" required="required">
+                  <% PropertyType.all.each do |type| %>
+                    <option value="<%=type.name%>"><%=type.name%></option>
+                  <%end%>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3  col-sm-3 padd-right">
+            <label class="display">&nbsp;</label>
+            <div class="col-md-6"><button type="submit" class="search-btn">Search</button></div>
+            <input type="hidden" id="near_me" name="near_me" value="" />
+            <div class="col-md-6"><button type="submit" class="search-btn" id="search_near_me">Near me</button></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--information start here-->
+<div class="information">
+  <h2 class="text-center">WHY ABOARD <span>OFFICES</span></h2>
+  <hr>
+  <div class="container-fluid side-margin">
+    <div class="information-main">
+      <div class="information-grid five-star wow slideInLeft col-md-7" data-wow-delay="0.2s">
+        <div class="col-md-6 col-sm-6 hotel-info">
+          <div class="info-left"> <i class="fa fa-map-marker location" aria-hidden="true"></i> </div>
+          <div class="info-right">
+            <h4>Multiple Locations</h4>
+          </div>
+        </div>
+        <div class="col-md-6  col-sm-6 hotel-info">
+          <div class="info-left"> <i class="fa fa-coffee" aria-hidden="true"></i> </div>
+          <div class="info-right">
+            <h4>Free Tea and Coffee</h4>
+          </div>
+        </div>
+        <div class="col-md-6  col-sm-6 hotel-info">
+          <div class="info-left"> <i class="fa fa-wifi" aria-hidden="true"></i> </div>
+          <div class="info-right">
+            <h4>Free WiFi</h4>
+          </div>
+        </div>
+        <div class="col-md-6  col-sm-6  hotel-info">
+          <div class="info-left"> <i class="fa fa-user" aria-hidden="true"></i> </div>
+          <div class="info-right">
+            <h4>Flexible Occupancy</h4>
+          </div>
+        </div>
+        <div class="col-md-6  col-sm-6 hotel-info">
+          <div class="info-left"> <i class="fa fa-mobile app" aria-hidden="true"></i> </div>
+          <div class="info-right">
+            <h4>Aboard App</h4>
+          </div>
+        </div>
+        <div class="col-md-6  col-sm-6 hotel-info">
+          <div class="info-left"> <i class="fa fa-battery-half" aria-hidden="true"></i> </div>
+          <div class="info-right">
+            <h4>24/7 AC & power backup</h4>
+          </div>
+        </div>
+        <div class="col-md-6  col-sm-6 hotel-info">
+          <div class="info-left"> <i class="fa fa-users user" aria-hidden="true"></i> </div>
+          <div class="info-right">
+            <h4>Aboard Social Online Community</h4>
+          </div>
+        </div>
+        <div class="col-md-6  col-sm-6 hotel-info">
+          <div class="info-left"> <i class="fa fa-cog cog" aria-hidden="true"></i> </div>
+          <div class="info-right">
+            <h4>Benefit from Aboard brand</h4>
+          </div>
+        </div>
+        <div class="clearfix"> </div>
+      </div>
+      <div class="information-grid wow slideInRight col-md-5" data-wow-delay="0.2s"> <img src="/assets/new_homepage/about.png" width="100%" ></div>
+      <div class="clearfix"> </div>
+    </div>
+  </div>
+</div>
+<!--information end here--> 
+<!--leaves start here-->
+<div class="information">
+  <div class="leaves">
+    <div class="container-fluid side-margin">
+      <div class="leaves-main wow zoomIn" data-wow-delay="0.3s">
+        <h2>Free Aboard <span>Social Memberships</span></h2>
+        <hr>
+        <div class="services-box">
+          <div class="col-md-4 home-grid">
+            <div class="item item-type-move">
+              <div class="item-img"> <img src="/assets/new_homepage/1.png" class="img-responsive" alt=""> </div>
+              <h4>Community of  Entrepreneurs</h4>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry lorem Ipsum is simply</p>
+              <a href="#">Read More</a> </div>
+          </div>
+          <div class="col-md-4 home-grid">
+            <div class="item item-type-move">
+              <div class="item-img"> <img src="/assets/new_homepage/2.png" class="img-responsive" alt=""> </div>
+              <h4>Investor Meetups</h4>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry lorem Ipsum is simply</p>
+              <a href="#">Read More</a> </div>
+          </div>
+          <div class="col-md-4 home-grid last-box">
+            <div class="item item-type-move">
+              <div class="item-img"> <img src="/assets/new_homepage/3.png" class="img-responsive" alt=""> </div>
+              <h4>Startup events</h4>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry lorem Ipsum is simply</p>
+              <a href="#">Read More</a> </div>
+          </div>
+          <div class="col-md-4 home-grid">
+            <div class="item item-type-move">
+              <div class="item-img"> <img src="/assets/new_homepage/4.png" class="img-responsive" alt=""> </div>
+              <h4>Exchange Skills</h4>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry lorem Ipsum is simply</p>
+              <a href="#">Read More</a> </div>
+          </div>
+          <div class="col-md-4 home-grid">
+            <div class="item item-type-move">
+              <div class="item-img"> <img src="/assets/new_homepage/5.png" class="img-responsive" alt=""> </div>
+              <h4>Dedicated Groups</h4>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry lorem Ipsum is simply</p>
+              <a href="#">Read More</a> </div>
+          </div>
+          <div class="col-md-4 home-grid last-box">
+            <div class="item item-type-move">
+              <div class="item-img"> <img src="/assets/new_homepage/6.png" class="img-responsive" alt=""> </div>
+              <h4>Find Beta Customers</h4>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry lorem Ipsum is simply</p>
+              <a href="#">Read More</a> </div>
+          </div>
+          <div> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--leaves end here--> 
+  
+  <!--swiming-->
+  <div class="swimming">
+    <div class="container">
+      <div class="swimming-main wow zoomIn" data-wow-delay="0.3s">
+        <div class="swimming-top">
+          <h2>Make Your Projects Succeed With Aboard Offices</h2>
+          <hr>
+        </div>
+        <div class="swimmimg-bot">
+          <div class="col-md-3 swimming-grid"> <span ><i class="fa fa-search" aria-hidden="true"></i> </span>
+            <h5>SEARCH US</h5>
+          </div>
+          <div class="col-md-3 swimming-grid"> <span > <i class="fa fa-globe" aria-hidden="true"></i> </span>
+            <h5>FIND LOCATION</h5>
+          </div>
+          <div class="col-md-3 swimming-grid"> <span > <i class="fa fa-usd" aria-hidden="true"></i></span>
+            <h5>PAY</h5>
+          </div>
+          <div class="col-md-3 swimming-grid"> <span > <i class="fa fa-handshake-o" aria-hidden="true"></i> </span>
+            <h5>START WORKING</h5>
+          </div>
+          <div class="clearfix"> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--swimmg emd here--> 
+  <!--homegrids start here-->
+  <% if @properites.present? && @properites.size > 2 %>
+    <div class="home-block">
+      <div class="container">
+        <div class="home-main">
+          <div class="home-top">
+            <h2>THE BEST <span>LOCATIONS</span></h2>
+            <hr>
+          </div>
+          <div class="demo">
+            <div >
+              <div class="row">
                 <div class="col-md-12">
-                  <!--********************* Hotel reservation ********************-->
-                  <form id="hotels-tab" class="tab-pane form-inline reservation-hotel active" method="get" name="reservationform" action="<%=properties_path%>">
-                    
-                    <div class="col-md-2">
-                      <h3>City</h3>
-                      <div class="form-group">
-                        <select class="form-control" name="search_city" id="search_city">
-                          <option class="opt-default" selected="selected" disabled="disabled">Select City</option>
-                          <option label="Delhi" value="Delhi">Delhi</option>
-                          <option label="Indore" value="Indore">Indore</option>
-                          <option label="Bhopal" value="Bhopal">Bhopal</option>
-                          <option label="Chennai" value="Chennai">Chennai</option>
-                          <option label="Bangalore" value="Bangalore">Bangalore</option>
-                          <option label="Mumbai" value="Mumbai">Mumbai</option>
-                          <option label="Pune" value="Pune">Pune</option>
-                        </select>
-                      </div>
+                  <%if @properites.present? %>
+                    <div id="news-slider" class="owl-carousel">
+                      <% @properites.take(6).each do |property|%>
+                        <div class="post-slide">
+                          <div class="post-img"> 
+                            <a href="<%=property_path(property)%>"><img src="<%=property.try(:photos).first.try(:image).url%>" alt=""/></a>
+                            <div class="city"><%=property.try(:address)%></div>
+                          </div>
+                          <div class="post-content">
+                            <h3 class="post-title"><a href="<%=property_path(property)%>"><%=truncate(property.try(:name),length: 25)%></a></h3>
+                            <p class="post-description"> <%=property.try(:description)%> </p>
+                            <h4><span>From</span>RS <%=property.try(:property_prices).first.price%></h4>
+                            <ul class="post-bar">
+                              <%facilities = Facility.where(id: JSON(property.facilities))%>
+                              <%facilities.each do |facility|%> 
+                                <li><i class="fa fa-check-circle" aria-hidden="true"></i> <%=facility.try(:name)%></li>
+                              <%end%>
+                            </ul>
+                            <center>
+                              <a href="<%=property_path(property)%>" class="read-more">read more</a>
+                            </center>
+                          </div>
+                        </div>
+                      <%end%>
                     </div>
-
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <h3>Desire locality</h3>
-                        <input type="text" class="form-control" placeholder="Enter your desire locality" id="search_desire" name="desire_location">
-                      </div>
-                    </div>
-
-
-                    <div class="col-md-3">
-                      <h3>Office Type</h3>
-                      <div class="form-group">
-                        <select class="form-control" name="search_office_type[]" id="search_office_type" multiple="" required="required">
-                          <% PropertyType.all.each do |type| %>
-                            <option value="<%=type.name%>"><%=type.name%></option>
-                          <%end%>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div class="col-md-2 colbtn">
-                      <h3>&nbsp;</h3>
-                      <button type="submit" class="btn btn-primary btn-block">Search</button>
-                    </div>
-
-                    <div class="col-md-2 colbtn">
-                      <h3>&nbsp;</h3>
-                      <input type="hidden" id="near_me" name="near_me" value="" />
-                      <button type="submit" class="btn btn-primary btn-block" id="search_near_me">Near me</button>
-                    </div>
-
-                  </form>
-                </div>
-              </div>
-            </section>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="home-page removeslide">
-      <!-- SLIDER -->
-      <div class="fullwidthbanner-container">
-        <div class="fullwidthbanner">
-          <ul>
-            <!-- FADE -->
-            <li data-transition="fade" data-slotamount="10" data-thumb="">
-              <img src="/assets/space1.jpg" alt=""/>
-            </li>
-            <!-- SLIDEUP -->
-            <li data-transition="slideup" data-slotamount="7" data-thumb="">
-              <img src="/assets/space2.jpg" alt=""/>
-            </li>
-            <!-- SLIDEDOWN -->
-            <li data-transition="slidedown" data-slotamount="7" data-thumb="">
-              <img src="/assets/space3.jpg" alt=""/>
-            </li>
-          </ul>
-          <div class="tp-bannertimer"></div>
-        </div>
-      </div>
-      <!-- SLIDER END -->
-    </div>
-
-    
-  </div>
-</section>
-<!-- TOP OFFERTS -->
-<section id="top-offerts" class="box-tr-square">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 effect-5 effects">
-        <div class="text-center top-txt-title">
-          <h2>THE BEST LOCATIONS</h2>
-          <p>Find your favorite place, feel more than home</p>
-        </div>
-        <%if @properites.present? %>
-          <% @properites.take(6).each do |property|%>
-            <div class="col-md-4 col-xs-12 commo_boxes view view-fifth">
-              <figure class="triggerAnimation animated" data-animate="fadeInDown">
-                <div class="img">
-                  <a href="<%=property_path(property)%>"><img src="<%=property.try(:photos).first.try(:image).url%>" alt=""/></a>
-                </div>
-              </figure>
-              <div class="mask">
-                <div class="main">
-                  <div class="trip-title">
-                    <h3><%=truncate(property.try(:name),length: 25)%></h3>
-                    <br />
-                    <p><%=truncate(property.try(:address), :length=>20)%></p>
-                  </div>
-                  <div class="price">
-                    <p>From</p>
-                    RS <%=property.try(:property_prices).first.price%>
-                  </div>
-                </div>
-                <div class="content">
-                  <p><span><%=property.try(:description)%>
-                  </p>
-                  <div class="row">
-
-                    <%facilities = Facility.where(id: JSON(property.facilities))%>
-                    <%facilities.each do |facility|%>
-                      <div class="col-xs-6">
-                        <ul class="list-unstyled">
-                          <li><i class="fa fa-check-circle"></i> <%=facility.try(:name)%></li>
-                        </ul>
-                      </div>
-                    <%end%>
-                  </div>
-                  <!-- <a href="<%=property_path(property)%>" class="btn btn-primary btn-block">Read More</a> -->
+                  <%end%>
                 </div>
               </div>
             </div>
-          <%end%>
-        <%else%>
-          <!-- <div class="text-center top-txt-title">
-            <h2>No Location</h2>
-          </div> -->
-        <%end%>  
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class='parallax-home'>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 middle-text-adv">
-        <h3>Why Aboard Offices</h3>
-        <div class="line-left"></div>
-        <!-- <p>A modern hotel room in Star Hotel Nunc tempor erat in magna pulvinar fermentum. malesuada metus.</p>
-        <p>A modern hotel room in Star Hotel Nunc tempor erat in magna pulvinar fermentum. malesuada metus.</p> -->
-      </div>
-      <div class='col-md-8'>
-        <div class='col-md-6'>
-          <div class='grid-info'>
-            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-globe"></i></div>
-            <h5 class="grid-title ">Multiple Locations</h5>
-            <div class="grid-desc">
-              <p></p>
-            </div>
-          </div>
-        </div>
-        <div class='col-md-6'>
-          <div class='grid-info'>
-            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-coffee"></i></div>
-            <h5 class="grid-title ">Free Tea and Coffee</h5>
-          </div>
-        </div>
-        <div class='col-md-6'>
-          <div class='grid-info'>
-            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-wifi"></i></div>
-            <h5 class="grid-title ">Free WiFi</h5>
-            
-          </div>
-        </div>
-        <div class='col-md-6'>
-          <div class='grid-info'>
-            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-bullhorn"></i></div>
-            <h5 class="grid-title ">Benefit from Aboard brand</h5>
-          </div>
-        </div>
-        <div class='col-md-6'>
-          <div class='grid-info'>
-            <div class='grid-icon pull-left why_office'><i class="fa fa-battery-4"></i></div>
-            <h5 class="grid-title ">24/7 AC & power backup</h5>
-          </div>
-        </div>
-        <div class='col-md-6'>
-          <div class='grid-info'>
-            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-mobile"></i></div>
-            <h5 class="grid-title ">Aboard App</h5>
-          </div>
-        </div>
-        <div class='col-md-6'>
-          <div class='grid-info'>
-            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-users"></i></div>
-            <h5 class="grid-title ">Aboard Social Online Community</h5>
-          </div>
-        </div>
-        <div class='col-md-6'>
-          <div class='grid-info'>
-            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-users"></i></div>
-            <h5 class="grid-title ">Flexible Occupancy</h5>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<section class='parallax-home'>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 middle-text-adv">
-        <h3 style="line-height: 37px;">Free Aboard Social Membership</h3>
-        <div class="line-left"></div>
-        <!-- <p>A modern hotel room in Star Hotel Nunc tempor erat in magna pulvinar fermentum. malesuada metus.</p>
-        <p>A modern hotel room in Star Hotel Nunc tempor erat in magna pulvinar fermentum. malesuada metus.</p> -->
-      </div>
-      <div class='col-md-8'>
-        <div class='col-md-6'>
-          <div class='grid-info'>
-            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-globe"></i></div>
-            <h5 class="grid-title ">Community of Entrepreneurs</h5>
-            <div class="grid-desc">
-              <p></p>
-            </div>
-          </div>
-        </div>
-        <div class='col-md-6'>
-          <div class='grid-info'>
-            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-coffee"></i></div>
-            <h5 class="grid-title ">Weekly Startup events, workshops</h5>
-          </div>
-        </div>
-        <div class='col-md-6'>
-          <div class='grid-info'>
-            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-wifi"></i></div>
-            <h5 class="grid-title ">Investor Meetups</h5>
-            
-          </div>
-        </div>
-        <div class='col-md-6'>
-          <div class='grid-info'>
-            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-bullhorn"></i></div>
-            <h5 class="grid-title ">Find Beta customers </h5>
-          </div>
-        </div>
-        <div class='col-md-6'>
-          <div class='grid-info'>
-            <div class='grid-icon pull-left why_office'><i class="fa fa-battery-4"></i></div>
-            <h5 class="grid-title ">Exchange skills</h5>
-          </div>
-        </div>
-        <div class='col-md-6'>
-          <div class='grid-info'>
-            <div class='grid-icon pull-left why_office'><i class="fa fontawesome-icon fa-mobile"></i></div>
-            <h5 class="grid-title ">Dedicated forums and groups</h5>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<section class="section-parthners-info">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 parthners">
-        <div class="">
-          <h2 style="text-align: center;">Make Your Projects Succeed With Aboard Offices</h2>
-          <div class="separator">
-            <div class="separator-style"></div>
-          </div>
-          <p></p>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="works">
-            <img src="/assets/client/1.jpg" alt="" />
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="works">
-            <img src="/assets/client/2.jpg" alt="" />
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6 col-xs-12 ">
-         <div class="works">
-            <img src="/assets/client/3.jpg" alt="" />
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6 col-xs-12">
-         <div class="works">
-            <img src="/assets/client/4.jpg" alt="" />
-          </div>
-        </div>
-      </div>  
-
-      <!--Close col-md-12-->
-    </div>
-  </div>
-</section>
+  <%end%>
+</div>
+<!--home grid end here--> 
 
 <script type="text/javascript">
-  $(window).load(function(){
-    initializeHome();
-  })
+  $(document).ready(function() {
+    $("#news-slider").owlCarousel({
+      items:3,
+      itemsDesktop:[1199,2],
+      itemsDesktopSmall:[980,2],
+      itemsMobile:[600,1],
+      pagination:false,
+      navigationText:false,
+      autoPlay:true
+    });
+    
+    $('.multiselect-ui').multiselect({
+      includeSelectAllOption: true,
+      numberDisplayed: 1
+    });
+    new WOW().init();
+  });
 </script>
 
-<style type="text/css">
-  .works{
-    height: 199px;
-    width: 236px;
-    overflow:hidden; 
-  }
-
-  .works img{
-    height: auto;
-    max-width: 100%;
-    display: block;
-  }
-  .commo_boxes {
-    width: 100%;
-    height: 450px;
-    margin-bottom: 30px;
-  }
-</style>
