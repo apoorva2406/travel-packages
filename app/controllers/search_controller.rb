@@ -5,7 +5,6 @@ class SearchController < ApplicationController
     @result = []
     @types_count = {}  
     @facilities_count = {}
-
     if params[:types].present?
       ranges = params[:ranges].split(',') if params[:ranges].present?
       params[:types].each do |type|
@@ -27,6 +26,12 @@ class SearchController < ApplicationController
         else
           properties = Property.search type, where: {varified: true , id: params[:properties_ids]} 
         end
+        
+        #With rent_status
+        if params[:rent_status].present?
+          properties = Property.search type, where: {varified: true , id: params[:properties_ids], rent_status: params[:rent_status]} 
+        end
+
         if properties.present?
           @types_count.merge!(type=> properties.count)
           properties.each{|p| @result << p} 

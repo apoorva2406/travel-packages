@@ -16,6 +16,8 @@
           </div>
           <figcaption>
             <h3><%= truncate(property.try(:name), length: 35) %></h3>
+
+            <h3 style="color: #7db921;"><%= property.rent_status.present? ? JSON(property.try(:rent_status)).join('/ ') : "Days" %></h3>
             
             <div class="clear"></div>
             <p><%=truncate(property.try(:description),length: 88)%></p>

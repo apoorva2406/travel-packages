@@ -1,4 +1,4 @@
-/*--
+/*/*/*--
 Author: W3layouts
 Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
@@ -271,7 +271,7 @@ a:hover {
 	border-radius:0px;
 }
 .inner-bg .open > .dropdown-toggle.btn-default {
-	background: url(./assets/new_homepage/arrows.png);
+	background: url(/assets/new_homepage/arrows.png);
 	background-repeat:no-repeat;
 	background-position:right;
 }
@@ -280,9 +280,10 @@ a:hover {
 	border-radius: 0;
 	margin: 2px 0 0 15px;
 	top: 97%;
-	width: 89%;
 	z-index: 1000;
 	padding: 7px;
+	left:0px
+ 	width: 92%;
 }
 .inner-bg input[type="checkbox"] {
 	height: auto;
@@ -349,6 +350,7 @@ a:hover {
 	width:100%;
 	margin:0 auto;
 	border-width: 3px;
+	background-color:transparent;
 }
 .info-left i.cog {
 	font-size: 24px;
@@ -421,6 +423,7 @@ div#navbar {
 	line-height: 36px;
 	border-bottom: 1px solid #6F6F8C;
 	min-height:96px;
+	margin-bottom: 15px;
 }
 .navbar-brand > img {
 	width:85%;
@@ -770,6 +773,7 @@ span.expand {
 	background: rgba(0, 0, 0, 0.9) url("/assets/new_homepage/process.png") no-repeat scroll 0 0 / cover;
 	min-height: 450px;
 	padding: 5em 0em;
+	clear:both;
 }
 .swimming-top {
 	text-align: center;
@@ -2814,3 +2818,4 @@ h3.typo1 {
  font-size: 1.8em;
 }
 }
+*/*/

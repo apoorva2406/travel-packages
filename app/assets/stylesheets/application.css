@@ -95,7 +95,6 @@
 }
 
 
-
 .weather a:hover{
   cursor: pointer;
 }
@@ -103,7 +102,7 @@
 #property_map {
   height: 300px;
   padding: 0px;
-  overflow: visible !important;
+  /*overflow: visible !important;*/
 }
 
 .property-preview img{

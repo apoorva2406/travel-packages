@@ -149,8 +149,14 @@ $(document).ready(function() {
   //Checkbox validation
   $('.property_form_sub_btn').click(function() {
     checked = $('input[name="property[properties_type][]"]:checked').length;
+    rent_status = $('input[name="property[rent_status][]"]:checked').length;
     if(!checked) {
       alert("You must check at least one properties type.");
+      return false;
+    }
+
+    if(!rent_status) {
+      alert("You must check at least one rent status.");
       return false;
     }
   });

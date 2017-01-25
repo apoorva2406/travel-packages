@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <center><h2>Book your property</h2></center>
+    <center><h2>Book your property <span style="color: #7db921;">(<%= @property.rent_status.present? ? JSON(@property.try(:rent_status)).join('/ ') : "Days" %>)</span></h2></center>
     <div id="reservation-form" class="col-md-8 col-md-offset-2 reservation-color-form  resv-plus-meteo">
       <%= form_tag property_booking_index_path(@property), class: "form-inline reservation-flight" do %>
         <div class="row">
@@ -19,28 +19,84 @@
             </div>
           </div>
 
-          <div class="col-sm-2 fly-check">
-            <h3><span>02</span> When?</h3>
-            <div class="form-group">
-              <div class="col-md-6 box-fly-book">
-                <label for="checkin">Start Date*:</label>
-                <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Check-In is from 11:00"> <i class="fa fa-info-circle fa-lg"> </i> </div>
-                <div class="content-checkin-data">
-                  <i class="fa fa-calendar infield infieldfly1"></i>
-                  <input type="text" value="" class="form-control checkin" placeholder="Check-in" required="required" id="book_start_time" name="booking[start_date]"/>
-                </div>
-              </div>
+          <% if @property.rent_status.present? && JSON(@property.rent_status).join('') == "WeekMonth"%>
+            <div class="col-sm-2 fly-check">
+              <h3><span>02</span> When?</h3>
+              <div class="form-group">
+                <div class="col-md-6 box-fly-book">
 
-              <div class="col-md-6 box-fly-book box-sec-book">
-                <label for="checkout">End Date*:</label>
-                <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Check-out is from 12:00"> <i class="fa fa-info-circle fa-lg"> </i> </div>
-                <div class="content-checkin-data">
-                  <i class="fa fa-calendar infield infieldfly2"></i>
-                  <input type="text" value="" class="form-control checkout" placeholder="Check-out" required="required" id="book_end_time" name="booking[end_date]"/>
+                  <label for="book_type">Available On:</label>
+                  <select class="form-control" name="booking[rent_status]" id="rent_status" required="required">
+                    <option disabled="disabled" selected="selected">Select Week/Month</option>
+                    <option value="1-Week">1-Week</option>
+                    <option value="2-Weeks">2-Weeks</option>
+                    <option value="3-Weeks">3-Weeks</option>
+                    <option value="4-Weeks">4-Weeks</option>
+                    <option value="1-Month">1-Month</option>
+                  </select>
+                </div>
+
+                <div class="col-md-6 box-fly-book box-sec-book">
+                  <label for="checkout">Dates*:</label>
+                  <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Check-out is from 12:00"> <i class="fa fa-info-circle fa-lg"> </i> </div>
+                  <div class="content-checkin-data">
+                    <i class="fa fa-calendar infield infieldfly2"></i>
+                    <input type="text" value="" class="form-control week-picker" placeholder="Week/Month" required="required" id="rent_status_dates"/>
+                    <input type="hidden" value="" id="rent_status_start_date" name="booking[start_date]"/>
+                    <input type="hidden" value="" id="rent_status_end_date" name="booking[end_date]"/>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          <%elsif @property.rent_status.present? && JSON(@property.rent_status).join('') == "Month" %>
+            <div class="col-sm-2 fly-check">
+              <h3><span>02</span> When?</h3>
+              <div class="form-group">
+                <div class="col-md-6 box-fly-book">
+
+                  <label for="book_type">Available On:</label>
+                  <select class="form-control" name="booking[rent_status]" id="rent_status" required="required">
+                    <option disabled="disabled" selected="selected">Select Month</option>
+                    <option value="1-Month">1-Month</option>
+                  </select>
+                </div>
+
+                <div class="col-md-6 box-fly-book box-sec-book">
+                  <label for="checkout">Month*:</label>
+                  <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Check-out is from 12:00"> <i class="fa fa-info-circle fa-lg"> </i> </div>
+                  <div class="content-checkin-data">
+                    <i class="fa fa-calendar infield infieldfly2"></i>
+                    <input type="text" value="" class="form-control week-picker" placeholder="Month" required="required" id="rent_status_dates"/>
+                    <input type="hidden" value="" id="rent_status_start_date" name="booking[start_date]"/>
+                    <input type="hidden" value="" id="rent_status_end_date" name="booking[end_date]"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <%else%>
+            <div class="col-sm-2 fly-check">
+              <h3><span>02</span> When?</h3>
+              <div class="form-group">
+                <div class="col-md-6 box-fly-book">
+                  <label for="checkin">Start Date*:</label>
+                  <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Check-In is from 11:00"> <i class="fa fa-info-circle fa-lg"> </i> </div>
+                  <div class="content-checkin-data">
+                    <i class="fa fa-calendar infield infieldfly1"></i>
+                    <input type="text" value="" class="form-control checkin" placeholder="Check-in" required="required" id="book_start_time" name="booking[start_date]"/>
+                  </div>
+                </div>
+
+                <div class="col-md-6 box-fly-book box-sec-book">
+                  <label for="checkout">End Date*:</label>
+                  <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Check-out is from 12:00"> <i class="fa fa-info-circle fa-lg"> </i> </div>
+                  <div class="content-checkin-data">
+                    <i class="fa fa-calendar infield infieldfly2"></i>
+                    <input type="text" value="" class="form-control checkout" placeholder="Check-out" required="required" id="book_end_time" name="booking[end_date]"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <%end%>
 
           <div class="col-sm-4 flight-where">
             <div class="form-group">
@@ -86,148 +142,282 @@
   </div>
 </div>
       
-<script type="text/javascript">
-  $(document).ready(function(){
-    $(document).on("change keypress keyup","#book_seats, #book_start_time, #book_end_time, #book_type" , function(){
-      var dayDiff;
-      var price;
-      var total_price = 0;
-      var seats = $("#book_seats").val();
-      var start_date = $("#book_start_time").val();
-      var end_date = $("#book_end_time").val();
-      var type = $("#book_type").val();
+<% if @property.rent_status.present? && (JSON(@property.rent_status).join('') == "WeekMonth" || JSON(@property.rent_status).join('') == "Month")%>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $(document).on("change keypress keyup","#rent_status, #book_seats, #book_type" , function(){
+        var dayDiff;
+        var price;
+        var total_price = 0;
+        var start_date; 
+        var end_date;
+        var seats = $("#book_seats").val();
+        var type = $("#book_type").val();
+        var rent_status_dates = $("#rent_status_dates").val();
+        
+        if (this.id == "rent_status"){
+          $("#rent_status_dates").val('');
+          $("#book_type option:contains('Select Property Type')").attr("selected","selected");
+          $("#book_seats").html('');
+          seats = '';
+          $('.total_price').text('');
+          $("#book_seats").append('<option disabled="disabled" selected="selected">No of seats</option>'); 
+        }    
 
-      //Check dates is filled
-      if (this.id == "book_type" && (start_date == '' || end_date == '')){
-        alert("Please select start and end date");
-        $("#book_type option:contains('Select Property Type')").attr("selected","selected"); 
-      }
-      else{
-        if (this.id == "book_type"){
+        if (rent_status_dates == '' || rent_status_dates == null){
+          if (this.id != "rent_status"){
+            alert("Please select Week/Month and Dates");
+            $("#book_type option:contains('Select Property Type')").attr("selected","selected");
+          }
+        }
+        //Check dates is filled
+        else if (this.id == "book_type" && (start_date == '' || end_date == '')){
+          alert("Please select start and end date");
+          $("#book_type option:contains('Select Property Type')").attr("selected","selected"); 
+        }
+        else{
+          start_date = $.trim(rent_status_dates.split('To')[0]);
+          end_date = $.trim(rent_status_dates.split('To')[1]);
+          if (this.id == "book_type"){
+            $.ajax({
+              url: "<%=get_type_price_property_booking_index_path(@property)%>",
+              data: {type: type, start_date: start_date, end_date: end_date},
+              success: function(response) {
+                $("#book_seats").html('');
+                seats = '';
+                $('.total_price').text('');
+                $("#book_seats").append('<option disabled="disabled" selected="selected">No of seats</option>'); 
+                var property_price = response.property_price; 
+                var res_seats = response.seats; 
+                if (res_seats.length > 0){
+                  $('#book_seats').prop('multiple',true);
+                  $('#book_seats').select2({multiple: true});
+                  $("#book_seats option:selected").attr('disabled','disabled').remove();
+                  $('label[for="number_of_seats_label"]').text("Number of rooms");
+                  for (var j = 0; j < res_seats.length; j++){             
+                    $("#book_seats").append("<option value='" +res_seats[j]+ "'>"+(j+1)+" Room - "+res_seats[j]+" Seats</option>");    
+                  } 
+                }
+                else{
+                  $('#book_seats').prop('multiple',false);
+                  $('#book_seats').select2({
+                    multiple: false
+                  });  
+                  if(response.remaining_seats == 0){
+                    alert("Seats not available for this type");
+                    $("#book_type option:contains('Select Property Type')").attr("selected","selected"); 
+                  }else{
+                    for (var j = 0; j < response.remaining_seats; j++){           
+                      $("#book_seats").append("<option value='" +(j+1)+ "'>" +(j+1)+ "</option>");    
+                    } 
+                  }     
+                }  
+              }
+            });
+          }//end book_type
+
+          if (seats != '' && seats != null && start_date != '' && end_date != '' && type != '' && type != null){
+            $.ajax({
+              url: "<%=get_type_price_property_booking_index_path(@property)%>",
+              data: {type: type, start_date: start_date, end_date: end_date},
+              success: function(response) {
+                if ($("#rent_status").val() != "" && $("#rent_status").val() != null){
+                  daydiff = parseInt($("#rent_status").val().match(/\d+/)[0]);
+                  if($("#rent_status").val().indexOf("Month") >= 0)
+                    daydiff = (daydiff * 30);
+                  else{
+                    daydiff = (daydiff * 7) - 1;
+                  } 
+                  var property_price = response.property_price; 
+                  var child_seats = response.seats;
+                  if (child_seats.length > 0){
+                    for (var i = 0; i < seats.length; i++){     
+                      total_price += property_price.price * dayDiff * seats[i];  
+                    }   
+                  }
+                  else{
+                    total_price = property_price.price * daydiff * seats;
+                  }
+                  $('.total_price').text(total_price);
+                  $("#book_total_amount").val(total_price)
+                  $("#rent_status_start_date").val(start_date);
+                  $("#rent_status_end_date").val(end_date);
+                }
+              }
+            });
+          }//end total price
+
+        }
+      });
+    });
+  </script>
+<%else%>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $(document).on("change keypress keyup","#book_seats, #book_start_time, #book_end_time, #book_type" , function(){
+        var dayDiff;
+        var price;
+        var total_price = 0;
+        var seats = $("#book_seats").val();
+        var start_date = $("#book_start_time").val();
+        var end_date = $("#book_end_time").val();
+        var type = $("#book_type").val();
+        //Check dates is filled
+        if (this.id == "book_type" && (start_date == '' || end_date == '')){
+          alert("Please select start and end date");
+          $("#book_type option:contains('Select Property Type')").attr("selected","selected"); 
+        }
+        else{
+          if (this.id == "book_type"){
+            $.ajax({
+              url: "<%=get_type_price_property_booking_index_path(@property)%>",
+              data: {type: type, start_date: start_date, end_date: end_date},
+              success: function(response) {
+                $("#book_seats").html('');
+                seats = '';
+                $('.total_price').text('');
+                $("#book_seats").append('<option disabled="disabled" selected="selected">No of seats</option>'); 
+                var property_price = response.property_price; 
+                var res_seats = response.seats; 
+                if (res_seats.length > 0){
+                  $('#book_seats').prop('multiple',true);
+                  $('#book_seats').select2({multiple: true});
+                  $("#book_seats option:selected").attr('disabled','disabled').remove();
+                  $('label[for="number_of_seats_label"]').text("Number of rooms");
+                  for (var j = 0; j < res_seats.length; j++){             
+                    $("#book_seats").append("<option value='" +res_seats[j]+ "'>"+(j+1)+" Room - "+res_seats[j]+" Seats</option>");    
+                  } 
+                }
+                else{
+                  $('#book_seats').prop('multiple',false);
+                  $('#book_seats').select2({
+                    multiple: false
+                  });  
+                  if(response.remaining_seats == 0){
+                    alert("Seats not available for this type");
+                    $("#book_type option:contains('Select Property Type')").attr("selected","selected"); 
+                  }else{
+                    for (var j = 0; j < response.remaining_seats; j++){           
+                      $("#book_seats").append("<option value='" +(j+1)+ "'>" +(j+1)+ "</option>");    
+                    } 
+                  }     
+                }  
+              }
+            });
+          }//end book_type
+        }
+
+        if (seats != '' && seats != null && start_date != '' && end_date != '' && type != '' && type != null){
           $.ajax({
             url: "<%=get_type_price_property_booking_index_path(@property)%>",
             data: {type: type, start_date: start_date, end_date: end_date},
             success: function(response) {
-              $("#book_seats").html('');
-              seats = '';
-              $('.total_price').text('');
-              $("#book_seats").append('<option disabled="disabled" selected="selected">No of seats</option>'); 
-              var property_price = response.property_price; 
-              var res_seats = response.seats; 
-              if (res_seats.length > 0){
-                $('#book_seats').prop('multiple',true);
-                $('#book_seats').select2({multiple: true});
-                $("#book_seats option:selected").attr('disabled','disabled').remove();
-                $('label[for="number_of_seats_label"]').text("Number of rooms");
-                for (var j = 0; j < res_seats.length; j++){             
-                  $("#book_seats").append("<option value='" +res_seats[j]+ "'>"+(j+1)+" Room - "+res_seats[j]+" Seats</option>");    
-                } 
+              start_date = $("#book_start_time").datepicker('getDate');
+              end_date = $("#book_end_time").datepicker('getDate');
+              dayDiff = Math.ceil((end_date - start_date) / (1000 * 60 * 60 * 24)) + 1;
+
+              //Check dates
+              if (start_date > end_date){
+                alert("End date should be greater than start date");
+                $("#book_start_time").val('');
+                $("#book_end_time").val('');
+                $('.total_price').text('');
+                $("#book_type option:contains('Select Property Type')").attr("selected","selected"); 
               }
               else{
-                $('#book_seats').prop('multiple',false);
-                $('#book_seats').select2({
-                  multiple: false
-                });  
-                if(response.remaining_seats == 0){
-                  alert("Seats not available for this type");
-                  $("#book_type option:contains('Select Property Type')").attr("selected","selected"); 
-                }else{
-                  for (var j = 0; j < response.remaining_seats; j++){           
-                    $("#book_seats").append("<option value='" +(j+1)+ "'>" +(j+1)+ "</option>");    
-                  } 
-                }     
-              }  
+                var property_price = response.property_price; 
+                var child_seats = response.seats;
+                if (child_seats.length > 0){
+                  for (var i = 0; i < seats.length; i++){     
+                    total_price += property_price.price * dayDiff * seats[i];  
+                  }   
+                }
+                else{
+                  total_price = property_price.price * dayDiff * seats;
+                }
+                $('.total_price').text(total_price);
+                $("#book_total_amount").val(total_price)
+              }
             }
           });
-        }//end book_type
+        }//end total price
+      });
+    });
+  </script>
+<%end%>
+
+<!--Datepicker-->
+<% if @property.rent_status.present? && (JSON(@property.rent_status).join('') == "WeekMonth" || JSON(@property.rent_status).join('') == "Month")%>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var startDate;
+      var endDate;
+      var week_month_num;
+      
+      var selectCurrentWeek = function() {
+        window.setTimeout(function () {
+          $('.ui-datepicker-current-day a').addClass('ui-state-active');
+          $('.week-picker').find('.ui-datepicker-current-day a').addClass('ui-state-active');
+        }, 1);
       }
-
-      if (seats != '' && seats != null && start_date != '' && end_date != '' && type != '' && type != null){
-        $.ajax({
-          url: "<%=get_type_price_property_booking_index_path(@property)%>",
-          data: {type: type, start_date: start_date, end_date: end_date},
-          success: function(response) {
-            start_date = $("#book_start_time").datepicker('getDate');
-            end_date = $("#book_end_time").datepicker('getDate');
-            dayDiff = Math.ceil((end_date - start_date) / (1000 * 60 * 60 * 24)) + 1;
-
-            //Check dates
-            if (start_date > end_date){
-              alert("End date should be greater than start date");
-              $("#book_start_time").val('');
-              $("#book_end_time").val('');
-              $('.total_price').text('');
-              $("#book_type option:contains('Select Property Type')").attr("selected","selected"); 
+      
+      $('.week-picker').datepicker( {
+        numberOfMonths:2,
+        showAnim: "drop",
+        defaultDate: new Date(),
+        dateFormat: 'dd/mm/yy',
+        minDate: "-0D",
+        onSelect: function(dateText, inst) { 
+          if ($("#rent_status").val() != "" && $("#rent_status").val() != null){
+            week_month_num = parseInt($("#rent_status").val().match(/\d+/)[0]);
+            var date = $(this).datepicker('getDate');
+            startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            if($("#rent_status").val().indexOf("Month") >= 0){
+             endDate = new Date(date.getFullYear(), date.getMonth() + 1, date.getDate());
             }
             else{
-              var property_price = response.property_price; 
-              var child_seats = response.seats;
-              if (child_seats.length > 0){
-                for (var i = 0; i < seats.length; i++){     
-                  total_price += property_price.price * dayDiff * seats[i];  
-                }   
-              }
-              else{
-                total_price = property_price.price * dayDiff * seats;
-              }
-              $('.total_price').text(total_price);
-              $("#book_total_amount").val(total_price)
-            }
-          }
-        });
-      }//end total price
+              week_month_num = (week_month_num * 7) - 1;
+              endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + week_month_num);
+            }  
+            var dateFormat = inst.settings.dateFormat || $.datepicker._defaults.dateFormat;
+            $('.week-picker').val($.datepicker.formatDate( dateFormat, startDate, inst.settings ) +' To '+ $.datepicker.formatDate( dateFormat, endDate, inst.settings));
+            selectCurrentWeek();
+          }else{
+            $('.week-picker').val('');
+            alert("Please select Week/Month");
+          }  
+        },
+        beforeShowDay: function(date) {
+          selectCurrentWeek();
+          var cssClass = '';
+          if(date >= startDate && date <= endDate)
+              cssClass = 'ui-datepicker-current-day';
+          return [true, cssClass];
+        }
+      });
 
+      $(document).on("focus",".week-picker", function() {$(this).blur()});
     });
-  });
-</script>
+  </script>
+<%else%>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $(".checkin").datepicker({
+        showAnim: "drop",
+        defaultDate: new Date(),
+        dateFormat: 'dd/mm/yy',
+        minDate: "-0D"
+      });
 
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    var all_disable_dates = []; <%#= raw start_dates_array %>
-
-    function booked_dates(date) {
-      dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
-      if ($.inArray(dmy, all_disable_dates) == -1) {
-        return [true, "event"];
-      } else {
-        return [false, ""];
-      }
-    }
-
-    function booked_dates_end(date) {
-      dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
-      if ($.inArray(dmy, all_disable_dates) == -1) {
-        return [true, "event"];
-      } else {
-        return [false, ""];
-      }
-    }
-
-    $(".checkin").datepicker({
-      showAnim: "drop",
-      defaultDate: new Date(),
-      dateFormat: 'dd/mm/yy',
-      minDate: "-0D",
-      beforeShowDay: booked_dates
+      $(".checkout").datepicker({
+        showAnim: "drop",
+        defaultDate: new Date(),
+        dateFormat: 'dd/mm/yy',
+        minDate: "-0D"
+      })
+      $(document).on("focus",".checkin, .checkout", function() {$(this).blur()});
     });
-
-    $(".checkout").datepicker({
-      showAnim: "drop",
-      defaultDate: new Date(),
-      dateFormat: 'dd/mm/yy',
-      minDate: "-0D",
-      beforeShowDay: booked_dates_end
-    })
-
-    $(document).on("focus",".checkin, .checkout", function() {$(this).blur()});
-  });
-</script>
+  </script>
+<%end%>  
 
 
-<style type="text/css">
-  .event a {
-    background-color: #5e5e5e !important;
-    color: #ffffff !important;
-  }
-</style>

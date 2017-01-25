@@ -1,8 +1,5 @@
-
-<h3><center>Search Property</center></h3>
 <div class="container">
   <div class="row">
-
     <div class="col-md-5">
       <div class="search-results-title">
         <i class="fa fa-search"></i>
@@ -57,11 +54,15 @@
       return this.value;
     }).get();
 
+    var checkedValsRentStatus = $('.search_by_rent_status:checkbox:checked').map(function() {
+      return this.value;
+    }).get();
+
     if (checkedValsType.length > 0){
       $.ajax({
         url: "/search/serach_by_type",
         type: "POST",
-        data: {types: checkedValsType, facilities: checkedValsFacility, ranges: $(this).attr('data-value'), properties_ids: properties_ids },
+        data: {types: checkedValsType, facilities: checkedValsFacility, ranges: $(this).attr('data-value'), properties_ids: properties_ids, rent_status: checkedValsRentStatus },
         beforeSend: function(msg){
          $(".search_loader").show();
         },
@@ -80,7 +81,7 @@
 
   $("#rangeInfo").slider().on('slideStop', RANGEChange);
 
-  $(document).on("click", ".search_by_type, .search_by_facilities, .clicker", function(){
+  $(document).on("click", ".search_by_type, .search_by_facilities, .search_by_rent_status, .clicker", function(){
     if (typeof properties_ids == 'undefined'){
       properties_ids = <%=@properties.collect{|p| p.id}.compact%>
     }
@@ -94,12 +95,16 @@
       return this.value;
     }).get();
 
+    var checkedValsRentStatus = $('.search_by_rent_status:checkbox:checked').map(function() {
+      return this.value;
+    }).get();
 
+    
     if (checkedValsType.length > 0){
       $.ajax({
         url: "/search/serach_by_type",
         type: "POST",
-        data: {location_by:  this.classList[1],types: checkedValsType, facilities: checkedValsFacility, properties_ids: properties_ids },
+        data: {location_by:  this.classList[1],types: checkedValsType, facilities: checkedValsFacility, properties_ids: properties_ids, rent_status: checkedValsRentStatus },
         beforeSend: function(msg){
          $(".search_loader").show();
         },

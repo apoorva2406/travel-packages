@@ -8,7 +8,6 @@
     <article class="ac-large">
       <% PropertyType.all.each do |a_value| %>
           <% @type_count = @types_count.select{|key,val| val if a_value.name.eql?(key)} %>
-
           <%checked_status = params[:search_office_type].include?(a_value.name)%>
           <div class="meals-trip">
           <p><input class="fa-check-square-o search_by_type" type="checkbox" name="tyeps[]" value="<%=a_value.name%>" style="display: block" <%= "checked" if checked_status.eql?(true) %>><%=a_value.try(:name)%> <span class="p_type_id_<%=a_value.id%>">(<%=@type_count.present? ? @type_count.values[0] : 0 %>)</span></p>
@@ -32,16 +31,25 @@
     <input id="ac-5" name="accordion-1" type="checkbox" />
     <label for="ac-5">Facility <i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></label>
     <article class="ac-large">
-
       <% Facility.all.each do |a_value| %>
-
         <% @facility_count = Property.search a_value.name, where: {id: @properties.map(&:id).uniq}  %>
-
         <div class="meals-trip">
          <p><input class="fa-check-square-o search_by_facilities" type="checkbox" name="facilities[]" value="<%=a_value.name%>" style="display: block"></i><%= a_value.try(:name) %> <span class="p_facility_id_<%=a_value.id%>">(<%=@facility_count.present? ? @facility_count.count : 0 %>)</span></p>
         </div>
       <% end %>
+    </article>
+  </div>
 
+  <div>
+    <input id="ac-3" name="accordion-1" type="checkbox" />
+    <label for="ac-3">Available on <i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></label>
+    <article class="ac-large">
+      <% ["Days", "Week","Month"].each_with_index do |value,index| %>
+        <% @rent_status_count = Property.search value, where: {id: @properties.map(&:id).uniq}  %>
+        <div class="meals-trip">
+         <p><input class="fa-check-square-o search_by_rent_status" type="checkbox" name="rent_status[]" value="<%=value%>" style="display: block"></i><%= value%> <span class="p_rent_status_<%=index%>">(<%=@rent_status_count.present? ? @rent_status_count.count : 0 %>)</span></p>
+        </div>
+      <% end %>
     </article>
   </div>
 </section>
