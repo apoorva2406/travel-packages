@@ -282,8 +282,6 @@ a:hover {
 	top: 97%;
 	z-index: 1000;
 	padding: 7px;
-	left:0px;
- 	width: 92%;
 }
 .inner-bg input[type="checkbox"] {
 	height: auto;
