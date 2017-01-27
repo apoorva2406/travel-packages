@@ -120,7 +120,7 @@ a:hover {
 	display: block;
 }
 .styled-select.blue.semi-square option {
-	padding: 7px 0;
+	padding: 7px 5px;
 }
 .post-slide .city {
 	color: #fff;
@@ -130,6 +130,11 @@ a:hover {
 	position: absolute;
 	bottom: 10px;
 	z-index: 111;
+	background-color:rgba(0, 0, 0, 0.3);
+	bottom:0;
+	margin-left:0px;
+	padding:8px;
+
 }
 .post-img {
 	position:relative;
@@ -205,6 +210,7 @@ a:hover {
 }
 .carousel-inner .carousel-caption {
 	top:23%;
+	position :absolute;
 }
 #myCarousel .carousel-inner {
 	height:580px;
@@ -311,6 +317,7 @@ a:hover {
 }
 .information h2 {
 	margin-bottom:15px;
+	font-size:32px;
 }
 .info-left i {
 	background-color: #00c4b0;
@@ -429,6 +436,7 @@ div#navbar {
 .navbar-wrapper {
 	padding: 14px 0;
 	margin-top: 0px !important;
+	margin-bottom:0px !important;
 	line-height: 36px;
 	border-bottom: 1px solid #6F6F8C;
 	min-height:96px;
@@ -588,6 +596,7 @@ nav a:hover, nav a:focus {
 	background:#F6F6F6;
 	padding: 3em 0em;
 	text-align: center;
+	overflow-y:auto;
 }
 .information h2 {
 	font-size:28px;
@@ -801,7 +810,7 @@ span.expand {
 	color: #fff;
 }
 .swimming-grid h5 {
-	font-size: 1.3em;
+	font-size:1.45em;
 	color: #fff;
 	margin-top:20px;
 }
@@ -1626,6 +1635,7 @@ span.expand {
 }
 .inner-bg label{
 	font-size:16px;
+	color:#333;
 }
 .swimming-grid span{
 	width:100px;
