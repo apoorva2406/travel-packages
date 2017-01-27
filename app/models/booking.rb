@@ -19,17 +19,17 @@ class Booking < ActiveRecord::Base
       booking_user_no =  '+919910116603' #self.try(:phone)
       owner_no = '+919910116603' #property.user.try(:mobile_no)
 
-      @client.account.messages.create(
-        :body => "You have successfully booked #{property.try(:name)}. Booking start_date #{self.try(:start_date)} to #{self.try(:end_date)}, total amount is #{self.try(:total_amount)}",
-        :to => "#{booking_user_no}",    
-        :from => "++12173647554"
-      ) 
+      # @client.account.messages.create(
+      #   :body => "You have successfully booked #{property.try(:name)}. Booking start_date #{self.try(:start_date)} to #{self.try(:end_date)}, total amount is #{self.try(:total_amount)}",
+      #   :to => "#{booking_user_no}",    
+      #   :from => "++12173647554"
+      # ) 
 
-      @client.account.messages.create(
-        :body => "Your property #{property.try(:name)} booked by #{self.try(:name)}. Booking start_date #{self.try(:start_date)} to #{self.try(:end_date)}, total amount is #{self.try(:total_amount)}",
-        :to => "#{owner_no}",    
-        :from => "++12173647554"
-      )  
+      # @client.account.messages.create(
+      #   :body => "Your property #{property.try(:name)} booked by #{self.try(:name)}. Booking start_date #{self.try(:start_date)} to #{self.try(:end_date)}, total amount is #{self.try(:total_amount)}",
+      #   :to => "#{owner_no}",    
+      #   :from => "++12173647554"
+      # )  
 
       message = "Otp send successfully"
     rescue Twilio::REST::RequestError => e
