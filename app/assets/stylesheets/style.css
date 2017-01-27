@@ -24,8 +24,8 @@ p {
 
 
 html, body {
-	font-family: 'Hind', sans-serif;
-	font-size: 100%;
+	/*font-family: 'Hind', sans-serif;
+	font-size: 100%;*/
 	background:#fff;
 }
 a {
@@ -46,6 +46,7 @@ a:hover {
 	padding:0px 30px;
 }
 .post-slide .post-img {
+	height:230px;
 	overflow: hidden;
 }
 .post-slide .post-img img {
@@ -259,7 +260,7 @@ a:hover {
 	border: 1px solid #00c4b0;
 	color: #fff;
 	float: left;
-	font-size: 18px;
+	font-size: 17px;
 	margin-right: 12px;
 	text-align: center;
 	width: 100%;

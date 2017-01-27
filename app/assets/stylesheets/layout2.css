@@ -42,14 +42,14 @@ body {
     overflow-x: hidden
 }
 
-h2 {
+/*h2 {
     font-size: 30px;
     color: #2d3e52;
     font-family: 'Playfair Display', sans-serif;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px
-}
+}*/
 
 .info-map p,
 h3 {
@@ -2577,7 +2577,7 @@ a.expand.discount {
 
 .btn-gallery {
     border-radius: 0;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .help-block {
