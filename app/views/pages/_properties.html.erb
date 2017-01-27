@@ -22,31 +22,31 @@
             <div class="clear"></div>
             <p><%=truncate(property.try(:description),length: 88)%></p>
             <div class="show-content" id="property_<%=property.id%>">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th>Property type</th>
-                  <th>Capacity</th>
-                  <th>Price</th>
-                </tr>
-              </thead>
-              <tbody>
-                <%property.property_types.each do |type|%>
-                  <%property_price = property.property_prices.where(property_type_id: type.id).first%>
-                  <%if params[:search_office_type] &&  params[:search_office_type].include?(type.name)%>
-                    <tr>
-                      <td><%=type.name%></td>
-                      <%if type.name.eql?('Meeting/Conference Room')%>
-                        <td><%=property_price.try(:number_of_room)%>-Room</td>
-                      <%else%>
-                        <td><%=property_price.try(:seats)%></td>
-                      <%end%>
-                      <td><i class="fa fa-inr price-color"><%=property_price.try(:price)%></i></td>
-                    </tr>
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Property type</th>
+                    <th>Capacity</th>
+                    <th>Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <%property.property_types.each do |type|%>
+                    <%property_price = property.property_prices.where(property_type_id: type.id).first%>
+                    <%if params[:search_office_type] &&  params[:search_office_type].include?(type.name)%>
+                      <tr>
+                        <td><%=type.name%></td>
+                        <%if type.name.eql?('Meeting/Conference Room')%>
+                          <td><%=property_price.try(:number_of_room)%>-Room</td>
+                        <%else%>
+                          <td><%=property_price.try(:seats)%></td>
+                        <%end%>
+                        <td><i class="fa fa-inr price-color"><%=property_price.try(:price)%></i></td>
+                      </tr>
+                    <%end%>
                   <%end%>
-                <%end%>
-              </tbody>
-            </table>
+                </tbody>
+              </table>
             </div>
             <table width="100%">
               <tr>

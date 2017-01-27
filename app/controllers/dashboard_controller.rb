@@ -17,7 +17,7 @@ class DashboardController < ApplicationController
 	end
 
 	def my_property
-		@properties = current_user.properties
+		@properties = current_user.properties.order(created_at: 'desc')
 		authorize! :read, @properties
 	end
 

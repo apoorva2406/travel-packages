@@ -5,9 +5,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
  	has_one :authentication
-  has_many :properties
-  has_many :bookings
-  has_many :payments
+  has_many :properties, :dependent => :destroy
+  has_many :bookings, :dependent => :destroy
+  has_many :payments, :dependent => :destroy
 
   has_attached_file :photo, styles: { medium: "500x500>", thumb: "200x200>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :photo, content_type: /\Aimage\/.*\z/
