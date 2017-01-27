@@ -13,6 +13,16 @@ ul, ol {
 p {
 	margin: 0;
 }
+
+.ui-datepicker .ui-datepicker-prev{
+	background-color: #222 !important;
+}
+
+.ui-datepicker .ui-datepicker-next{
+	background-color: #222;
+}
+
+
 html, body {
 	font-family: 'Hind', sans-serif;
 	font-size: 100%;
@@ -579,7 +589,7 @@ nav a:hover, nav a:focus {
 	text-align: center;
 }
 .information h2 {
-	font-size:34px;
+	font-size:28px;
 	text-transform: uppercase;
 }
 .leaves-main h6 {
@@ -790,7 +800,7 @@ span.expand {
 	color: #fff;
 }
 .swimming-grid h5 {
-	font-size: 1.35em;
+	font-size: 1.3em;
 	color: #fff;
 	margin-top:20px;
 }
@@ -2284,7 +2294,7 @@ h3.typo1 {
     line-height: 94px;
 }
 .info-right h4{
-	font-size:1.1em;
+	font-size:18px;
 }
 .item-img{
 	height:200px;
@@ -2479,7 +2489,7 @@ h3.typo1 {
  padding: 1.5em 0em;
 }
 .leaves-main p {
- font-size: 0.8em;
+ font-size: 15px;
 }
 .leaves-main a {
  padding: 0.5em 1em;

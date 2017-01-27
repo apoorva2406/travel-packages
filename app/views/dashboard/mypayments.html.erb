@@ -45,7 +45,7 @@
                 <tr>
                   <td><%=payment.try(:booking).try(:name)%></td>
                   <td>
-                    <%= image_tag payment.try(:property).try(:photos).first.image, :style=>"height:80px;width:80px;"%> <span><%=payment.try(:property).try(:name)%></span>
+                    <%= image_tag payment.try(:property).try(:photos).first.try(:image), :style=>"height:80px;width:80px;"%> <span><%=payment.try(:property).try(:name)%></span>
                   </td>
                   <td><%=payment.try(:order_id)%></td>
                   <td><%=payment.try(:booking).try(:start_date).strftime("%a, %e %b %Y")%></td>

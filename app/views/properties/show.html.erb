@@ -236,40 +236,30 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-    var all_disable_dates = []; <%#= raw start_dates_array %>
-
-    function booked_dates(date) {
-      dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
-      if ($.inArray(dmy, all_disable_dates) == -1) {
-        return [true, "event"];
-      } else {
-        return [false, ""];
-      }
-    }
-
-    function booked_dates_end(date) {
-      dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
-      if ($.inArray(dmy, all_disable_dates) == -1) {
-        return [true, "event"];
-      } else {
-        return [false, ""];
-      }
-    }
-
     $(".checkin").datepicker({
       showAnim: "drop",
+      numberOfMonths:2,
       defaultDate: new Date(),
       dateFormat: 'dd/mm/yy',
       minDate: "-0D",
-      beforeShowDay: booked_dates
+      onSelect: function (date) {
+        var checkout = $('.checkout');
+        var startDate = $(this).datepicker('getDate');
+        var minDate = $(this).datepicker('getDate');
+        checkout.datepicker('setDate', minDate);
+        startDate.setDate(startDate.getDate() + 30);
+        checkout.datepicker('option', 'maxDate', startDate);
+        checkout.datepicker('option', 'minDate', minDate);
+        $(this).datepicker('option', 'minDate', minDate);
+      }
     });
 
     $(".checkout").datepicker({
       showAnim: "drop",
+      numberOfMonths:2,
       defaultDate: new Date(),
       dateFormat: 'dd/mm/yy',
-      minDate: "-0D",
-      beforeShowDay: booked_dates_end
+      minDate: "-0D"
     })
 
     $(document).on("focus",".checkin, .checkout", function() {$(this).blur()});

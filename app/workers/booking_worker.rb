@@ -1,13 +1,12 @@
 class BookingWorker
   include Sidekiq::Worker
- 	include Sidetiq::Schedulable
+ 	#include Sidetiq::Schedulable
+ 	#recurrence { minutely(1) }
 
- 	recurrence { minutely(1) }
- 	#recurrence { daily }
-
-  def perform
-  	puts "Runinggggggggggggggg............................"
-    #Booking.unconfirmed_booking
+  def perform(booking_id)
+  	@booking = Booking.find_by(id: booking_id)
+  	@booking.send_mail_to_owner
+  	@booking.booking_message
   end
 end
 

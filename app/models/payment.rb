@@ -2,7 +2,7 @@ class Payment < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :booking, :foreign_key => "booking_id"
 	belongs_to :property
-	after_create :set_booking_status
+	#after_create :set_booking_status
 
 	def set_booking_status
 		self.booking.update(status: "confirmed")
