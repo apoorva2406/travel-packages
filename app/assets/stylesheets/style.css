@@ -210,7 +210,7 @@ a:hover {
 }
 .carousel-inner .carousel-caption {
 	top:23%;
-	position :absolute;
+	/*position :absolute;*/
 }
 #myCarousel .carousel-inner {
 	height:580px;
