@@ -14,7 +14,6 @@ class User < ActiveRecord::Base
 
   has_attached_file :kyc_doc, styles: { medium: "500x500>", thumb: "200x200>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :kyc_doc, content_type: /\Aimage\/.*\z/
-
   
   def send_otp
     begin

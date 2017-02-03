@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   #Paytm callback url
   root 'home#index'
+  
   resources :properties do 
     #Booking routes
     resources :booking , only: [:create] do

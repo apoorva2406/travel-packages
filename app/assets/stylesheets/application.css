@@ -86,6 +86,8 @@
 
 .show-content-all {
   max-height: 100% !important;
+  height: 195px;
+  overflow-y: auto !important;
   /*overflow: auto !important;*/
 }
 .price-color{

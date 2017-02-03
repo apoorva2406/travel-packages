@@ -49,16 +49,26 @@
 							<th>Booking-status:</th>
 							<td><%=@booking.status%></td>
 						</tr>
-					</table>
-					<form method="post" action="https://pguat.paytm.com/oltp-web/processTransaction">
-						<% @paramList.keys.each do |k| %>
-								<input type="hidden" name="<%=k%>" value="<%=@paramList[k]%>"/>
-							<%end%>
-						<input type="hidden" name="CHECKSUMHASH" value="<%=@checksum_hash%>">
-						<% unless @booking.payment.present? %>
-						<input type="submit" value="Pay with paytm" class="btn btn-primary btn-block" />
-					<%end%>	
-				  </form>
+						<tr>
+							<td><form method="post" action="https://pguat.paytm.com/oltp-web/processTransaction">
+								<% @paramListPaytm.keys.each do |k| %>
+										<input type="hidden" name="<%=k%>" value="<%=@paramListPaytm[k]%>"/>
+									<%end%>
+								<% unless @booking.payment.present? %>
+								<input type="submit" value="Pay with paytm" class="btn btn-primary btn-block" />
+							<%end%>	
+						  </form></td>
+
+						  <td><form action="https://test.payu.in/_payment" id="searchForm" method="post">
+								<% @paramListPayumoney.keys.each do |k| %>
+										<input type="hidden" name="<%=k%>" value="<%=@paramListPayumoney[k]%>"/>
+									<%end%>
+								<% unless @booking.payment.present? %>
+									<input type="submit" value="Pay with PayUMoney" class="btn btn-primary btn-block" style="background-color:#85b213" />
+								<%end%>	
+						  </form></td>
+						</tr>
+					</table>  
 			  </div>
 			</div>
 	  </div>

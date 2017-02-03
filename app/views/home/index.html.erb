@@ -68,9 +68,9 @@
           </div>
           <div class="col-md-3  col-sm-3 padd-right">
             <label class="display">&nbsp;</label>
-            <div class="col-md-6"><button type="submit" class="search-btn">Search</button></div>
+            <div class="col-md-6 home_index_search_left"><button type="submit" class="search-btn">Search</button></div>
             <input type="hidden" id="near_me" name="near_me" value="" />
-            <div class="col-md-6"><button type="submit" class="search-btn" id="search_near_me">Near me</button></div>
+            <div class="col-md-6 home_index_search_right"><button type="submit" class="search-btn" id="search_near_me">Near me</button></div>
           </div>
         </form>
       </div>
@@ -256,6 +256,7 @@
                                 <li><i class="fa fa-check-circle" aria-hidden="true"></i> <%=facility.try(:name)%></li>
                               <%end%>
                             </ul>
+                            <div class="clearfix"></div>
                             <center>
                               <a href="<%=property_path(property)%>" class="read-more">read more</a>
                             </center>

@@ -2,30 +2,53 @@ class BookingController < ApplicationController
 	before_action :authenticate_user!,  only: [:book_now, :create, :pay_now, :view_invoice]
 	before_action :get_property,  only: [:create, :pay_now, :book_now, :get_type_price, :patym_webhook]
 	before_action :get_booking,  only: [:patym_webhook, :pay_now, :view_invoice]
-	skip_before_filter :verify_authenticity_token, only: [:patym_webhook]
-
+	skip_before_filter :verify_authenticity_token, only: [:patym_webhook, :freecharge_failer, :freecharge_success]
 	include PaytmHelper
 
 	def patym_webhook
-		if params[:STATUS].eql?('TXN_SUCCESS')
-			@payment = current_user.payments.new()
-			@payment.create_payment(params, @booking.id)
-			if @payment.save
-				PaymentWorker.perform_async(@payment.id)
-				flash[:notice] = "Your booking is successfully confirmed" 
+		#payuMoney
+		if params[:payuMoneyId].present?
+			if params[:status].eql?('success')
+				@payment = current_user.payments.new()
+				@payment.create_payment_payumoney(params, @booking.id)
+				if @payment.save
+					PaymentWorker.perform_async(@payment.id)
+					flash[:notice] = "Your booking is successfully confirmed" 
+				else
+					flash[:alert] = "Transaction status is failure #{params[:error_Message]}" 
+				end
 			else
-				flash[:alert] = "Transaction status is failure #{params[:RESPMSG]}" 
+				flash[:alert] = "Transaction status is failure #{params[:error_Message]}"
 			end
+		#Paytm
 		else
-			flash[:alert] = "Transaction status is failure #{params[:RESPMSG]}"
-		end
+			if params[:STATUS].eql?('TXN_SUCCESS')
+				@payment = current_user.payments.new()
+				@payment.create_payment(params, @booking.id)
+				if @payment.save
+					PaymentWorker.perform_async(@payment.id)
+					flash[:notice] = "Your booking is successfully confirmed" 
+				else
+					flash[:alert] = "Transaction status is failure #{params[:RESPMSG]}" 
+				end
+			else
+				flash[:alert] = "Transaction status is failure #{params[:RESPMSG]}"
+			end
+		end	
+
 		redirect_to pay_now_property_booking_path(@property,@booking)
 	end 
 
 	def pay_now
-    @paramList = @booking.params_list_patym
-    @paramList["CALLBACK_URL"] = patym_webhook_property_booking_url(@property,@booking)
-		@checksum_hash = new_pg_checksum(@paramList, ENV['PAYTM_MERCHANT_KEY']).gsub("\n",'')
+		#Pay u Money
+		@paramListPayumoney = @booking.params_list_payumoney
+		@paramListPayumoney["furl"] = patym_webhook_property_booking_url(@property,@booking)
+		@paramListPayumoney["surl"] = patym_webhook_property_booking_url(@property,@booking)
+
+		#Paytm
+    @paramListPaytm = @booking.params_list_patym
+    @paramListPaytm["CALLBACK_URL"] = patym_webhook_property_booking_url(@property,@booking)
+		@paramListPaytm["CHECKSUMHASH"] = new_pg_checksum(@paramListPaytm, ENV['PAYTM_MERCHANT_KEY']).gsub("\n",'')
 	end
 
 	def book_now
