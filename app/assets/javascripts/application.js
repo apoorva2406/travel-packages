@@ -39,9 +39,7 @@
 //= require select-js.js
 
 
-
 /*upload image on profile*/
-
 
 function readURL(input) {
   if (input.files && input.files[0]) {
