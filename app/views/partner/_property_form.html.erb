@@ -1,0 +1,61 @@
+<form action="#-" method="post" name="contactform" id="contactform" class="animated out" data-animation="fadeInLeft" data-delay="0">
+  <fieldset>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <input class="form-control" type="text" name="name" placeholder="Name">
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group">
+          <input class="form-control" type="email" name="email" placeholder="Email">
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group">
+          <input class="form-control" type="number" name="number" placeholder="Phone number">
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group">
+          <input class="form-control" type="text" name="address" placeholder="Enter address">
+        </div>
+      </div>
+
+      <div class="col-sm-8">
+        <div class="form-group">
+          <label for="comment">Facilities:</label><br>
+          <% Facility.all.each do |a_value| %>
+            <label class="checkbox-inline"><input type="checkbox" value="<%=a_value.id%>"><%=a_value.name%></label>
+          <% end %>
+        </div>
+      </div>
+
+
+      
+
+      
+
+      <div class="col-sm-12">
+        <div class="form-group">
+          <textarea class="form-control" name="description" placeholder="Description..."></textarea>
+        </div>
+      </div>
+    </div>
+    <!-- end row -->
+  </fieldset>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <input type="submit" name="submit" value="Send message" id="submit" class="btn btn-colored">
+      </div>
+      <!-- end form-group -->
+    </div>
+    <!-- end col-sm-12 -->
+    <div id="alert" class="col-md-8"></div>
+  </div>
+  <!-- end row -->
+</form>

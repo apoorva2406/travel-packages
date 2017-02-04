@@ -73,7 +73,7 @@ $(document).ready(function($) {
         Backstrech - home section backgroud
     =============================================== */
 
-        $("#home-section").backstretch("/assets/partner/temp/home-bg.jpg");
+        $("#home-section").backstretch("/assets/partner/home_bg.jpg");
 
 
     /* ==============================================
@@ -227,7 +227,7 @@ $(document).ready(function($) {
 		Contact Map
 	=============================================== */ 
 
-	var contact = {"lat":"51.51152", "lon":"-0.125198"}; //change coordinates map here
+	var contact = {"lat":"28.7189727", "lon":"77.1066405"}; //change coordinates map here
 
 		var mapContainer = $('.map');
 		mapContainer.gmap3({
@@ -240,7 +240,7 @@ $(document).ready(function($) {
 			latLng: [contact.lat, contact.lon],
 			map:{
 				center: [contact.lat, contact.lon],
-				zoom: 17
+				zoom: 15
 				},
 			},
 			{action: 'setOptions', args:[{scrollwheel:false}]}
