@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :authentications, only: [:create]
   get '/auth/:provider/callback' => 'authentications#create'
   post '/auth/:provider/callback' => 'authentications#create'
-
+  get '/property_success' => 'properties#property_success'
   #Paytm callback url
   root 'home#index'
 
@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       get 'step_2'
       post 'create_step_2'
     end
+
     collection do 
       post 'remove_image'
       post 'serach_by_type'
@@ -74,7 +75,6 @@ Rails.application.routes.draw do
     member do
       get 'email_confirm', :path => 'myprofile/email_confirm'
     end
-
   end
 
   resources :otp do

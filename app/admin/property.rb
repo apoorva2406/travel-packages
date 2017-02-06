@@ -64,17 +64,18 @@ ActiveAdmin.register Property do
   end
 
   member_action :varify do
+    debugger
     @property = Property.find(params[:id])
     @property.varified = true
     @property.save
-    redirect_to :back, notice: "Property varified successfully"
+    redirect_to :back, notice: "Property verified successfully"
   end
 
   member_action :unvarify do
     @property = Property.find(params[:id])
     @property.varified = false
     @property.save
-    redirect_to :back, notice: "Property unvarified successfully"
+    redirect_to :back, notice: "Property unverified successfully"
   end
 
 	show do

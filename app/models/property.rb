@@ -7,26 +7,37 @@ class Property < ActiveRecord::Base
 	belongs_to :user
 	has_many :bookings
 	has_many :payments
-	validates :name, :phone_number, :email, :contact_person, :address, :user_id, presence: true
+	validates :name, :phone_number, :email, :address, presence: true #:user_id, :contact_person,
 	geocoded_by :address
   after_validation :geocode, if: :address_changed?   
-  after_commit :reindex_property
-  after_save :edit_reindex_property
+  #after_commit :reindex_property
+  #after_save :edit_reindex_property
   scope :varified_property, -> { where(varified: true) }
   scope :unvarified_property, -> { where(varified: false) }
   scope :add_to_home_property, -> { where(add_to_home: true) }
   
+  def create_user
+  	@user = User.find_by(email: self.email)
+  	if @user.present?
+  		self.user_id = @user.id
+  		self.save
+  	else	
+  		password = self.email.split("@").first + '@' + rand.to_s[2..5]
+  		@user = User.create(:email => self.email, :password => password, :password_confirmation => password)
+  		@user.assign_user_role('Owner')
+  	end
+  end
 
   def property_type
-  	property_types.map{|type|type.name}.join(',')
+  	property_types.map{|type|type.name}.join(',') rescue []
   end
 
   def facility
-  	Facility.where(id: JSON(self.facilities)).map{|f| f.name}.join(',')
+  	Facility.where(id: JSON(self.facilities)).map{|f| f.name}.join(',') rescue []
   end
 
   def days_open
-		AccessDay.where(id: JSON(self.access_day)).map{|f| f.name}.join(',')
+		AccessDay.where(id: JSON(self.access_day)).map{|f| f.name}.join(',') rescue []
 	end
 
 	def property_date(date)

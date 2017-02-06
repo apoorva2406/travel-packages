@@ -1,12 +1,17 @@
 class UserMailer < ApplicationMailer
 	default from: "support@example.com"
 
-	#Email varification
+	#Send login details
+  def send_login_details(user)
+    @user = user
+    mail(to: @user.email, subject: "Your login details")
+  end
+
+  #Email varification
   def email_vaification(user)
     @user = user
     mail(to: @user.email, subject: "Confirm your email")
   end
-
 
   #Booking user email
   def booking_client_email(booking)

@@ -1,20 +1,20 @@
 <div class="stepwizard">
-  <div class="stepwizard-row">
+  <!-- <div class="stepwizard-row">
     <div class="stepwizard-step">
       <button type="button" class="btn btn-primary btn-circle">1</button>
-      <p><%=@property.id.nil? ? 'Create' : 'Update'%> Property</p>
+      <p><%#=@property.id.nil? ? 'Create' : 'Update'%> Property</p>
     </div>
     <div class="stepwizard-step">
       <button type="button" class="btn btn-default btn-circle">2</button>
-      <p><%=@property.id.nil? ? 'Add' : 'Update'%>  seats</p>
+      <p><%#=@property.id.nil? ? 'Add' : 'Update'%>  seats</p>
     </div>
-  </div>
+  </div> -->
 </div>
 <br>
 
 <%= form_for(@property) do |f| %>
   <% if @property.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" style="color: red;">
       <h2><%= pluralize(@property.errors.count, "error") %> prohibited this property from being saved:</h2>
 
       <ul>
@@ -114,7 +114,6 @@
       <% Facility.all.each do |a_value| %>
           <% if a_value.name.eql?('Car Parking') || a_value.name.eql?('AC') || a_value.name.eql?('Security') || a_value.name.eql?('Lifts') || a_value.eql?('CCTV')%>
             <label class="checkbox-inline">
-          
             <%status = @property.facilities.present? ? (JSON(@property.facilities).include?(a_value.id.to_s) ? true : false ) : false %>
             <%= f.check_box(:facilities, { :multiple => true, :checked=> status }, a_value.id) %><%=a_value.name%>
           <%end%>  
