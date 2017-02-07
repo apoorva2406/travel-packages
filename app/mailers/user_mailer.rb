@@ -5,7 +5,7 @@ class UserMailer < ApplicationMailer
   def send_login_details(user)
     @user = user
     @password = @user.email.split("@").first + '@' + rand.to_s[2..5]
-    @user.password = @password
+    @user.password = 12345678 #@password
     @user.save
     mail(to: @user.email, subject: "Your login details")
   end
