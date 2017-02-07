@@ -3,10 +3,9 @@ class PropertiesController < ApplicationController
   before_action :authenticate_user!,  only: [:update, :destroy, :edit, :step_2, :create_step_2]
   before_action :check_property_owner, only: [:edit, :step_2]
   #load_and_authorize_resource
-  
-  def property_success
-  end
 
+  def property_success;end
+    
   def index
     #Search by desire location 
     desire_lat = Geocoder.coordinates(params[:desire_location])
@@ -95,7 +94,7 @@ class PropertiesController < ApplicationController
         @property.create_user
         #@property.add_type_access_day(params)
         @property.add_images(params[:property][:images], params[:new_image])
-        format.html { redirect_to property_success_partner_path(@property), notice: 'Property was successfully created.' } ##step_2_property_path(@property)
+        format.html { redirect_to property_success_path} ##step_2_property_path(@property)
         #format.json { render :show, status: :created, location: @property }
       else
         format.html { render :new }

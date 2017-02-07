@@ -2,7 +2,9 @@ class AuthenticationsController < ApplicationController
   skip_before_filter :authenticate_user!
 
   def redirect_url_after_omniauth(user = nil)
-    user.roles.present? ? root_path : myprofile_dashboard_index_path
+    #user.roles.present? ? root_path : myprofile_dashboard_index_path
+    user.assign_user_role("Client")
+    myprofile_dashboard_index_path
   end
 
 	def create

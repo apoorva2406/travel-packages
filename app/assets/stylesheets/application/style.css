@@ -208,12 +208,17 @@ a:hover {
 	background-position:right;
 }
 .inner-bg .styled-select select {
-	background: transparent;
-	border: none;
-	font-size: 14px;
-	height: 38px;
-	padding: 0px; /* If you add too much padding here, the options won't show in IE */
-	width: 258px;
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  height: 38px;
+  padding: 3px 0px 10px 0px;
+  width: 228px;
+  left: 0px !important;
+}
+
+.inner-bg .blue option{
+	width: 100%;
 }
 .inner-bg .blue {
 	background-color: #fff;
@@ -238,14 +243,14 @@ a:hover {
 	height:580px;
 }
 .carousel-inner .carousel-caption h1 {
-	font-size:55px;
+	font-size:45px;
 	padding-bottom:10px;
 }
 .home-grid {
 	background:#fff;
 	padding:0px;
 	border:1px solid #eee;
-	width: 31.4%;
+	width: 30.4%;
 	margin-right:32px;
 	margin-bottom:32px;
 }
@@ -257,8 +262,8 @@ a:hover {
 	transition: all 1s ease;
 }
 .home-grid h4 {
-	font-size:18px;
-	padding:24px 0 12px;
+	font-size:16px;
+	padding:0px 0 12px;
 	text-transform:uppercase;
 }
 .carousel-inner .carousel-caption p {
@@ -271,7 +276,7 @@ a:hover {
 	z-index:1111;
 }
 .search-list-box .inner-bg {
-	background-color:rgba(255, 255, 255, 0.85);
+	/*background-color:rgba(255, 255, 255, 0.85);*/
 	height:110px;
 	padding: 15px 10px;
 	margin-top:30px;
@@ -280,11 +285,17 @@ a:hover {
 	display: block;
 	font-size: 18px;
 	font-weight: normal;
-	color:#333 !important;
+	color:#fff !important;
 }
 .padd-right {
 	padding-right:5px;
 }
+
+.home_index_slider{
+	height: 33px !important;
+}
+
+
 .inner-bg button.search-btn {
 	background-color: #00c4b0 !important;
 	border: 1px solid #00c4b0;
@@ -305,7 +316,7 @@ a:hover {
 	border: 1px solid #ccc;
 	box-shadow: none;
 	font-size: 15px;
-	height: 40px;
+	height: 33px;
 	padding: 5px 7px;
 	width: 100%;
 	background-color:#fff !important;
@@ -465,11 +476,11 @@ div#navbar {
 	margin-bottom:0px !important;
 	line-height: normal;
 	border-bottom: 1px solid #6F6F8C;
-	min-height:96px;
+	min-height:78px;
 	margin-bottom: 15px;
 }
 .navbar-brand > img {
-	width:63%;
+	width:51%;
 }
 .navbar-inverse {
 	background: none;
@@ -507,8 +518,8 @@ div#navbar {
 	font-weight: 600;
 	letter-spacing: normal;
 	line-height: normal;
-	font-size:16px;
-	padding:9px 15px;
+	font-size:15px;
+	padding:5px 15px;
 }
 .navbar-inverse .navbar-nav > li > a:hover {
 	color:#00c4b0;
@@ -643,9 +654,9 @@ nav a:hover, nav a:focus {
     font-size: 13px;
     line-height: 23px;
     margin: 0 auto;
-    width: 95%;
+    width: 90%;
     text-align: justify;
-    height: 77px;
+    height: 99px;
 }
 .leaves-main a {
 	background: #00c4b0 none repeat scroll 0 0;

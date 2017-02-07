@@ -64,8 +64,12 @@ ActiveAdmin.register Property do
   end
 
   member_action :varify do
-    debugger
     @property = Property.find(params[:id])
+    @user = @property.try(:user)
+    if @user && @user.properties.count == 1
+      @user.send_otp
+      UserMailer.send_login_details(@user).deliver
+    end
     @property.varified = true
     @property.save
     redirect_to :back, notice: "Property verified successfully"

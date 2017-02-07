@@ -5,7 +5,7 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(registration_params)
     if resource.save
-      resource.assign_user_role(params[:user][:role])
+      resource.assign_user_role("Client") #params[:user][:role]
       resource.send_otp
       session[:user_id_otp] = resource.id
       if request.xhr?

@@ -1,5 +1,4 @@
 class PartnerController < ApplicationController
 	layout 'partner'
-	def index
-	end
+	def index;end
 end

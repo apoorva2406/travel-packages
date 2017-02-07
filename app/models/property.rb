@@ -24,6 +24,8 @@ class Property < ActiveRecord::Base
   	else	
   		password = self.email.split("@").first + '@' + rand.to_s[2..5]
   		@user = User.create(:email => self.email, :password => password, :password_confirmation => password)
+  		self.user_id = @user.id
+  		self.save
   		@user.assign_user_role('Owner')
   	end
   end
