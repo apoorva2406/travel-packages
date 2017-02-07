@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
       self.save
       # @client.account.messages.create(
       #   :body => "Hey your login otp is #{otp}",
-      #   :to => "+919910116603",    
+      #   :to => "+918959294300",    
       #   :from => "++12173647554"
       # )  
       message = "Otp send successfully"

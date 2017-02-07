@@ -16,6 +16,17 @@ class Property < ActiveRecord::Base
   scope :unvarified_property, -> { where(varified: false) }
   scope :add_to_home_property, -> { where(add_to_home: true) }
   
+  def send_login_details
+  	user = self.try(:user)
+  	if user && user.properties.count == 1
+	  	user = self.try(:user)
+	    user.send_otp
+	    UserMailer.send_login_details(user).deliver
+	  end  
+    UserMailer.property_confirmation(self).deliver
+    Property.reindex
+  end
+
   def create_user
   	@user = User.find_by(email: self.email)
   	if @user.present?

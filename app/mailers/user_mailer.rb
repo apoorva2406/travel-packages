@@ -5,9 +5,16 @@ class UserMailer < ApplicationMailer
   def send_login_details(user)
     @user = user
     @password = @user.email.split("@").first + '@' + rand.to_s[2..5]
-    @user.password = 12345678 #@password
+    @user.password = @password
     @user.save
     mail(to: @user.email, subject: "Your login details")
+  end
+
+  #Send mail to user for property_confirmation
+  def property_confirmation(property)
+    @property = property
+    @user = property.try(:user)
+    mail(to: @user.email, subject: "Your property has been confirmed")
   end
 
   #Email varification

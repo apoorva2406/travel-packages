@@ -67,8 +67,8 @@ Rails.application.configure do
   config.action_mailer.default :charset => "utf-8"
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-   :user_name => 'patel_kapil',
-   :password => 'kapilyuvasoft133',
+   :user_name => ENV['mail_user_name'],
+   :password => ENV['mail_user_password'],
    :domain => ENV['website_url'],
    :address => 'smtp.sendgrid.net',
    :port => 587,

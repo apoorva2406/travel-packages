@@ -8,6 +8,11 @@ p {
 	margin: 0;
 }
 
+.nav>li>a:focus, .nav>li>a:hover{
+	background-color: #fff !important;
+	color: #0E9692;
+}
+
 .cl-effect-16 .header_drop_box a {
     background-color: #fff;
     border: none;
@@ -505,6 +510,8 @@ div#navbar {
 }
 .nav > li > a:last-child {
 	margin-right:0px !important;
+	padding: 5px;
+	background-color: #0E9692;
 }
 .navbar-inverse .navbar-brand {
 	color: #FFFFFF;
