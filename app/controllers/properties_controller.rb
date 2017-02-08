@@ -24,29 +24,16 @@ class PropertiesController < ApplicationController
         #desire location
         elsif city_lat.present?
           properties = search_indexed(desire_lat, city_lat, type)
+        elsif params[:near_me].present? 
+          lat = request.location.latitude.present? ? request.location.latitude : 20.5937
+          lng = request.location.longitude.present? ? request.location.longitude : 78.9629
+          properties = builder_query(lat,lng,type,"desire")
         else
           properties = Property.search type, where: {varified: true}
         end
         @types_count.merge!(type=> properties.count)
         properties.each{|p| @result << p}
       end
-
-    #Search by city  
-    elsif city_lat.present?
-      properties = search_indexed(desire_lat, city_lat, '')
-      properties.each{|p| @result << p}
-
-    #Search by desire location   
-    elsif desire_lat.present?
-      properties = builder_query(desire_lat[0],desire_lat[1],'',"desire")
-      properties.each{|p| @result << p}
-    
-    #near by me
-    elsif params[:near_me].present? 
-      lat = request.location.latitude.present? ? request.location.latitude : 20.5937
-      lng = request.location.longitude.present? ? request.location.longitude : 78.9629
-      properties = builder_query(lat,lng,'',"desire")
-      properties.each{|p| @result << p}
     else
       properties = Property.search "*", where: {varified: true}
       properties.each{|p| @result << p}
