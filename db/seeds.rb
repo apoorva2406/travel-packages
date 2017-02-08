@@ -39,7 +39,7 @@ prices = [1,2,3,4,5,8,10,15,20,25,30,35,40,45,50,55,60,65,70,100,90,150,110,120]
 
 puts "Creating Property ..."
 
-(1..100).each do |number|
+(1..10).each do |number|
 	property = Property.create({  
 	 "name" => Faker::Name.name,
 	 "phone_number" => '1234567890',

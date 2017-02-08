@@ -21,11 +21,11 @@ class User < ActiveRecord::Base
       otp = rand.to_s[2..5]
       self.otp_code = 12345678 #otp
       self.save
-      # @client.account.messages.create(
-      #   :body => "Hey your login otp is #{otp}",
-      #   :to => "+918959294300",    
-      #   :from => "++12173647554"
-      # )  
+      @client.account.messages.create(
+        :body => "Hey your login otp is #{otp}",
+        :to => "+918959294300",    
+        :from => "++12173647554"
+      )  
       message = "Otp send successfully"
     rescue Twilio::REST::RequestError => e
       message = "Something is wrong"

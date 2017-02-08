@@ -11,7 +11,7 @@
             <nav class="cl-effect-16" id="cl-effect-16">
               <ul class="nav navbar-nav">
                 <% if user_signed_in? && user_role_owner || !user_signed_in? %>
-                  <li><a class="active" href="<%=new_property_path%>" data-hover="Home">Add Workspace</a></li>
+                  <li><a class="active" href="<%=partner_index_path%>" data-hover="Home">Become a partner</a></li>
                 <%end%>  
                 <li><a href="http://aboardoffices.com/social/" data-hover="About">IVS Social</a></li>
                 <% unless user_signed_in? %>

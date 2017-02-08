@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-	default from: "support@example.com"
+	default from: "info@ivsoffices.com"
 
 	#Send login details
   def send_login_details(user)
