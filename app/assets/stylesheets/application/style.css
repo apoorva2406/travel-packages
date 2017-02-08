@@ -511,7 +511,7 @@ div#navbar {
 .nav > li > a:last-child {
 	margin-right:0px !important;
 	padding: 5px;
-	background-color: #0E9692;
+	/*background-color: #0E9692;*/
 }
 .navbar-inverse .navbar-brand {
 	color: #FFFFFF;

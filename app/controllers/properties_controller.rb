@@ -18,12 +18,12 @@ class PropertiesController < ApplicationController
     if params[:search_office_type].present?
       params[:search_office_type].each do |type|
         #city present
-        if city_lat.present?
-          properties = search_indexed(desire_lat, city_lat, type)
-        #desire location
-        elsif desire_lat.present?
+        if desire_lat.present?
           properties = builder_query(desire_lat[0],desire_lat[1],type,"desire")
           properties = builder_query(city_lat[0],city_lat[1],type) if properties.blank?
+        #desire location
+        elsif city_lat.present?
+          properties = search_indexed(desire_lat, city_lat, type)
         else
           properties = Property.search type, where: {varified: true}
         end
@@ -66,9 +66,9 @@ class PropertiesController < ApplicationController
 
   def builder_query(lat, lng, type={}, miles={})
     if miles.present?
-      Property.search "#{type.present? ? type : "*"}", where: {varified: true, location: {near: {lat: lat, lon: lng}, within: "2mi"}}
+      Property.search "#{type.present? ? type : "*"}", where: {varified: true, location: {near: {lat: lat, lon: lng}, within: "2mi"}} rescue []
     else
-      Property.search "#{type.present? ? type : "*"}", where: {varified: true, location: {near: {lat: lat, lon: lng}}}
+      Property.search "#{type.present? ? type : "*"}", where: {varified: true, location: {near: {lat: lat, lon: lng}}} rescue []
     end
   end
 
