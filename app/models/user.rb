@@ -19,11 +19,11 @@ class User < ActiveRecord::Base
     begin
       @client = Twilio::REST::Client.new ENV['account_sid'], ENV['auth_token']
       otp = rand.to_s[2..5]
-      self.otp_code = 12345678 #otp
+      self.otp_code = otp
       self.save
       @client.account.messages.create(
         :body => "Hey your login otp is #{otp}",
-        :to => "+918959294300",    
+        :to => "+91#{self.mobile_no}",    
         :from => "++12173647554"
       )  
       message = "Otp send successfully"

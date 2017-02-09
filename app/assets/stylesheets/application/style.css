@@ -8,6 +8,35 @@ p {
 	margin: 0;
 }
 
+.nav-pills>li.active>a{
+	background-color: #fff;
+	color: #00C4B0;
+		
+}
+
+.nav-pills>li.active>a:hover{
+	color: #00C4B0;	
+}
+.btn-primary{
+	background-color: #00C4B0;
+	color: #fff;
+	border-color: #00C4B0;
+}
+.site_background_color{
+	background-color: #00C4B0;
+	color: #fff;
+	border-color: #00C4B0;
+}
+
+.btn-primary:hover{
+	background-color: #00C4B0;
+	border-color: #00C4B0;
+}
+
+.profile_tabs>li>a {
+	background-color: #00C4B0;
+}
+
 .nav>li>a:focus, .nav>li>a:hover{
 	background-color: #fff !important;
 	color: #0E9692;

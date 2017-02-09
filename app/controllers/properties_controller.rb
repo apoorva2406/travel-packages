@@ -79,7 +79,7 @@ class PropertiesController < ApplicationController
     respond_to do |format|
       if @property.save
         @property.create_user
-        #@property.add_type_access_day(params)
+        @property.add_type_access_day(params)
         @property.add_images(params[:property][:images], params[:new_image])
         format.html { redirect_to property_success_path} ##step_2_property_path(@property)
         #format.json { render :show, status: :created, location: @property }

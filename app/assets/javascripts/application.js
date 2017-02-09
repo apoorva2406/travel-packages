@@ -132,7 +132,7 @@ function mark_pinsIndex(markers) {
 
 
 $(document).ready(function() {
-  //$('.popup-notificaton').fadeIn('fast').delay(6000).fadeOut('slow');
+  $('.popup-notificaton').fadeIn('fast').delay(6000).fadeOut('slow');
   window.properties_ids;
   jQuery(".best_in_place").best_in_place();
 

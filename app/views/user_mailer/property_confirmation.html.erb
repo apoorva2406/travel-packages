@@ -1,2 +1,88 @@
-<p>Hello, <%= @user.email.split("@").first%></p>
-<p>Your property <%= @property.try(:name)%> has been confirmed</p>
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+	.content_email_wrapper{
+		height: 440px;
+	}
+
+	.content_email_wrapper .text-area{
+		padding: 30px;
+	}
+
+	.content_email_wrapper .text-area p{
+		font-size: 15px;
+	}
+
+	.header_email_wrapper{
+		height: 60px;
+		background-color: rgba(0, 196, 178, 0.45);
+	}
+
+	.header_email_wrapper .h_right img{
+		width: 14%;
+	}
+
+	.header_email_wrapper .left_right{
+		float: right;
+		padding:23px;
+	}
+
+	.header_email_wrapper .left_right i{
+		font-size: 21px;
+    margin-left: 9pX;
+	}
+	    
+	.main_email_wrapper{
+		width: 800px;
+		height: 500px;
+		background-color: #EDECEC;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.inside_email_wrapper{
+		width: 600px;
+		height: 500px;
+		background-color: #fff;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	</style>
+</head>
+	<body>
+
+		<div class="main_email_wrapper">
+			<div class="inside_email_wrapper">
+				<div class="header_email_wrapper">
+					<div class="h_right">
+						<img src="https://s3.ap-south-1.amazonaws.com/aboard-offices/Live-image/email_ivs_logo.png" />
+						<div class="left_right">
+							<a href="javascript:void(0)"><i class="fa fa-facebook"></i></a>
+							<a href="javascript:void(0)"><i class="fa fa-twitter"></i></a>
+							<a href="javascript:void(0)"><i class="fa fa-linkedin"></i></a>
+						</div>
+					</div>
+				</div>
+
+				<div class="content_email_wrapper">
+					<div class="text-area">
+					
+						<p>Hi <b><%= @user.try(:name)%>,</b></p>
+
+						<p>Greetings from ivsoffices.com !</p><br>
+
+						<p>Your property has been confirmed. You can visit the property by clicking on this <a href="<%=property_url(@property)%>" target="_blank">link</a></p><br>
+						
+						<p>We request you to share your valuable feedback. This shall help us to improve our services in future.</p><br>
+						 
+						<p>Regards</p>
+						<p><b>IVS Ofices</b></p>
+						
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</body>
+</html>

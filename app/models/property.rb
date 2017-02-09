@@ -34,7 +34,7 @@ class Property < ActiveRecord::Base
   		self.save
   	else	
   		password = self.email.split("@").first + '@' + rand.to_s[2..5]
-  		@user = User.create(:email => self.email, :password => password, :password_confirmation => password)
+  		@user = User.create(:email => self.email, :password => password, :password_confirmation => password, mobile_no: self.phone_number, name: self.contact_person)
   		self.user_id = @user.id
   		self.save
   		@user.assign_user_role('Owner')
@@ -82,8 +82,8 @@ class Property < ActiveRecord::Base
 		self.properties_type = get_value(params[:property][:properties_type])
 		self.rent_status = get_value(params[:property][:rent_status])
 		self.save
-		property_type_manages(params[:property][:properties_type])
-	end
+		property_type_manages(params[:property][:properties_type]) if params[:property][:properties_type].present?
+	end 
 
 	def property_type_manages(property_type_ids)
 		property_type_ids = get_value(property_type_ids)

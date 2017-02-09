@@ -24,7 +24,7 @@ module PropertiesHelper
 
 	def property_facilities
 		facilities = []
-		type = Facility.where(id: JSON(@property.facilities))
+		type = Facility.where(id: JSON(@property.facilities)) rescue []
 		if type.present?
 			type.each_with_index do |val,index|
 				if val.name.eql?("Car Parking")
@@ -48,7 +48,7 @@ module PropertiesHelper
 	end
 
 	def property_access_day
-		type = AccessDay.where(id: JSON(@property.access_day))
+		type = AccessDay.where(id: JSON(@property.access_day)) rescue []
 		if type.present?
 			type.each_with_index.map{|t,i| "<div>#{t.name}</div>"}.join('').html_safe
 		else
@@ -93,12 +93,12 @@ module PropertiesHelper
 		property.property_types.each do |type|
 			property_price = property.property_prices.where(property_type_id: type.id).first
 			if params[:search_office_type] &&  params[:search_office_type].include?(type.name)
-      	seats_prices << "<div class='price-night'><span>#{type.name}</span><span style='margin-left: 13px;'>#{property_price.try(:seats)}</span><span class='price-n'><i class='fa fa-inr'></i> #{property_price.try(:price)}</span></div>".html_safe
-    	else
-    		seats_prices << "<div class='price-night'><span>#{type.name}</span><span style='margin-left: 13px;'>#{property_price.try(:seats)}</span><span class='price-n'><i class='fa fa-inr'></i> #{property_price.try(:price)}</span></div>".html_safe
-    	end
-    end
-    seats_prices.join('').html_safe
+		seats_prices << "<div class='price-night'><span>#{type.name}</span><span style='margin-left: 13px;'>#{property_price.try(:seats)}</span><span class='price-n'><i class='fa fa-inr'></i> #{property_price.try(:price)}</span></div>".html_safe
+		else
+			seats_prices << "<div class='price-night'><span>#{type.name}</span><span style='margin-left: 13px;'>#{property_price.try(:seats)}</span><span class='price-n'><i class='fa fa-inr'></i> #{property_price.try(:price)}</span></div>".html_safe
+		end
+	end
+	seats_prices.join('').html_safe
 	end
 
 

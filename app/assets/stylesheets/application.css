@@ -9,6 +9,15 @@
 
 /*upload image on profile*/
 
+.alert {
+    padding: 9px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    z-index: 1111;
+    position: absolute;
+    width: 85%;
+}
+
 #error_explanation{
   text-align: center;
 }
