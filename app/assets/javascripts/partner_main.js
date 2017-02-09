@@ -227,24 +227,24 @@ $(document).ready(function($) {
 		Contact Map
 	=============================================== */ 
 
-	var contact = {"lat":"28.7189727", "lon":"77.1066405"}; //change coordinates map here
+	// var contact = {"lat":"28.7189727", "lon":"77.1066405"}; //change coordinates map here
 
-		var mapContainer = $('.map');
-		mapContainer.gmap3({
-			action: 'addMarker',
-			marker:{
-				options:{
-					icon : new google.maps.MarkerImage('/assets/partner/marker.png')
-				}
-			},
-			latLng: [contact.lat, contact.lon],
-			map:{
-				center: [contact.lat, contact.lon],
-				zoom: 15
-				},
-			},
-			{action: 'setOptions', args:[{scrollwheel:false}]}
-		);
+	// 	var mapContainer = $('.map');
+	// 	mapContainer.gmap3({
+	// 		action: 'addMarker',
+	// 		marker:{
+	// 			options:{
+	// 				icon : new google.maps.MarkerImage('/assets/partner/marker.png')
+	// 			}
+	// 		},
+	// 		latLng: [contact.lat, contact.lon],
+	// 		map:{
+	// 			center: [contact.lat, contact.lon],
+	// 			zoom: 15
+	// 			},
+	// 		},
+	// 		{action: 'setOptions', args:[{scrollwheel:false}]}
+	// 	);
 
     /* ==============================================
         Contact Form
