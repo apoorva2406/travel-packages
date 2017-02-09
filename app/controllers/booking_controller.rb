@@ -26,7 +26,8 @@ class BookingController < ApplicationController
 				@payment = current_user.payments.new()
 				@payment.create_payment(params, @booking.id)
 				if @payment.save
-					PaymentWorker.perform_async(@payment.id)
+					# PaymentWorker.perform_async(@payment.id)
+					@payment.set_booking_status
 					flash[:notice] = "Your booking is successfully confirmed" 
 				else
 					flash[:alert] = "Transaction status is failure #{params[:RESPMSG]}" 
@@ -63,8 +64,9 @@ class BookingController < ApplicationController
 		@booking.seats = params[:booking][:seats]
     respond_to do |format|
       if @booking.save
-      	BookingWorker.perform_async(@booking.id)
+      	#BookingWorker.perform_async(@booking.id)
       	#@booking.booking_message
+      	@booking.send_mail_to_owner
         format.html { redirect_to pay_now_property_booking_path(@property, @booking), notice: 'Booking was successfully created.' }
       else
         format.html { render :book_now }

@@ -25,15 +25,24 @@
     </div>
   <% end %>
 
-  <div class="row">
+  <!-- <div class="row">
     <div class="col-md-3">
-      <%= f.label :Name_of_Property %>*<br>
+      <%#= f.label :Name_of_Property %>*<br>
     </div>
     
     <div class="col-md-9">
-      <%= f.text_field :name, class: "form-control", required: 'true', :placeholder=>"Enter property name" %> 
+      <%#= f.text_field :name, class: "form-control", required: 'true', :placeholder=>"Enter property name" %> 
     </div>
-  </div>
+  </div> -->
+
+  <div class="row">
+    <div class="col-md-3">
+     <%= f.label :name %>*<br>
+    </div>
+    <div class="col-md-9">
+      <%= f.text_field :contact_person, :placeholder=>"Enter contact person name", class: "form-control",required: 'true'%>
+    </div>
+  </div> 
 
   <br>
   <div class="row">

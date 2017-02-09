@@ -7,7 +7,7 @@ class Property < ActiveRecord::Base
 	belongs_to :user
 	has_many :bookings
 	has_many :payments
-	validates :name, :phone_number, :email, :address, presence: true #:user_id, :contact_person,
+	validates :name, :phone_number, :email, :contact_person, :address, presence: true #:user_id, :contact_person,
 	geocoded_by :address
   after_validation :geocode, if: :address_changed?   
   #after_commit :reindex_property

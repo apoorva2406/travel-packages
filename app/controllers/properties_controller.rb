@@ -167,6 +167,8 @@ class PropertiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def property_params
+      num_id = Property.last.try(:id)
+      params[:property][:name] = num_id.present? ? "IVS Offices-#{num_id+1}" : "IVS Offices-1"
       params.require(:property).permit(:name, :phone_number, :email, :no_of_seats, :contact_person, :description, :address, :start_date,  :end_date, :user_id)
     end
 end

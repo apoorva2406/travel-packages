@@ -227,14 +227,11 @@ a:hover {
   font-size: 14px;
   height: 38px;
   padding: 3px 0px 10px 0px;
-  width:240px;
+  width:300px;
   left: 0px !important;
   outline:none;
 
 }
-
-.inner-bg .styled-select select
-
 
 .inner-bg .blue option{
 	width: 100%;
@@ -659,8 +656,10 @@ nav a:hover, nav a:focus {
 	overflow-y:auto;
 }
 .information h2 {
-	font-size:30px;
-	text-transform: uppercase;
+	/*font-size:30px;
+	text-transform: uppercase;*/
+	font-size: 21px;
+  line-height: 32px;
 }
 .leaves-main h6 {
 	font-size: 1em;
@@ -1965,25 +1964,88 @@ div#navbar {
  color: #FFFFFF;
 }
 }
+
+
 @media(max-width:667px) {
-span.abou-icon1 {
- width: 47px;
- height:47px;
- background-size: 100%;
+	span.abou-icon1 {
+	 width: 47px;
+	 height:47px;
+	 background-size: 100%;
+	}
+	.swimming-grid{
+		width:50%;
+		margin-bottom:20px;
+	}
+	span.abou-icon2 {
+	 width: 47px;
+	 height: 47px;
+	 background-size: 100%;
+	}
+	.contact-left input.email {
+	 margin: 0px 0px 0px 12px;
+	}
+
+
+	.logo img {
+    width: 50%;
+	}
+	.navbar-wrapper{
+	    min-height: 85px;
+	}
+	.carousel-inner .carousel-caption h1 {
+	    font-size: 27px;
+	}
+	.carousel-inner .carousel-caption p {
+	    font-size: 15px;
+	}
+	.inner-bg label{
+	font-size: 17px;
+	color: #333 !important;
+	}
+	.inner-bg button.search-btn {
+	    font-size: 17px;
+	}
+	.information h2{
+	font-size:18px;
+	}
+	.home-grid h4 {
+	    font-size: 15px;
+	}
+	.leaves-main p {
+	    font-size: 14px;
+	    line-height: 20px;
+	    margin-bottom: 20px;
+	}
+	.swimming-top h2{
+	font-size: 19px;
+	line-height: 30px;
+	}
+	.footer-partner-row{
+	width: 100%;
+
+	}
+	.footer-container-v2 .footer-partner-row .col-title{
+	font-size:20px;
+	}
+	.footer-container-v2 .footer-partner-row .footer-col-description{
+	font-size:14px;
+	}
+	.ftr-grid h3 {
+	    font-size: 16px;
+	}
+	.ftr-grid p {
+	    font-size: 1.03em;
+	}
+	.footer .ftr-icons a{
+	font-size:18px;
+	}
+
+
+
 }
-.swimming-grid{
-	width:50%;
-	margin-bottom:20px;
-}
-span.abou-icon2 {
- width: 47px;
- height: 47px;
- background-size: 100%;
-}
-.contact-left input.email {
- margin: 0px 0px 0px 12px;
-}
-}
+
+
+
 @media(max-width:640px) {
 #myCarousel .carousel-inner{
 	height:auto;
@@ -2509,6 +2571,18 @@ h3.typo1 {
 }
 }
 @media(max-width:320px) {
+.logo img{
+width:50%;
+}
+
+.carousel-inner .carousel-caption h1 {
+    font-size: 25px;
+}
+
+.carousel-inner .carousel-caption p {
+    font-size: 14px;
+}
+
 .header-address h6 {
  font-size: 0.8em !important;
 }
@@ -2816,9 +2890,7 @@ p.smith span {
 .contact-right h1 {
  margin: 0em 0em 0.2em 0em;
 }
-.logo img {
- width: 83%;
-}
+
 .swimming-grid h4 {
  font-size: 1.1em;
 }
