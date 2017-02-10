@@ -19,6 +19,14 @@
 $skinLogo: url("admin_logo.png") no-repeat 0 0;
 
 
+#header h1 img {
+    position: relative;
+    top: -2px;
+    width: 55px;
+}
+
+
+
 /* step-2 */
 .stepwizard-step p {
   margin-top: 10px;    

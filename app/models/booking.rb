@@ -7,7 +7,7 @@ class Booking < ActiveRecord::Base
 	has_one :payment, :foreign_key => "booking_id", :dependent => :destroy
 	
 	def send_mail_to_owner
-		#self.booking_message
+		self.booking_message
 		UserMailer.booking_client_email(self).deliver
 		UserMailer.booking_owner_email(self).deliver
 	end

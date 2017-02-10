@@ -135,9 +135,10 @@ ActiveAdmin.register Property do
         start_date: params[:property][:start_date],
         end_date: params[:property][:end_date]
       )
-      @property.user_id = params[:user_id]
+      @property.user_id = params[:user_id] if params[:user_id].present?
       respond_to do |format|
         if @property.save
+          @property.create_user if params[:user_id].blank?
           @property.add_type_access_day(params)
           @property.add_images(params[:property][:images], params[:new_image])
           format.html { redirect_to step_2_admin_property_path(@property), notice: 'Property was successfully created.' }

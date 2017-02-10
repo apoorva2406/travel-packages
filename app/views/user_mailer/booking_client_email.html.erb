@@ -1,74 +1,155 @@
-<link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
-  
-<p>Hello, <%= @user.try(:name)%></p>
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"  crossorigin="anonymous">
+  <style type="text/css">
+  .content_email_wrapper{
+    height: auto;
+  }
 
-<p>You have successfully booked property please confirm your booking <a href="<%=pay_now_property_booking_url(@property,@booking)%>">Clicke here</a></p>
+  .content_email_wrapper .text-area{
+    padding: 30px;
+  }
 
-<p>Booking details</p>
+  .content_email_wrapper .text-area p{
+    font-size: 15px;
+  }
 
-<div class="table-responsive">          
-  <table class="table">
-    <tr>
-      <td>Name</td>
-      <td><%=@booking.try(:name)%></td>
-    </tr>
+  .header_email_wrapper{
+    height: 60px;
+    background-color: rgba(0, 196, 178, 0.45);
+  }
 
-    <tr>
-    	<td>Phone Number</td>
-    	<td><%=@booking.try(:phone)%></td>
-    </tr>
+  .header_email_wrapper .h_right img{
+    width: 14%;
+  }
 
-    <tr>
-    	<td>Property name</td>
-    	<td><%=link_to "#{@property.try(:name)}", property_url(@property), :target=>"_blank"%></td>
-    </tr>
+  .header_email_wrapper .left_right{
+    float: right;
+    padding:23px;
+  }
 
-     <tr>
-    	<td>Booked type</td>
-      <td><%=link_to "#{@booking.try(:book_type)}", property_url(@property), :target=>"_blank"%></td>
-    </tr>
+  .header_email_wrapper .left_right i{
+    font-size: 21px;
+    margin-left: 9pX;
+  }
+      
+  .main_email_wrapper{
+    width: 800px;
+    height: auto;
+    background-color: #EDECEC;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-    <% if JSON(@booking.try(:seats)).length > 1%>
-			<tr>
-  			<td>Rooms:</td>
-  			<td><%=@booking.try(:rooms)%></td>
-  		</tr>
-  		<tr>
-  			<td>Seats:</td>
-  			<td>
-  				<%JSON(@booking.try(:seats)).each_with_index do |num, index|%>
-  					<%= "Room #{index+1} - Seats #{num}" %><br>
-  				<%end%>	
-  			</td>
-  		</tr>
-		<%else%>
-  		<tr>
-  			<td>Seats:</td>
-  			<td><%=JSON(@booking.try(:seats)).join('')%></td>
-  		</tr>
-		<%end%>
+  .inside_email_wrapper{
+    width: 600px;
+    height: auto;
+    background-color: #fff;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  </style>
+</head>
+<body>
+  <div class="main_email_wrapper">
+    <div class="inside_email_wrapper">
+      <div class="header_email_wrapper">
+        <div class="h_right">
+          <img src="https://s3.ap-south-1.amazonaws.com/aboard-offices/Live-image/email_ivs_logo.png" />
+          <div class="left_right">
+            <a href="javascript:void(0)"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+            <a href="javascript:void(0)"><i class="fa fa-twitter"></i></a>
+            <a href="javascript:void(0)"><i class="fa fa-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="content_email_wrapper">
+        <div class="text-area">
+          <p>Hi <b><%= @user.try(:name)%>,</b></p>
+          <p>Greetings from ivsoffices.com !</p>
 
-    <tr>
-    	<td>Booking start date</td>
-    	<td><%=@booking.try(:start_date).strftime("%a, %e %b %Y")%></td>
-    </tr>
+          <p>You have successfully booked property please confirm your booking <a href="<%=pay_now_property_booking_url(@property,@booking)%>">Clicke here</a></p>
 
-    <tr>
-    	<td>Booking end date</td>
-    	<td><%=@booking.try(:end_date).strftime("%a, %e %b %Y")%></td>
-    </tr>
+          <p>Booking details</p>
 
-    <tr>
-    	<td>Booking amount</td>
-    	<td><%=@booking.try(:total_amount)%></td>
-    </tr>
+          <div class="table-responsive">          
+            <table class="table">
+              <tr>
+                <td>Name</td>
+                <td><%=@booking.try(:name)%></td>
+              </tr>
 
-    <tr>
-    	<td>Booking status</td>
-    	<td>
-        <%=link_to "#{@booking.try(:status)}", pay_now_property_booking_url(@property,@booking), :target=>"_blank"%>
-      </td>
-    </tr>
-  </table>
+              <tr>
+                <td>Phone Number</td>
+                <td><%=@booking.try(:phone)%></td>
+              </tr>
+
+              <tr>
+                <td>Property name</td>
+                <td><%=link_to "#{@property.try(:name)}", property_url(@property), :target=>"_blank"%></td>
+              </tr>
+
+               <tr>
+                <td>Booked type</td>
+                <td><%=link_to "#{@booking.try(:book_type)}", property_url(@property), :target=>"_blank"%></td>
+              </tr>
+
+              <% if JSON(@booking.try(:seats)).length > 1%>
+                <tr>
+                  <td>Rooms:</td>
+                  <td><%=@booking.try(:rooms)%></td>
+                </tr>
+                <tr>
+                  <td>Seats:</td>
+                  <td>
+                    <%JSON(@booking.try(:seats)).each_with_index do |num, index|%>
+                      <%= "Room #{index+1} - Seats #{num}" %><br>
+                    <%end%> 
+                  </td>
+                </tr>
+              <%else%>
+                <tr>
+                  <td>Seats:</td>
+                  <td><%=JSON(@booking.try(:seats)).join('')%></td>
+                </tr>
+              <%end%>
+
+              <tr>
+                <td>Booking start date</td>
+                <td><%=@booking.try(:start_date).strftime("%a, %e %b %Y")%></td>
+              </tr>
+
+              <tr>
+                <td>Booking end date</td>
+                <td><%=@booking.try(:end_date).strftime("%a, %e %b %Y")%></td>
+              </tr>
+
+              <tr>
+                <td>Booking amount</td>
+                <td><%=@booking.try(:total_amount)%></td>
+              </tr>
+
+              <tr>
+                <td>Booking status</td>
+                <td>
+                  <%=link_to "#{@booking.try(:status)}", pay_now_property_booking_url(@property,@booking), :target=>"_blank"%>
+                </td>
+              </tr>
+            </table>
+          </div>
+                    
+          <p>We request you to share your valuable feedback. This shall help us to improve our services in future.</p>
+
+          <p>Regards</p>
+          <p><b>IVS Ofices</b></p>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</body>
+</html>
+
+
+  
