@@ -62,3 +62,5 @@ gem 'sidekiq'
 gem 'sidetiq'
 gem 'activeadmin', github: 'activeadmin'
 gem 'rails_12factor', group: :production
+#for sms_client gupshup
+gem 'gupshup', '~> 0.3.0'

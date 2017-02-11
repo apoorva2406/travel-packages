@@ -136,12 +136,15 @@ GEM
     geocoder (1.4.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    gupshup (0.3.0)
+      httpclient (>= 2.1.5.2)
     has_scope (0.6.0)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
     hashie (3.4.6)
     hike (1.2.3)
     hitimes (1.2.4)
+    httpclient (2.8.3)
     i18n (0.7.0)
     ice_cube (0.14.0)
     inherited_resources (1.6.0)
@@ -322,6 +325,7 @@ DEPENDENCIES
   figaro
   friendly_id
   geocoder
+  gupshup (~> 0.3.0)
   jbuilder (~> 2.0)
   jquery-rails
   omniauth
@@ -346,4 +350,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.13.6
+   1.14.3
