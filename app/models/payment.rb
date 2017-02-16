@@ -5,7 +5,7 @@ class Payment < ActiveRecord::Base
 
 	def set_booking_status
 		self.booking.update(status: "confirmed")
-		self.booking_confirmation_message
+		#self.booking_confirmation_message
 		UserMailer.booking_confirmation_client_email(self).deliver
 		UserMailer.booking_confirmation_owner_email(self).deliver
 	end

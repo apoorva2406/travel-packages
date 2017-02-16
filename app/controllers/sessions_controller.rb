@@ -6,13 +6,13 @@ class SessionsController < Devise::SessionsController
     resource = User.find_for_database_authentication(email: params[:user][:email])
     return invalid_login_attempt unless resource
     if resource.valid_password?(params[:user][:password])
-      if resource.verified.eql?(false)
-        respond_to do |format|
-          session[:user_id_otp] = resource.id
-          format.js
-          format.html { redirect_to verification_otp_index_path}
-        end 
-      else
+      # if resource.verified.eql?(false)
+      #   respond_to do |format|
+      #     session[:user_id_otp] = resource.id
+      #     format.js
+      #     format.html { redirect_to root_path} #verification_otp_index_path
+      #   end 
+      # else
         sign_in("user", resource)
         flash[:notice] = "Login successfully"
         if request.xhr?
@@ -22,7 +22,7 @@ class SessionsController < Devise::SessionsController
         else
           redirect_to session[:previous_url] || root_path
         end
-      end    
+      #end    
     else  
       if request.xhr?
         invalid_login_attempt

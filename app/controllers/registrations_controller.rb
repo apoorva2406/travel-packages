@@ -5,15 +5,18 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(registration_params)
     if resource.save
+      flash[:notice] = "Your have successfully signed up"
       resource.assign_user_role("Client") #params[:user][:role]
-      resource.send_otp
+      #resource.send_otp
+      sign_in resource
       session[:user_id_otp] = resource.id
       if request.xhr?
         respond_to do |format|
-          format.js
+          #format.js
+          format.js { render js: "window.location='#{root_path}'" }
         end
       else
-        redirect_to verification_otp_index_path
+        redirect_to root_path #verification_otp_index_path
       end  
     else
       warden.custom_failure!
