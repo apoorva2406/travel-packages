@@ -20,7 +20,7 @@ class Property < ActiveRecord::Base
   	user = self.try(:user)
   	if user && user.properties.count == 1
 	  	user = self.try(:user)
-	    user.send_otp
+	    #user.send_otp
 	    UserMailer.send_login_details(user).deliver
 	  end  
     UserMailer.property_confirmation(self).deliver
