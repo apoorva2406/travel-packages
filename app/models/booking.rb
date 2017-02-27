@@ -4,7 +4,7 @@ class Booking < ActiveRecord::Base
 	belongs_to :user
 	validates :name, :phone, :book_type, :start_date, :end_date, :user_id, :property_id, :total_amount,:seats, presence: true
 	belongs_to :property
-	has_one :payment, :foreign_key => "booking_id", :dependent => :destroy
+	has_many :payments, :foreign_key => "booking_id", :dependent => :destroy
 	
 	def send_mail_to_owner
 		#self.booking_message
@@ -44,7 +44,7 @@ class Booking < ActiveRecord::Base
 		paramList["INDUSTRY_TYPE_ID"] = ENV['INDUSTRY_TYPE_ID']
 		paramList["CHANNEL_ID"] = ENV['CHANNEL_ID']
 		paramList["WEBSITE"] = ENV['WEBSITE']
-		paramList["TXN_AMOUNT"] = "2" #amount
+		paramList["TXN_AMOUNT"] = ENV['website_environment'].eql?("production") ? amount : "2"
 		paramList["ORDER_ID"] = SecureRandom.urlsafe_base64(nil, false)
 		paramList["CUST_ID"] = SecureRandom.urlsafe_base64(nil, false)  
 		paramList

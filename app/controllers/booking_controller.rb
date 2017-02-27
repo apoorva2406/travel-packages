@@ -1,9 +1,49 @@
 class BookingController < ApplicationController
 	before_action :authenticate_user!,  only: [:book_now, :create, :pay_now, :view_invoice]
 	before_action :get_property,  only: [:create, :pay_now, :book_now, :get_type_price, :patym_webhook]
-	before_action :get_booking,  only: [:patym_webhook, :pay_now, :view_invoice]
+	before_action :get_booking,  only: [:patym_webhook, :pay_now, :view_invoice, :cancel_booking]
 	skip_before_filter :verify_authenticity_token, only: [:patym_webhook, :freecharge_failer, :freecharge_success]
 	include PaytmHelper
+	include HTTParty
+
+	HTTP_TIMEOUT = 10
+	REFUND_ADDRESS = "oltp/HANDLER_INTERNAL/REFUND"
+	BASE_URI_WALLET_PRODUCTION = "https://secure.paytm.in/"
+  BASE_URI_WALLET_DEVELOPMENT = "https://pguat.paytm.com/"
+	BASE_URI = "https://accounts.paytm.com/"
+
+	def cancel_booking
+		@payment = @booking.payments.success.first
+		if @payment.present?
+			data = {
+	      "ORDERID" => @payment.order_id,
+	      "REFUNDAMOUNT" => @payment.amount,
+	      "TXNID" => @payment.txn_id,
+	      "MID" => ENV['MID'],
+	      "TXNTYPE" => "REFUND"
+	    }
+	    data.merge!("CHECKSUM" => checksum(data, ENV['PAYTM_MERCHANT_KEY']))
+	    data.merge!("REFID" => @payment.txn_id)
+	    options = {:JsonData => data.to_json}
+	    response = JSON.parse(get(REFUND_ADDRESS, :wallet, options)) rescue nil
+		  if response.present?
+		  	@refund = @payment.refunds.new()
+		    @refund.cancel_booking_refund_amount(response)
+		    if @refund.save
+			    if response["STATUS"] == "TXN_SUCCESS"
+			      flash[:notice] = "Booking successfully cancled"
+			    else
+			    	flash[:alert] = "Booking can not be cancle due to #{response["RESPMSG"]}"
+			    end
+			  end  
+		  else
+		    raise "Refund/LoadMoney request response empty from Paytm"
+		  end
+	  else
+	  	flash[:alert] = "Booking can not be cancle"
+	  end  
+	  redirect_to :back
+	end
 
 	def patym_webhook
 		#payuMoney
@@ -23,21 +63,20 @@ class BookingController < ApplicationController
 			end
 		#Paytm
 		else
-			if params[:STATUS].eql?('TXN_SUCCESS')
-				@payment = current_user.payments.new()
-				@payment.create_payment(params, @booking.id)
-				if @payment.save
-					# PaymentWorker.perform_async(@payment.id)
+			@payment = current_user.payments.new()
+			@payment.create_payment(params, @booking.id)
+			if @payment.save
+				# PaymentWorker.perform_async(@payment.id)
+				if params[:STATUS].eql?('TXN_SUCCESS')
 					@payment.set_booking_status
 					flash[:notice] = "Your booking is successfully confirmed" 
 				else
-					flash[:alert] = "Transaction status is failure #{params[:RESPMSG]}" 
-				end
+					flash[:alert] = "Transaction status is failure #{params[:RESPMSG]}"
+				end	 
 			else
 				flash[:alert] = "Transaction status is failure #{params[:RESPMSG]}"
 			end
 		end	
-
 		redirect_to pay_now_property_booking_path(@property,@booking)
 	end 
 
@@ -57,7 +96,7 @@ class BookingController < ApplicationController
 	end
 
 	def view_invoice
-		@payment = @booking.payment
+		@payment = @booking.payments.success.first
 	end
 
 	def create
@@ -95,6 +134,23 @@ class BookingController < ApplicationController
 	end
 
 	protected
+
+	def get(url_path, type, options)
+    address = base_url(type)+ url_path
+    self.class.headers({"Content-Type" => "application/json"})
+    response = self.class.get(address, :query => options, timeout: HTTP_TIMEOUT)
+    return response
+  end
+
+  def base_url(option)
+    case option
+    when :auth
+      return ENV['website_environment'].eql?("production") ? BASE_URI : "https://accounts-uat.paytm.com/"
+    when :wallet
+      return ENV['website_environment'].eql?("production") ? BASE_URI_WALLET_PRODUCTION : BASE_URI_WALLET_DEVELOPMENT
+    end
+  end
+
 	def get_property
 		@property = Property.find(params[:property_id])
 	end

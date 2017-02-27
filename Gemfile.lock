@@ -144,6 +144,9 @@ GEM
     hashie (3.4.6)
     hike (1.2.3)
     hitimes (1.2.4)
+    httparty (0.13.7)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     httpclient (2.8.3)
     i18n (0.7.0)
     ice_cube (0.14.0)
@@ -326,6 +329,7 @@ DEPENDENCIES
   friendly_id
   geocoder
   gupshup (~> 0.3.0)
+  httparty (~> 0.13.5)
   jbuilder (~> 2.0)
   jquery-rails
   omniauth

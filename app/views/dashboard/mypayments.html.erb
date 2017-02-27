@@ -1,16 +1,6 @@
 <div class="container">
   <div class="col-lg-12 col-sm-12 col-md-12">
-    <div class="card hovercard">
-      <div class="card-background">
-        <img class="card-bkimg" alt="" src="http://lorempixel.com/100/100/people/9/">
-        <!-- http://lorempixel.com/850/280/people/9/ -->
-      </div>
-      <div class="useravatar">
-        <img src="<%=current_user.profile_image.present? ? current_user.profile_image : '/assets/user.png'%>" class="img-circle dropdown-toggle" alt="Cinque Terre" data-toggle="dropdown">
-      </div>
-      <div class="card-info"> <span class="card-title"><%=current_user.name%></span>
-      </div>
-    </div>
+    
 
     <ul class="nav nav-pills profile_tabs">
       <li><a href="<%=myprofile_dashboard_index_path%>">PROFILE</a></li>
@@ -50,9 +40,9 @@
                   <td><%=payment.try(:order_id)%></td>
                   <td><%=payment.try(:booking).try(:start_date).strftime("%a, %e %b %Y")%></td>
                     <td><%=payment.try(:booking).try(:end_date).strftime("%a, %e %b %Y")%></td>
-                  <td><%=DateTime.parse(payment.txn_date).strftime("%a, %e %b %Y %H:%M")%></td>
+                  <td><%=DateTime.parse(payment.try(:txn_date)).strftime("%a, %e %b %Y %H:%M") rescue ''%></td>
                   <td><%=payment.try(:amount)%></td>
-                  <td><%=payment.try(:status).eql?('TXN_SUCCESS') || payment.try(:status).eql?('success') ? 'Success' : ''%></td>
+                  <td><%=payment.try(:status).eql?('TXN_SUCCESS') || payment.try(:status).eql?('success') ? 'SUCCESS' : 'FAILURE'%></td>
                 </tr>
               <%end%>  
             </tbody>

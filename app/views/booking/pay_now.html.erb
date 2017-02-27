@@ -2,7 +2,7 @@
   <div class="row">
 		<center>
 			<h3>
-				<%= @booking.payment.present? ? 'Your property has been confirmed' : 'Confirm your property' %>
+				<%= booking_status ? 'Your property has been confirmed' : 'Confirm your property' %>
 			</h3>
 		</center>
 		<div id="reservation-form" class="col-md-8 col-md-offset-2 reservation-color-form  resv-plus-meteo">
@@ -50,11 +50,11 @@
 							<td><%=@booking.status%></td>
 						</tr>
 						<tr>
-							<td><form method="post" action="https://pguat.paytm.com/oltp-web/processTransaction">
+							<td><form method="post" action="<%= ENV['website_environment'].eql?("production") ? "https://secure.paytm.in/oltp-web/processTransaction" : "https://pguat.paytm.com/oltp-web/processTransaction"%>">
 								<% @paramListPaytm.keys.each do |k| %>
 										<input type="hidden" name="<%=k%>" value="<%=@paramListPaytm[k]%>"/>
 									<%end%>
-								<% unless @booking.payment.present? %>
+								<% unless booking_status %>
 								<input type="submit" value="Pay with paytm" class="btn btn-primary btn-block" />
 							<%end%>	
 						  </form></td>
@@ -63,7 +63,7 @@
 								<% @paramListPayumoney.keys.each do |k| %>
 										<input type="hidden" name="<%=k%>" value="<%=@paramListPayumoney[k]%>"/>
 									<%end%>
-								<% unless @booking.payment.present? %>
+								<% unless booking_status %>
 									<input type="submit" value="Pay with PayUMoney" class="btn btn-primary btn-block"/>
 								<%end%>	
 						  </form></td>

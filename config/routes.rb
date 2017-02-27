@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   resources :booking , only: [] do
     member do 
       get 'view_invoice'
+      get 'cancel_booking'
     end
   end
   

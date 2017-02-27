@@ -13,4 +13,9 @@ module BookingHelper
 		end
 		all_dates
 	end
+
+	def booking_status
+		@booking.payments.where(status: 'TXN_SUCCESS').first
+	end
+
 end

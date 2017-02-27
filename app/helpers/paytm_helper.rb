@@ -4,6 +4,11 @@ module PaytmHelper
   require 'digest'
   require 'securerandom'
 
+  
+  def checksum(payload_items, secret_key) #A wrapper Over API of PayTm for calculating CheckSum
+    new_pg_checksum(payload_items,secret_key)
+  end
+
   ### function returns dictionary of encrypted data ###
   ### accepts a dictionary with data and key to encrypt with ###
   ### can accept multiple key value pairs in the dictionary ###

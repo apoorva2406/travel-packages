@@ -1,21 +1,6 @@
 <div class="container">
   <div class="col-lg-12 col-sm-12 col-md-12">
-    <div class="card hovercard">
-      <div class="card-background">
-        <img class="card-bkimg" alt="" src="http://lorempixel.com/100/100/people/9/">
-        <!-- http://lorempixel.com/850/280/people/9/ -->
-      </div>
-      <div class="useravatar">
-        <%if current_user.photo.present? %>
-          <img src="<%=current_user.photo.present? ? current_user.photo.url : '/assets/user.png'%>" class="img-circle dropdown-toggle" alt="Cinque Terre" data-toggle="dropdown">
-        <%else%>
-          <img src="<%=current_user.profile_image.present? ? current_user.profile_image : '/assets/user.png'%>" class="img-circle dropdown-toggle" alt="Cinque Terre" data-toggle="dropdown">
-        <%end%>
-      </div>
-      <div class="card-info"> <span class="card-title"><%=current_user.name%></span>
-      </div>
-    </div>
-
+   
     <ul class="nav nav-pills profile_tabs">
       <li class="active"><a href="<%=myprofile_dashboard_index_path%>">PROFILE</a></li>
       <% if user_role_owner %>

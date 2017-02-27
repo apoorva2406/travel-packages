@@ -2,6 +2,9 @@ class Payment < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :booking, :foreign_key => "booking_id"
 	belongs_to :property
+	has_many :refunds, :dependent => :destroy
+
+	scope :success, -> { where(status: "TXN_SUCCESS") }
 
 	def set_booking_status
 		self.booking.update(status: "confirmed")
@@ -46,11 +49,11 @@ class Payment < ActiveRecord::Base
 		self.txn_date =  params[:TXNDATE]
 		self.gateway_name =  params[:GATEWAYNAME]
 		self.bank_name = params[:BANKNAME]
-		self.payment_mode = params[:PAYMENTMODE]
+		self.payment_mode = params[:PAYMENTMODE].present? ? params[:PAYMENTMODE] : "PPI"
 		self.checksum_key = params[:CHECKSUMHASH]
 		self.property_id = params[:property_id]
 		self.booking_id = booking_id
-		self.txn_day = params[:TXNDATE].to_date
+		self.txn_day = params[:TXNDATE].to_date if params[:TXNDATE]
 	end
 
 	def create_payment_payumoney(params, booking_id)

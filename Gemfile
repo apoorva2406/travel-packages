@@ -64,3 +64,4 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'rails_12factor', group: :production
 #for sms_client gupshup
 gem 'gupshup', '~> 0.3.0'
+gem 'httparty', '~> 0.13.5'
