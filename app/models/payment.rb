@@ -3,6 +3,7 @@ class Payment < ActiveRecord::Base
 	belongs_to :booking, :foreign_key => "booking_id"
 	belongs_to :property
 	has_many :refunds, :dependent => :destroy
+	after_create :set_booking_status
 
 	scope :success, -> { where(status: "TXN_SUCCESS") }
 

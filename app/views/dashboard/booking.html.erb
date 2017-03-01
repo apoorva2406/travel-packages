@@ -46,12 +46,12 @@
                       <%=link_to "#{booking.try(:status)}", pay_now_property_booking_path(booking.try(:property),booking), :target=>"_blank"%>
                     <%elsif booking.try(:status).eql?("confirmed")%> 
                       <%=link_to "view invoice", view_invoice_booking_path(booking), :target=>"_blank"%> 
-                        <%unless booking.end_date == Time.now.to_date%>
+                        <%unless booking.end_date < Time.now.to_date + 1 %>
                           <%=link_to "Cancel", cancel_booking_booking_path(booking)%> 
                         <%end%>  
                     <%else%>
                       <%=link_to "Canceled", "#-"%> 
-                    <%end%>  
+                    <%end%>
                   </td>
                 </tr>
               <%end%>  

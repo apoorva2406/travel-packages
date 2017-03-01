@@ -52,8 +52,6 @@ class BookingController < ApplicationController
 				@payment = current_user.payments.new()
 				@payment.create_payment_payumoney(params, @booking.id)
 				if @payment.save
-					#PaymentWorker.perform_async(@payment.id)
-					@payment.set_booking_status
 					flash[:notice] = "Your booking is successfully confirmed" 
 				else
 					flash[:alert] = "Transaction status is failure #{params[:error_Message]}" 
@@ -66,9 +64,7 @@ class BookingController < ApplicationController
 			@payment = current_user.payments.new()
 			@payment.create_payment(params, @booking.id)
 			if @payment.save
-				# PaymentWorker.perform_async(@payment.id)
 				if params[:STATUS].eql?('TXN_SUCCESS')
-					@payment.set_booking_status
 					flash[:notice] = "Your booking is successfully confirmed" 
 				else
 					flash[:alert] = "Transaction status is failure #{params[:RESPMSG]}"
@@ -104,8 +100,6 @@ class BookingController < ApplicationController
 		@booking.seats = params[:booking][:seats]
     respond_to do |format|
       if @booking.save
-      	#BookingWorker.perform_async(@booking.id)
-      	@booking.send_mail_to_owner
         format.html { redirect_to pay_now_property_booking_path(@property, @booking), notice: 'Booking was successfully created.' }
       else
         format.html { render :book_now }
@@ -118,7 +112,7 @@ class BookingController < ApplicationController
 		remaining_seats = 0
 		property_type = PropertyType.find_by_name(params[:type])
 		@property_price = @property.property_prices.where(property_type_id: property_type.id).first
-		booked_seats  = @property.bookings.where(book_type: params[:type]).where('DATE(?) BETWEEN start_date AND end_date', params[:start_date].to_date)
+		booked_seats  = @property.bookings.where.not(status: 'cancel').where(book_type: params[:type]).where('DATE(?) BETWEEN start_date AND end_date', params[:start_date].to_date)
 		#Booked seats
 		if params[:type].eql?("Meeting/Conference Room")
 			seats << @property_price.childrens.map{|c| c.seats} if @property_price.childrens.present?

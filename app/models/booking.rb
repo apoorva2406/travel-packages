@@ -5,6 +5,7 @@ class Booking < ActiveRecord::Base
 	validates :name, :phone, :book_type, :start_date, :end_date, :user_id, :property_id, :total_amount,:seats, presence: true
 	belongs_to :property
 	has_many :payments, :foreign_key => "booking_id", :dependent => :destroy
+	after_create :send_mail_to_owner
 	
 	def send_mail_to_owner
 		#self.booking_message
