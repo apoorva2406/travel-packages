@@ -5,7 +5,7 @@ class Booking < ActiveRecord::Base
 	validates :name, :phone, :book_type, :start_date, :end_date, :user_id, :property_id, :total_amount,:seats, presence: true
 	belongs_to :property
 	has_many :payments, :foreign_key => "booking_id", :dependent => :destroy
-	after_create :send_mail_to_owner
+	#after_create :send_mail_to_owner
 	
 	def send_mail_to_owner
 		#self.booking_message
@@ -82,4 +82,56 @@ class Booking < ActiveRecord::Base
 		@bookings = Booking.where(status: 'not confirm').where("created_at <= ?", Time.now - 24.hours)
 		@bookings.delete_all
 	end
+
+	def self.import(file,user_id)
+		array = []
+	  data = open_spreadsheet(file)
+	  header = data.row(1)
+	  transaction do
+		  (2..data.last_row).each do |line|
+		    row = Hash[[header, data.row(line)].transpose]
+		    blank_key = row.select{|k,v| k if v.blank? && v.nil?}
+		    array << {"Row_#{line} have blank columns" => blank_key.keys.join(',')}
+		    if blank_key.present?
+		    	raise ActiveRecord::Rollback  
+			  else
+
+			  	if !(row['Phone'].to_s.size == 10) && Booking.numeric(row['Total Seats']) && 
+			  		Booking.numeric(row['Total Amount'])
+			  		array << {"Row_#{line} have syntax problems columns" => "Phone, Total Seats , Total amount"}
+			  		raise ActiveRecord::Rollback  
+			  	else
+				  	booking = Booking.new
+				    booking.name = row['Name']
+				    booking.phone = row['Phone']
+				    booking.seats = [row['Total Seats']]
+				    booking.start_date = row['Booking Start Date (dd/mm/yyyy)']
+				    booking.end_date = row['Booking End Date (dd/mm/yyyy)']
+				    booking.status = row['Status']
+				    booking.total_amount = row['Total Amount']
+				    booking.walk_in = true
+				    booking.user_id = user_id
+				    booking.save(:validate => false)
+				  end  
+			  end  
+		  end
+		end 
+		return array.reject{|v| v if v.first[1].blank?} 
+	end
+
+	def self.open_spreadsheet(file)
+		case File.extname(file.original_filename)
+		  when ".csv" then Roo::CSV.new(file.path)
+		  when ".xls" then Roo::Excel.new(file.path)
+		  when ".xlsx" then Roo::Excelx.new(file.path)
+		  else raise "Unknown file type: #{file.original_filename}"
+	  end
+	end
+
+	def self.numeric(val)
+    return true if val =~ /\A\d+\Z/
+    true if Float(val) rescue false
+  end
 end
+
+

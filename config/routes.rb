@@ -63,6 +63,8 @@ Rails.application.routes.draw do
     end
 
   	collection do 
+      post 'create_import_booking', :path => 'myprofile/create_import_booking'
+      get 'import_booking', :path => 'myprofile/import_booking'
       get 'my_earning', :path => 'myprofile/my_earning'
   		get 'myprofile', :path => 'myprofile'
       get 'my_property', :path => 'myprofile/my_property'

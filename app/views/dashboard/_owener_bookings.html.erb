@@ -1,0 +1,92 @@
+<div class="well" style="margin-top:10px">
+  <div class="tab-content">
+
+    <ul class="nav nav-pills profile_tabs">
+      <li class="active"><a data-toggle="pill" href="#user_booking">User Booking</a></li>
+      <li><a data-toggle="pill" href="#imported_booking">Import bookings</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div id="user_booking" class="tab-pane fade in active">
+        <table class="table table-hover">
+          <% if @bookings.present? %>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Property Name</th>
+                <th>Property type</th>
+                <th>Total seats</th>
+                <th>Booking start date</th>
+                <th>Booking end date</th>
+                <th>Total amount</th>
+                <th>Booking status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%@bookings.each do |booking|%>
+                <tr>
+                  <td><%=booking.try(:name)%></td>
+                  <td><%=booking.try(:phone)%></td>
+                  <td><%=link_to "#{booking.try(:property).try(:name)}", property_path(booking.try(:property)), :target=>"_blank"%></td>
+                  <td><%=link_to "#{booking.try(:book_type)}", property_path(booking.try(:property)), :target=>"_blank"%></td>
+                  <td><%=JSON(booking.try(:seats)).map(&:to_i).inject(:+)%></td>
+                  <td><%=booking.try(:start_date).strftime("%a, %e %b %Y")%></td>
+                  <td><%=booking.try(:end_date).strftime("%a, %e %b %Y")%></td>
+                  <td><%=booking.try(:total_amount)%></td>
+                  <td>
+                    <%if booking.try(:status).eql?("not confirm") %>
+                      <%=link_to "#{booking.try(:status)}", pay_now_property_booking_path(booking.try(:property),booking), :target=>"_blank"%>
+                    <%elsif booking.try(:status).eql?("confirmed")%> 
+                      <%=link_to "view invoice", view_invoice_booking_path(booking), :target=>"_blank"%> 
+                        <%unless booking.end_date < Time.now.to_date + 1 %>
+                          <%=link_to "Cancel", cancel_booking_booking_path(booking)%> 
+                        <%end%>  
+                    <%else%>
+                      <%=link_to "Canceled", "#-"%> 
+                    <%end%>
+                  </td>
+                </tr>
+              <%end%>  
+            </tbody>
+          <%else%>
+            <h3>You have no booking</h3>
+          <%end%>  
+        </table>  
+      </div>
+
+      <div id="imported_booking" class="tab-pane fade">
+        <table class="table table-hover">
+          <% if @impoted_bookings.present? %>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Total seats</th>
+                <th>Booking start date</th>
+                <th>Booking end date</th>
+                <th>Total amount</th>
+                <th>Booking status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%@impoted_bookings .each do |booking|%>
+                <tr>
+                  <td><%=booking.try(:name)%></td>
+                  <td><%=booking.try(:phone)%></td>
+                  <td><%=JSON(booking.try(:seats)).map(&:to_i).inject(:+)%></td>
+                  <td><%=booking.try(:start_date).strftime("%a, %e %b %Y")%></td>
+                  <td><%=booking.try(:end_date).strftime("%a, %e %b %Y")%></td>
+                  <td><%=booking.try(:total_amount)%></td>
+                  <td><%=booking.try(:status)%></td>
+                </tr>
+              <%end%>  
+            </tbody>
+          <%else%>
+            <h3>You have no booking.............</h3>
+          <%end%>  
+        </table>  
+      </div>
+    </div>
+  </div>
+</div>

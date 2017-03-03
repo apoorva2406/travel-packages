@@ -1,6 +1,6 @@
 <div class="container">
   <div class="col-lg-12 col-sm-12 col-md-12">
-    
+
     <ul class="nav nav-pills profile_tabs">
       <li><a href="<%=myprofile_dashboard_index_path%>">PROFILE</a></li>
       <% if user_role_owner %>
@@ -16,26 +16,24 @@
 
     <div class="well" style="margin-top:10px">
       <div class="tab-content">
-        <h3>on dashboard CHANGE PASSWORD</h3>
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-          <%= devise_error_messages! %>
 
-          <div class="field">
-            <%= f.label :password, "Password" %><br />
-            <%= f.password_field :password, :autocomplete => "off",class: "form-control"  %>
-          </div>
+        <%if @message.present? %>
+          <ul>
+          <% @message.each do |msg| %>
+            <li> <%= msg.first[0]%> <%=msg.first[1]%> </li>
+            
+          <%end%>
+        <%end%>
 
-          <div class="field">
-            <%= f.label :password_confirmation %><br />
-            <%= f.password_field :password_confirmation, :autocomplete => "off", class: "form-control" %>
+        <%= form_tag create_import_booking_dashboard_index_path, multipart: true do %>
+          <div class="form-group">
+            <label for="import_file">Upload xls file:</label>
+            <input type="file" class="form-control" name="file" style="width: 18%;">
           </div>
-
-          <div class="actions"><br />
-            <center><%= f.submit "Update", class:"btn btn-primary" %></center>
-          </div>
+          <%= submit_tag "Sign in", class: "btn btn-large btn-primary" %>
         <% end %>
+        
       </div>
     </div>
   </div>
 </div>
-

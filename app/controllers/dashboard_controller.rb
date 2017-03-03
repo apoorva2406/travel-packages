@@ -1,12 +1,26 @@
 class DashboardController < ApplicationController
-	before_action :authenticate_user!, except: [:property, :email_confirm]
+	before_action :authenticate_user!, except: [:property, :email_confirm, :import_booking, :create_import_booking]
 	def index;end
 
+	def import_booking
+
+	end
+
+	def create_import_booking
+		@message = Booking.import(params[:file], current_user.id)
+		if @message.present?
+			render 'import_booking'
+		else
+			flash[:notice] = "Booking imported successfully"
+			redirect_to :back
+		end
+	end
+	
 	def myprofile
 		@resource = current_user
 	end
 
-	def my_earning
+	def my_earning	
 		@bookings = Booking.where(property_id: current_user.properties.map(&:id), status: "not confirm")
 		@payments = Payment.where.not(user_id: current_user.id).where(property_id: current_user.properties.map(&:id)).order("property_id asc").group_by{|p| p.property_id}
 	end
@@ -22,7 +36,8 @@ class DashboardController < ApplicationController
 	end
 
 	def booking
-		@bookings = current_user.bookings.order('created_at desc')
+		@bookings = current_user.bookings.where(walk_in: false).order('created_at desc')
+		@impoted_bookings = current_user.bookings.where(walk_in: true).order('created_at desc')
 	end
 	def vistis;end
 
