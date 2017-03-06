@@ -14,7 +14,9 @@
           <% @property.property_types.each do |type|%>
             <tr>
               <td><%=type.name%></td>
-              <%if type.name.eql?('Meeting/Conference Room')%>
+              <% if type.name.eql?('Virtual Office')%>
+                <td><input type="hidden" name="seats[<%= type.id %>]" value="1"></td>
+              <%elsif type.name.eql?('Meeting/Conference Room')%>
                 <td>
                   <select name="number_of_room" id="<%=type.id%>" class="form-control create_number_of_rooms" required>
                     <option value="" disabled="disabled" selected="selected">No of rooms</option>
