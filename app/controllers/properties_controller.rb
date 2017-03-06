@@ -74,14 +74,14 @@ class PropertiesController < ApplicationController
   end
 
   def create
-    #@property = current_user.properties.new(property_params)
-    @property = Property.new(property_params)
+    @property = current_user.properties.new(property_params)
+    #@property = Property.new(property_params)
     respond_to do |format|
       if @property.save
-        @property.create_user
+        #@property.create_user
         @property.add_type_access_day(params)
         @property.add_images(params[:property][:images], params[:new_image])
-        format.html { redirect_to property_success_path} ##step_2_property_path(@property)
+        format.html { redirect_to step_2_property_path(@property) } ##property_success_path
         #format.json { render :show, status: :created, location: @property }
       else
         format.html { render :new }
@@ -167,8 +167,8 @@ class PropertiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def property_params
-      num_id = Property.last.try(:id)
-      params[:property][:name] = num_id.present? ? "IVS Offices-#{num_id+1}" : "IVS Offices-1"
+      #num_id = Property.last.try(:id)
+      #params[:property][:name] = num_id.present? ? "IVS Offices-#{num_id+1}" : "IVS Offices-1"
       params.require(:property).permit(:name, :phone_number, :email, :no_of_seats, :contact_person, :description, :address, :start_date,  :end_date, :user_id)
     end
 end

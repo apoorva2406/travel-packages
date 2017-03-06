@@ -66,7 +66,8 @@ ActiveAdmin.register Property do
   member_action :varify do
     @property = Property.find(params[:id])
     #PropertyConfirmationWorker.perform_async(@property.id)
-    @property.send_login_details
+    #@property.send_login_details
+    UserMailer.property_confirmation(@property).deliver
     @property.varified = true
     @property.save
     redirect_to :back, notice: "Property verified successfully"

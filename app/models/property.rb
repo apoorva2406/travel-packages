@@ -10,8 +10,8 @@ class Property < ActiveRecord::Base
 	validates :name, :phone_number, :email, :contact_person, :address, presence: true #:user_id, :contact_person,
 	geocoded_by :address
   after_validation :geocode, if: :address_changed?   
-  #after_commit :reindex_property
-  #after_save :edit_reindex_property
+  after_commit :reindex_property
+  after_save :edit_reindex_property
   scope :varified_property, -> { where(varified: true) }
   scope :unvarified_property, -> { where(varified: false) }
   scope :add_to_home_property, -> { where(add_to_home: true) }

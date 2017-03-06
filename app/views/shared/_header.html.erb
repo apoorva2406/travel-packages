@@ -27,7 +27,7 @@
                     <%end%>  
                     <span class="caret"></span></button>
                     <ul class="dropdown-menu header_drop_box">
-                      <li><a href="<%=myprofile_dashboard_index_path%>"><%= "My Profile (#{ user_role_owner ? 'Owner' : 'Clinet'})" %></a></li>
+                      <li><a href="<%=myprofile_dashboard_index_path%>"><%= "My Profile (#{ user_role_owner ? 'Owner' : 'Client'})" %></a></li>
                       <% if user_role_owner %>
                         <li><a href="<%=new_property_path%>">Add Workspace</a></li>
                         <li><a href="<%=my_property_dashboard_index_path%>">My Properties</a></li>

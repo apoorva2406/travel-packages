@@ -6,10 +6,10 @@ class RegistrationsController < Devise::RegistrationsController
     build_resource(registration_params)
     if resource.save
       flash[:notice] = "Your have successfully signed up"
-      resource.assign_user_role("Client") #params[:user][:role]
+      resource.assign_user_role(params[:user][:role]) 
       #resource.send_otp
       sign_in resource
-      session[:user_id_otp] = resource.id
+      #session[:user_id_otp] = resource.id
       if request.xhr?
         respond_to do |format|
           #format.js

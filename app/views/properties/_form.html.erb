@@ -1,14 +1,14 @@
 <div class="stepwizard">
-  <!-- <div class="stepwizard-row">
+  <div class="stepwizard-row">
     <div class="stepwizard-step">
       <button type="button" class="btn btn-primary btn-circle">1</button>
-      <p><%#=@property.id.nil? ? 'Create' : 'Update'%> Property</p>
+      <p><%=@property.id.nil? ? 'Create' : 'Update'%> Property</p>
     </div>
     <div class="stepwizard-step">
       <button type="button" class="btn btn-default btn-circle">2</button>
-      <p><%#=@property.id.nil? ? 'Add' : 'Update'%>  seats</p>
+      <p><%=@property.id.nil? ? 'Add' : 'Update'%>  seats</p>
     </div>
-  </div> -->
+  </div>
 </div>
 <br>
 
@@ -25,24 +25,34 @@
     </div>
   <% end %>
 
-  <!-- <div class="row">
+  <div class="row">
     <div class="col-md-3">
-      <%#= f.label :Name_of_Property %>*<br>
+      <%= f.label :Name_of_Property %>*<br>
     </div>
     
     <div class="col-md-9">
-      <%#= f.text_field :name, class: "form-control", required: 'true', :placeholder=>"Enter property name" %> 
+      <%= f.text_field :name, class: "form-control", required: 'true', :placeholder=>"Enter property name" %> 
     </div>
-  </div> -->
+  </div>
 
+ <!--  <div class="row">
+    <div class="col-md-3">
+     <%#= f.label :name %>*<br>
+    </div>
+    <div class="col-md-9">
+      <%#= f.text_field :contact_person, :placeholder=>"Enter contact person name", class: "form-control",required: 'true'%>
+    </div>
+  </div>  -->
+
+  <br>
   <div class="row">
     <div class="col-md-3">
-     <%= f.label :name %>*<br>
+     <%= f.label :contact_person %>*<br>
     </div>
     <div class="col-md-9">
       <%= f.text_field :contact_person, :placeholder=>"Enter contact person name", class: "form-control",required: 'true'%>
     </div>
-  </div> 
+  </div>
 
   <br>
   <div class="row">
@@ -64,30 +74,20 @@
     </div>
   </div>
 
-  <!-- <br>
+   <br>
   <div class="row">
     <div class="col-md-3">
-      <%#= f.label :property_type %><br>
+      <%= f.label :property_type %><br>
     </div>
     <div class="col-md-9">
-     <%# PropertyType.all.each do |a_value| %>
+     <% PropertyType.all.each do |a_value| %>
       <label class="checkbox-inline">
-      <%# status = @property.properties_type.present? ? (JSON(@property.properties_type).include?(a_value.id.to_s) ? true : false ) : false %>
-      <%#= f.check_box :properties_type, { :multiple => true, :checked=> status}, a_value.id %><%#=a_value.name%>
+      <% status = @property.properties_type.present? ? (JSON(@property.properties_type).include?(a_value.id.to_s) ? true : false ) : false %>
+      <%= f.check_box :properties_type, { :multiple => true, :checked=> status}, a_value.id %><%=a_value.name%>
       </label>
-    <%# end %>
+    <% end %>
     </div>
-  </div> -->
-
-  <!-- <br>
-  <div class="row">
-    <div class="col-md-3">
-     <%#= f.label :contact_person %>*<br>
-    </div>
-    <div class="col-md-9">
-      <%#= f.text_field :contact_person, :placeholder=>"Enter contact person name", class: "form-control",required: 'true'%>
-    </div>
-  </div> -->
+  </div>
 
   <br>
   <div class="row">
@@ -121,68 +121,68 @@
     </div>
     <div class="col-md-9">
       <% Facility.all.each do |a_value| %>
-          <% if a_value.name.eql?('Car Parking') || a_value.name.eql?('AC') || a_value.name.eql?('Security') || a_value.name.eql?('Lifts') || a_value.eql?('CCTV')%>
+          <%# if a_value.name.eql?('Car Parking') || a_value.name.eql?('AC') || a_value.name.eql?('Security') || a_value.name.eql?('Lifts') || a_value.eql?('CCTV')%>
             <label class="checkbox-inline">
             <%status = @property.facilities.present? ? (JSON(@property.facilities).include?(a_value.id.to_s) ? true : false ) : false %>
             <%= f.check_box(:facilities, { :multiple => true, :checked=> status }, a_value.id) %><%=a_value.name%>
-          <%end%>  
+          <%#end%>  
         </label>
       <% end %>
     </div>
   </div>
 
-  <!-- <br>
+  <br>
   <div class="row">
     <div class="col-md-3">
-    <%#= f.label :access_day %><br>
+    <%= f.label :access_day %><br>
     </div>
     <div class="col-md-9">
-       <%# AccessDay.all.each do |a_value| %>
+       <% AccessDay.all.each do |a_value| %>
       <label class="checkbox-inline">
-        <%#status = @property.access_day.present? ? (JSON(@property.access_day).include?(a_value.id.to_s) ? true : false ) : false %>
+        <%status = @property.access_day.present? ? (JSON(@property.access_day).include?(a_value.id.to_s) ? true : false ) : false %>
 
-        <%#= f.check_box(:access_day, { :multiple => true, :checked=> status }, a_value.id) %><%#=a_value.name%>
+        <%= f.check_box(:access_day, { :multiple => true, :checked=> status }, a_value.id) %><%=a_value.name%>
       </label>
-    <%# end %>
+    <% end %>
     </div>
   </div>
- -->
+ 
 
-  <!-- <br>
+  <br>
   <div class="row">
     <div class="col-md-3">
-    <%#= f.label :opening_hours %><br>
+    <%= f.label :opening_hours %><br>
     </div>
     <div class="col-md-9">
       <div class="row">
         <div class="col-md-4">
-          <%#= f.select "start_date", options_for_select(property_time, @property.start_date), {include_blank: 'Start Time'}, { autofocus: 'true', class: 'form-control'} %>
+          <%= f.select "start_date", options_for_select(property_time, @property.start_date), {include_blank: 'Start Time'}, { autofocus: 'true', class: 'form-control'} %>
         </div>
         <div class="col-md-4">
-          <%#= f.select "end_date", options_for_select(property_time, @property.end_date), {include_blank: 'End Time'}, {autofocus: 'true', class: 'form-control'} %>
+          <%= f.select "end_date", options_for_select(property_time, @property.end_date), {include_blank: 'End Time'}, {autofocus: 'true', class: 'form-control'} %>
         </div>
         <div class="col-md-4"></div>
       </div>
     </div>
   </div>
- -->
-  <!-- <br>
+
+  <br>
   <div class="row">
     <div class="col-md-3">
-    <%#= f.label :rent_status %><br>
+    <%= f.label :rent_status %><br>
     </div>
     <div class="col-md-9">
       <label class="checkbox-inline">
-        <%#= f.check_box(:rent_status, { :multiple => true, :checked=> @property.rent_status.present? ? (@property.rent_status.include?("Days") ? true : false) : false}, "Days") %>Days
+        <%= f.check_box(:rent_status, { :multiple => true, :checked=> @property.rent_status.present? ? (@property.rent_status.include?("Days") ? true : false) : false}, "Days") %>Days
       </label>
       <label class="checkbox-inline">
-        <%#= f.check_box(:rent_status, { :multiple => true, :checked=> @property.rent_status.present? ? (@property.rent_status.include?("Week") ? true : false) : false}, "Week") %>Week
+        <%= f.check_box(:rent_status, { :multiple => true, :checked=> @property.rent_status.present? ? (@property.rent_status.include?("Week") ? true : false) : false}, "Week") %>Week
       </label>
       <label class="checkbox-inline">
-        <%#= f.check_box(:rent_status, { :multiple => true, :checked=> @property.rent_status.present? ? (@property.rent_status.include?("Month") ? true : false) : false}, "Month") %>Month
+        <%= f.check_box(:rent_status, { :multiple => true, :checked=> @property.rent_status.present? ? (@property.rent_status.include?("Month") ? true : false) : false}, "Month") %>Month
       </label>
     </div>
-  </div> -->
+  </div> 
 
 
   <br>
