@@ -1,6 +1,6 @@
 class PropertiesController < ApplicationController
   before_action :set_property, only: [:show, :edit, :update, :destroy, :create_step_2, :step_2]
-  before_action :authenticate_user!,  only: [:update, :destroy, :edit, :step_2, :create_step_2]
+  before_action :authenticate_user!,  only: [:new, :create, :update, :destroy, :edit, :step_2, :create_step_2]
   before_action :check_property_owner, only: [:edit, :step_2]
   #load_and_authorize_resource
 
