@@ -71,7 +71,7 @@ class Property < ActiveRecord::Base
 	  	location: {lat: latitude, lon: longitude},
 	    property_type_name: property_types.map(&:name).join(','),
 	    facilities: Facility.where(id: facilities_ids).all.map(&:name),
-	    rent_status: rent_status.present? ? JSON(rent_status).map{|v| v} : ["Days"],
+	    # rent_status: rent_status.present? ? JSON(rent_status).map{|v| v} : ["Days"],
 	    range: property_prices.map(&:price)
 	  )
 	end
@@ -80,7 +80,7 @@ class Property < ActiveRecord::Base
 		self.access_day = get_value(params[:property][:access_day])
 		self.facilities = get_value(params[:property][:facilities])
 		self.properties_type = get_value(params[:property][:properties_type])
-		self.rent_status = ["Month"] #get_value(params[:property][:rent_status])
+		# self.rent_status = ["Month"] #get_value(params[:property][:rent_status])
 		self.save
 		property_type_manages(params[:property][:properties_type]) if params[:property][:properties_type].present?
 	end 

@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-8 col-md-offset-2">
+  <div class="col-md-10 col-md-offset-1">
     <div class="stepwizard">
       <div class="stepwizard-row">
         <div class="stepwizard-step">
@@ -21,15 +21,53 @@
             <tr>
               <th>Property type</th>
               <th>Number Of Seats </th>
-              <th>Price</th>
+              <th>Daliy Price</th>
+              <th>Hourly Price</th>
+              <th>Monthly Price</th>
+              <th>Booking type</th>
             </tr>
           </thead>  
           <tbody>
             <% @property.property_types.each do |type|%>
               <tr>
                 <td><%=type.name%></td>
-                <% if type.name.eql?('Virtual Office')%>
+
+                <%if type.name.eql?('Private Office/Team Room') ||  type.name.eql?('Workdesk/Co-working')%>
+                  <td><input type="text" class="form-control" placeholder="Enter seats" required="required" name="seats[<%= type.id %>]" value="<%=property_type_price(type.id,"seats")%>" onkeypress= "return event.charCode >= 48 && event.charCode <= 57"></td>
+
+                  <td><input type="text" class="form-control step_2_price" placeholder="Enter daily price/seat" required="required" name="price[<%=type.id %>]" value="<%=property_type_price(type.id)%>"></td>
+
+                  <td><input type="text" class="form-control step_2_price" placeholder="Enter hourly price/seat" required="required" name="hourly_price[<%=type.id %>]" value="<%=property_type_price(type.id,"hourly")%>" disabled="disabled"></td>
+
+                  <td><input type="text" class="form-control step_2_price" placeholder="Enter monthly price/seat" required="required" name="monthly_price[<%=type.id %>]" value="<%=property_type_price(type.id,"monthly")%>"></td>
+
+                  <td>
+                    <select class="multiselect-ui form-control" name="basic_unit[<%= type.id %>]" id="" multiple="" required="required">
+                      <%basic_unit = property_type_price(type.id,"basic_unit") %>
+                      <% ["Daily","Monthly"].each do |type| %>
+                        <option value="<%=type%>" <%="selected" if basic_unit ==type %> ><%=type%></option>
+                      <%end%>
+                    </select>
+                  </td>
+
+                <% elsif type.name.eql?('Virtual Office')%>
                   <td><input type="hidden" name="seats[<%= type.id %>]" value="1"></td>
+
+                  <td><input type="text" class="form-control step_2_price" placeholder="Enter daily price/seat" required="required" name="price[<%=type.id %>]" value="<%=property_type_price(type.id)%>" disabled="disabled"></td>
+
+                  <td><input type="text" class="form-control step_2_price" placeholder="Enter hourly price/seat" required="required" name="hourly_price[<%=type.id %>]" value="<%=property_type_price(type.id, "hourly")%>" disabled="disabled"></td>
+
+                  <td><input type="text" class="form-control step_2_price" placeholder="Enter monthly price/seat" required="required" name="monthly_price[<%=type.id %>]" value="<%=property_type_price(type.id,"monthly")%>"></td>
+
+                 <td>
+                    <select class="multiselect-ui form-control" name="basic_unit[<%= type.id %>]" id="" multiple="" required="required">
+                      <%basic_unit = property_type_price(type.id,"basic_unit") %>
+                      <% ["Monthly"].each do |type| %>
+                        <option value="<%=type%>" <%="selected" if basic_unit ==type %> ><%=type%></option>
+                      <%end%>
+                    </select>
+                  </td>
+
                 <%elsif type.name.eql?('Meeting/Conference Room')%>
                   <td>
                     <select name="number_of_room" id="<%=type.id%>" class="form-control create_number_of_rooms" required>
@@ -47,10 +85,53 @@
                       </tbody>
                     </table>
                   </td>
-                <%else%>
-                  <td><input type="text" class="form-control" placeholder="Enter seats" required="required" name="seats[<%= type.id %>]" value="<%=property_type_price(type.id,"seats")%>" onkeypress= "return event.charCode >= 48 && event.charCode <= 57"></td>
+
+                  <td><input type="text" class="form-control step_2_price" placeholder="Enter daily price/seat" required="required" name="price[<%=type.id %>]" value="<%=property_type_price(type.id)%>"></td>
+
+                  <td><input type="text" class="form-control step_2_price" placeholder="Enter hourly price/seat" required="required" name="hourly_price[<%=type.id %>]" value="<%=property_type_price(type.id,"hourly")%>"></td>
+                  <td><input type="text" class="form-control step_2_price" placeholder="Enter monthly price/seat" required="required" name="monthly_price[<%=type.id %>]" value="<%=property_type_price(type.id,"monthly")%>"></td>
+
+                  <td>
+                    <select class="multiselect-ui form-control" name="basic_unit[<%= type.id %>]" id="" multiple="" required="required">
+                      <%basic_unit = property_type_price(type.id,"basic_unit") %>
+                      <% ["Hourly","Daily","Monthly"].each do |type| %>
+                        <option value="<%=type%>" <%="selected" if basic_unit ==type %> ><%=type%></option>
+                      <%end%>
+                    </select>
+                  </td>
+
+                <%elsif type.name.eql?('Training Room')%>
+                  <td>
+                    <select name="number_of_room_training" id="<%=type.id%>" class="form-control create_number_of_rooms_traning" required>
+                      <option value="" disabled="disabled" selected="selected">No of rooms</option>
+                      <%rooms = property_type_price(type.id,"rooms") %>
+
+                      <%4.times do |number|%>
+                        <option value="<%=number+1%>" <%="selected" if rooms ==number+1 %> ><%=number+1%></option>
+                      <%end%>  
+
+                    </select>
+                    <table class="table"> 
+                      <tbody id="meeting_room_inputs_traning">
+                        <%= property_meeting_children_training(type.id)%>
+                      </tbody>
+                    </table>
+                  </td>
+
+                  <td><input type="text" class="form-control step_2_price" placeholder="Enter daily price/seat" required="required" name="price[<%=type.id %>]" value="<%=property_type_price(type.id)%>"></td>
+
+                  <td><input type="text" class="form-control step_2_price" placeholder="Enter hourly price/seat" required="required" name="hourly_price[<%=type.id %>]" value="<%=property_type_price(type.id,"hourly")%>"></td>
+                  <td><input type="text" class="form-control step_2_price" placeholder="Enter monthly price/seat" required="required" name="monthly_price[<%=type.id %>]" value="<%=property_type_price(type.id,"monthly")%>"></td>
+
+                  <td>
+                    <select class="multiselect-ui form-control" name="basic_unit[<%= type.id %>]" id="" multiple="" required="required">
+                      <%basic_unit = property_type_price(type.id,"basic_unit") %>
+                      <% ["Hourly","Daily","Monthly"].each do |type| %>
+                        <option value="<%=type%>" <%="selected" if basic_unit ==type %> ><%=type%></option>
+                      <%end%>
+                    </select>
+                  </td>
                 <%end%>
-                <td><input type="text" class="form-control step_2_price" placeholder="Enter price per seat" required="required" name="price[<%=type.id %>]" value="<%=property_type_price(type.id)%>"></td>
               </tr>
             <%end%>
             <tr>
@@ -68,6 +149,11 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
+    $('.multiselect-ui').multiselect({
+      includeSelectAllOption: true,
+      numberDisplayed: 1
+    });
+    
     $(document).on("change",".create_number_of_rooms",function(){
       var value;
       var rows = $("#meeting_room_inputs tr");
@@ -84,6 +170,24 @@
 
         $("#meeting_room_inputs").append(inpt);
       }
-    })
+    });
+
+    $(document).on("change",".create_number_of_rooms_traning",function(){
+      var value;
+      var rows = $("#meeting_room_inputs_traning tr");
+      $("#meeting_room_inputs_traning").empty();
+      var number = parseInt($(this).val());
+      for(var i = 0; i < number; i++) {
+        if (rows.find('.form-control')[i]){
+          value = rows.find('.form-control')[i].value;
+        }
+        else{
+          value = ''
+        }
+        var inpt = $('<tr><td>'+(i+1)+'</td><td><input type="text" class="form-control" placeholder="Enter seats" required="required" name="room_training['+(i+1)+']" value="'+value+'" onkeypress= "return event.charCode >= 48 && event.charCode <= 57"></td></tr>');
+
+        $("#meeting_room_inputs_traning").append(inpt);
+      }
+    });
   })
 </script>

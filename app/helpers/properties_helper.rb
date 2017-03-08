@@ -81,8 +81,14 @@ module PropertiesHelper
 		property_price = @property.property_prices.where(property_type_id: property_type_id).first
 		if value_tye.eql?("seats")
 			property_price.try(:seats)
+		elsif value_tye.eql?("basic_unit")
+			property_price.try(:basic_unit)
 		elsif value_tye.eql?("rooms")
 			property_price.try(:number_of_room)
+		elsif value_tye.eql?("hourly")
+			property_price.try(:hourly_price)
+		elsif value_tye.eql?("monthly")
+			property_price.try(:monthly_price)
 		else
 			property_price.try(:price)
 		end
@@ -111,6 +117,18 @@ module PropertiesHelper
 			end
 		end
 		inputs.join('').html_safe
+	end
+
+	def property_meeting_children_training(type_id)
+		inputs = []
+		type_childerns = @property.property_prices.where(property_type_id: type_id).first
+		if type_childerns && type_childerns.childrens.present?
+			type_childerns.childrens.each_with_index do |child,index|
+				inputs << "<tr><td>#{index+1}</td><td><input type='text' class='form-control' placeholder='Enter seats' required='required' name='room_training[#{child.id}]' value='#{child.try(:seats)}' onkeypress= 'return event.charCode >= 48 && event.charCode <= 57'></td></tr>".html_safe
+			end
+		end
+		inputs.join('').html_safe
+		
 	end
 
 end

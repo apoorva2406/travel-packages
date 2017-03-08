@@ -56,7 +56,7 @@
                         <td><%=payment.try(:order_id)%></td>
                         <td><%=payment.try(:booking).try(:start_date).strftime("%a, %e %b %Y")%></td>
                         <td><%=payment.try(:booking).try(:end_date).strftime("%a, %e %b %Y")%></td>
-                        <td><%=DateTime.parse(payment.txn_date).strftime("%a, %e %b %Y %H:%M")%></td>
+                        <td><%=DateTime.parse(payment.txn_date).strftime("%a, %e %b %Y %H:%M") rescue ''%></td>
                         <td><%=payment.try(:amount)%></td>
                         <td><%=payment.try(:status).eql?('TXN_SUCCESS') ? 'Booked' : ''%></td>
                       </tr>
