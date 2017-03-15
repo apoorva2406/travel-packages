@@ -13,7 +13,7 @@
                 <% if user_signed_in? && user_role_owner || !user_signed_in? %>
                   <li><a class="active" href="<%=partner_index_path%>" data-hover="Home">Become a partner</a></li>
                 <%end%>  
-                <li><a href="http://ivssocial.com/" data-hover="About" target="_blank">IVS Social</a></li>
+                <li><a href="http://ivssocial.com/" data-hover="About" target="_blank">Aboard Social</a></li>
                 <% unless user_signed_in? %>
                   <li class="weather"><a data-toggle="modal" data-target="#loginModal">Login</a></li>
                 <%end%>
