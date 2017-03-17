@@ -10,7 +10,7 @@
           <p><%=@property.id.nil? ? 'Create' : 'Update'%> Property</p>
         </div>
         <div class="stepwizard-step">
-          <button type="button" class="btn btn-default btn-circle">2</button>
+          <a href="<%= @property.id.nil? ? '#-': step_2_admin_property_path(@property)%>" class="btn btn-default btn-circle">2</a>
           <p><%=@property.id.nil? ? 'Add' : 'Update'%>  seats</p>
         </div>
       </div>

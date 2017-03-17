@@ -113,22 +113,10 @@ module PropertiesHelper
 		type_childerns = @property.property_prices.where(property_type_id: type_id).first
 		if type_childerns && type_childerns.childrens.present?
 			type_childerns.childrens.each_with_index do |child,index|
-				inputs << "<tr><td>#{index+1}</td><td><input type='text' class='form-control' placeholder='Enter seats' required='required' name='room[#{child.id}]' value='#{child.try(:seats)}' onkeypress= 'return event.charCode >= 48 && event.charCode <= 57'></td></tr>".html_safe
+				inputs << "<tr><td>#{index+1}</td><td><input type='text' class='form-control' placeholder='Enter seats' required='required' name='[price][#{type_id}]room[#{child.id}]' value='#{child.try(:seats)}' onkeypress= 'return event.charCode >= 48 && event.charCode <= 57'></td></tr>".html_safe
 			end
 		end
 		inputs.join('').html_safe
-	end
-
-	def property_meeting_children_training(type_id)
-		inputs = []
-		type_childerns = @property.property_prices.where(property_type_id: type_id).first
-		if type_childerns && type_childerns.childrens.present?
-			type_childerns.childrens.each_with_index do |child,index|
-				inputs << "<tr><td>#{index+1}</td><td><input type='text' class='form-control' placeholder='Enter seats' required='required' name='room_training[#{child.id}]' value='#{child.try(:seats)}' onkeypress= 'return event.charCode >= 48 && event.charCode <= 57'></td></tr>".html_safe
-			end
-		end
-		inputs.join('').html_safe
-		
 	end
 
 end

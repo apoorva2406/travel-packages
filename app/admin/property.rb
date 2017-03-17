@@ -175,37 +175,46 @@ ActiveAdmin.register Property do
         #update price
         if params[:price].present?
           params[:price].each_with_index do |(key,value),index|
-            property_price = @property.property_prices.where(property_type_id: key).first
-            propert_type = @property.property_types.where(name: 'Meeting/Conference Room').first
-            if property_price.present?
-              if propert_type.try(:id).eql?(key.to_i)
-                create_property_meeting(property_price, params[:number_of_room], params[:room])
-              else
-                property_price.seats = params[:seats][key]
-                property_price.price = value
-                property_price.save
-              end  
-            else
+            property_price = @property.property_prices.where(property_type_id: key.to_i).first
+            if property_price.blank?
               p_p = @property.property_prices.create(
-                seats: params[:seats].present? ? params[:seats][key] : nil, 
-                price: value,  
-                property_type_id: key 
+                seats: value['seats'].present? ? value['seats'] : nil, 
+                price: value['price'],  
+                monthly_price: value['monthly_price'],
+                hourly_price: value['hourly_price'],
+                basic_unit: value['basic_unit'],
+                property_type_id: key
               )
-              create_property_meeting(p_p, params[:number_of_room], params[:room]) if propert_type.try(:id).eql?(key.to_i)
-            end  
+
+              if value['number_of_room'].present?
+                p_p.number_of_room = value['number_of_room']
+                p_p.save
+                value['room'].each do |key,value|
+                  p_p.childrens.create(seats: value)
+                end 
+              end
+            else
+              property_price.seats =  value['seats'].present? ? value['seats'] : nil 
+              property_price.price = value['price']  
+              property_price.monthly_price =  value['monthly_price']
+              property_price.hourly_price =  value['hourly_price']
+              property_price.basic_unit = value['basic_unit']
+              property_price.property_type_id = key
+              property_price.save
+
+              if value['number_of_room'].present?
+                PropertyPrice.where(parent_id: property_price.id).delete_all
+                property_price.number_of_room = value['number_of_room']
+                property_price.save
+                value['room'].each do |key,value|
+                  property_price.childrens.create(seats: value)
+                end 
+              end
+            end
           end
         end 
         redirect_to admin_property_path(@property),notice: 'Property seats and price successfully created'
       end
-    end
-
-    def create_property_meeting(p_p, number_of_room, rooms)
-      PropertyPrice.where(parent_id: p_p.id).delete_all
-      p_p.number_of_room = number_of_room
-      p_p.save
-      rooms.each do |key,value|
-        p_p.childrens.create(seats: value)
-      end 
     end
   end 
 end

@@ -51,66 +51,42 @@
         <div class="row">
           <%@property.property_types.each do |type|%>
             <% @property_price = @property.property_prices.where(property_type_id: type.id).first %>
-            <div class="col-md-12">
+            <div class="col-md-12" style="box-shadow: 0 1px 3px rgba(0, 0, 0, .4); padding-bottom: 15px;padding-top: 15px;">
               <div class="col-md-4"><strong>Type:</strong> <%=type.name%></div>
-
               <%if @property_price.try(:childrens).present?%>
-                <div class="col-md-4"><strong>No of room:</strong> <%= @property_price.try(:number_of_room)%>
-
+                <div class="col-md-3"><strong>No of room:</strong> <%= @property_price.try(:number_of_room)%>
                   <%@property_price.childrens.each do |child|%><br>
                     <strong>Capacity:</strong> <%= child.try(:seats)%>
                   <%end%>
                 </div>
-
-
-                <div class="col-md-4">
-                  <strong>Price:</strong> <%=  @property_price.try(:price)%> per person 
-
-                  <%@property_price.childrens.each do |child|%><br>
-                    <strong>Total Price: </strong> <%=@property_price.price * child.seats%> per day
-                  <%end%>
-                </div> 
-
               <%else%>
-                <div class="col-md-4"><strong>Capacity:</strong> <%= @property_price.try(:seats)%> people</div> 
+                <div class="col-md-3
+                "><strong>Capacity:</strong> <%= @property_price.try(:seats)%> people</div> 
+              <%end%>
+              <div class="col-md-5">
+                  <%if @property_price.hourly_price.blank? %>
+                    <strong>Hourly Price:</strong> Not available <br>
+                  <%else%>
+                    <strong>Hourly Price:</strong> <%= @property_price.try(:hourly_price)%> per person/hour <br>
+                  <%end%>
 
-                <div class="col-md-4"><strong>Price:</strong> <%= @property_price.try(:price)%> per person</div>
-              <%end%> 
-            </div><br><br>  
+                  <%if @property_price.price.blank? %>
+                    <strong>Daily Price:</strong> Not available <br>
+                  <%else%>
+                    <strong>Daily Price:</strong> <%= @property_price.try(:price)%> per person/day <br>
+                  <%end%>
+
+                  <%if @property_price.monthly_price.blank? %>
+                    <strong>Monthly Price:</strong> Not available <br>
+                  <%else%>
+                    <strong>Monthly Price:</strong> <%=@property_price.try(:monthly_price)%> per person/month
+                  <%end%>
+
+                </div>
+            </div>
           <%end%>
         </div> 
       </div>
-
-      <!-- <div id="Nearby">
-        <div class="main-switcher">
-          <ul id="Grid" class="sandbox">
-            <% if @near_by_properties.present?%>
-              <%@near_by_properties.each do |property|%>
-                <div class="col-md-6">
-                  <li class="mix category-1" data-value="1250" style="display: inline-block;">
-                    <figure>
-                      <div class="cbp-vm-image img">
-                        <img src="<%=property_photo(property)%>" alt="img01"/>
-                        <div class="overlay">
-                          <%= link_to "+", property_path(property), :"data-no-turbolink" => false, :class=>"expand" %>
-                          <a class="close-overlay hidden">x</a>
-                        </div>
-                      </div>
-                      <figcaption>
-                        <h3><%= truncate(property.try(:name), length: 15) %></h3>
-                        <div class="clear"></div>
-                        <p><%=truncate(property.try(:description),length: 75)%></p>
-                        <%=property_seats_price(property)%>
-                        <a href="<%=property_path(property)%>" class="btn btn-primary btn-gallery">Read More</a>
-                      </figcaption>
-                    </figure>
-                  </li>
-                </div>
-              <%end%> 
-            <%end%>  
-          </ul>
-        </div>      
-      </div> -->
     </div>
   </div>
 
@@ -166,8 +142,7 @@
                   <div><b><%= property_date(@property.end_date) %></b></div>
                 <%end %>
               <%end%> 
-            </div>
-                
+            </div>  
           </div>
         </div>
       </div>

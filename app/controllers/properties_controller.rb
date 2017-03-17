@@ -2,7 +2,7 @@ class PropertiesController < ApplicationController
   before_action :set_property, only: [:show, :edit, :update, :destroy, :create_step_2, :step_2]
   before_action :authenticate_user!,  only: [:new, :create, :update, :destroy, :edit, :step_2, :create_step_2]
   before_action :check_property_owner, only: [:edit, :step_2]
-  #load_and_authorize_resource
+  load_and_authorize_resource
 
   def property_success;end
     
@@ -108,46 +108,45 @@ class PropertiesController < ApplicationController
   end
 
   def create_step_2
-    params[:monthly_price].each_with_index do |(key,value),index|
-      property_price = @property.property_prices.where(property_type_id: key).first
-      propert_type = @property.property_types.where(name: 'Meeting/Conference Room').first
-      propert_type_training = @property.property_types.where(name: 'Training Room').first
-      if property_price.present?
-        if propert_type.try(:id).eql?(key.to_i)
-          create_property_meeting(property_price, params[:number_of_room], params[:room])
-        elsif propert_type_training.try(:id).eql?(key.to_i)
-          create_property_meeting(property_price, params[:number_of_room_training], params[:room_training])
-        else
-          property_price.seats = params[:seats][key],
-          property_price.price = params[:price][key],
-          property_price.monthly_price = value,
-          property_price.hourly_price = params[:hourly_price][key],
-          property_price.basic_unit = params[:basic_unit][key],
-          property_price.save
-        end  
-      else
+    params[:price].each_with_index do |(key,value),index|
+      property_price = @property.property_prices.where(property_type_id: key.to_i).first
+      if property_price.blank?
         p_p = @property.property_prices.create(
-          seats: params[:seats].present? ? params[:seats][key] : nil, 
-          price: params[:price][key],  
-          monthly_price: value,
-          hourly_price: params[:hourly_price][key],
-          basic_unit: params[:basic_unit][key],
+          seats: value['seats'].present? ? value['seats'] : nil, 
+          price: value['price'],  
+          monthly_price: value['monthly_price'],
+          hourly_price: value['hourly_price'],
+          basic_unit: value['basic_unit'],
           property_type_id: key
         )
-        create_property_meeting(p_p, params[:number_of_room], params[:room]) if propert_type.try(:id).eql?(key.to_i)
-        create_property_meeting(p_p, params[:number_of_room_training], params[:room_training]) if propert_type_training.try(:id).eql?(key.to_i)
-      end  
-    end
-    redirect_to property_path(@property),notice: 'Property seats and price successfully created'
-  end
 
-  def create_property_meeting(p_p, number_of_room, rooms)
-    PropertyPrice.where(parent_id: p_p.id).delete_all
-    p_p.number_of_room = number_of_room
-    p_p.save
-    rooms.each do |key,value|
-      p_p.childrens.create(seats: value)
-    end 
+        if value['number_of_room'].present?
+          p_p.number_of_room = value['number_of_room']
+          p_p.save
+          value['room'].each do |key,value|
+            p_p.childrens.create(seats: value)
+          end 
+        end
+      else
+        property_price.seats =  value['seats'].present? ? value['seats'] : nil 
+        property_price.price = value['price']  
+        property_price.monthly_price =  value['monthly_price']
+        property_price.hourly_price =  value['hourly_price']
+        property_price.basic_unit = value['basic_unit']
+        property_price.property_type_id = key
+        property_price.save
+
+        if value['number_of_room'].present?
+          PropertyPrice.where(parent_id: property_price.id).delete_all
+          property_price.number_of_room = value['number_of_room']
+          property_price.save
+          value['room'].each do |key,value|
+            property_price.childrens.create(seats: value)
+          end 
+        end
+      end
+    end
+    redirect_to property_path(@property),notice: 'Thanks for regestering your property we will contact you soon'
   end
 
   def destroy
