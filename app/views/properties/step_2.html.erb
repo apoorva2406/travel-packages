@@ -70,7 +70,7 @@
 
                   <td>
                     <select class="multiselect-ui form-control step_2_booking_type" name="[price][<%= type.id %>]basic_unit[]" id="property_type_<%=type.try(:id)%>" multiple="" required="required">
-                      <% ["Hourly","Daily"].each do |type| %>
+                      <% ["Daily", "Monthly"].each do |type| %>
                         <option value="<%=type%>" <%="selected" if property_price.basic_unit.include?(type) rescue 0%> ><%=type%></option>
                       <%end%>
                     </select>
