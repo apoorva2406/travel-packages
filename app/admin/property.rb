@@ -6,6 +6,9 @@ ActiveAdmin.register Property do
 
 	index do
 	  id_column
+    column "Create date" do |property|
+      property.created_at.localtime.strftime("%d/%m/%Y %I:%M %p")
+    end
 	  column :name
 	  column :phone_number
 	  column :email
