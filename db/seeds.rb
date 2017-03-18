@@ -20,7 +20,7 @@ end
 	AccessDay.find_or_create_by(name: name)
 end
 
-['Private Office/Team Room','Workdesk/Co-working','Meeting/Conference Room','Virtual Office','Training Room'
+['Team Room','Workdesk/Co-working','Meeting/Conference Room','Virtual Office','Training Room'
 ].each do |name|
 	PropertyType.find_or_create_by(name: name)
 end

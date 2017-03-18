@@ -52,7 +52,7 @@
 
                   <td><input type="text" class="form-control step_2_price" placeholder="Enter monthly price/seat" required="required" name="[price][<%= type.id %>]monthly_price" value="<%=property_price.try(:monthly_price)%>" id="property_type_monthly_<%=type.try(:id)%>" <%=property_price.try(:monthly_price).present? ? '' : 'disabled' %>></td>
 
-                <%elsif type.name.eql?('Private Office/Team Room')%>
+                <%elsif type.name.eql?('Team Room')%>
                   <td>
                     <select name="[price][<%= type.id %>]number_of_room" id="<%=type.id%>" class="form-control create_number_of_rooms_private" required>
                       <option value="" disabled="disabled" selected="selected">No of rooms</option>

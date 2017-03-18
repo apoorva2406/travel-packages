@@ -50,7 +50,7 @@
 
                   <td><input type="text" class="form-control step_2_price" placeholder="Enter monthly price/seat" required="required" name="[price][<%= type.id %>]monthly_price" value="<%=property_price.try(:monthly_price)%>" id="property_type_monthly_<%=type.try(:id)%>" <%=property_price.try(:monthly_price).present? ? '' : 'disabled' %>></td>
 
-                <%elsif type.name.eql?('Private Office/Team Room')%>
+                <%elsif type.name.eql?('Team Room')%>
                   <td>
                     <select name="[price][<%= type.id %>]number_of_room" id="<%=type.id%>" class="form-control create_number_of_rooms_private" required>
                       <option value="" disabled="disabled" selected="selected">No of rooms</option>
@@ -76,11 +76,11 @@
                     </select>
                   </td>
 
-                  <td><input type="text" class="form-control step_2_price" placeholder="Enter hourly price/seat" required="required" name="[price][<%= type.id %>]hourly_price" value="<%=property_price.try(:hourly_price)%>" id="property_type_hourly_<%=type.try(:id)%>" <%=property_price.try(:hourly_price).present? ? '' : 'disabled' %>></td>
+                  <td><input type="text" class="form-control step_2_price input_price" placeholder="Enter hourly price/seat" required="required" name="[price][<%= type.id %>]hourly_price" value="<%=property_price.try(:hourly_price)%>" id="property_type_hourly_<%=type.try(:id)%>" <%=property_price.try(:hourly_price).present? ? '' : 'disabled' %>><span class="alert-info"></span></td>
 
-                  <td><input type="text" class="form-control step_2_price" placeholder="Enter daily price/seat" required="required" name="[price][<%= type.id %>]price" value="<%=property_price.try(:price)%>" id="property_type_daily_<%=type.try(:id)%>" <%=property_price.try(:price).present? ? '' : 'disabled' %>></td>
+                  <td><input type="text" class="form-control step_2_price input_price" placeholder="Enter daily price/seat" required="required" name="[price][<%= type.id %>]price" value="<%=property_price.try(:price)%>" id="property_type_daily_<%=type.try(:id)%>" <%=property_price.try(:price).present? ? '' : 'disabled' %>><span class="alert-info"></span></td>
 
-                  <td><input type="text" class="form-control step_2_price" placeholder="Enter monthly price/seat" required="required" name="[price][<%= type.id %>]monthly_price" value="<%=property_price.try(:monthly_price)%>" id="property_type_monthly_<%=type.try(:id)%>" <%=property_price.try(:monthly_price).present? ? '' : 'disabled' %>></td>
+                  <td><input type="text" class="form-control step_2_price input_price" placeholder="Enter monthly price/seat" required="required" name="[price][<%= type.id %>]monthly_price" value="<%=property_price.try(:monthly_price)%>" id="property_type_monthly_<%=type.try(:id)%>" <%=property_price.try(:monthly_price).present? ? '' : 'disabled' %>><span class="alert-info"></span></td>
 
                 <% elsif type.name.eql?('Virtual Office')%>
                   <td><input type="hidden" name="[price][<%= type.id %>]seats" value="1"></td>
@@ -266,5 +266,16 @@
         $("#private_room_inputs").append(inpt);
       }
     });
+
+    $(document).on("input",".input_price",function(){
+      var rows = $("#private_room_inputs tr");
+      var price = parseInt($(this).val());
+      for(var i = 0; i < rows.length; i++) {
+        debugger
+      }
+    });
+
+
+
   })
 </script>
