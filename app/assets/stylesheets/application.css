@@ -12,6 +12,11 @@
   
 }
 
+.price_span{
+  color: green;
+  line-height: 4;
+}
+
 .alert {
     padding: 9px;
     border: 1px solid transparent;
