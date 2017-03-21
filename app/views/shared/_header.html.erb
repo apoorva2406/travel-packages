@@ -25,7 +25,8 @@
                     <%else%>
                       <img src="<%=current_user.profile_image.present? ? current_user.profile_image : '/assets/user.png'%>" class="img-circle dropdown-toggle" alt="Cinque Terre" data-toggle="dropdown" width="45px;" height="36px;">
                     <%end%>  
-                    <span class="caret" data-toggle="dropdown"></span></button>
+                    <div data-toggle="dropdown" style="float: right;margin-top: 10px;margin-left: 2px;"><span class="caret"></span></div>
+                    </button>
                     <ul class="dropdown-menu header_drop_box">
                       <li><a href="<%=myprofile_dashboard_index_path%>"><%= "My Profile (#{ user_role_owner ? 'Owner' : 'Client'})" %></a></li>
                       <% if user_role_owner %>
