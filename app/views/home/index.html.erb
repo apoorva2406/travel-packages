@@ -268,11 +268,11 @@
                           </div>
                           <div class="post-content">
                             <h3 class="post-title"><a href="<%=property_path(property)%>"><%=truncate(property.try(:name),length: 25)%></a></h3>
-                            <p class="post-description"> <%=property.try(:description)%> </p>
+                            <p class="post-description"> <%= truncate(property.try(:description), :length=>85 ) %> </p>
                             <h4><span>From</span>RS <%=property.try(:property_prices).first.price rescue 0%></h4>
                             <ul class="post-bar">
                               <%facilities = Facility.where(id: JSON(property.facilities))%>
-                              <%facilities.each do |facility|%> 
+                              <%facilities.take(4).each do |facility|%> 
                                 <li><i class="fa fa-check-circle" aria-hidden="true"></i> <%=facility.try(:name)%></li>
                               <%end%>
                             </ul>

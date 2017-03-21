@@ -13,14 +13,15 @@ class SessionsController < Devise::SessionsController
       #     format.html { redirect_to root_path} #verification_otp_index_path
       #   end 
       # else
+
         sign_in("user", resource)
         flash[:notice] = "Login successfully"
         if request.xhr?
           respond_to do |format|
-            format.js { render js: "window.location='#{root_path}'" }
+            format.js { render js: resource.owner? ?  "window.location='#{myprofile_dashboard_index_path}'" : "window.location='#{root_path}'" }
           end
         else
-          redirect_to session[:previous_url] || root_path
+          redirect_to session[:previous_url] || resource.owner? ?  myprofile_dashboard_index_path : root_path
         end
       #end    
     else  
