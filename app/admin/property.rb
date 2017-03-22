@@ -144,7 +144,7 @@ ActiveAdmin.register Property do
         if @property.save
           @property.create_user if params[:user_id].blank?
           @property.add_type_access_day(params)
-          @property.add_images(params[:property][:images], params[:new_image])
+          #@property.add_images(params[:property][:images], params[:new_image])
           format.html { redirect_to step_2_admin_property_path(@property), notice: 'Property was successfully created.' }
         else
           format.html { render :new } 
@@ -168,7 +168,7 @@ ActiveAdmin.register Property do
                               end_date: params[:property][:end_date]
                             )
             @property.add_type_access_day(params)
-            @property.add_images(params[:property][:images], params[:new_image])
+            #@property.add_images(params[:property][:images], params[:new_image])
             format.html { redirect_to step_2_admin_property_path(@property), notice: 'Property was successfully updated.' }
           else
             format.html { render :edit }
@@ -176,46 +176,61 @@ ActiveAdmin.register Property do
         end
       else
         #update price
-        if params[:price].present?
-          params[:price].each_with_index do |(key,value),index|
-            property_price = @property.property_prices.where(property_type_id: key.to_i).first
-            if property_price.blank?
-              p_p = @property.property_prices.create(
-                seats: value['seats'].present? ? value['seats'] : nil, 
-                price: value['price'],  
-                monthly_price: value['monthly_price'],
-                hourly_price: value['hourly_price'],
-                basic_unit: value['basic_unit'],
-                property_type_id: key
-              )
+        params[:price].each_with_index do |(key,value),index|
+      
+      property_price = @property.property_prices.where(property_type_id: key.to_i).first
+      if property_price.blank?
+        p_p = @property.property_prices.create(
+          seats: value['seats'].present? ? value['seats'] : nil, 
+          price: value['price'],  
+          monthly_price: value['monthly_price'],
+          hourly_price: value['hourly_price'],
+          basic_unit: value['basic_unit'],
+          property_type_id: key
+        )
 
-              if value['number_of_room'].present?
-                p_p.number_of_room = value['number_of_room']
-                p_p.save
-                value['room'].each do |key,value|
-                  p_p.childrens.create(seats: value)
-                end 
-              end
+        if value[:images].present?
+          value[:images].each do |image|
+            @property.photos.create(image: image[1], property_type_id: key)
+          end
+        end
+
+        if value['number_of_room'].present?
+          p_p.number_of_room = value['number_of_room']
+          p_p.save
+          value['room'].each do |key,value|
+            p_p.childrens.create(seats: value)
+          end 
+        end
+      else
+        property_price.seats =  value['seats'].present? ? value['seats'] : nil 
+        property_price.price = value['price']  
+        property_price.monthly_price =  value['monthly_price']
+        property_price.hourly_price =  value['hourly_price']
+        property_price.basic_unit = value['basic_unit']
+        property_price.property_type_id = key
+        property_price.save   
+
+        if value[:images].present?
+          value[:images].each do |image|
+           if @property.photos.where(property_type_id: key)[image[0].to_i]
+              @property.photos.where(property_type_id: key)[image[0].to_i].update(image: image[1])
             else
-              property_price.seats =  value['seats'].present? ? value['seats'] : nil 
-              property_price.price = value['price']  
-              property_price.monthly_price =  value['monthly_price']
-              property_price.hourly_price =  value['hourly_price']
-              property_price.basic_unit = value['basic_unit']
-              property_price.property_type_id = key
-              property_price.save
-
-              if value['number_of_room'].present?
-                PropertyPrice.where(parent_id: property_price.id).delete_all
-                property_price.number_of_room = value['number_of_room']
-                property_price.save
-                value['room'].each do |key,value|
-                  property_price.childrens.create(seats: value)
-                end 
-              end
+              @property.photos.create(image: image[1], property_type_id: key)
             end
           end
-        end 
+        end
+
+        if value['number_of_room'].present?
+          PropertyPrice.where(parent_id: property_price.id).delete_all
+          property_price.number_of_room = value['number_of_room']
+          property_price.save
+          value['room'].each do |key,value|
+            property_price.childrens.create(seats: value)
+          end 
+        end
+      end
+    end
         redirect_to admin_property_path(@property),notice: 'Property seats and price successfully created'
       end
     end

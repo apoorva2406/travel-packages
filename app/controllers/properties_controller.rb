@@ -80,7 +80,7 @@ class PropertiesController < ApplicationController
       if @property.save
         #@property.create_user
         @property.add_type_access_day(params)
-        @property.add_images(params[:property][:images], params[:new_image])
+        #@property.add_images(params[:property][:images], params[:new_image])
         format.html { redirect_to step_2_property_path(@property) } ##property_success_path
         #format.json { render :show, status: :created, location: @property }
       else
@@ -94,7 +94,7 @@ class PropertiesController < ApplicationController
     respond_to do |format|
       if @property.update(property_params)
         @property.add_type_access_day(params)
-        @property.add_images(params[:property][:images], params[:new_image])
+        #@property.add_images(params[:property][:images], params[:new_image])
         format.html { redirect_to step_2_property_path(@property), notice: 'Property was successfully updated.' }
         format.json { render :show, status: :ok, location: @property }
       else
@@ -108,7 +108,9 @@ class PropertiesController < ApplicationController
   end
 
   def create_step_2
+    
     params[:price].each_with_index do |(key,value),index|
+      
       property_price = @property.property_prices.where(property_type_id: key.to_i).first
       if property_price.blank?
         p_p = @property.property_prices.create(
@@ -119,6 +121,12 @@ class PropertiesController < ApplicationController
           basic_unit: value['basic_unit'],
           property_type_id: key
         )
+
+        if value[:images].present?
+          value[:images].each do |image|
+            @property.photos.create(image: image[1], property_type_id: key)
+          end
+        end
 
         if value['number_of_room'].present?
           p_p.number_of_room = value['number_of_room']
@@ -134,7 +142,17 @@ class PropertiesController < ApplicationController
         property_price.hourly_price =  value['hourly_price']
         property_price.basic_unit = value['basic_unit']
         property_price.property_type_id = key
-        property_price.save
+        property_price.save   
+
+        if value[:images].present?
+          value[:images].each do |image|
+           if @property.photos.where(property_type_id: key)[image[0].to_i]
+              @property.photos.where(property_type_id: key)[image[0].to_i].update(image: image[1])
+            else
+              @property.photos.create(image: image[1], property_type_id: key)
+            end
+          end
+        end
 
         if value['number_of_room'].present?
           PropertyPrice.where(parent_id: property_price.id).delete_all

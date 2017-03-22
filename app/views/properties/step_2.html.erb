@@ -15,7 +15,7 @@
 
     
     <% if @property.property_types.present? %>
-      <%= form_tag create_step_2_property_path(@property) do %>
+      <%= form_tag create_step_2_property_path(@property), :multipart => true do %>
         <table class="table">
           <thead>
             <tr>
@@ -30,7 +30,6 @@
           <tbody>
             <% @property.property_types.each do |type|%>
               <%property_price = @property.property_prices.where(property_type_id: type.id).first%>
-
               <tr>
                 <td><%=type.name%></td>
 
@@ -142,6 +141,54 @@
 
                 <td><input type="text" class="form-control step_2_price " placeholder="Enter monthly price/seat" required="required" name="[price][<%= type.id %>]monthly_price" value="<%=property_price.try(:monthly_price)%>" id="property_type_monthly_<%=type.try(:id)%>" <%=property_price.try(:monthly_price).present? ? '' : 'disabled' %>><span class="price_span"></span></td>
               </tr>
+              
+
+              <% photos = @property.photos.where(property_type_id: type.id)%>
+              <% photo_1 = photos[0].try(:image).present? ? photos[0].image.url : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpaqzpfzrPYDUcY6KQxXqKzJjTfCDKJnPmFYLt9qsobBL3_pYD5jKBucSA' %>
+              <% photo_2 = photos[1].try(:image).present? ? photos[1].image.url : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpaqzpfzrPYDUcY6KQxXqKzJjTfCDKJnPmFYLt9qsobBL3_pYD5jKBucSA' %>
+              <% photo_3 = photos[2].try(:image).present? ? photos[2].image.url : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpaqzpfzrPYDUcY6KQxXqKzJjTfCDKJnPmFYLt9qsobBL3_pYD5jKBucSA' %>
+
+              <tr>
+                <td></td>
+                <td></td>
+                <td>
+                  <img id="property_type_preview_1_<%= type.id%>" class="img-preview" src="<%=photo_1%>" title="Preview Logo" style="width:146px;margin-bottom: 10px;height: 103px;">
+                  <div class="input-group">
+                    <div class="input-group-btn">
+                      <div class="fileUpload btn btn-danger fake-shadow">
+                        <span><i class="glyphicon glyphicon-upload"></i> Upload</span>
+                        <input name="[price][<%= type.id %>]images[0]" type="file" class="types_upload" id="property_type_upload_1_<%= type.id%>">
+                      </div>
+                    </div>
+                  </div>
+                </td>
+
+                <td>
+                  <img id="property_type_preview_2_<%= type.id%>" class=" img-preview" src="<%=photo_2%>" title="Preview Logo" style="width:146px;margin-bottom: 10px;height: 103px;">
+                 
+                  <div class="input-group">
+                    <div class="input-group-btn">
+                      <div class="fileUpload btn btn-danger fake-shadow">
+                        <span><i class="glyphicon glyphicon-upload"></i> Upload</span>
+                        <input name="[price][<%= type.id %>]images[1]" type="file" class="types_upload" id="property_type_upload_2_<%= type.id%>">
+                      </div>
+                    </div>
+                  </div>
+                </td>
+
+                <td>
+                  <img id="property_type_preview_3_<%= type.id%>" class=" img-preview" src="<%=photo_3%>" title="Preview Logo" style="width:146px;margin-bottom: 10px;height: 103px;">
+                 
+                  <div class="input-group">
+                    <div class="input-group-btn">
+                      <div class="fileUpload btn btn-danger fake-shadow">
+                        <span><i class="glyphicon glyphicon-upload"></i> Upload</span>
+                        <input name="[price][<%= type.id %>]images[2]" type="file" class="types_upload" id="property_type_upload_3_<%= type.id%>">
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
             <%end%>
             <tr>
               <td colspan="3" align="center"><input type="submit" class="btn btn-primary" value="Submit"></td>
@@ -154,6 +201,26 @@
     <%end%>  
   </div>
 </div>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    function readURL(input) {
+
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        
+        reader.onload = function(e) {
+            $('#property_type_preview'+input.id.split('upload')[1]).attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+    $(".types_upload").change(function() {
+      readURL(this);
+    });
+});
+</script>
 
 
 <script type="text/javascript">
@@ -263,3 +330,34 @@
     
   })
 </script>
+
+
+<style type="text/css">
+  .form-control, .thumbnail {
+    border-radius: 2px;
+}
+
+/* File Upload */
+.fake-shadow {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+}
+.fileUpload .types_upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 33px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.img-preview {
+    
+}
+</style>
+

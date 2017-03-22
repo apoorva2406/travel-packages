@@ -195,27 +195,6 @@
       </div> -->
 
       <br>
-      <div class="row">
-        <div class="col-md-3">
-         <%= f.label :Upload_property_photos %><br>
-        </div>
-        <div class="col-md-9">
-        <%= f.file_field :images, class: "form-control", multiple: true, :id=>"property_form_image" %>
-        </div>
-      </div>
-
-      <div class="property-preview">
-        <% if @property.photos.present? %>
-          <% @property.photos.each do |photo| %>
-            <img id="pr_update_image_<%=photo.id%>" src="<%= photo.image.url %>" />
-            <a href="javascript:void(0)" class="pr_remove_image" id="<%=photo.id%>">X</a>
-          <%end%>
-        <%end%>
-      </div>
-
-      <input type="hidden" id="property_new_image" name="new_image">
-
-      <br>
       <div class="actions"><center>
         <input class="btn btn-primary" type="submit" value="<%=@property.id.nil? ? 'Continue' : 'Update'%>">
       </div><br>
@@ -223,46 +202,4 @@
   </div>
   <div class="col-md-2"></div>
 </div>
-
-<script>
-  $(document).ready(function(){
-    //Image
-    var inputLocalFont = document.getElementById("property_form_image");
-    inputLocalFont.addEventListener("change",previewImages,false);
-    function previewImages(){
-      var fileList = this.files;
-      var anyWindow = window.URL || window.webkitURL;
-      for(var i = 0; i < fileList.length; i++){
-        var objectUrl = anyWindow.createObjectURL(fileList[i]);
-        $('.property-preview').append('<img id="img-'+i+'" src="' + objectUrl + '" /><a href="javascript:void(0)" class="remove_pict" id="rev-'+i+'">X</a>');
-        window.URL.revokeObjectURL(fileList[i]);
-
-        $(".remove_pict").click(function(){
-          $("#img-"+this.id.split('-')[1]).remove()
-          this.remove();
-          var ids = $('.property-preview img').map(function(){
-            return this.id;
-           }).get();
-          $('#property_new_image').val(ids);
-        }) 
-      }
-    }
-
-    //Remove image
-    $('.pr_remove_image').click(function(){
-      $("#pr_update_image_"+this.id).remove();
-      this.remove();
-      $.ajax({
-        url: "/properties/remove_image",
-        type: "post",
-        data: { photo_id: this.id},
-        success: function (response) {
-          alert('Image successfully deleted');  
-        }
-      });
-    })
-  })
-</script>
-
-
 
