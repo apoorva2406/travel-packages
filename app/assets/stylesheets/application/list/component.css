@@ -18,10 +18,10 @@
 
 .main-switcher figcaption {
     background: #fff;
-    padding: 20px;
+    padding: 0 20px;
     border-bottom: 3px solid  #121324;
     min-height: auto;
-    height: 260px;
+   
 }
 .main-switcher figcaption p{
 	color:#333;
@@ -192,7 +192,7 @@ figure p.gallery-cont-ic{
 	float:left;
 	background: #fff;
 	padding: 0;
-	margin: 6px 0;
+	margin: 20px 0 0;
 	box-shadow:0 1px 1px rgba(0,0,0,0.2);
 }
 .cbp-vm-view-list .cbp-vm-image,

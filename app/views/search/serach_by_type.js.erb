@@ -1,5 +1,5 @@
 $("#search_properties").html("<%= escape_javascript(render partial: 'pages/properties') %>")
-$("#properties_count").text(<%= @properties.present? ? @properties.size : 0%>)
+$("#properties_count").text("Search Result (<%= @properties.present? ? @properties.size : 0%>)")
 
 <% if @types_count.present?%>
   <% PropertyType.all.each do |a_value| %>

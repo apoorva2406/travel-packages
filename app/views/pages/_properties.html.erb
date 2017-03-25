@@ -9,58 +9,78 @@
         <figure>
           <div class="cbp-vm-image img">
             <img src="<%=property_photo(property)%>" alt="img01"/>
+            <div class="clearfix"></div>
+            <a href="<%=book_now_property_booking_index_path(property)%>" class="btn btn-primary " style="width:100%;" target="_blank">Book now</a>
             <div class="overlay">
-              <%= link_to "+", property_path(property), :"data-no-turbolink" => false, :class=>"expand", :target=>"_blank" %>
-              <a class="close-overlay hidden">x</a>
+              <%= link_to "", property_path(property), :"data-no-turbolink" => false, :class=>"expand fa fa-eye", :target=>"_blank" %>
             </div>
           </div>
-          <figcaption>
-            <h3><%= truncate(property.try(:name), length: 35) %></h3>
 
-            <h3 style="color: #7db921;"><%= property.rent_status.present? ? JSON(property.try(:rent_status)).join('/ ') : "Days" %></h3>
-            
-            <div class="clear"></div>
-            <p><%=truncate(property.try(:description),length: 88)%></p>
-            <div class="show-content" id="property_<%=property.id%>">
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th>Property type</th>
-                    <th>Capacity</th>
-                    <th>Price</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <%property.property_types.each do |type|%>
-                    <%property_price = property.property_prices.where(property_type_id: type.id).first%>
-                    <%if params[:search_office_type] &&  params[:search_office_type].include?(type.name)%>
-                      <tr>
-                        <td><%=type.name%></td>
-                        <%if type.name.eql?('Meeting/Conference Room')%>
-                          <td><%=property_price.try(:number_of_room)%>-Room</td>
-                        <%else%>
-                          <td><%=property_price.try(:seats)%></td>
-                        <%end%>
-                        <td><i class="fa fa-inr price-color"><%=property_price.try(:price)%></i></td>
-                      </tr>
-                    <%end%>
-                  <%end%>
-                </tbody>
-              </table>
+          <figcaption>
+
+          <div class="">
+            <div class="col-md-4">
+              <h3><%= truncate(property.try(:name), length:20) %></h3>
+              <p><%= truncate(property.try(:description), length: 70) %></p>  
+
+              <div id="FACILITIES">
+                <%= property_facilities_on_index(property)%> 
+              </div>
             </div>
-            <table width="100%">
-              <tr>
-                <td width="50%">
-                  <a href="<%=book_now_property_booking_index_path(property)%>" class="btn btn-primary btn-gallery" target="_blank">Book now</a>
-                </td>
-                <td>
-                  <% if property.property_types.count > 1%>
-                   <div class="load-more-types" id="<%=property.id%>"><center><a href="javascript:void(0)">See all types</a></center></div>
-                  <%end%> 
-                </td>
-              </tr>
-            </table>
-            <%#=property_seats_price(property)%>
+
+            <div class="col-md-8">
+              <div class="show-content" id="property_<%=property.id%>">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Property type</th>
+                      <th>Unit</th>
+                      <th>Price (Hourly/Daily/Monthly)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <%property.property_types.each do |type|%>
+                      <%property_price = property.property_prices.where(property_type_id: type.id).first%>
+                      <%if params[:search_office_type] &&  params[:search_office_type].include?(type.name)%>
+                        <tr>
+                          <td><%=type.name%></td>
+                          <%if type.name.eql?('Meeting/Conference Room') || type.name.eql?('Training Room') || type.name.eql?('Team Room') %>
+                            <td><%=property_price.try(:number_of_room)%>-Room</td>
+                          <%else%>
+                            <td><%=property_price.try(:seats)%></td>
+                          <%end%>
+
+                          <td><i class="fa fa-inr price-color">
+
+                          <%if property_price.try(:hourly_price).blank? %>
+                           NA/
+                          <%else%>
+                            <%= property_price.try(:hourly_price)%>/
+                          <%end%>
+
+                          <%if property_price.try(:price).blank? %>
+                            NA/
+                          <%else%>
+                            <%= property_price.try(:price)%>/
+                          <%end%>
+
+                          <%if property_price.try(:monthly_price).blank? %>
+                            NA/
+                          <%else%>
+                            <%=property_price.try(:monthly_price)%> /
+                          <%end%>
+
+                          </i></td>
+                          
+                        </tr>
+                      <%end%>
+                    <%end%>
+                  </tbody>
+                </table>
+              </div> 
+
+            </div>
+          </div>
           </figcaption>
         </figure>
       </li>

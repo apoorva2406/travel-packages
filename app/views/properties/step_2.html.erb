@@ -28,10 +28,10 @@
             </tr>
           </thead>  
           <tbody>
-            <% @property.property_types.each do |type|%>
+            <% @property.property_types.each_with_index do |type,index|%>
               <%property_price = @property.property_prices.where(property_type_id: type.id).first%>
-              <tr>
-                <td><%=type.name%></td>
+              <tr data-toggle="collapse" data-target="#type_collapse_<%=type.id%>" class="accordion-toggle" style="cursor: pointer;">
+                <td><i class="fa fa-chevron-down" aria-hidden="true" style="color:green;"></i>&nbsp; &nbsp;<%=type.name%></td>
 
                 <%if type.name.eql?('Workdesk/Co-working')%>
                   <td><input type="text" class="form-control" placeholder="Enter seats" required="required" name="[price][<%= type.id %>]seats" value="<%=property_price.try(:seats)%>" onkeypress= "return event.charCode >= 48 && event.charCode <= 57"></td>
@@ -148,7 +148,8 @@
               <% photo_2 = photos[1].try(:image).present? ? photos[1].image.url : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpaqzpfzrPYDUcY6KQxXqKzJjTfCDKJnPmFYLt9qsobBL3_pYD5jKBucSA' %>
               <% photo_3 = photos[2].try(:image).present? ? photos[2].image.url : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpaqzpfzrPYDUcY6KQxXqKzJjTfCDKJnPmFYLt9qsobBL3_pYD5jKBucSA' %>
 
-              <tr>
+             
+              <tr class="accordian-body <%= index == 0 ? 'in' : 'collapse' %>" id="type_collapse_<%=type.id%>">
                 <td></td>
                 <td></td>
                 <td>

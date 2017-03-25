@@ -16,67 +16,95 @@
 
     <div class="well" style="margin-top:10px">
       <div class="tab-content">
-        <h3>MY PROPERTY</h3>
+       
         <div class="container">
           <div class="row">
             <div class="col-sm-8 col-md-9 effect-5 effects">
+
               <div class="main-switcher">
-                <div id="cbp-vm" class="cbp-vm-switcher cbp-vm-view-grid">
-                  <ul id="Grid" class="sandbox">
-                    <%if @properties.present? %>
-                      <% @properties.each do |property|%>
-                        <li class="mix category-1" data-value="1250">
-                          <figure>
-                            <div class="cbp-vm-image img">
-                              <img src="<%=property_photo(property)%>" alt="img01"/>
-                              <div class="overlay">
-                                <%= link_to "+", property_path(property), :"data-no-turbolink" => false, :class=>"expand" %>
-                                <a class="close-overlay hidden">x</a>
+                <div id="cbp-vm" class="cbp-vm-switcher cbp-vm-view-list">
+                 <% if @properties.present? %>
+                    <% @properties.each do |property|%>
+                      <li class="mix category-1" data-value="1250" style="display: inline-block;">
+                        <figure>
+                          <div class="cbp-vm-image img">
+                            <img src="<%=property_photo(property)%>" alt="img01"/>
+                            <div class="clearfix"></div>
+                            <a href="<%=book_now_property_booking_index_path(property)%>" class="btn btn-primary " style="width:100%;" target="_blank">Book now</a>
+                            <div class="overlay">
+                              <%= link_to "", property_path(property), :"data-no-turbolink" => false, :class=>"expand fa fa-eye", :target=>"_blank" %>
+                            </div>
+                          </div>
+
+                          <figcaption>
+
+                          <div class="">
+                            <div class="col-md-4">
+                              <h3><%= truncate(property.try(:name), length:20) %></h3>
+                              <p><%= truncate(property.try(:description), length: 70) %></p>  
+
+                              <div id="FACILITIES">
+                                <%= property_facilities_on_index(property)%> 
                               </div>
                             </div>
 
-                            <figcaption>
-                              <h3><%= truncate(property.try(:name), length: 30) %></h3>
-                              <h3 style="color: #7db921;"><%= property.rent_status.present? ? JSON(property.try(:rent_status)).join('/ ') : "Days" %></h3>
-                              <div class="clear"></div>
-                              <p><%=truncate(property.try(:description),length: 88)%></p>
-
-                              <div class="">
+                            <div class="col-md-8">
+                              <div class="show-content" id="property_<%=property.id%>">
                                 <table class="table table-hover">
                                   <thead>
                                     <tr>
                                       <th>Property type</th>
-                                      <th>Capacity</th>
-                                      <th>Price</th>
+                                      <th>Unit</th>
+                                      <th>Price (Hourly/Daily/Monthly)</th>
                                     </tr>
                                   </thead>
                                   <tbody>
                                     <%property.property_types.each do |type|%>
-                                      
                                       <%property_price = property.property_prices.where(property_type_id: type.id).first%>
+                                    
                                         <tr>
                                           <td><%=type.name%></td>
-                                          <%if type.name.eql?('Meeting/Conference Room')%>
+                                          <%if type.name.eql?('Meeting/Conference Room') || type.name.eql?('Training Room') || type.name.eql?('Team Room') %>
                                             <td><%=property_price.try(:number_of_room)%>-Room</td>
                                           <%else%>
                                             <td><%=property_price.try(:seats)%></td>
                                           <%end%>
-                                          <td><i class="fa fa-inr price-color"><%=property_price.try(:price)%></i></td>
+
+                                          <td><i class="fa fa-inr price-color">
+
+                                          <%if property_price.try(:hourly_price).blank? %>
+                                           NA/
+                                          <%else%>
+                                            <%= property_price.try(:hourly_price)%>/
+                                          <%end%>
+
+                                          <%if property_price.try(:price).blank? %>
+                                            NA/
+                                          <%else%>
+                                            <%= property_price.try(:price)%>/
+                                          <%end%>
+
+                                          <%if property_price.try(:monthly_price).blank? %>
+                                            NA/
+                                          <%else%>
+                                            <%=property_price.try(:monthly_price)%> /
+                                          <%end%>
+                                          </i></td>
                                         </tr>
                                     <%end%>
                                   </tbody>
                                 </table>
-                              </div>
+                              </div> 
 
-                              <center><a href="<%=property_path(property)%>" class="btn btn-primary btn-gallery" style="margin-top: -15px;">Read More</a></center>
-                            </figcaption>
-                          </figure>
-                        </li>
-                      <%end%> 
-                    <%else%>
-                      <h4>You have no property add new <a href="<%=new_property_path%>">click here</a></h4>
+                            </div>
+                          </div>
+                          </figcaption>
+                        </figure>
+                      </li>
                     <%end%>  
-                  </ul>
+                  <%else%>
+                    <h2>Property not found</h2>
+                  <%end%>
                 </div>
               </div>
             </div>

@@ -12,9 +12,10 @@
 end
 
 #Facilitied
-['Car Parking','Cafeteria','AC','Locker Storage','Wi-Fi','Tea/Coffee'].each do |name|
+['Car Parking','Cafeteria','AC','Locker Storage','Wi-Fi','Tea/Coffee', "Security", "CCTV", "Lifts"].each do |name|
 	Facility.find_or_create_by(name: name)
 end
+
 
 ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'].each do |name|
 	AccessDay.find_or_create_by(name: name)
@@ -40,99 +41,99 @@ prices = [1,2,3,4,5,8,10,15,20,25,30,35,40,45,50,55,60,65,70,100,90,150,110,120]
 
 puts "Creating Property ..."
 
-(1..50).each do |number|
-	property = Property.create({  
-	 	 "name" => Faker::Name.name,
-	 	 "phone_number" => '1234567890',
-	   "email"   =>Faker::Internet.email,
-	   "properties_type" => ["1","2","3"],
-	   "address"   =>" #{cities.shuffle.first} ,India",
-	   "contact_person" => Faker::Commerce.product_name,
-	   "facilities" => facilities_arrray.shuffle.first,
-	   "access_day" => ["1","2","3"],
-	   "user_id"   => 1,
-	   "start_date" => "13",
-	   "end_date" => "17",
-	   "varified" => true,
-	   "description" => "Many travellers want to find out everything they can about a property before they enquire. Many will want as much information as possible about the holiday experience they will be buying into before they book a stay at your holiday home."
-	}) 
+# (1..10).each do |number|
+# 	property = Property.create({  
+# 	 	 "name" => Faker::Name.name,
+# 	 	 "phone_number" => '1234567890',
+# 	   "email"   =>Faker::Internet.email,
+# 	   "properties_type" => ["1","2","3"],
+# 	   "address"   =>" #{cities.shuffle.first} ,India",
+# 	   "contact_person" => Faker::Commerce.product_name,
+# 	   "facilities" => facilities_arrray.shuffle.first,
+# 	   "access_day" => ["1","2","3"],
+# 	   "user_id"   => 1,
+# 	   "start_date" => "13",
+# 	   "end_date" => "17",
+# 	   "varified" => true,
+# 	   "description" => "Many travellers want to find out everything they can about a property before they enquire. Many will want as much information as possible about the holiday experience they will be buying into before they book a stay at your holiday home."
+# 	}) 
 
   
 
-	property_type_ids.shuffle.first.each do  |id|
-		property_type = PropertyType.find_by_id(id)
-  	if property_type.present?
-  		if property_type.name.eql?("Workdesk/Co-working")
-  			p_p = property.property_prices.create(
-		      seats: no_of_seats.shuffle.first, 
-		      price: prices.shuffle.first,  
-		      monthly_price: prices.shuffle.first,
-		      basic_unit: ["Daily","Monthly"],
-		      property_type_id: id
-		    )
+# 	property_type_ids.shuffle.first.each do  |id|
+# 		property_type = PropertyType.find_by_id(id)
+#   	if property_type.present?
+#   		if property_type.name.eql?("Workdesk/Co-working")
+#   			p_p = property.property_prices.create(
+# 		      seats: no_of_seats.shuffle.first, 
+# 		      price: prices.shuffle.first,  
+# 		      monthly_price: prices.shuffle.first,
+# 		      basic_unit: ["Daily","Monthly"],
+# 		      property_type_id: id
+# 		    )
 
-  		elsif property_type.name.eql?("Virtual Office")
-  			p_p = property.property_prices.create(
-		      seats: 1, 
-		      monthly_price: prices.shuffle.first,
-		      basic_unit: ["Monthly"],
-		      property_type_id: id
-		    )
+#   		elsif property_type.name.eql?("Virtual Office")
+#   			p_p = property.property_prices.create(
+# 		      seats: 1, 
+# 		      monthly_price: prices.shuffle.first,
+# 		      basic_unit: ["Monthly"],
+# 		      property_type_id: id
+# 		    )
 
-  		elsif property_type.name.eql?("Team Room")
-  			p_p = property.property_prices.create(
-		      seats: no_of_seats.shuffle.first, 
-		      price: prices.shuffle.first,  
-		      monthly_price: prices.shuffle.first,
-		      basic_unit: ["Daily","Monthly"],
-		      property_type_id: id,
-		      number_of_room: 3
-		    )
-        p_p.childrens.create(seats: 5)
-        p_p.childrens.create(seats: 10)
-        p_p.childrens.create(seats: 15)
+#   		elsif property_type.name.eql?("Team Room")
+#   			p_p = property.property_prices.create(
+# 		      seats: no_of_seats.shuffle.first, 
+# 		      price: prices.shuffle.first,  
+# 		      monthly_price: prices.shuffle.first,
+# 		      basic_unit: ["Daily","Monthly"],
+# 		      property_type_id: id,
+# 		      number_of_room: 3
+# 		    )
+#         p_p.childrens.create(seats: 5)
+#         p_p.childrens.create(seats: 10)
+#         p_p.childrens.create(seats: 15)
 
-			elsif property_type.name.eql?("Meeting/Conference Room")
+# 			elsif property_type.name.eql?("Meeting/Conference Room")
   			
-  			p_p = property.property_prices.create(
-		      seats: no_of_seats.shuffle.first, 
-		      hourly_price: prices.shuffle.first,  
-		      monthly_price: prices.shuffle.first,
-		      basic_unit: ["Hourly","Daily"],
-		      property_type_id: id,
-		      number_of_room: 3
-		    )
+#   			p_p = property.property_prices.create(
+# 		      seats: no_of_seats.shuffle.first, 
+# 		      hourly_price: prices.shuffle.first,  
+# 		      monthly_price: prices.shuffle.first,
+# 		      basic_unit: ["Hourly","Daily"],
+# 		      property_type_id: id,
+# 		      number_of_room: 3
+# 		    )
 
-        p_p.childrens.create(seats: 5)
-        p_p.childrens.create(seats: 10)
-        p_p.childrens.create(seats: 15)
+#         p_p.childrens.create(seats: 5)
+#         p_p.childrens.create(seats: 10)
+#         p_p.childrens.create(seats: 15)
          
-			elsif property_type.name.eql?("Training Room")
-  			p_p = property.property_prices.create(
-		      seats: no_of_seats.shuffle.first, 
-		      price: prices.shuffle.first,
-		      hourly_price: prices.shuffle.first,  
-		      monthly_price: prices.shuffle.first,
-		      basic_unit: ["Hourly","Daily"],
-		      property_type_id: id,
-		      number_of_room:3
-		    )
+# 			elsif property_type.name.eql?("Training Room")
+#   			p_p = property.property_prices.create(
+# 		      seats: no_of_seats.shuffle.first, 
+# 		      price: prices.shuffle.first,
+# 		      hourly_price: prices.shuffle.first,  
+# 		      monthly_price: prices.shuffle.first,
+# 		      basic_unit: ["Hourly","Daily"],
+# 		      property_type_id: id,
+# 		      number_of_room:3
+# 		    )
 
-        p_p.childrens.create(seats: 5)
-        p_p.childrens.create(seats: 10)
-        p_p.childrens.create(seats: 15)
-  		end
-	    property_type.property_type_manages.find_or_create_by(property_id: property.id)
-	  end  
- 	end
+#         p_p.childrens.create(seats: 5)
+#         p_p.childrens.create(seats: 10)
+#         p_p.childrens.create(seats: 15)
+#   		end
+# 	    property_type.property_type_manages.find_or_create_by(property_id: property.id)
+# 	  end  
+#  	end
 
-	property.photos.create(image: open("https://res.cloudinary.com/qdesqtest/image/upload/c_fill,w_700,h_400,q_60/w_40,g_north_west,x_10,y_5,l_log_bldax9/v1470221797/nfcsr2xou8sdoo4sw0o7.png"))
-	property.photos.create(image: open("https://res.cloudinary.com/qdesqtest/image/upload/c_fill,w_700,h_400,q_60/w_40,g_north_west,x_10,y_5,l_log_bldax9/v1470221798/zoafebnvxdoyoccg1sjh.png"))
-	property.photos.create(image: open("https://res.cloudinary.com/qdesqtest/image/upload/c_fill,w_700,h_400,q_60/w_40,g_north_west,x_10,y_5,l_log_bldax9/v1470221302/jdwgetgnurlsu8nsqauo.png"))
-	property.photos.create(image: open("https://res.cloudinary.com/qdesqtest/image/upload/c_fill,w_700,h_400,q_60/w_40,g_north_west,x_10,y_5,l_log_bldax9/v1469631515/htjkax4vgaz47q0tyt02.png"))
+# 	property.photos.create(image: open("https://res.cloudinary.com/qdesqtest/image/upload/c_fill,w_700,h_400,q_60/w_40,g_north_west,x_10,y_5,l_log_bldax9/v1470221797/nfcsr2xou8sdoo4sw0o7.png"))
+# 	property.photos.create(image: open("https://res.cloudinary.com/qdesqtest/image/upload/c_fill,w_700,h_400,q_60/w_40,g_north_west,x_10,y_5,l_log_bldax9/v1470221798/zoafebnvxdoyoccg1sjh.png"))
+# 	property.photos.create(image: open("https://res.cloudinary.com/qdesqtest/image/upload/c_fill,w_700,h_400,q_60/w_40,g_north_west,x_10,y_5,l_log_bldax9/v1470221302/jdwgetgnurlsu8nsqauo.png"))
+# 	property.photos.create(image: open("https://res.cloudinary.com/qdesqtest/image/upload/c_fill,w_700,h_400,q_60/w_40,g_north_west,x_10,y_5,l_log_bldax9/v1469631515/htjkax4vgaz47q0tyt02.png"))
 	
-	puts "#{number}"
-end
+# 	puts "#{number}"
+# end
 
 puts "Property successfully created"
 

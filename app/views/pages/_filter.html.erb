@@ -1,7 +1,7 @@
-<section class="ac-container">
-  <div id="map_canvas_slide"></div><br>
+<section class="ac-container well">
+  
 
-  <h3 class="desc-filter">Save time with filters:</h3>
+  
   <div>
     <input id="ac-4" name="accordion-1" type="checkbox" checked/>
     <label for="ac-4">Property type <i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></label>
@@ -40,17 +40,21 @@
     </article>
   </div>
 
-  <div>
+<!--   <div>
     <input id="ac-3" name="accordion-1" type="checkbox" />
     <label for="ac-3">Available on <i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></label>
     <article class="ac-large">
-      <% ["Days", "Week","Month"].each_with_index do |value,index| %>
-        <% @rent_status_count = Property.search value, where: {id: @properties.map(&:id).uniq}  %>
+      <%# ["Days", "Week","Month"].each_with_index do |value,index| %>
+        <%# @rent_status_count = Property.search value, where: {id: @properties.map(&:id).uniq}  %>
         <div class="meals-trip">
-         <p><input class="fa-check-square-o search_by_rent_status" type="checkbox" name="rent_status[]" value="<%=value%>" style="display: block"></i><%= value%> <span class="p_rent_status_<%=index%>">(<%=@rent_status_count.present? ? @rent_status_count.count : 0 %>)</span></p>
+         <p><input class="fa-check-square-o search_by_rent_status" type="checkbox" name="rent_status[]" value="<%#=value%>" style="display: block"></i><%#= value%> <span class="p_rent_status_<%#=index%>">(<%#=@rent_status_count.present? ? @rent_status_count.count : 0 %>)</span></p>
         </div>
-      <% end %>
+      <%# end %>
     </article>
+  </div>  -->          
+                  
+<div class="btn-group" role="group" style="width: 100%;">
+    <button class=" btn btn-lg btn-primary btn-gallery clicker nearest-loc" style="width: 100%;" >Nearest Property</button>
   </div>
 </section>
 

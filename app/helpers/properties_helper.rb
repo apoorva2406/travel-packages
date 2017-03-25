@@ -38,7 +38,13 @@ module PropertiesHelper
 				elsif val.name.eql?("Wi-Fi")
 					facilities << "<div class='col-md-4 histo-img'><img src='/assets/wifi.png'/> <p class='local-name'>#{val.name}</p> </div>"
 				elsif val.name.eql?("Locker Storage")
-					facilities << "<div class='col-md-4 histo-img'><img src='/assets/wifi.png'/><p class='local-name'>#{val.name}</p> </div>"
+					facilities << "<div class='col-md-4 histo-img'><img src='/assets/local_storage.png'/><p class='local-name'>#{val.name}</p> </div>"
+				elsif val.name.eql?("Security")
+					facilities << "<div class='col-md-4 histo-img'><img src='/assets/security.svg' style='width:32px;'/><p class='local-name'>#{val.name}</p> </div>"
+				elsif val.name.eql?("CCTV")
+					facilities << "<div class='col-md-4 histo-img'><img src='/assets/cctv.png' style='width:32px;'/><p class='local-name'>#{val.name}</p> </div>"
+				elsif val.name.eql?("Lifts")
+					facilities << "<div class='col-md-4 histo-img'><img src='/assets/lift.svg' style='width:32px;'/><p class='local-name'>#{val.name}</p> </div>"
 				end
 			end
 			facilities.join('').html_safe
@@ -46,6 +52,43 @@ module PropertiesHelper
 			"No Facility"
 		end
 	end
+
+
+	
+
+	def property_facilities_on_index(property)
+		facilities = []
+		type = Facility.where(id: JSON(property.facilities)) rescue []
+		if type.present?
+			type.each_with_index do |val,index|
+				if val.name.eql?("Car Parking")
+					facilities << "<div class='col-md-4 histo-img'><img src='/assets/car-parking.png'/></div>"
+				elsif val.name.eql?("Cafeteria")
+					facilities << "<div class='col-md-4 histo-img'><img src='/assets/tea.png'/></div>"
+				elsif val.name.eql?("Tea/Coffee")
+					facilities << "<div class='col-md-4 histo-img'><img src='/assets/tea.png'/></div>"
+				elsif val.name.eql?("AC")
+					facilities << "<div class='col-md-4 histo-img'><img src='/assets/power.png'/></div>"
+				elsif val.name.eql?("Wi-Fi")
+					facilities << "<div class='col-md-4 histo-img'><img src='/assets/wifi.png'/></div>"
+				elsif val.name.eql?("Locker Storage")
+					facilities << "<div class='col-md-4 histo-img'><img src='/assets/local_storage.png'/> </div>"
+				elsif val.name.eql?("Security")
+					facilities << "<div class='col-md-4 histo-img'><img src='/assets/security.svg' style='width:32px;'/></div>"
+				elsif val.name.eql?("CCTV")
+					facilities << "<div class='col-md-4 histo-img'><img src='/assets/cctv.png' style='width:32px;'/></div>"
+				elsif val.name.eql?("Lifts")
+					facilities << "<div class='col-md-4 histo-img'><img src='/assets/lift.svg' style='width:32px;'/> </div>"
+				end
+			end
+			facilities.join('').html_safe
+		else
+			"No Facility"
+		end
+	end
+
+
+
 
 	def property_access_day
 		type = AccessDay.where(id: JSON(@property.access_day)) rescue []
@@ -63,6 +106,23 @@ module PropertiesHelper
 	def property_photo(property)
 		if property.photos.present?
 			url = property.photos.shuffle.first.image.url
+		else
+			url = "https://res.cloudinary.com/qdesqtest/image/upload/c_fill,w_700,h_400,q_60/w_40,g_north_west,x_10,y_5,l_log_bldax9/v1469631515/de4ysaf5ipkchjehojm0.png"
+		end
+		url 
+	end
+
+	def property_type_image(property)
+		if property.photos.present?
+			meeting_room = property.photos.where(property_type_id: 3).first
+			team_room = property.photos.where(property_type_id: 5).first
+			if meeting_room
+				url = meeting_room.image.url
+			elsif team_room
+				url = team_room.image.url
+			else
+				url = property.photos.shuffle.first.image.url
+			end
 		else
 			url = "https://res.cloudinary.com/qdesqtest/image/upload/c_fill,w_700,h_400,q_60/w_40,g_north_west,x_10,y_5,l_log_bldax9/v1469631515/de4ysaf5ipkchjehojm0.png"
 		end

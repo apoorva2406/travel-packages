@@ -3,11 +3,31 @@ h3 {
     margin-top: 0
 }
 
+.ptb{ padding: 30px 0px; }
+
 .top-mega-menu,
 img {
     max-width: 100%
 }
 
+.fa-check-square-o:before {
+    content: "\f046 !important";
+    display: none;
+}
+
+.slider.slider-horizontal {
+    width: 100% !important;
+    height: 20px;
+}
+
+h2.searchtitle {
+    border-bottom: 1px solid #e9e9e9;
+    color: rgba(54,54,54,.6);
+    font-weight: 300;
+    line-height: 60px;
+    margin: 0 0 10px;
+    padding: 0;
+}
 #loader:after,
 #loader:before {
     content: ""
@@ -117,7 +137,7 @@ a:hover {
 
 .btn,
 label {
-    font-size: 13px
+    font-size: 20px
 }
 
 .grid-container10 .col-md-3 ul li {
@@ -279,7 +299,7 @@ label {
 
 #map_canvas_slide,
 #map_container_slide {
-    height: 600px;
+    height: 300px;
     width: 100%;
     position: relative
 }
@@ -2492,8 +2512,8 @@ a.expand.discount {
 a.expand {
     width: 60px;
     height: 60px;
-    border: 5px solid #fff;
-    font-size: 30px;
+    border: 2px solid #fff;
+    font-size: 24px;
     -webkit-border-radius: 30px;
     -moz-border-radius: 30px;
     -ms-border-radius: 30px;
@@ -2532,7 +2552,7 @@ a.expand.discount {
     left: 0;
     right: 0;
     opacity: 0;
-    margin: 20px;
+    
 }
 
 .effect-5 .overlay a.expand {
@@ -3761,6 +3781,7 @@ bar {
 
 .histo-img {
     padding-left: 0;
+    padding-bottom: 15px;
 }
 
 .culture-img {
@@ -4695,6 +4716,7 @@ dt {
 .ac-container label {
     font-family: 'Open sans', Arial, sans-serif;
     padding: 5px 20px;
+    font-weight: normal;
     position: relative;
     z-index: 20;
     margin: 3px 0;
@@ -4726,11 +4748,11 @@ dt {
     height: 24px;
     right: 13px;
     top: 7px;
-    background: url(/assets/arrow_large_left.png) center center no-repeat
+   
 }
 
 .ac-container input:checked+label:hover:after {
-    background-image: url(/assets/arrow_large_left.png)
+   
 }
 
 .ac-container input:checked+label i.fa-angle-down,
@@ -4850,7 +4872,7 @@ dt {
 .ac-container article .meals-trip p {
     padding: 0;
     text-transform: uppercase;
-    font-size: 13px;
+    font-size: 10px;
     text-align: left
 }
 
@@ -4858,7 +4880,7 @@ dt {
     color: #ccc;
     margin-right: 10px;
     float: left;
-    font-size: 16px;
+    font-size: 16px;4945
     margin-top: 3px
 }
 
@@ -4867,7 +4889,7 @@ dt {
     margin-top: 0;
     text-transform: none;
     padding: 5px 20px;
-    height: 63px;
+  
     vertical-align: middle;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .2)
 }
@@ -4943,7 +4965,7 @@ dt {
 .click-nav,
 .click-nav-location,
 .txt-sort {
-    margin-top: 20px;
+       margin: 10px 0;
     margin-left: 20px;
     float: left
 }
