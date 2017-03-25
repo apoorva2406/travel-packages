@@ -1,0 +1,153 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      <div class="search-results-title">
+        <i class="fa fa-search"></i>
+        <p id="properties_count"><%= @properties.present? ? @properties.size : 0%></p>
+        <p>results found.</p>
+      </div>
+      <%=render 'pages/filter'%>
+    </div>
+
+    <div class="col-md-7 effect-5 effects">
+      <div class="main-switcher">
+        <div id="cbp-vm" class="cbp-vm-switcher cbp-vm-view-grid">
+          <div class="txt-sort">
+            <p>Sort by location:</p>
+          </div>
+          <div class="click-nav">
+            <ul class="no-js">
+              <li>
+                <a class="clicker nearest-loc">Nearest Property </a>
+                <!-- <a class="clicker entered-loc">Entered property</a> -->
+              </li>
+            </ul>
+          </div>
+          
+          <div class="cbp-vm-options">
+            <a href="#" class="cbp-vm-icon cbp-vm-grid cbp-vm-selected" data-view="cbp-vm-view-grid"><i class="fa fa-th-large"></i></a>
+            <a href="#" class="cbp-vm-icon cbp-vm-list" data-view="cbp-vm-view-list"><i class="fa fa-th-list"></i></a>
+          </div>
+
+          <!--Properties-->
+          <div id="search_properties">
+            <%=render 'pages/properties'%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var RANGEChange = function() {
+    if (typeof properties_ids == 'undefined'){
+      properties_ids = <%=@properties.collect{|p| p.id}.compact%>
+    }
+
+    var checkedValsType = $('.search_by_type:checkbox:checked').map(function() {
+      return this.value;
+    }).get();
+
+
+    var checkedValsFacility = $('.search_by_facilities:checkbox:checked').map(function() {
+      return this.value;
+    }).get();
+
+    var checkedValsRentStatus = $('.search_by_rent_status:checkbox:checked').map(function() {
+      return this.value;
+    }).get();
+
+    if (checkedValsType.length > 0){
+      $.ajax({
+        url: "/search/serach_by_type",
+        type: "POST",
+        data: {types: checkedValsType, facilities: checkedValsFacility, ranges: $(this).attr('data-value'), properties_ids: properties_ids, rent_status: checkedValsRentStatus },
+        beforeSend: function(msg){
+         $(".search_loader").show();
+        },
+        success: function (response) {
+          $(".search_loader").hide();
+        },
+        error: function(response) {
+          $(".search_loader").hide(); 
+        }
+      }); 
+    }
+    else{
+      alert("Please select property type");
+    }
+  };
+
+  $("#rangeInfo").slider().on('slideStop', RANGEChange);
+
+  $(document).on("click", ".search_by_type, .search_by_facilities, .search_by_rent_status, .clicker", function(){
+    if (typeof properties_ids == 'undefined'){
+      properties_ids = <%=@properties.collect{|p| p.id}.compact%>
+    }
+
+    var checkedValsType = $('.search_by_type:checkbox:checked').map(function() {
+      return this.value;
+    }).get();
+
+
+    var checkedValsFacility = $('.search_by_facilities:checkbox:checked').map(function() {
+      return this.value;
+    }).get();
+
+    var checkedValsRentStatus = $('.search_by_rent_status:checkbox:checked').map(function() {
+      return this.value;
+    }).get();
+
+    
+    if (checkedValsType.length > 0){
+      $.ajax({
+        url: "/search/serach_by_type",
+        type: "POST",
+        data: {location_by:  this.classList[1],types: checkedValsType, facilities: checkedValsFacility, properties_ids: properties_ids, rent_status: checkedValsRentStatus },
+        beforeSend: function(msg){
+         $(".search_loader").show();
+        },
+        success: function (response) {
+          $(".search_loader").hide();
+        },
+        error: function(response) {
+          $(".search_loader").hide(); 
+        }
+      });
+    }
+    else{
+      alert("Please select property type")
+    }
+
+  });
+    
+</script>
+
+<script type="text/javascript">
+  $(window).load(function(){
+    //Map
+    var markers = [
+      <% if  @properties.present? %>
+        <% @properties.each_with_index do  |property,index| %>
+          {
+           address: "<%=property.address%>"
+          }
+          <%if index >= 0 && @properties.size != index+1 %>
+            ,
+          <%end%>
+        <%end%>
+      <%else%>
+        { address: "India" }
+      <%end%>  
+    ];
+
+    index_map = new google.maps.Map(map_canvas, map_options);
+    <% if  @properties.present? %>
+      mark_pinsIndex(markers);
+    <%else%>
+      index_map.setCenter(new google.maps.LatLng(20.5937, 78.9629));
+    <%end%>  
+  })  
+</script>
+
